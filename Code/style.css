@@ -1308,3 +1308,7 @@ textarea:hover {
 .avatar:hover{
   transform: scale(1.1);
 }
+
+.form-group label{
+  text-align: left;
+}
