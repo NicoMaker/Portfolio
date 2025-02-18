@@ -1319,3 +1319,7 @@ textarea:hover {
 .header:hover{
   color: black;
 }
+
+.avatar:hover{
+  transform: scale(1.1);
+}
