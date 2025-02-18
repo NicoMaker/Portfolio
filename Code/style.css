@@ -1283,7 +1283,6 @@ section h3,
 /* Effetto hover per le card */
 .card,
 .contact-container,
-.icona,
 a,
 input,
 textarea{
@@ -1292,7 +1291,6 @@ textarea{
 
 .card:hover,
 .contact-container:hover,
-.icona:hover,
 a:hover,
 input:hover,
 textarea:hover {
@@ -1305,10 +1303,15 @@ textarea:hover {
   color: black;
 }
 
-.avatar:hover{
+img:hover{
   transform: scale(1.1);
 }
 
 .form-group label{
   text-align: left;
+}
+
+.submit-btn,
+.cta-button{
+  font-size: 1.2rem;
 }
