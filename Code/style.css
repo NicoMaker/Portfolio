@@ -718,14 +718,6 @@ nav ul li a:hover {
   align-items: center;
 }
 
-.avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 2rem;
-}
-
 .hero-content {
   flex: 1;
 }
@@ -933,13 +925,6 @@ footer {
   text-align: center;
 }
 
-.avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-}
 
 .hero-content {
   max-width: 600px;
