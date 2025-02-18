@@ -650,3 +650,10 @@ section h3,
   height: 50px;
   width: 50px;
 }
+
+
+/* nella lista non vedi i puntini della lista */
+ul {
+  list-style-type: none;
+}
+
