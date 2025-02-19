@@ -1319,3 +1319,8 @@ img:hover{
 .card h4{
   border-bottom: 2px solid #007bff;
 }
+
+.card,
+.contact-container{
+  border-radius: 10px;
+}
