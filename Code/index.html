@@ -14,6 +14,7 @@
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" type="image/png" href="Icons/Logo.jpg" />
+    <script src="App.js" defer></script>
   </head>
   <body>
     <header>
@@ -28,9 +29,6 @@
               <li><a class="header" href="#contacts">Contatti</a></li>
             </ul>
           </nav>
-          <div class="hamburger" id="hamburger">
-            <span class="material-icons">menu</span>
-          </div>
         </div>
       </div>
     </header>
@@ -678,50 +676,27 @@
           <h2>Contatti</h2>
           <div class="contact-container">
             <!-- Form -->
-            <form class="contact-form" method="post">
+            <form class="contact-form" id="contactForm">
               <div class="form-group">
-                <label for="name"> Nome</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  placeholder="Il tuo nome"
-                />
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" required placeholder="Il tuo nome" />
               </div>
-
+    
               <div class="form-group">
-                <label for="email"> Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  placeholder="La tua email"
-                />  
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="La tua email" />
               </div>
-
+    
               <div class="form-group">
-                <label for="ogetto"> Oggetto</label>
-                <input
-                  type="oggetto"
-                  id="oggetto"
-                  name="oggetto"
-                  required
-                  placeholder="Oggetto del messaggio"
-                />
+                <label for="oggetto">Oggetto</label>
+                <input type="text" id="oggetto" name="oggetto" required placeholder="Oggetto del messaggio" />
               </div>
-
+    
               <div class="form-group">
-                <label for="message"> Messaggio</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  placeholder="Messaggio"
-                ></textarea>
+                <label for="message">Messaggio</label>
+                <textarea id="message" name="message" required placeholder="Messaggio"></textarea>
               </div>
-
+    
               <button type="submit" class="submit-btn">Invia messaggio</button>
             </form>
 
