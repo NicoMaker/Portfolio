@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderEsperienze(data.esperienze);
     renderIstruzione(data.istruzione);
     renderCompetenze(data.competenze);
+    renderWebSite(data.sites);
   } catch (error) {
     console.error("Si è verificato un errore:", error);
   }
@@ -35,11 +36,9 @@ function renderAttestati(attestati) {
       `;
 
     // Aggiungi il link per scaricare il certificato solo se esiste
-    if (attestato.certificato) {
+    if (attestato.certificato)
       html += `<a href="${attestato.certificato}" download>Scarica Certificato</a>`;
-    } else {
-      html += `<a href="" download>Scarica Certificato</a>`;
-    }
+    else html += `<a href="" download>Scarica Certificato</a>`;
 
     card.innerHTML = html;
     container.appendChild(card);
@@ -182,6 +181,41 @@ function renderCompetenze(competenze) {
         <a href="${competenza.link}" target="_blank">Visita la piattaforma</a>
       `;
 
+    container.appendChild(card);
+  });
+}
+
+// Funzione per renderizzare i siti web
+// Funzione per renderizzare i siti web
+function renderWebSite(sites) {
+  const container = document.querySelector(
+    "#curriculum .section:nth-of-type(6) .card-container" // Cambia il selettore se necessario
+  );
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  sites.forEach((site) => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    // Crea l'HTML base
+    let html = `
+      <h4>${site.nome}</h4>
+      <img src="${site.immagine}" alt="${site.nome}" class="site-image" />
+      <div class="site-links">
+        <button class="btn go-live-btn" onclick="window.open('${site.link}', '_blank')">Go Live</button>
+    `;
+
+    // Aggiungi il bottone per "Visualizza il codice" solo se presente
+    if (site.codice)
+      html += `<button class="btn view-code-btn" onclick="window.open('${site.codice}', '_blank')">Visualizza il codice</button>`;
+
+    html += `</div>`;
+
+    card.innerHTML = html;
+
+    // Aggiungi la card al container
     container.appendChild(card);
   });
 }

@@ -240,5 +240,30 @@
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
       "link": "https://www.docker.com/"
     }
+  ],
+  "sites": [
+    {
+      "nome": "Giri in Bici",
+      "immagine": "Web_Site/Bici.jpg",
+      "link": "https://giri-in-bici.netlify.app/",
+      "codice": "https://github.com/NicoMaker/Giri-in-bici"
+    },
+    {
+      "nome": "Pagina Generale Siti Web",
+      "immagine": "Web_Site/Pagina_Generale_Siti.jpg",
+      "link": "https://paginageneralesiti.netlify.app/",
+      "codice": "https://github.com/NicoMaker/Pagina_Generale_Siti"
+    },
+    {
+      "nome": "PokeApi",
+      "immagine": "https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png",
+      "link": "https://pokeapinico.netlify.app/",
+      "codice": "https://github.com/NicoMaker/PokeApi"
+    },
+    {
+      "nome": "IdeaLegno",
+      "immagine": "Web_Site/IdeaLegno.jpg",
+      "link": "https://idealegnofvg.com/"
+    }
   ]
 }

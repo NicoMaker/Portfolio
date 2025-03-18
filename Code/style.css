@@ -1359,6 +1359,54 @@ img:hover {
   overflow-y: auto; /* Aggiungi una barra di scorrimento verticale */
 }
 
-.toggle-icon{
+.toggle-icon {
   cursor: pointer;
+}
+
+/* Immagine del sito */
+.site-image {
+  max-width: 60%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Contenitore dei bottoni */
+.site-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Bottone Go Live */
+.go-live-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.go-live-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Bottone Visualizza il codice */
+.view-code-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.view-code-btn:hover {
+  background-color: #007bff;
 }
