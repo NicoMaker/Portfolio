@@ -154,9 +154,8 @@ function renderIstruzione(istruzione) {
       `;
 
     // Aggiungi il link per scaricare il diploma solo se esiste
-    if (corso.diploma) {
+    if (corso.diploma)
       html += `<br /><a href="${corso.diploma}" download>Scarica Diploma</a>`;
-    }
 
     card.innerHTML = html;
     container.appendChild(card);

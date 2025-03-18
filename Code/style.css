@@ -1322,3 +1322,43 @@ img:hover {
 .contact-container {
   border-radius: 10px;
 }
+
+/* Freccia per scrollare */
+.scroll-arrow {
+  font-size: 3rem;
+  color: #0056b3; /* Colore blu, puoi cambiarlo */
+  text-decoration: none;
+  display: block;
+  margin-top: 2rem;
+  animation: bounce 1.5s infinite; /* Animazione per "rimbalzare" */
+}
+
+.scroll-arrow:hover {
+  color: #003366; /* Cambia colore al passaggio del mouse */
+}
+
+/* Animazione della freccia */
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.toogle-icon {
+  cursor: pointer;
+}
+
+.card-container {
+  max-height: 300px; /* Imposta un'altezza massima */
+  overflow-y: auto; /* Aggiungi una barra di scorrimento verticale */
+}
+
+.toggle-icon{
+  cursor: pointer;
+}
