@@ -1,0 +1,244 @@
+{
+  "attestati": [
+    {
+      "titolo": "Protezione dei dati Personali (GDPR, Privacy, Sicurezza)",
+      "descrizione": "Questo attestato certifica la comprensione e la conoscenza delle normative relative alla protezione dei dati personali, con particolare riferimento al GDPR (Regolamento Generale sulla Protezione dei Dati). Il corso copre le pratiche migliori per garantire la privacy, la sicurezza e la gestione sicura delle informazioni sensibili, sia a livello aziendale che individuale.",
+      "certificato": "Attestati/GDPR.pdf"
+    },
+    {
+      "titolo": "Sicurezza livello Base",
+      "descrizione": "Questo certificato attesta la conoscenza delle norme fondamentali sulla sicurezza nei luoghi di lavoro. Copre aspetti essenziali come la prevenzione degli infortuni, l'uso corretto dei dispositivi di protezione, la gestione dei rischi e l'adozione di comportamenti sicuri per garantire un ambiente lavorativo protetto e conforme alle normative vigenti.",
+      "certificato": ""
+    },
+    {
+      "titolo": "Sicurezza livello Medio",
+      "descrizione": "Questo certificato attesta la conoscenza delle norme fondamentali sulla sicurezza nei luoghi di lavoro. Copre aspetti essenziali come la prevenzione degli infortuni, l'uso corretto dei dispositivi di protezione, la gestione dei rischi e l'adozione di comportamenti sicuri per garantire un ambiente lavorativo protetto e conforme alle normative vigenti.",
+      "certificato": ""
+    }
+  ],
+  "linguistiche": [
+    {
+      "lingua": "Inglese",
+      "livello": "A2",
+      "immagine": "https://www.publicdomainpictures.net/pictures/330000/velka/national-flag-of-uk-the-united-kingdom-of-great-britain-and-no-1587109450h7E.jpg",
+      "link": "https://www.britishcouncil.it/inglese/online/websites/"
+    }
+  ],
+  "esperienze": [
+    {
+      "azienda": "Omniaevo",
+      "ruolo": "Stage Curricolare",
+      "periodo": "[08/01/2024 – 29/03/2024]",
+      "luogo": "Codroipo UD",
+      "attivita": [
+        "Utilizzo di una piattaforma per la lettura dei dati telemetrici della scheda Raspberry (RAM, ROM, CPU, Ingressi e Uscite digitali) attraverso il protocollo MQTT."
+      ],
+      "logo": "Loghi/Omniaevo.png",
+      "sito": "https://www.omniaevo.it/"
+    },
+    {
+      "azienda": "Omniaevo",
+      "ruolo": "Stage Curricolare",
+      "periodo": "[12/06/2023 – 04/08/2023]",
+      "luogo": "Codroipo UD",
+      "attivita": [
+        "Scrittura di siti web in HTML, CSS e JS.",
+        "Applicazione con l'ASP.NET, collegato a C#, che tramite una web app gestiva anche HTML, CSS e JS.",
+        "Affiancamento degli operatori dell'azienda nell'attività di programmazione."
+      ],
+      "logo": "Loghi/Omniaevo.png",
+      "sito": "https://www.omniaevo.it/"
+    },
+    {
+      "azienda": "Omniaevo",
+      "ruolo": "PCTO",
+      "periodo": "[12/10/2021 – 29/10/2021]",
+      "luogo": "Codroipo UD",
+      "attivita": [
+        "Gestione di schede elettriche con il linguaggio C.",
+        "Utilizzo protocollo MODBUS.",
+        "Attività di Web development.",
+        "Affiancamento degli operatori dell'azienda, per lo più giovani neolaureati in informatica, nell'attività di programmazione."
+      ],
+      "logo": "Loghi/Omniaevo.png",
+      "sito": "https://www.omniaevo.it/"
+    }
+  ],
+  "istruzione": [
+    {
+      "titolo": "Diploma Tecnico Superiore Front-End Developer",
+      "istituto": "Fondazione ITS Academy Alto Adriatico",
+      "periodo": "[28/10/2024 – ora]",
+      "luogo": "Pordenone",
+      "livello": "Livello 5 EQF",
+      "competenze": [
+        "Progettazione e sviluppo interfacce web utilizzando HTML, CSS, JavaScript e vari frameworks.",
+        "Collaborazione con UX Designers e backend developers per ottimizzare navigazione, sicurezza e accessibilità.",
+        "Progettazione e prototipazione di websites con relativi test e implementazione.",
+        "Integrazione di Intelligenza Artificiale nelle applicazioni.",
+        "Sviluppo di applicazioni cross-platform.",
+        "Gestione di tags e meta informazioni per il marketing digitale.",
+        "Competenze per garantire la sicurezza intrinseca delle pagine web."
+      ],
+      "logo": "Loghi/Alto Adriatico.png",
+      "sito": "https://www.itsaltoadriatico.it/",
+      "diploma": ""
+    },
+    {
+      "titolo": "Diploma Tecnico Superiore IIOT (Industrial Internet of Things)",
+      "istituto": "Fondazione ITS Academy Alto Adriatico",
+      "periodo": "[19/10/2022 – 16/07/2024]",
+      "luogo": "Pordenone",
+      "livello": "Livello 5 EQF",
+      "competenze": [
+        "Competenze per la realizzazione di programmi informatici.",
+        "Sviluppo di abilità nel web development, nel coding e nella gestione di database."
+      ],
+      "logo": "Loghi/Alto Adriatico.png",
+      "sito": "https://www.itsaltoadriatico.it/",
+      "diploma": "Istruzione/ITS.pdf"
+    },
+    {
+      "titolo": "Diploma Superiore in Manutenzione e Assistenza Tecnica",
+      "istituto": "I.S.I.S. Lino Zanussi",
+      "periodo": "[11/2019 - 07/2022]",
+      "luogo": "Pordenone",
+      "descrizione": "Specializzazione in apparati, impianti e servizi tecnici industriali e civili.",
+      "logo": "Loghi/Zanussi.JPG",
+      "sito": "https://www.isiszanussi.edu.it/",
+      "diploma": "Istruzione/Diploma Superiori.pdf"
+    },
+    {
+      "titolo": "Diploma in I.T.I.S. J.F. Kennedy",
+      "istituto": "I.T.I.S. J.F. Kennedy",
+      "periodo": "[09/2016 - 11/2019]",
+      "luogo": "Pordenone",
+      "descrizione": "Formazione tecnica in ambito industriale e tecnologico.",
+      "logo": "Loghi/Kennedy.jpeg",
+      "sito": "https://itstkennedy.edu.it/",
+      "diploma": ""
+    }
+  ],
+  "competenze": [
+    {
+      "nome": "C",
+      "descrizione": "Competenza base nella programmazione C, utilizzata per lo sviluppo di software ad alte prestazioni e applicazioni di sistema.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg",
+      "link": "https://docs.microsoft.com/en-us/cpp/?view=msvc-170"
+    },
+    {
+      "nome": "C#",
+      "descrizione": "Esperienza nello sviluppo di applicazioni desktop, web e mobile con C#, con l'uso di .NET per la creazione di soluzioni scalabili e robuste.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/csharp-colored.svg",
+      "link": "https://docs.microsoft.com/en-us/dotnet/csharp/"
+    },
+    {
+      "nome": "C++",
+      "descrizione": "Conoscenza base di C++ per lo sviluppo di applicazioni ad alte prestazioni e software di sistema, utilizzato anche nel gaming e nella grafica 3D.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg",
+      "link": "https://docs.microsoft.com/en-us/cpp/?view=msvc-170"
+    },
+    {
+      "nome": "Git",
+      "descrizione": "Utilizzo di Git per il versionamento del codice, la gestione dei repository e la collaborazione in team tramite piattaforme come GitHub e GitLab.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/git-colored.svg",
+      "link": "https://git-scm.com/"
+    },
+    {
+      "nome": "Python",
+      "descrizione": "Esperienza nello sviluppo di script e applicazioni con Python, per la gestione di dati, analisi e automazione dei processi.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg",
+      "link": "https://www.python.org/"
+    },
+    {
+      "nome": "VS Code",
+      "descrizione": "Utilizzo di Visual Studio Code come editor per la programmazione, con supporto per estensioni, debugging e gestione di progetti multi-linguaggio.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/visualstudiocode.svg",
+      "link": "https://code.visualstudio.com/"
+    },
+    {
+      "nome": "PostgreSQL",
+      "descrizione": "Gestione di database relazionali con PostgreSQL, esperienza nell'ottimizzazione delle query e nella progettazione di schemi complessi per applicazioni aziendali.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/postgresql-colored.svg",
+      "link": "https://www.postgresql.org/"
+    },
+    {
+      "nome": "HTML5",
+      "descrizione": "Competenze nella creazione di pagine web con HTML5, con particolare attenzione all'accessibilità e alle best practices per la semantica e il SEO.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg",
+      "link": "https://developer.mozilla.org/en-US/docs/Glossary/HTML5"
+    },
+    {
+      "nome": "CSS3",
+      "descrizione": "Esperienza nell'uso di CSS3 per la progettazione di layout responsivi, animazioni e transizioni per migliorare l'interfaccia utente.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/css3-colored.svg",
+      "link": "https://developer.mozilla.org/en-US/docs/Web/CSS"
+    },
+    {
+      "nome": "JavaScript",
+      "descrizione": "Conoscenza di JavaScript per lo sviluppo di applicazioni dinamiche, inclusi l'uso di framework come React e Node.js per applicazioni full-stack.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg",
+      "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+    },
+    {
+      "nome": "Node.js",
+      "descrizione": "Esperienza nell'uso di Node.js per lo sviluppo di server web ad alte prestazioni e applicazioni real-time come chat e giochi multiplayer.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg",
+      "link": "https://nodejs.org/en/"
+    },
+    {
+      "nome": "React JS",
+      "descrizione": "Competenze nell'uso di React per lo sviluppo di interfacce utente moderne, ottimizzando le prestazioni con l'uso di hooks, state management e routing.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg",
+      "link": "https://reactjs.org/"
+    },
+    {
+      "nome": "Vite",
+      "descrizione": "Utilizzo di Vite come bundler per progetti front-end, per un'esperienza di sviluppo veloce e reattiva grazie alla gestione delle dipendenze.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg",
+      "link": "https://vitejs.dev/"
+    },
+    {
+      "nome": "Mermaid",
+      "descrizione": "Utilizzo di Mermaid per generare diagrammi e grafici direttamente in Markdown e in HTM, utile per la visualizzazione di processi e architetture.",
+      "immagine": "https://static.vecteezy.com/system/resources/previews/003/329/709/original/mermaid-logo-icon-design-illustration-vector.jpg",
+      "link": "https://mermaid-js.github.io/"
+    },
+    {
+      "nome": "Chart.js",
+      "descrizione": "Esperienza nell'uso di Chart.js per la creazione di grafici interattivi e visualizzazioni di dati, con supporto per diversi tipi di grafico.",
+      "immagine": "https://www.chartjs.org/img/chartjs-logo.svg",
+      "link": "https://www.chartjs.org/"
+    },
+    {
+      "nome": "MathJax",
+      "descrizione": "Utilizzo di MathJax per la visualizzazione di formule matematiche e simboli in pagine web e documenti digitali.",
+      "immagine": "https://th.bing.com/th/id/OIP.Aq2YcFqi2adP77Q_An4zIwHaEK?rs=1&pid=ImgDetMain",
+      "link": "https://www.mathjax.org/"
+    },
+    {
+      "nome": "Windows",
+      "descrizione": "Esperienza nella gestione e amministrazione di sistemi Windows, inclusi l'installazione, la configurazione e la gestione di Windows Server.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/8/87/Windows_logo_-_2021.svg",
+      "link": "https://www.microsoft.com/windows/"
+    },
+    {
+      "nome": "Linux",
+      "descrizione": "Competenze nella gestione di sistemi operativi Linux, con particolare attenzione alla gestione server, scripting e automazione.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
+      "link": "https://www.linux.org"
+    },
+    {
+      "nome": "Raspberry Pi",
+      "descrizione": "Esperienza nell'uso del Raspberry Pi per progetti di prototipazione elettronica, automazione domestica e creazione di dispositivi IoT.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
+      "link": "https://www.raspberrypi.org/"
+    },
+    {
+      "nome": "Docker",
+      "descrizione": "Esperienza nell'uso di Docker per la creazione e gestione di container, migliorando lo sviluppo e la distribuzione di applicazioni in ambienti isolati.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
+      "link": "https://www.docker.com/"
+    }
+  ]
+}

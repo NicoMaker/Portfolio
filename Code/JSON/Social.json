@@ -1,0 +1,40 @@
+{
+  "socialLinks": [
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com/nicola.marano.775/",
+      "icon": "Icons/facebook.png",
+      "alt": "Facebook"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/nicola.marano02/",
+      "icon": "Icons/Instagram.png",
+      "alt": "Instagram"
+    },
+    {
+      "name": "WhatsApp",
+      "url": "https://wa.me/3337024320",
+      "icon": "Icons/Whatsapp.png",
+      "alt": "WhatsApp"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/NicoMaker",
+      "icon": "Icons/github.png",
+      "alt": "GitHub"
+    },
+    {
+      "name": "Komoot",
+      "url": "https://www.komoot.com/it-it/user/1372754001803",
+      "icon": "Icons/Koomot.png",
+      "alt": "Komoot"
+    },
+    {
+      "name": "Telefono",
+      "url": "tel:+393337024320",
+      "icon": "Icons/cell.png",
+      "alt": "Telefono"
+    }
+  ]
+}
