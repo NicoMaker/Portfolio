@@ -228,41 +228,35 @@ document.getElementById("sectiion").innerHTML = `
     <h3>Attestati</h3>
     <div class="card-container">
     </div>
-    <br />
   </div>
 
   <div id="linguistiche" class="section">
     <h3>Competenze Linguistiche</h3>
     <div class="card-container">
     </div>
-    <br />
   </div>
 
   <div id="esperienze" class="section">
     <h3>Esperienze Lavorative</h3>
     <div class="card-container">
     </div>
-    <br />
   </div>
 
   <div id="istruzione" class="section">
     <h3>Istruzione</h3>
     <div class="card-container">
     </div>
-    <br />
   </div>
 
   <div id="competenze" class="section">
     <h3>Competenze</h3>
     <div class="card-container">
     </div>
-    <br />
   </div>
 
   <div id="sites" class="section">
     <h3>Siti Web</h3>
     <div class="card-container">
     </div>
-    <br />
   </div>
 `;
