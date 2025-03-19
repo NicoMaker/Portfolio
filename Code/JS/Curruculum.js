@@ -106,7 +106,7 @@ function renderEsperienze(esperienze) {
   });
 }
 
-// Funzione per renderizzare l'istruzione
+// Funzione per renderizzare l'istruzione con bottoni
 function renderIstruzione(istruzione) {
   const container = document.querySelector(
     "#curriculum .section:nth-of-type(4) .card-container"
@@ -143,18 +143,26 @@ function renderIstruzione(istruzione) {
     }
 
     // Aggiungi la descrizione se presente
-    if (corso.descrizione) {
-      html += `<p>${corso.descrizione}</p>`;
-    }
+    if (corso.descrizione) html += `<p>${corso.descrizione}</p>`;
 
+    // Aggiungi i bottoni per il sito web, il codice e il diploma
     html += `
-        <br />
-        <a href="${corso.sito}" target="_blank">Visita il sito</a>
-      `;
+        <div class="site-links">
+    `;
 
-    // Aggiungi il link per scaricare il diploma solo se esiste
+    // Bottone "Visita il sito"
+    if (corso.sito)
+      html += `<button class="btn go-live-btn" onclick="window.open('${corso.sito}', '_blank')">Visita il sito</button>`;
+
+    // Bottone "Visualizza il codice"
+    if (corso.codice)
+      html += `<button class="btn view-code-btn" onclick="window.open('${corso.codice}', '_blank')">Visualizza il codice</button>`;
+
+    // Bottone "Scarica Diploma"
     if (corso.diploma)
-      html += `<br /><a href="${corso.diploma}" download>Scarica Diploma</a>`;
+      html += `<button class="btn view-code-btn onclick="window.open('${corso.diploma}', '_blank')">Scarica Diploma</button>`;
+
+    html += `</div>`;
 
     card.innerHTML = html;
     container.appendChild(card);
