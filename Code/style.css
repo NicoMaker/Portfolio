@@ -1331,10 +1331,15 @@ img:hover {
   display: block;
   margin-top: 2rem;
   animation: bounce 1.5s infinite; /* Animazione per "rimbalzare" */
+
+  box-shadow: #f8f9fa;
+  transition: color 0.3s ease;
 }
 
 .scroll-arrow:hover {
   color: #003366; /* Cambia colore al passaggio del mouse */
+  box-shadow:#f8f9fa;
+  transform: translateY(-5px);
 }
 
 /* Animazione della freccia */
