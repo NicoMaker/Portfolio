@@ -122,19 +122,19 @@
   "competenze": [
     {
       "nome": "C",
-      "descrizione": "Competenza base nella programmazione C, utilizzata per lo sviluppo di software ad alte prestazioni e applicazioni di sistema.",
+      "descrizione": "Competenza di base nella programmazione in C, utilizzata per lo sviluppo di software ad alte prestazioni, applicazioni di sistema e soluzioni per schede embedded.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg",
-      "link": "https://docs.microsoft.com/en-us/cpp/?view=msvc-170"
+      "link": "https://learn.microsoft.com/it-it/cpp/?view=msvc-170"
     },
     {
       "nome": "C#",
-      "descrizione": "Esperienza nello sviluppo di applicazioni desktop, web e mobile con C#, con l'uso di .NET per la creazione di soluzioni scalabili e robuste.",
+      "descrizione": "Esperienza nello sviluppo di applicazioni desktop, web e mobile con C#, utilizzando il framework .NET per creare soluzioni scalabili e robuste. Integrabile con database, schede embedded, Node-RED e protocolli di comunicazione come MQTT. Capacità di sviluppo su ambienti Linux con .NET Core per applicazioni multipiattaforma.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/csharp-colored.svg",
-      "link": "https://docs.microsoft.com/en-us/dotnet/csharp/"
+      "link": "https://learn.microsoft.com/it-it/dotnet/csharp/"
     },
     {
       "nome": "C++",
-      "descrizione": "Conoscenza base di C++ per lo sviluppo di applicazioni ad alte prestazioni e software di sistema, utilizzato anche nel gaming e nella grafica 3D.",
+      "descrizione": "Conoscenza base di C++ per lo sviluppo di applicazioni ad alte prestazioni e software di sistema.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus-colored.svg",
       "link": "https://docs.microsoft.com/en-us/cpp/?view=msvc-170"
     },
@@ -239,7 +239,44 @@
       "descrizione": "Esperienza nell'uso di Docker per la creazione e gestione di container, migliorando lo sviluppo e la distribuzione di applicazioni in ambienti isolati.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
       "link": "https://www.docker.com/"
+    },
+    {
+      "nome": "MQTT",
+      "descrizione": "Esperienza nell'uso del protocollo MQTT per la comunicazione tra dispositivi IoT, con implementazioni su Node.js, Python e sistemi embedded. Configurazione di broker MQTT come Mosquitto per la gestione della messaggistica e l'integrazione con Node-RED.",
+      "immagine": "https://openautomationsoftware.com/wp-content/uploads/2016/05/MQTT-icon.png",
+      "link": "https://mqtt.org/"
+    },
+    {
+      "nome": "AMQP",
+      "descrizione": "Esperienza nell'uso di AMQP (Advanced Message Queuing Protocol) per la gestione della messaggistica asincrona tra servizi distribuiti, garantendo affidabilità e scalabilità nelle comunicazioni tra microservizi.",
+      "immagine": "https://th.bing.com/th/id/OIP.GDo6g6wF-wUN_boWFvLIPAHaDA?rs=1&pid=ImgDetMain",
+      "link": "https://www.amqp.org/"
+    },
+    {
+      "nome": "CoAP",
+      "descrizione": "Conoscenza del protocollo CoAP (Constrained Application Protocol) utilizzato per comunicazioni efficienti nei dispositivi IoT, ottimizzando l'uso delle risorse su reti a bassa potenza come LoRaWAN e 6LoWPAN.",
+      "immagine": "https://assets.emqx.com/images/837045266cc54f7ca7a12e7704c9a943.png",
+      "link": "https://www.geeksforgeeks.org/constrained-application-protocol-coap/"
+    },
+    {
+      "nome": "HTTP",
+      "descrizione": "Esperienza nell'uso del protocollo HTTP per la comunicazione client-server su web, incluse tecniche di caching, sicurezza con HTTPS e API RESTful per servizi distribuiti.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/5/5b/HTTP_logo.svg",
+      "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP"
+    },
+    {
+      "nome": "Node-RED",
+      "descrizione": "Utilizzo di Node-RED per la creazione di flussi di automazione basati su eventi, con integrazione di dispositivi IoT tramite MQTT, REST API e WebSockets. Esperienza nella personalizzazione di nodi e dashboard per la visualizzazione dati.",
+      "immagine": "https://nodered.org/about/resources/media/node-red-icon.png",
+      "link": "https://nodered.org/"
+    },
+    {
+      "nome": "OPC-UA",
+      "descrizione": "Conoscenza di base di OPC-UA (Open Platform Communications Unified Architecture), un protocollo di comunicazione industriale per lo scambio di dati affidabile e sicuro tra dispositivi IoT e sistemi SCADA/MES.",
+      "immagine": "https://th.bing.com/th/id/R.569ac46ea75aa14617ccf61362d6c186?rik=QQUMDccSOTwGgg&riu=http%3a%2f%2fwww.ascolab.com%2fimages%2fstories%2fascolab%2fpic%2fpng%2fopcualogo.png&ehk=RlFAFFANbZK%2fjbcahEz9IErkMHESOJ69luiNIjayvqw%3d&risl=&pid=ImgRaw&r=0",
+      "link": "https://th.bing.com/th/id/R.d3c16f1a812e0c8d0ca3d5cc8bf33c1f?rik=PR9EkSuLUiaXOA&pid=ImgRaw&r=0"
     }
+    
   ],
   "sites": [
     {
