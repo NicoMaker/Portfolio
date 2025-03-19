@@ -1414,3 +1414,26 @@ img:hover {
 .testo{
   color: white;
 }
+
+/* This is a partial CSS file with only the relevant changes */
+
+/* Remove the hover effect from the logo */
+.logo:hover {
+  transform: none; /* Removing the scale effect */
+}
+
+/* Remove the general hover effect from all images */
+img:hover {
+  transform: none; /* Removing the scale effect */
+}
+
+/* Keep other hover effects intact */
+.card:hover,
+.contact-container:hover,
+a:hover,
+input:hover,
+textarea:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
