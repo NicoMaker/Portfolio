@@ -201,8 +201,8 @@ function renderWebSite(sites) {
 
     // Crea l'HTML base
     let html = `
-      <h4>${site.nome}</h4>
       <img src="${site.immagine}" alt="${site.nome}" class="site-image" />
+      <h4>${site.nome}</h4>
       <div class="site-links">
         <button class="btn go-live-btn" onclick="window.open('${site.link}', '_blank')">Go Live</button>
     `;
@@ -219,3 +219,53 @@ function renderWebSite(sites) {
     container.appendChild(card);
   });
 }
+
+document.getElementById("sectiion").innerHTML = `
+          <div id="attestati" class="section">
+            <h3>Attestati</h3>
+            <div class="card-container">
+              <!-- Il contenuto verrà generato dal JavaScript -->
+            </div>
+            <br />
+          </div>
+
+          <div id="linguistiche" class="section">
+            <h3>Competenze Linguistiche</h3>
+            <div class="card-container">
+              <!-- Il contenuto verrà generato dal JavaScript -->
+            </div>
+            <br />
+          </div>
+
+          <div id="esperienze" class="section">
+            <h3>Esperienze Lavorative</h3>
+            <div class="card-container">
+              <!-- Il contenuto verrà generato dal JavaScript -->
+            </div>
+            <br />
+          </div>
+
+          <div id="istruzione" class="section">
+            <h3>Istruzione</h3>
+            <div class="card-container">
+              <!-- Il contenuto verrà generato dal JavaScript -->
+            </div>
+            <br />
+          </div>
+
+          <div id="competenze" class="section">
+            <h3>Competenze</h3>
+            <div class="card-container">
+              <!-- Il contenuto verrà generato dal JavaScript -->
+            </div>
+            <br />
+          </div>
+
+          <div id="sites" class="section">
+            <h3>Siti Web</h3>
+            <div class="card-container">
+              <!-- Il contenuto verrà generato dal JavaScript -->
+            </div>
+            <br />
+          </div>
+`;
