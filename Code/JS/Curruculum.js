@@ -153,7 +153,7 @@ function renderIstruzione(istruzione) {
 
     // Bottone "Visita il sito"
     if (corso.sito)
-      html += `<button class="btn go-live-btn" onclick="window.open('${corso.sito}', '_blank')">Visita il sito</button>`;
+      html += `<button class="go-live-btn" onclick="window.open('${corso.sito}', '_blank')">Visita il sito</button>`;
 
     if (corso.diploma)
       html += `<a href="${corso.diploma}" download class="testo">Scarica Diploma</a>`;
