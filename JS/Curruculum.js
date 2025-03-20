@@ -38,7 +38,6 @@ function renderAttestati(attestati) {
     // Aggiungi il link per scaricare il certificato solo se esiste
     if (attestato.certificato)
       html += `<a href="${attestato.certificato}"class="testo" download>Scarica Certificato</a>`;
-    else html += `<a href="" download>Scarica Certificato</a>`;
 
     card.innerHTML = html;
     container.appendChild(card);
