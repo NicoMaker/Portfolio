@@ -1335,7 +1335,6 @@ img:hover {
   border: none !important; /* Assicura che non ci sia mai un bordo */
 }
 
-
 /* Animazione della freccia */
 @keyframes bounce {
   0% {
@@ -1354,7 +1353,7 @@ img:hover {
 }
 
 .card-container {
-  max-height: 300px; /* Imposta un'altezza massima */
+  max-height: 700px; /* Imposta un'altezza massima */
   overflow-y: auto; /* Aggiungi una barra di scorrimento verticale */
 }
 
@@ -1582,6 +1581,12 @@ nav ul li a.active-link {
   color: yellow;
 }
 
-.logo:hover{
+.logo:hover {
   transform: scale(1.1);
+}
+
+@media all and (max-width: 1024px) {
+  .card-container {
+    max-height: 350px; /* Imposta un'altezza massima */
+  }
 }

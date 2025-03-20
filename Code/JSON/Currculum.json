@@ -276,7 +276,6 @@
       "immagine": "https://th.bing.com/th/id/R.569ac46ea75aa14617ccf61362d6c186?rik=QQUMDccSOTwGgg&riu=http%3a%2f%2fwww.ascolab.com%2fimages%2fstories%2fascolab%2fpic%2fpng%2fopcualogo.png&ehk=RlFAFFANbZK%2fjbcahEz9IErkMHESOJ69luiNIjayvqw%3d&risl=&pid=ImgRaw&r=0",
       "link": "https://th.bing.com/th/id/R.d3c16f1a812e0c8d0ca3d5cc8bf33c1f?rik=PR9EkSuLUiaXOA&pid=ImgRaw&r=0"
     }
-    
   ],
   "sites": [
     {
@@ -286,7 +285,7 @@
       "codice": "https://github.com/NicoMaker/Giri-in-bici"
     },
     {
-      "nome": "Pagina Generale Siti Web",
+      "nome": "Pagina Generale Siti",
       "immagine": "Web_Site/Pagina_Generale_Siti.jpg",
       "link": "https://paginageneralesiti.netlify.app/",
       "codice": "https://github.com/NicoMaker/Pagina_Generale_Siti"
