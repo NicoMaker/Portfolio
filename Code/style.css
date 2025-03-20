@@ -1518,3 +1518,73 @@ textarea:hover {
     font-size: 14px;
   }
 }
+
+/* Remove box-shadow from header navigation links */
+nav ul li a.header {
+  box-shadow: none;
+}
+
+/* Remove box-shadow from logo image in header */
+.header-content .logo img {
+  box-shadow: none;
+}
+
+/* Override any hover effects that might add box-shadow */
+nav ul li a.header:hover,
+.header-content .logo img:hover {
+  box-shadow: none;
+  transform: none; /* Also removing any transform effects */
+}
+
+/* Remove box-shadow from header navigation links */
+nav ul li a.header {
+  box-shadow: none;
+}
+
+/* Add yellow hover effect for navigation links */
+nav ul li a.header:hover {
+  color: yellow; /* Yellow color on hover */
+  box-shadow: none;
+}
+
+/* Remove all effects from logo image */
+.header-content .logo img {
+  box-shadow: none;
+}
+
+/* Remove all hover and active effects from logo image */
+.header-content .logo img:hover,
+.header-content .logo img:active,
+.logo:hover,
+.logo:active {
+  box-shadow: none;
+  transform: none; /* Removing transform effects */
+}
+
+/* Override any global image hover effects */
+.header-content img:hover,
+.header-content img:active {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Navigation link styles */
+nav ul li a {
+  color: #f8f9fa;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect - yellow color */
+nav ul li a:hover {
+  color: yellow;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Active link style */
+nav ul li a.active-link {
+  color: yellow;
+}
+

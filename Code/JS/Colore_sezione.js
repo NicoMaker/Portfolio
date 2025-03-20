@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll("section"),
     navLinks = document.querySelectorAll("nav ul li a");
 
@@ -14,11 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     navLinks.forEach((link) => {
       link.classList.remove("active-link");
-      link.style.color = "white";
-      if (link.getAttribute("href").includes(currentSection)) {
+      link.style.color = ""; // Reset to default CSS value
+      if (link.getAttribute("href").includes(currentSection))
         link.classList.add("active-link");
-        link.style.color = "yellow";
-      }
     });
   }
 
