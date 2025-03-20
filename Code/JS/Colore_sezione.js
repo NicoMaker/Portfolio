@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentSection = "home";
 
     sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
+      const sectionTop = section.offsetTop,
+        sectionHeight = section.clientHeight;
       if (window.scrollY >= sectionTop - sectionHeight / 3)
         currentSection = section.getAttribute("id");
     });
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
       link.style.color = "white";
       if (link.getAttribute("href").includes(currentSection)) {
         link.classList.add("active-link");
-        link.style.color = "yellow"; 
+        link.style.color = "yellow";
       }
     });
   }

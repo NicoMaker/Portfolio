@@ -202,7 +202,6 @@ function renderWebSite(sites) {
     const card = document.createElement("div");
     card.className = "card";
 
-    // Crea l'HTML base
     let html = `
       <img src="${site.immagine}" alt="${site.nome}" class="site-image" />
       <h4>${site.nome}</h4>
