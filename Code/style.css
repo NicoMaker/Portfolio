@@ -1323,7 +1323,6 @@ img:hover {
   border-radius: 10px;
 }
 
-/* Freccia per scrollare */
 .scroll-arrow {
   font-size: 3rem;
   color: #0056b3; /* Colore blu, puoi cambiarlo */
@@ -1331,16 +1330,11 @@ img:hover {
   display: block;
   margin-top: 2rem;
   animation: bounce 1.5s infinite; /* Animazione per "rimbalzare" */
-
-  box-shadow: #f8f9fa;
   transition: color 0.3s ease;
+  box-shadow: none !important; /* Assicura che non ci sia mai un'ombra */
+  border: none !important; /* Assicura che non ci sia mai un bordo */
 }
 
-.scroll-arrow:hover {
-  color: #003366; /* Cambia colore al passaggio del mouse */
-  box-shadow: #f8f9fa;
-  transform: translateY(-5px);
-}
 
 /* Animazione della freccia */
 @keyframes bounce {
@@ -1588,3 +1582,6 @@ nav ul li a.active-link {
   color: yellow;
 }
 
+.logo:hover{
+  transform: scale(1.1);
+}
