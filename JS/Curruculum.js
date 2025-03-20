@@ -130,7 +130,7 @@ function renderIstruzione(istruzione) {
       `;
 
     // Aggiungi il livello EQF se presente
-    if (corso.livello) 
+    if (corso.livello)
       html += `<p><strong>Livello EQF:</strong> ${corso.livello}</p>`;
 
     // Aggiungi le competenze se presenti
