@@ -135,6 +135,7 @@ h3 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   width: calc(33.333% - 1rem);
+  border-bottom: solid 2px #007bff;
 }
 
 .card img {
@@ -432,6 +433,7 @@ section h3,
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: solid 2px #007bff;
 }
 
 .contact-form {
@@ -780,7 +782,7 @@ h3 {
 }
 
 .card {
-  background-color: #fff;
+  background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
