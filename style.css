@@ -1696,3 +1696,193 @@ footer {
 #menu li a[href="#home"] {
   display: none;
 }
+
+/* Hamburger menu - solo per mobile */
+.hamburger {
+  display: none; /* Nascosto di default */
+  cursor: pointer;
+  color: #f8f9fa;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  z-index: 1001;
+}
+
+/* Avatar in cima al menu */
+nav ul .avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url("Icons/Avatar.jpg");
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 2rem; /* Spazio tra l'avatar e il menu */
+  display: none; /* Nascosto di default, ma visibile quando il menu è aperto */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Mostra solo su mobile */
+  }
+
+  nav ul {
+    display: none; /* Nascondi di default su mobile */
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #007bff;
+    padding: 5rem 2rem 2rem;
+    z-index: 1000;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  /* Centra l'avatar sopra gli altri elementi */
+  nav ul .avatar {
+    display: block; /* Mostra l'avatar quando il menu è aperto */
+    margin: 0 auto;
+  }
+
+  nav ul li {
+    margin: 1rem 0;
+    margin-left: 0; /* Reset left margin on mobile */
+  }
+
+  nav ul li a {
+    font-size: 1.5rem;
+  }
+
+  #menu {
+    background: linear-gradient(450deg, #007bff, #0056b3);
+  }
+}
+
+/* Per tablet e desktop, assicurati che il menu sia sempre visibile e allineato a destra */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important; /* Assicurati che l'hamburger sia sempre nascosto */
+  }
+
+  nav ul {
+    display: flex !important; /* Mostra sempre il menu su schermi più grandi */
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    padding: 0;
+    flex-direction: row;
+  }
+
+  .header-content {
+    justify-content: space-between; /* Logo a sinistra, menu a destra */
+  }
+}
+
+header,
+footer {
+  background: linear-gradient(450deg, #007bff, #0056b3);
+}
+
+/* Hamburger menu - solo per mobile */
+.hamburger {
+  display: none; /* Nascosto di default */
+  cursor: pointer;
+  color: #f8f9fa;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  z-index: 1001;
+}
+
+/* Avatar in cima al menu */
+nav ul .avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-image: url("Icons/Avatar.jpg");
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 2rem; /* Spazio tra l'avatar e il menu */
+  display: none; /* Nascosto di default, ma visibile quando il menu è aperto */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Mostra solo su mobile */
+  }
+
+  nav ul {
+    display: none; /* Nascondi di default su mobile */
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #007bff;
+    padding: 5rem 2rem 2rem;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center; /* Centrato verticalmente */
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  /* Centra l'avatar sopra gli altri elementi */
+  nav ul .avatar {
+    display: block; /* Mostra l'avatar quando il menu è aperto */
+    margin: 0 auto;
+  }
+
+  nav ul li {
+    margin: 1rem 0;
+    margin-left: 0; /* Reset left margin on mobile */
+  }
+
+  nav ul li a {
+    font-size: 1.5rem;
+    text-align: center; /* Centra il testo del link */
+  }
+
+  #menu {
+    background: linear-gradient(450deg, #007bff, #0056b3);
+  }
+}
+
+/* Per tablet e desktop, assicurati che il menu sia sempre visibile e allineato a destra */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important; /* Assicurati che l'hamburger sia sempre nascosto */
+  }
+
+  nav ul {
+    display: flex !important; /* Mostra sempre il menu su schermi più grandi */
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    padding: 0;
+    flex-direction: row;
+    justify-content: flex-end; /* Allinea a destra */
+  }
+
+  .header-content {
+    justify-content: space-between; /* Logo a sinistra, menu a destra */
+  }
+}
+
+header,
+footer {
+  background: linear-gradient(450deg, #007bff, #0056b3);
+}
