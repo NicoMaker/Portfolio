@@ -1600,9 +1600,6 @@ nav ul li a.active-link {
   align-items: center;
 }
 
-.logo {
-  /* Nessun margin-right necessario */
-}
 
 nav ul {
   list-style: none;
