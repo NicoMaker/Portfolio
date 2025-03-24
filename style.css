@@ -1600,7 +1600,6 @@ nav ul li a.active-link {
   align-items: center;
 }
 
-
 nav ul {
   list-style: none;
   display: flex;
@@ -1656,6 +1655,10 @@ nav ul li {
   nav ul li a {
     font-size: 1.5rem;
   }
+
+  #menu {
+    background: linear-gradient(450deg, #007bff, #0056b3);
+  }
 }
 
 /* Per tablet e desktop, assicurati che il menu sia sempre visibile e allineato a destra */
@@ -1677,4 +1680,9 @@ nav ul li {
   .header-content {
     justify-content: space-between; /* Logo a sinistra, menu a destra */
   }
+}
+
+header,
+footer {
+  background: linear-gradient(450deg, #007bff, #0056b3);
 }
