@@ -1686,3 +1686,13 @@ header,
 footer {
   background: linear-gradient(450deg, #007bff, #0056b3);
 }
+
+@media (max-width: 768px) {
+  #menu li a[href="#home"] {
+    display: block;
+  }
+}
+
+#menu li a[href="#home"] {
+  display: none;
+}
