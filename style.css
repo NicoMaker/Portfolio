@@ -1592,3 +1592,92 @@ nav ul li a.active-link {
     max-height: 350px; /* Imposta un'altezza massima */
   }
 }
+
+/* Header and navigation styles */
+.header-content {
+  display: flex;
+  justify-content: space-between; /* Logo a sinistra, menu a destra */
+  align-items: center;
+}
+
+.logo {
+  /* Nessun margin-right necessario */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-left: 1.5rem;
+}
+
+/* Hamburger menu - solo per mobile */
+.hamburger {
+  display: none; /* Nascosto di default */
+  cursor: pointer;
+  color: #f8f9fa;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  z-index: 1001;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* Mostra solo su mobile */
+  }
+
+  nav ul {
+    display: none; /* Nascondi di default su mobile */
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #007bff;
+    padding: 5rem 2rem 2rem;
+    z-index: 1000;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  nav ul.show {
+    display: flex;
+  }
+
+  nav ul li {
+    margin: 1rem 0;
+    margin-left: 0; /* Reset left margin on mobile */
+  }
+
+  nav ul li a {
+    font-size: 1.5rem;
+  }
+}
+
+/* Per tablet e desktop, assicurati che il menu sia sempre visibile e allineato a destra */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none !important; /* Assicurati che l'hamburger sia sempre nascosto */
+  }
+
+  nav ul {
+    display: flex !important; /* Mostra sempre il menu su schermi più grandi */
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    padding: 0;
+    flex-direction: row;
+  }
+
+  .header-content {
+    justify-content: space-between; /* Logo a sinistra, menu a destra */
+  }
+}
