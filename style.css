@@ -1954,6 +1954,10 @@ nav ul .avatar {
   #menu {
     background: linear-gradient(450deg, #007bff, #0056b3);
   }
+
+  h3{
+    font-size: 1.3rem;
+  }
 }
 
 /* Per tablet e desktop, assicurati che il menu sia sempre visibile e allineato a destra */
