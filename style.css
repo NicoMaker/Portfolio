@@ -1955,7 +1955,7 @@ nav ul .avatar {
     background: linear-gradient(450deg, #007bff, #0056b3);
   }
 
-  h3{
+  h3 {
     font-size: 1.3rem;
   }
 }
@@ -1987,3 +1987,8 @@ footer {
   background: linear-gradient(450deg, #007bff, #0056b3);
 }
 
+.avatar {
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
