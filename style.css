@@ -1993,3 +1993,26 @@ footer {
   background-position: center;
 }
 
+
+/* Stile per il link di navigazione con underline animato */
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit; /* Assicura che il colore derivi dallo stile globale */
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
