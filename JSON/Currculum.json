@@ -298,6 +298,11 @@
       "nome": "IdeaLegno",
       "immagine": "Web_Site/IdeaLegno.jpg",
       "link": "https://idealegnofvg.com/"
+    },
+    {
+      "nome":"Tabellone serie A",
+      "immagine":"https://www.calciomagazine.net/wp-content/uploads/2024/07/serie-a-enilive-logo.jpg",
+      "link":"https://tabelloneseriea.netlify.app/"
     }
   ]
 }
