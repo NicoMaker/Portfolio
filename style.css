@@ -1365,10 +1365,10 @@ img:hover {
 
 /* Immagine del sito */
 .site-image {
-  max-width: 60%;
-  height: auto;
-  border-radius: 5px;
-  margin-bottom: 15px;
+  height: 150px;
+  width: 150px;
+  width: fit-content;
+  max-width: 150px;
 }
 
 /* Contenitore dei bottoni */
@@ -1993,7 +1993,6 @@ footer {
   background-position: center;
 }
 
-
 /* Stile per il link di navigazione con underline animato */
 .nav-link {
   position: relative;
@@ -2019,5 +2018,5 @@ footer {
 
 .nav-link.active-link::after {
   width: 100%;
-  background-color: yellow; 
+  background-color: yellow;
 }
