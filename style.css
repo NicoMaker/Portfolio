@@ -112,6 +112,7 @@ h3 {
 .description {
   font-family: "Open Sans", sans-serif;
   margin-bottom: 1.5rem;
+  text-align: justify;
 }
 
 /* Curriculum */
