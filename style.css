@@ -2084,3 +2084,11 @@ footer {
   background-color: #6c757d;
   cursor: not-allowed;
 }
+
+/* media all query telefoni */
+
+@media (max-width: 767px) {
+  .scroll-arrow {
+    display: none;
+  }
+}
