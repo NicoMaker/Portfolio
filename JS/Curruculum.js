@@ -37,7 +37,8 @@ function renderAttestati(attestati) {
 
     // Aggiungi il link per scaricare il certificato solo se esiste
     if (attestato.certificato)
-      html += `<a href="${attestato.certificato}"class="testo" download>Scarica Certificato</a>`;
+      html += `<a href="${attestato.certificato}"class="testo" download>
+      Scarica Certificato</a>`;
 
     card.innerHTML = html;
     container.appendChild(card);
@@ -62,7 +63,8 @@ function renderLinguistiche(linguistiche) {
         <h4>${lingua.lingua}</h4>
         <p><strong>Livello:</strong> ${lingua.livello}</p>
 
-        <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">Impara la lingua</button>
+        <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">
+        Impara la lingua</button>
       `;
 
     container.appendChild(card);
@@ -100,7 +102,8 @@ function renderEsperienze(esperienze) {
         </ul>
         <br />
         
-        <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">Visita il sito</button>
+        <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">
+        Visita il sito</button>
       `;
 
     container.appendChild(card);
@@ -152,10 +155,12 @@ function renderIstruzione(istruzione) {
 
     // Bottone "Visita il sito"
     if (corso.sito)
-      html += `<button class="go-live-btn" onclick="window.open('${corso.sito}', '_blank')">Visita il sito</button>`;
+      html += `<button class="go-live-btn" onclick="window.open('${corso.sito}', '_blank')">
+      Visita il sito</button>`;
 
     if (corso.diploma)
-      html += `<a href="${corso.diploma}" download class="testo">Scarica Diploma</a>`;
+      html += `<a href="${corso.diploma}" download class="testo">
+      Scarica Diploma</a>`;
 
     html += `</div>`;
 
@@ -181,7 +186,8 @@ function renderCompetenze(competenze) {
         <img src="${competenza.immagine}" alt="${competenza.nome}" />
         <h4>${competenza.nome}</h4>
         <p>${competenza.descrizione}</p>
-        <button class="go-live-btn" onclick="window.open('${competenza.link}', '_blank')">Visualizza la piattaforma</button>
+        <button class="go-live-btn" onclick="window.open('${competenza.link}', '_blank')">
+        Visualizza la piattaforma di ${competenza.nome}</button>
       `;
 
     container.appendChild(card);
@@ -205,12 +211,14 @@ function renderWebSite(sites) {
       <img src="${site.immagine}" alt="${site.nome}" class="site-image" />
       <h4>${site.nome}</h4>
       <div class="site-links">
-        <button class="btn go-live-btn" onclick="window.open('${site.link}', '_blank')">Go Live</button>
+        <button class="btn go-live-btn" onclick="window.open('${site.link}', '_blank')">
+        Go Live</button>
     `;
 
     // Aggiungi il bottone per "Visualizza il codice" solo se presente
     if (site.codice)
-      html += `<button class="go-live-btn" onclick="window.open('${site.codice}', '_blank')">Visualizza il codice</button>`;
+      html += `<button class="go-live-btn" onclick="window.open('${site.codice}', '_blank')">
+      Visualizza il codice</button>`;
 
     html += `</div>`;
 
