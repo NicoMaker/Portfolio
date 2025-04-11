@@ -287,6 +287,11 @@
   ],
   "sites": [
     {
+      "nome": "IdeaLegno",
+      "immagine": "Web_Site/IdeaLegno.jpg",
+      "link": "https://idealegnofvg.com/"
+    },
+    {
       "nome": "Giri in Bici",
       "immagine": "Web_Site/Bici.jpg",
       "link": "https://giri-in-bici.netlify.app/",
@@ -303,12 +308,7 @@
       "immagine": "https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png",
       "link": "https://pokeapinico.netlify.app/",
       "codice": "https://github.com/NicoMaker/PokeApi"
-    },
-    {
-      "nome": "IdeaLegno",
-      "immagine": "Web_Site/IdeaLegno.jpg",
-      "link": "https://idealegnofvg.com/"
-    },
+    }
     {
       "nome": "Tabellone serie A",
       "immagine": "https://www.calciomagazine.net/wp-content/uploads/2024/07/serie-a-enilive-logo.jpg",
