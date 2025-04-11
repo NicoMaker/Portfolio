@@ -23,7 +23,9 @@ function renderSocialLinks(socialLinks) {
     const socialLink = document.createElement("a");
     socialLink.href = link.url;
     socialLink.target = "_blank";
-    (socialLink.className = "icona"), (icon = document.createElement("img"));
+    socialLink.className = "icona";
+
+    const icon = document.createElement("img");
     icon.className = "icona";
     icon.src = link.icon;
     icon.alt = link.alt;

@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Toggle menu visibility
     if (menu.style.display === "none" || menu.style.display === "") {
       menu.style.display = "flex";
-      hamburger.innerHTML = "close"; // X icon
+      hamburger.textContent = "close"; // X icon
       menu.classList.add("show");
       homeLink.style.display = "block"; // Mostra il link Home quando il menu è visibile
     } else {
       menu.style.display = "none";
-      hamburger.innerHTML = "menu"; // = icon (hamburger)
+      hamburger.textContent = "menu"; // = icon (hamburger)
       menu.classList.remove("show");
       homeLink.style.display = "none"; // Nasconde il link Home quando il menu è nascosto
     }
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", () => {
       if (window.innerWidth <= 768) {
         menu.style.display = "none";
-        hamburger.innerHTML = "menu"; // = icon
+        hamburger.textContent = "menu"; // = icon
         menu.classList.remove("show");
         homeLink.style.display = "none"; // Nasconde il link Home quando un altro link è cliccato
       }
