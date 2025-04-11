@@ -285,7 +285,6 @@
       "link": "https://th.bing.com/th/id/R.d3c16f1a812e0c8d0ca3d5cc8bf33c1f?rik=PR9EkSuLUiaXOA&pid=ImgRaw&r=0"
     }
   ],
-  {
   "sites": [
     {
       "nome": "IdeaLegno",
@@ -311,12 +310,10 @@
       "codice": "https://github.com/NicoMaker/PokeApi"
     },
     {
-      "nome": "Tabellone serie A",
+      "nome": "Classifica serie A",
       "immagine": "https://www.calciomagazine.net/wp-content/uploads/2024/07/serie-a-enilive-logo.jpg",
       "link": "https://tabelloneseriea.netlify.app/",
       "codice": "https://github.com/NicoMaker/Tabellone_Serie_A"
     }
   ]
-}
-
 }
