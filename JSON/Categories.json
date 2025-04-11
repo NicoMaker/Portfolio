@@ -1,0 +1,42 @@
+{
+  "skillCategories": {
+    "Programmazione": [
+      "C",
+      "C#",
+      "C++",
+      "Python",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "React JS",
+      "Node.js",
+      "Vite"
+    ],
+    "DevOps & Tools": [
+      "Git",
+      "VS Code",
+      "Docker",
+      "PostgreSQL",
+      "Linux",
+      "Windows"
+    ],
+    "IoT & Protocolli": [
+      "MQTT",
+      "AMQP",
+      "CoAP",
+      "HTTP",
+      "OPC-UA",
+      "Raspberry Pi",
+      "Node-RED"
+    ],
+    "Visualizzazione": ["Mermaid", "Chart.js", "MathJax"]
+  },
+  "defaultProjectTags": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Responsive",
+    "Frontend",
+    "UI/UX"
+  ]
+}

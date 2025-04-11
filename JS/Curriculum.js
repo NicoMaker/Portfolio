@@ -1,9 +1,9 @@
-
 var VanillaTilt = VanillaTilt || {};
 
 // Configuration
 const CONFIG = {
   jsonPath: "JSON/Curriculum.json",
+  categoriesJsonPath: "JSON/categories.json",
   fallbackJsonPath: "JSON/Curriculum.json", // Fallback in case of typo in filename
   animationDuration: 500,
   animationDelay: 100,
@@ -18,6 +18,7 @@ const CONFIG = {
 // State management
 const STATE = {
   curriculumData: null,
+  categoriesData: null,
   expandedSections: {},
   categorizedSkills: null,
   isLoading: true,
@@ -51,7 +52,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   showLoading(true);
 
   try {
-    // Load data from JSON file
+    // Load categories data first
+    await loadCategoriesData();
+
+    // Then load curriculum data
     await loadCurriculumData();
 
     // Render all sections with the loaded data
@@ -218,6 +222,118 @@ function initializeSections() {
     .forEach((header, index) => {
       header.addEventListener("click", () => toggleSection(index));
     });
+}
+
+/**
+ * Load categories data from JSON file
+ */
+async function loadCategoriesData() {
+  try {
+    console.log(
+      `Curriculum.js: Attempting to load categories from ${CONFIG.categoriesJsonPath}`
+    );
+    const response = await fetch(CONFIG.categoriesJsonPath);
+
+    if (!response.ok) {
+      console.warn(
+        `Curriculum.js: Failed to load categories from ${CONFIG.categoriesJsonPath}`
+      );
+      // Use hardcoded categories as fallback
+      STATE.categoriesData = {
+        skillCategories: {
+          Programmazione: [
+            "C",
+            "C#",
+            "C++",
+            "Python",
+            "JavaScript",
+            "HTML5",
+            "CSS3",
+            "React JS",
+            "Node.js",
+            "Vite",
+          ],
+          "DevOps & Tools": [
+            "Git",
+            "VS Code",
+            "Docker",
+            "PostgreSQL",
+            "Linux",
+            "Windows",
+          ],
+          "IoT & Protocolli": [
+            "MQTT",
+            "AMQP",
+            "CoAP",
+            "HTTP",
+            "OPC-UA",
+            "Raspberry Pi",
+            "Node-RED",
+          ],
+          Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
+        },
+        defaultProjectTags: [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Responsive",
+          "Frontend",
+          "UI/UX",
+        ],
+      };
+    } else {
+      STATE.categoriesData = await response.json();
+      console.log("Curriculum.js: Categories data loaded successfully");
+    }
+
+    return STATE.categoriesData;
+  } catch (error) {
+    console.error("Curriculum.js: Error loading categories data:", error);
+
+    // Use hardcoded categories as fallback
+    STATE.categoriesData = {
+      skillCategories: {
+        Programmazione: [
+          "C",
+          "C#",
+          "C++",
+          "Python",
+          "JavaScript",
+          "HTML5",
+          "CSS3",
+          "React JS",
+          "Node.js",
+          "Vite",
+        ],
+        "DevOps & Tools": [
+          "Git",
+          "VS Code",
+          "Docker",
+          "PostgreSQL",
+          "Linux",
+          "Windows",
+        ],
+        "IoT & Protocolli": [
+          "MQTT",
+          "AMQP",
+          "CoAP",
+          "HTTP",
+          "OPC-UA",
+          "Raspberry Pi",
+          "Node-RED",
+        ],
+        Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
+      },
+      defaultProjectTags: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Responsive",
+        "Frontend",
+        "UI/UX",
+      ],
+    };
+  }
 }
 
 /**
@@ -597,39 +713,46 @@ function categorizeSkillsFromJson(competenze) {
  * Fallback categorization by skill name
  */
 function categorizeSkillsByName(competenze) {
-  // Define categories based on skill names
-  const categories = {
-    Programmazione: [
-      "C",
-      "C#",
-      "C++",
-      "Python",
-      "JavaScript",
-      "HTML5",
-      "CSS3",
-      "React JS",
-      "Node.js",
-      "Vite",
-    ],
-    "DevOps & Tools": [
-      "Git",
-      "VS Code",
-      "Docker",
-      "PostgreSQL",
-      "Linux",
-      "Windows",
-    ],
-    "IoT & Protocolli": [
-      "MQTT",
-      "AMQP",
-      "CoAP",
-      "HTTP",
-      "OPC-UA",
-      "Raspberry Pi",
-      "Node-RED",
-    ],
-    Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
-  };
+  // Use categories from the loaded JSON if available
+  let categories = {};
+
+  if (STATE.categoriesData && STATE.categoriesData.skillCategories) {
+    categories = STATE.categoriesData.skillCategories;
+  } else {
+    // Fallback to hardcoded categories
+    categories = {
+      Programmazione: [
+        "C",
+        "C#",
+        "C++",
+        "Python",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "React JS",
+        "Node.js",
+        "Vite",
+      ],
+      "DevOps & Tools": [
+        "Git",
+        "VS Code",
+        "Docker",
+        "PostgreSQL",
+        "Linux",
+        "Windows",
+      ],
+      "IoT & Protocolli": [
+        "MQTT",
+        "AMQP",
+        "CoAP",
+        "HTTP",
+        "OPC-UA",
+        "Raspberry Pi",
+        "Node-RED",
+      ],
+      Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
+    };
+  }
 
   const categorized = {};
 
@@ -1210,7 +1333,7 @@ function renderWebSite(sites) {
             ? ""
             : `
         <div class="portfolio-tags">
-          ${generateRandomTags()}
+          ${generateProjectTags()}
         </div>`
         }
       </div>
@@ -1230,35 +1353,25 @@ function renderWebSite(sites) {
 }
 
 /**
- * Generate random tags for projects
+ * Generate tags for projects using the default project tags from categories.json
  */
-function generateRandomTags() {
-  const allTags = [
+function generateProjectTags() {
+  // Use default tags from categories.json if available
+  let defaultTags = [
     "HTML",
     "CSS",
     "JavaScript",
-    "React",
-    "Node.js",
     "Responsive",
-    "API",
     "Frontend",
     "UI/UX",
-    "Portfolio",
   ];
 
-  const numTags = Math.floor(Math.random() * 3) + 2; // 2-4 tags
-  const selectedTags = [];
-
-  while (selectedTags.length < numTags) {
-    const randomIndex = Math.floor(Math.random() * allTags.length);
-    const tag = allTags[randomIndex];
-
-    if (!selectedTags.includes(tag)) {
-      selectedTags.push(tag);
-    }
+  if (STATE.categoriesData && STATE.categoriesData.defaultProjectTags) {
+    defaultTags = STATE.categoriesData.defaultProjectTags;
   }
 
-  return selectedTags
+  // Always include all tags as requested
+  return defaultTags
     .map((tag) => `<span class="portfolio-tag">${tag}</span>`)
     .join("");
 }
