@@ -208,7 +208,7 @@
     },
     {
       "nome": "Mermaid",
-      "descrizione": "Utilizzo di Mermaid per generare diagrammi e grafici direttamente in Markdown e in HTM, utile per la visualizzazione di processi e architetture.",
+      "descrizione": "Utilizzo di Mermaid per generare diagrammi e grafici direttamente in Markdown e in HTML, utile per la visualizzazione di processi e architetture.",
       "immagine": "https://static.vecteezy.com/system/resources/previews/003/329/709/original/mermaid-logo-icon-design-illustration-vector.jpg",
       "link": "https://mermaid-js.github.io/"
     },
