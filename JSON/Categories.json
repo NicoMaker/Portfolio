@@ -27,7 +27,10 @@
       "HTTP",
       "OPC-UA",
       "Raspberry Pi",
-      "Node-RED"
+      "Node-RED",
+      "Arduino",
+      "Microsoft Azure",
+      "Amazon Web Services (AWS)"
     ],
     "Visualizzazione": ["Mermaid", "Chart.js", "MathJax"]
   },

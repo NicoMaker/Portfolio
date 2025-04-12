@@ -283,6 +283,24 @@
       "descrizione": "Conoscenza di base di OPC-UA (Open Platform Communications Unified Architecture), un protocollo di comunicazione industriale per lo scambio di dati affidabile e sicuro tra dispositivi IoT e sistemi SCADA/MES.",
       "immagine": "https://th.bing.com/th/id/R.569ac46ea75aa14617ccf61362d6c186?rik=QQUMDccSOTwGgg&riu=http%3a%2f%2fwww.ascolab.com%2fimages%2fstories%2fascolab%2fpic%2fpng%2fopcualogo.png&ehk=RlFAFFANbZK%2fjbcahEz9IErkMHESOJ69luiNIjayvqw%3d&risl=&pid=ImgRaw&r=0",
       "link": "https://th.bing.com/th/id/R.d3c16f1a812e0c8d0ca3d5cc8bf33c1f?rik=PR9EkSuLUiaXOA&pid=ImgRaw&r=0"
+    },
+    {
+      "nome": "Arduino",
+      "descrizione": "Esperienza nell’utilizzo di Arduino per la prototipazione elettronica, inclusa la programmazione dei microcontrollori e l’interazione con sensori, attuatori e moduli di comunicazione.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/8/87/Arduino_Logo.svg",
+      "link": "https://www.arduino.cc/"
+    },
+    {
+      "nome": "Microsoft Azure",
+      "descrizione": "Conoscenze introduttive su Microsoft Azure, piattaforma cloud di Microsoft per lo sviluppo, la gestione e la distribuzione di applicazioni tramite una rete globale di data center.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Microsoft_Azure_Logo.svg",
+      "link": "https://azure.microsoft.com/"
+    },
+    {
+      "nome": "Amazon Web Services (AWS)",
+      "descrizione": "Conoscenza base di AWS, la piattaforma cloud di Amazon, per la gestione di risorse informatiche scalabili, come server virtuali, database, storage e strumenti di machine learning.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+      "link": "https://aws.amazon.com/"
     }
   ],
   "sites": [
