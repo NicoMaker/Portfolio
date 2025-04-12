@@ -1132,34 +1132,60 @@ function generateFallbackData() {
 
 /**
  * Render istruzione section
- */
-function renderIstruzione(istruzione) {
+ */function renderIstruzione(istruzione) {
   if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
-    console.warn("Curriculum.js: Invalid istruzione data or container not found")
-    return
+    console.warn("Curriculum.js: Invalid istruzione data or container not found");
+    return;
   }
 
-  DOM.sections.istruzione.innerHTML = ""
+  DOM.sections.istruzione.innerHTML = "";
 
   istruzione.forEach((item, index) => {
-    const card = document.createElement("div")
-    card.className = "card istruzione-card"
-    card.setAttribute("data-aos", "fade-up")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+    const card = document.createElement("div");
+    card.className = "card istruzione-card";
+    card.setAttribute("data-aos", "fade-up");
+    card.setAttribute("data-aos-delay", (index * 100).toString());
 
-    // Handle potential missing logo
-    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64"
+    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64";
+
+    // Genera lista competenze se presenti
+    let competenzeHtml = "";
+    if (Array.isArray(item.competenze)) {
+      competenzeHtml = `
+        <ul class="competenze">
+          ${item.competenze.map(comp => `<li>${comp}</li>`).join("")}
+        </ul>
+      `;
+    } else if (item.descrizione) {
+      competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`;
+    }
+
+    // Aggiunta bottone per scaricare il diploma
+    const downloadButton = item.diploma
+      ? `<a href="${item.diploma}" class="go-live-btn" download>
+          <span>Scarica diploma</span>
+          <i class='bx bx-download'></i>
+        </a>`
+      : "";
+
+    // Bottone per il sito dell’istituto
+    const siteButton = item.sito
+      ? `<button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')">
+          <span>Visita il sito</span>
+          <i class='bx bx-link-external'></i>
+        </button>`
+      : "";
 
     card.innerHTML = `
       <div class="istruzione-header">
         <div class="istituto-logo">
-          <img class="azienda" src="${logoSrc}" alt="Logo ${
-            item.istituto
-          }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+          <img class="azienda" src="${logoSrc}" alt="Logo ${item.istituto}" 
+               onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
         </div>
         <div class="istituto-info">
           <h4>${item.titolo || "Titolo non specificato"}</h4>
           <div>${item.istituto || "Istituto non specificato"}</div>
+          <div class="livello-eqf">${item.livello || ""}</div>
         </div>
       </div>
       <div class="istruzione-period">
@@ -1170,18 +1196,13 @@ function renderIstruzione(istruzione) {
         <i class='bx bx-map'></i>
         <span>${item.luogo || "Luogo non specificato"}</span>
       </div>
-      ${
-        item.sito
-          ? `
-        <button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')">
-          <span>Visita il sito</span>
-          <i class='bx bx-link-external'></i>
-        </button>
-      `
-          : ""
-      }
-    `
+      ${competenzeHtml}
+      <div class="istruzione-buttons">
+        ${siteButton}
+        ${downloadButton}
+      </div>
+    `;
 
-    DOM.sections.istruzione.appendChild(card)
-  })
+    DOM.sections.istruzione.appendChild(card);
+  });
 }
