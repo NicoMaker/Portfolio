@@ -1,4 +1,51 @@
-var VanillaTilt = VanillaTilt || {};
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("Curriculum.js: Initializing...")
+
+  // Check if we're on mobile
+  checkMobileState()
+
+  // Add resize listener for responsive adjustments
+  window.addEventListener("resize", handleResize)
+
+  // Initialize the section structure first
+  initializeSections()
+
+  // Add mobile-specific styles
+  if (STATE.isMobile) {
+    applyMobileStyles()
+  }
+
+  // Show loading state
+  showLoading(true)
+
+  try {
+    // Load categories data first
+    await loadCategoriesData()
+
+    // Then load curriculum data
+    await loadCurriculumData()
+
+    // Render all sections with the loaded data
+    renderAllSections()
+
+    // Open the default section
+    setTimeout(() => {
+      const sections = document.querySelectorAll("#curriculum .section h3")
+      if (sections.length > CONFIG.defaultOpenSection) {
+        sections[CONFIG.defaultOpenSection].click()
+      }
+    }, 300)
+
+    // Add animation to cards
+    animateCards()
+
+    // Hide loading state
+    showLoading(false)
+  } catch (error) {
+    console.error("Curriculum.js: Error during initialization:", error)
+    showError("Si è verificato un errore durante l'inizializzazione: " + error.message)
+  }
+})
 
 // Configuration
 const CONFIG = {
@@ -13,7 +60,7 @@ const CONFIG = {
   mobileBreakpoint: 768,
   siteImageMaxHeight: 120, // Smaller site images for better visibility
   removeScrollableContainers: true, // Remove scrollable containers for better UX
-};
+}
 
 // State management
 const STATE = {
@@ -25,91 +72,47 @@ const STATE = {
   hasError: false,
   errorMessage: "",
   isMobile: window.innerWidth <= CONFIG.mobileBreakpoint,
-};
+}
 
 // DOM Elements cache
-const DOM = {};
-
-// Initialize the application when the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", async () => {
-  console.log("Curriculum.js: Initializing...");
-
-  // Check if we're on mobile
-  checkMobileState();
-
-  // Add resize listener for responsive adjustments
-  window.addEventListener("resize", handleResize);
-
-  // Initialize the section structure first
-  initializeSections();
-
-  // Add mobile-specific styles
-  if (STATE.isMobile) {
-    applyMobileStyles();
-  }
-
-  // Show loading state
-  showLoading(true);
-
-  try {
-    // Load categories data first
-    await loadCategoriesData();
-
-    // Then load curriculum data
-    await loadCurriculumData();
-
-    // Render all sections with the loaded data
-    renderAllSections();
-
-    // Open the default section
-    setTimeout(() => {
-      const sections = document.querySelectorAll("#curriculum .section h3");
-      if (sections.length > CONFIG.defaultOpenSection) {
-        sections[CONFIG.defaultOpenSection].click();
-      }
-    }, 300);
-
-    // Add animation to cards
-    animateCards();
-
-    // Hide loading state
-    showLoading(false);
-  } catch (error) {
-    console.error("Curriculum.js: Error during initialization:", error);
-    showError(
-      "Si è verificato un errore durante l'inizializzazione: " + error.message
-    );
-  }
-});
+const DOM = {}
 
 /**
  * Check if we're on mobile and update state
  */
 function checkMobileState() {
-  STATE.isMobile = window.innerWidth <= CONFIG.mobileBreakpoint;
-  console.log(
-    `Curriculum.js: Device detected as ${STATE.isMobile ? "mobile" : "desktop"}`
-  );
+  STATE.isMobile = window.innerWidth <= CONFIG.mobileBreakpoint
+  console.log(`Curriculum.js: Device detected as ${STATE.isMobile ? "mobile" : "desktop"}`)
 }
 
 /**
  * Handle window resize events
  */
 function handleResize() {
-  const wasMobile = STATE.isMobile;
-  checkMobileState();
+  const wasMobile = STATE.isMobile
+  checkMobileState()
 
   // If we crossed the mobile breakpoint, apply or remove mobile styles
   if (wasMobile !== STATE.isMobile) {
     if (STATE.isMobile) {
-      applyMobileStyles();
+      applyMobileStyles()
     } else {
-      removeMobileStyles();
+      removeMobileStyles()
     }
 
     // Re-render sections that need responsive adjustments
     if (STATE.curriculumData) {
-      renderWebSite(STATE.curriculumData.sites);
+      renderWebSite(STATE.curriculumData.sites)
+
+      // Re-render competenze section for better mobile experience
+      if (STATE.categorizedSkills) {
+        renderCompetenze(STATE.curriculumData.competenze)
+      }
+
+      // Re-render esperienze section for better mobile experience
+      if (STATE.curriculumData.esperienze) {
+        renderEsperienze(STATE.curriculumData.esperienze)
+      }
     }
   }
 }
@@ -119,21 +122,33 @@ function handleResize() {
  */
 function applyMobileStyles() {
   // Center curriculum title on mobile
-  const sectionTitle = document.querySelector("#curriculum .section-title");
+  const sectionTitle = document.querySelector("#curriculum .section-title")
   if (sectionTitle) {
-    sectionTitle.style.textAlign = "center";
-    sectionTitle.style.width = "100%";
-    sectionTitle.style.left = "auto";
-    sectionTitle.style.transform = "none";
+    sectionTitle.style.textAlign = "center"
+    sectionTitle.style.width = "100%"
+    sectionTitle.style.left = "auto"
+    sectionTitle.style.transform = "none"
   }
 
   // Remove scrollable containers if configured
   if (CONFIG.removeScrollableContainers) {
     document.querySelectorAll(".card-container").forEach((container) => {
-      container.style.maxHeight = "none";
-      container.style.overflowY = "visible";
-    });
+      container.style.maxHeight = "none"
+      container.style.overflowY = "visible"
+    })
   }
+
+  // Adjust skill tabs for better mobile experience
+  document.querySelectorAll(".skill-tab").forEach((tab) => {
+    tab.style.width = STATE.isMobile ? "calc(50% - 0.4rem)" : ""
+    tab.style.justifyContent = STATE.isMobile ? "center" : ""
+  })
+
+  // Adjust role badges for better mobile experience
+  document.querySelectorAll(".role-badge").forEach((badge) => {
+    badge.style.margin = STATE.isMobile ? "0.3rem" : ""
+    badge.style.display = STATE.isMobile ? "inline-block" : ""
+  })
 }
 
 /**
@@ -141,31 +156,43 @@ function applyMobileStyles() {
  */
 function removeMobileStyles() {
   // Restore curriculum title styles
-  const sectionTitle = document.querySelector("#curriculum .section-title");
+  const sectionTitle = document.querySelector("#curriculum .section-title")
   if (sectionTitle) {
-    sectionTitle.style.textAlign = "";
-    sectionTitle.style.width = "";
-    sectionTitle.style.left = "";
-    sectionTitle.style.transform = "";
+    sectionTitle.style.textAlign = ""
+    sectionTitle.style.width = ""
+    sectionTitle.style.left = ""
+    sectionTitle.style.transform = ""
   }
 
   // Restore scrollable containers if they were removed
   if (CONFIG.removeScrollableContainers) {
     document.querySelectorAll(".card-container").forEach((container) => {
-      container.style.maxHeight = "";
-      container.style.overflowY = "";
-    });
+      container.style.maxHeight = ""
+      container.style.overflowY = ""
+    })
   }
+
+  // Reset skill tabs for desktop experience
+  document.querySelectorAll(".skill-tab").forEach((tab) => {
+    tab.style.width = ""
+    tab.style.justifyContent = ""
+  })
+
+  // Reset role badges for desktop experience
+  document.querySelectorAll(".role-badge").forEach((badge) => {
+    badge.style.margin = ""
+    badge.style.display = ""
+  })
 }
 
 /**
  * Initialize the section structure in the DOM
  */
 function initializeSections() {
-  const sectionContainer = document.getElementById("sectiion");
+  const sectionContainer = document.getElementById("sectiion")
   if (!sectionContainer) {
-    console.error("Curriculum.js: Section container 'sectiion' not found!");
-    return;
+    console.error("Curriculum.js: Section container 'sectiion' not found!")
+    return
   }
 
   sectionContainer.innerHTML = `
@@ -204,7 +231,7 @@ function initializeSections() {
       <div class="card-container">
       </div>
     </div>
-  `;
+  `
 
   // Cache DOM elements for later use
   DOM.sections = {
@@ -214,14 +241,162 @@ function initializeSections() {
     istruzione: document.querySelector("#istruzione .card-container"),
     competenze: document.querySelector("#competenze .card-container"),
     sites: document.querySelector("#sites .card-container"),
-  };
+  }
 
   // Add click event listeners to section headers
-  document
-    .querySelectorAll("#curriculum .section h3")
-    .forEach((header, index) => {
-      header.addEventListener("click", () => toggleSection(index));
-    });
+  document.querySelectorAll("#curriculum .section h3").forEach((header, index) => {
+    header.addEventListener("click", () => toggleSection(index))
+  })
+}
+
+/**
+ * Toggle section visibility
+ */
+function toggleSection(sectionIndex) {
+  const sections = document.querySelectorAll("#curriculum .section")
+  const section = sections[sectionIndex]
+  const cardContainer = section.querySelector(".card-container")
+  const toggleIcon = section.querySelector(".toggle-icon")
+
+  // Close all sections first
+  document.querySelectorAll("#curriculum .section .card-container").forEach((container) => {
+    container.style.display = "none"
+  })
+
+  document.querySelectorAll("#curriculum .section .toggle-icon").forEach((icon) => {
+    icon.textContent = "▶"
+  })
+
+  // Toggle the selected section
+  if (STATE.expandedSections[sectionIndex]) {
+    // Close section
+    cardContainer.style.display = "none"
+    toggleIcon.textContent = "▶"
+    STATE.expandedSections[sectionIndex] = false
+  } else {
+    // Open section with animation
+    cardContainer.style.display = "flex"
+    cardContainer.style.opacity = "0"
+    cardContainer.style.transform = "translateY(20px)"
+
+    setTimeout(() => {
+      cardContainer.style.opacity = "1"
+      cardContainer.style.transform = "translateY(0)"
+    }, 10)
+
+    toggleIcon.textContent = "▼"
+    STATE.expandedSections[sectionIndex] = true
+
+    // Animate cards inside the section
+    animateCardsInSection(cardContainer)
+
+    // Initialize skill animations if this is the competenze section
+    if (sectionIndex === 4) {
+      setTimeout(() => {
+        initializeSkillAnimations()
+      }, 300)
+    }
+  }
+}
+
+/**
+ * Animate cards in a section
+ */
+function animateCardsInSection(container) {
+  if (!container) return
+
+  const cards = container.querySelectorAll(".card")
+  cards.forEach((card, index) => {
+    card.style.opacity = "0"
+    card.style.transform = "translateY(50px)"
+
+    setTimeout(
+      () => {
+        card.style.opacity = "1"
+        card.style.transform = "translateY(0)"
+      },
+      100 + index * 50,
+    )
+  })
+}
+
+/**
+ * Animate all cards
+ */
+function animateCards() {
+  const cards = document.querySelectorAll(".card")
+  cards.forEach((card, index) => {
+    card.style.setProperty("--i", (index % 5) + 1)
+    card.classList.add("animated")
+  })
+}
+
+/**
+ * Initialize skill progress bar animations
+ */
+function initializeSkillAnimations() {
+  const progressBars = document.querySelectorAll(".progress-bar")
+  if (!progressBars || progressBars.length === 0) {
+    console.log("Curriculum.js: No progress bars found to animate")
+    return
+  }
+
+  console.log(`Curriculum.js: Initializing animations for ${progressBars.length} progress bars`)
+
+  progressBars.forEach((bar) => {
+    const progress = bar.getAttribute("data-progress") || "75"
+    const fill = bar.querySelector(".progress-fill")
+
+    if (fill) {
+      // Reset first
+      fill.style.width = "0%"
+
+      // Animate after a short delay
+      setTimeout(() => {
+        fill.style.width = `${progress}%`
+      }, 100)
+    }
+  })
+}
+
+/**
+ * Show loading state
+ */
+function showLoading(isLoading) {
+  STATE.isLoading = isLoading
+
+  // You could add a loading spinner here if needed
+  if (isLoading) {
+    console.log("Curriculum.js: Loading...")
+  } else {
+    console.log("Curriculum.js: Loading complete")
+  }
+}
+
+/**
+ * Show error message
+ */
+function showError(message) {
+  STATE.hasError = true
+  STATE.errorMessage = message
+
+  const curriculumSection = document.getElementById("curriculum")
+  if (!curriculumSection) return
+
+  const container = curriculumSection.querySelector(".container")
+  if (!container) return
+
+  const errorDiv = document.createElement("div")
+  errorDiv.className = "error-message"
+  errorDiv.innerHTML = `
+    <i class='bx bx-error-circle'></i>
+    <p>${message}</p>
+    <button onclick="location.reload()" class="reload-btn">
+      <i class='bx bx-refresh'></i> Ricarica
+    </button>
+  `
+
+  container.appendChild(errorDiv)
 }
 
 /**
@@ -229,110 +404,40 @@ function initializeSections() {
  */
 async function loadCategoriesData() {
   try {
-    console.log(
-      `Curriculum.js: Attempting to load categories from ${CONFIG.categoriesJsonPath}`
-    );
-    const response = await fetch(CONFIG.categoriesJsonPath);
+    console.log(`Curriculum.js: Attempting to load categories from ${CONFIG.categoriesJsonPath}`)
+    const response = await fetch(CONFIG.categoriesJsonPath)
 
     if (!response.ok) {
-      console.warn(
-        `Curriculum.js: Failed to load categories from ${CONFIG.categoriesJsonPath}`
-      );
+      console.warn(`Curriculum.js: Failed to load categories from ${CONFIG.categoriesJsonPath}`)
       // Use hardcoded categories as fallback
       STATE.categoriesData = {
         skillCategories: {
-          Programmazione: [
-            "C",
-            "C#",
-            "C++",
-            "Python",
-            "JavaScript",
-            "HTML5",
-            "CSS3",
-            "React JS",
-            "Node.js",
-            "Vite",
-          ],
-          "DevOps & Tools": [
-            "Git",
-            "VS Code",
-            "Docker",
-            "PostgreSQL",
-            "Linux",
-            "Windows",
-          ],
-          "IoT & Protocolli": [
-            "MQTT",
-            "AMQP",
-            "CoAP",
-            "HTTP",
-            "OPC-UA",
-            "Raspberry Pi",
-            "Node-RED",
-          ],
+          Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
+          "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
+          "IoT & Protocolli": ["MQTT", "AMQP", "CoAP", "HTTP", "OPC-UA", "Raspberry Pi", "Node-RED"],
           Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
         },
-        defaultProjectTags: [
-          "HTML",
-          "CSS",
-          "JavaScript",
-          "Responsive",
-          "Frontend",
-          "UI/UX",
-        ],
-      };
+        defaultProjectTags: ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"],
+      }
     } else {
-      STATE.categoriesData = await response.json();
-      console.log("Curriculum.js: Categories data loaded successfully");
+      STATE.categoriesData = await response.json()
+      console.log("Curriculum.js: Categories data loaded successfully")
     }
 
-    return STATE.categoriesData;
+    return STATE.categoriesData
   } catch (error) {
-    console.error("Curriculum.js: Error loading categories data:", error);
+    console.error("Curriculum.js: Error loading categories data:", error)
 
     // Use hardcoded categories as fallback
     STATE.categoriesData = {
       skillCategories: {
-        Programmazione: [
-          "C",
-          "C#",
-          "C++",
-          "Python",
-          "JavaScript",
-          "HTML5",
-          "CSS3",
-          "React JS",
-          "Node.js",
-          "Vite",
-        ],
-        "DevOps & Tools": [
-          "Git",
-          "VS Code",
-          "Docker",
-          "PostgreSQL",
-          "Linux",
-          "Windows",
-        ],
-        "IoT & Protocolli": [
-          "MQTT",
-          "AMQP",
-          "CoAP",
-          "HTTP",
-          "OPC-UA",
-          "Raspberry Pi",
-          "Node-RED",
-        ],
+        Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
+        "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
+        "IoT & Protocolli": ["MQTT", "AMQP", "CoAP", "HTTP", "OPC-UA", "Raspberry Pi", "Node-RED"],
         Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
       },
-      defaultProjectTags: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Responsive",
-        "Frontend",
-        "UI/UX",
-      ],
-    };
+      defaultProjectTags: ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"],
+    }
   }
 }
 
@@ -341,59 +446,619 @@ async function loadCategoriesData() {
  */
 async function loadCurriculumData() {
   try {
-    console.log(
-      `Curriculum.js: Attempting to load data from ${CONFIG.jsonPath}`
-    );
-    const response = await fetch(CONFIG.jsonPath);
+    console.log(`Curriculum.js: Attempting to load data from ${CONFIG.jsonPath}`)
+    const response = await fetch(CONFIG.jsonPath)
 
     if (!response.ok) {
-      console.warn(
-        `Curriculum.js: Failed to load from ${CONFIG.jsonPath}, trying fallback...`
-      );
+      console.warn(`Curriculum.js: Failed to load from ${CONFIG.jsonPath}, trying fallback...`)
       // Try fallback path
-      const fallbackResponse = await fetch(CONFIG.fallbackJsonPath);
+      const fallbackResponse = await fetch(CONFIG.fallbackJsonPath)
 
       if (!fallbackResponse.ok) {
-        throw new Error(
-          `Failed to load data: ${response.status} ${response.statusText}`
-        );
+        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`)
       }
 
-      STATE.curriculumData = await fallbackResponse.json();
-      console.log("Curriculum.js: Data loaded from fallback path successfully");
+      STATE.curriculumData = await fallbackResponse.json()
+      console.log("Curriculum.js: Data loaded from fallback path successfully")
     } else {
-      STATE.curriculumData = await response.json();
-      console.log("Curriculum.js: Data loaded successfully");
+      STATE.curriculumData = await response.json()
+      console.log("Curriculum.js: Data loaded successfully")
     }
 
     // Categorize skills based on JSON data
     if (STATE.curriculumData.competenze) {
-      STATE.categorizedSkills = categorizeSkillsFromJson(
-        STATE.curriculumData.competenze
-      );
+      STATE.categorizedSkills = categorizeSkillsFromJson(STATE.curriculumData.competenze)
     }
 
-    return STATE.curriculumData;
+    return STATE.curriculumData
   } catch (error) {
-    console.error("Curriculum.js: Error loading data:", error);
-    STATE.hasError = true;
-    STATE.errorMessage = error.message;
+    console.error("Curriculum.js: Error loading data:", error)
+    STATE.hasError = true
+    STATE.errorMessage = error.message
 
     // Load fallback data
-    STATE.curriculumData = generateFallbackData();
-    STATE.categorizedSkills = categorizeSkillsFromJson(
-      STATE.curriculumData.competenze
-    );
+    STATE.curriculumData = generateFallbackData()
+    STATE.categorizedSkills = categorizeSkillsFromJson(STATE.curriculumData.competenze)
 
-    throw error;
+    throw error
   }
+}
+
+/**
+ * Render all sections with the loaded data
+ */
+function renderAllSections() {
+  if (!STATE.curriculumData) {
+    console.error("Curriculum.js: No data available to render")
+    return
+  }
+
+  console.log("Curriculum.js: Rendering all sections")
+
+  // Render each section
+  renderAttestati(STATE.curriculumData.attestati)
+  renderLinguistiche(STATE.curriculumData.linguistiche)
+  renderEsperienze(STATE.curriculumData.esperienze)
+  renderIstruzione(STATE.curriculumData.istruzione)
+  renderCompetenze(STATE.curriculumData.competenze)
+  renderWebSite(STATE.curriculumData.sites)
+
+  // Make sections visible with animation
+  document.querySelectorAll("#curriculum .section").forEach((section, index) => {
+    setTimeout(() => {
+      section.style.opacity = "1"
+      section.style.transform = "translateY(0)"
+    }, 100 * index)
+  })
+}
+
+/**
+ * Render attestati section
+ */
+function renderAttestati(attestati) {
+  if (!attestati || !Array.isArray(attestati) || !DOM.sections.attestati) {
+    console.warn("Curriculum.js: Invalid attestati data or container not found")
+    return
+  }
+
+  DOM.sections.attestati.innerHTML = ""
+
+  attestati.forEach((attestato, index) => {
+    const card = document.createElement("div")
+    card.className = "card"
+    card.setAttribute("data-aos", "fade-up")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
+
+    let html = `
+      <div class="card-header">
+        <div class="certificate-icon">
+          <i class='bx bx-certification'></i>
+        </div>
+        <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
+      </div>
+      <div class="card-body">
+        <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
+      </div>
+    `
+
+    // Add certificate download link if available
+    if (attestato.certificato) {
+      html += `
+        <div class="card-footer">
+          <a href="${attestato.certificato}" class="testo" download>
+            <span>Scarica Certificato</span>
+            <i class='bx bx-download'></i>
+          </a>
+        </div>
+      `
+    }
+
+    card.innerHTML = html
+    DOM.sections.attestati.appendChild(card)
+  })
+}
+
+/**
+ * Render competenze linguistiche section
+ */
+function renderLinguistiche(linguistiche) {
+  if (!linguistiche || !Array.isArray(linguistiche) || !DOM.sections.linguistiche) {
+    console.warn("Curriculum.js: Invalid linguistiche data or container not found")
+    return
+  }
+
+  DOM.sections.linguistiche.innerHTML = ""
+
+  linguistiche.forEach((lingua, index) => {
+    const card = document.createElement("div")
+    card.className = "card language-card"
+    card.setAttribute("data-aos", "zoom-in")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
+
+    // Create visual level indicator
+    const levelIndicator = createLevelIndicator(lingua.livello)
+
+    // Handle potential missing image
+    const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
+
+    card.innerHTML = `
+      <div class="language-flag">
+        <img src="${imgSrc}" alt="Bandiera ${
+          lingua.lingua
+        }" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
+      </div>
+      <h4>${lingua.lingua || "Lingua non specificata"}</h4>
+      <div class="language-level">
+        <strong>Livello:</strong> ${lingua.livello || "Non specificato"}
+      </div>
+      <div class="level-indicator">
+        ${levelIndicator}
+      </div>
+      ${
+        lingua.link
+          ? `
+        <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">
+          <span>Impara la lingua</span>
+          <i class='bx bx-book-open'></i>
+        </button>
+      `
+          : ""
+      }
+    `
+
+    DOM.sections.linguistiche.appendChild(card)
+  })
+}
+
+/**
+ * Create visual language level indicator
+ */
+function createLevelIndicator(level) {
+  const levels = {
+    A1: 1,
+    A2: 2,
+    B1: 3,
+    B2: 4,
+    C1: 5,
+    C2: 6,
+    Madrelingua: 6,
+  }
+
+  const levelValue = levels[level] || 0
+  let indicators = ""
+
+  for (let i = 1; i <= 6; i++) {
+    const active = i <= levelValue ? "active" : ""
+    indicators += `<div class="level-dot ${active}" data-level="${i}"></div>`
+  }
+
+  return `
+    <div class="level-dots">
+      ${indicators}
+    </div>
+    <div class="level-labels">
+      <span>A1</span>
+      <span>A2</span>
+      <span>B1</span>
+      <span>B2</span>
+      <span>C1</span>
+      <span>C2</span>
+    </div>
+  `
+}
+
+/**
+ * Render esperienze lavorative section with improved layout
+ */
+function renderEsperienze(esperienze) {
+  if (!esperienze || !Array.isArray(esperienze) || !DOM.sections.esperienze) {
+    console.warn("Curriculum.js: Invalid esperienze data or container not found")
+    return
+  }
+
+  DOM.sections.esperienze.innerHTML = ""
+
+  // Use standard card container for better consistency with other sections
+  DOM.sections.esperienze.className = "card-container"
+
+  esperienze.forEach((esperienza, index) => {
+    const card = document.createElement("div")
+    card.className = "card experience-card"
+    card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left")
+    card.setAttribute("data-aos-delay", (index * 150).toString())
+
+    // Create activities list
+    const attivitaList = Array.isArray(esperienza.attivita)
+      ? esperienza.attivita.map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`).join("")
+      : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>"
+
+    // Handle potential missing logo
+    const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64"
+
+    card.innerHTML = `
+      <div class="experience-header">
+        <div class="company-logo">
+          <img class="azienda" src="${logoSrc}" alt="Logo ${
+            esperienza.azienda
+          }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+        </div>
+        <div class="company-info">
+          <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
+          <div class="role-badge">${esperienza.ruolo || "Ruolo non specificato"}</div>
+        </div>
+      </div>
+      <div class="experience-period">
+        <i class='bx bx-calendar'></i>
+        <span>${esperienza.periodo || "Periodo non specificato"}</span>
+      </div>
+      <div class="experience-location">
+        <i class='bx bx-map'></i>
+        <span>${esperienza.luogo || "Luogo non specificato"}</span>
+      </div>
+      <div class="experience-activities">
+        <h5>Attività svolte:</h5>
+        <ul class="activities-list">
+          ${attivitaList}
+        </ul>
+      </div>
+      ${
+        esperienza.sito
+          ? `
+        <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">
+          <span>Visita il sito</span>
+          <i class='bx bx-link-external'></i>
+        </button>
+      `
+          : ""
+      }
+    `
+
+    DOM.sections.esperienze.appendChild(card)
+  })
+}
+
+/**
+ * Render competenze section with improved mobile experience
+ */
+function renderCompetenze(competenze) {
+  if (!competenze || !Array.isArray(competenze) || !DOM.sections.competenze) {
+    console.warn("Curriculum.js: Invalid competenze data or container not found")
+    return
+  }
+
+  DOM.sections.competenze.innerHTML = ""
+
+  // Create tabs for categories
+  const tabsContainer = document.createElement("div")
+  tabsContainer.className = "skills-tabs"
+
+  // Create container for skill cards
+  const skillsContainer = document.createElement("div")
+  skillsContainer.className = "skills-container"
+
+  // Add tabs for each category
+  Object.keys(STATE.categorizedSkills).forEach((category, index) => {
+    const tab = document.createElement("div")
+    tab.className = `skill-tab ${index === 0 ? "active" : ""}`
+    tab.setAttribute("data-category", category)
+
+    // Apply mobile-specific styles if needed
+    if (STATE.isMobile) {
+      tab.style.width = "calc(50% - 0.4rem)"
+      tab.style.justifyContent = "center"
+    }
+
+    tab.innerHTML = `
+      <i class='bx ${getCategoryIcon(category)}'></i>
+      <span>${category}</span>
+    `
+
+    tab.addEventListener("click", () => {
+      // Update active tab
+      document.querySelectorAll(".skill-tab").forEach((t) => {
+        t.classList.remove("active")
+      })
+      tab.classList.add("active")
+
+      // Update skills display with animation
+      skillsContainer.classList.add("fade-out")
+
+      setTimeout(() => {
+        renderSkillCategory(STATE.categorizedSkills[category], skillsContainer)
+        skillsContainer.classList.remove("fade-out")
+
+        // Initialize progress bar animations
+        setTimeout(() => {
+          initializeSkillAnimations()
+        }, 100)
+      }, 300)
+    })
+
+    tabsContainer.appendChild(tab)
+  })
+
+  DOM.sections.competenze.appendChild(tabsContainer)
+  DOM.sections.competenze.appendChild(skillsContainer)
+
+  // Show first category by default
+  const firstCategory = Object.keys(STATE.categorizedSkills)[0]
+  if (firstCategory) {
+    renderSkillCategory(STATE.categorizedSkills[firstCategory], skillsContainer)
+  }
+}
+
+/**
+ * Render skills for a specific category with improved layout
+ */
+function renderSkillCategory(skills, container) {
+  if (!container) return
+
+  container.innerHTML = ""
+
+  if (!skills || !Array.isArray(skills) || skills.length === 0) {
+    container.innerHTML = `
+      <div class="empty-category">
+        <i class='bx bx-info-circle'></i>
+        <p>Nessuna competenza in questa categoria.</p>
+      </div>
+    `
+    return
+  }
+
+  skills.forEach((skill, index) => {
+    const card = document.createElement("div")
+    card.className = "card skill-card"
+    card.setAttribute("data-aos", "zoom-in")
+    card.setAttribute("data-aos-delay", (index * 50).toString())
+
+    // Generate random color for progress bar
+    const hue = Math.floor(Math.random() * 360)
+    const progressColor = `hsl(${hue}, 70%, 60%)`
+
+    // Handle potential missing image
+    const imgSrc = skill.immagine || "/placeholder.svg?height=80&width=80"
+
+    card.innerHTML = `
+      <div class="skill-icon" style="background-color: ${progressColor}20;">
+        <img src="${imgSrc}" alt="${
+          skill.nome
+        }" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;" />
+      </div>
+      <h4>${skill.nome || "Competenza non specificata"}</h4>
+      <div class="skill-progress">
+        <div class="progress-bar" data-progress="85" style="--progress-color: ${progressColor};">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+      <p>${skill.descrizione || "Descrizione non disponibile"}</p>
+      ${
+        skill.link
+          ? `
+        <button class="go-live-btn" onclick="window.open('${skill.link}', '_blank')">
+          <span>Scopri di più</span>
+          <i class='bx bx-link-external'></i>
+        </button>
+      `
+          : ""
+      }
+    `
+
+    container.appendChild(card)
+  })
+}
+
+/**
+ * Render siti web section with mobile optimizations
+ */
+function renderWebSite(sites) {
+  if (!sites || !Array.isArray(sites) || !DOM.sections.sites) {
+    console.warn("Curriculum.js: Invalid sites data or container not found")
+    return
+  }
+
+  DOM.sections.sites.innerHTML = ""
+
+  // Use different layout for mobile vs desktop
+  if (STATE.isMobile) {
+    DOM.sections.sites.className = "card-container mobile-sites-grid"
+  } else {
+    DOM.sections.sites.className = "card-container portfolio-grid"
+  }
+
+  sites.forEach((site, index) => {
+    const card = document.createElement("div")
+    card.className = "card portfolio-card"
+    card.setAttribute("data-aos", "fade-up")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
+
+    // Handle potential missing image
+    const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300"
+
+    // Determine image size based on device
+    const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200
+
+    const html = `
+      <div class="portfolio-image" style="height: ${imageHeight}px;">
+        <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
+             style="max-height: ${imageHeight}px;" 
+             onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${
+               imageHeight * 1.5
+             }'; this.onerror=null;" />
+        <div class="portfolio-overlay">
+          <div class="portfolio-buttons">
+            ${
+              site.link
+                ? `
+              <a href="${site.link}" target="_blank" class="portfolio-btn view-btn">
+                <i class='bx bx-link-external'></i>
+                <span>Visita</span>
+              </a>
+            `
+                : ""
+            }
+            ${
+              site.codice
+                ? `
+              <a href="${site.codice}" target="_blank" class="portfolio-btn code-btn">
+                <i class='bx bx-code-alt'></i>
+                <span>Codice</span>
+              </a>
+            `
+                : ""
+            }
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-info">
+        <h4>${site.nome || "Progetto non specificato"}</h4>
+        <div class="portfolio-tags">
+          ${generateProjectTags()}
+        </div>
+      </div>
+    `
+
+    card.innerHTML = html
+    DOM.sections.sites.appendChild(card)
+  })
+}
+
+/**
+ * Generate tags for projects using the default project tags from categories.json
+ */
+function generateProjectTags() {
+  // Use default tags from categories.json if available
+  let defaultTags = ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"]
+
+  if (STATE.categoriesData && STATE.categoriesData.defaultProjectTags) {
+    defaultTags = STATE.categoriesData.defaultProjectTags
+  }
+
+  // Always include all tags as requested
+  return defaultTags.map((tag) => `<span class="portfolio-tag">${tag}</span>`).join("")
+}
+
+/**
+ * Get icon for skill category
+ */
+function getCategoryIcon(category) {
+  const icons = {
+    Programmazione: "bx-code-alt",
+    "DevOps & Tools": "bx-wrench",
+    "IoT & Protocolli": "bx-network-chart",
+    Visualizzazione: "bx-bar-chart-alt-2",
+    Frontend: "bx-layout",
+    Backend: "bx-server",
+    Database: "bx-data",
+    Mobile: "bx-mobile-alt",
+    Cloud: "bx-cloud",
+    Security: "bx-shield-quarter",
+    Altro: "bx-category",
+  }
+
+  return icons[category] || "bx-category"
+}
+
+/**
+ * Categorize skills directly from JSON data
+ * This function prioritizes the 'categoria' property in the JSON
+ */
+function categorizeSkillsFromJson(competenze) {
+  if (!competenze || !Array.isArray(competenze)) {
+    return {}
+  }
+
+  // First, collect all unique categories from the JSON data
+  const uniqueCategories = new Set()
+  competenze.forEach((skill) => {
+    if (skill.categoria) {
+      uniqueCategories.add(skill.categoria)
+    }
+  })
+
+  // If no categories found in JSON, use default categorization
+  if (uniqueCategories.size === 0) {
+    return categorizeSkillsByName(competenze)
+  }
+
+  // Create categorized object based on JSON categories
+  const categorized = {}
+
+  // First, add skills with explicit categories
+  uniqueCategories.forEach((category) => {
+    categorized[category] = competenze.filter((skill) => skill.categoria === category)
+  })
+
+  // Then add any uncategorized skills to "Altro"
+  const categorizedSkillIds = Object.values(categorized)
+    .flat()
+    .map((skill) => skill.nome)
+
+  const uncategorizedSkills = competenze.filter(
+    (skill) => !skill.categoria && !categorizedSkillIds.includes(skill.nome),
+  )
+
+  if (uncategorizedSkills.length > 0) {
+    // Try to categorize remaining skills by name
+    const remainingCategorized = categorizeSkillsByName(uncategorizedSkills)
+
+    // Merge with existing categories
+    Object.keys(remainingCategorized).forEach((category) => {
+      if (categorized[category]) {
+        categorized[category] = [...categorized[category], ...remainingCategorized[category]]
+      } else {
+        categorized[category] = remainingCategorized[category]
+      }
+    })
+  }
+
+  return categorized
+}
+
+/**
+ * Fallback categorization by skill name
+ */
+function categorizeSkillsByName(competenze) {
+  // Use categories from the loaded JSON if available
+  let categories = {}
+
+  if (STATE.categoriesData && STATE.categoriesData.skillCategories) {
+    categories = STATE.categoriesData.skillCategories
+  } else {
+    // Fallback to hardcoded categories
+    categories = {
+      Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
+      "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
+      "IoT & Protocolli": ["MQTT", "AMQP", "CoAP", "HTTP", "OPC-UA", "Raspberry Pi", "Node-RED"],
+      Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
+    }
+  }
+
+  const categorized = {}
+
+  // Categorize based on predefined categories
+  Object.keys(categories).forEach((category) => {
+    categorized[category] = competenze.filter((skill) => categories[category].includes(skill.nome))
+  })
+
+  // Add "Altro" category for uncategorized skills
+  const categorizedSkillNames = Object.values(categorized)
+    .flat()
+    .map((skill) => skill.nome)
+
+  const otherSkills = competenze.filter((skill) => !categorizedSkillNames.includes(skill.nome))
+
+  if (otherSkills.length > 0) {
+    categorized["Altro"] = otherSkills
+  }
+
+  return categorized
 }
 
 /**
  * Generate fallback data in case of loading failure
  */
 function generateFallbackData() {
-  console.log("Curriculum.js: Generating fallback data");
+  console.log("Curriculum.js: Generating fallback data")
   return {
     attestati: [
       {
@@ -462,560 +1127,7 @@ function generateFallbackData() {
         codice: "#",
       },
     ],
-  };
-}
-
-/**
- * Render all sections with the loaded data
- */
-function renderAllSections() {
-  if (!STATE.curriculumData) {
-    console.error("Curriculum.js: No data available to render");
-    return;
   }
-
-  console.log("Curriculum.js: Rendering all sections");
-
-  // Render each section
-  renderAttestati(STATE.curriculumData.attestati);
-  renderLinguistiche(STATE.curriculumData.linguistiche);
-  renderEsperienze(STATE.curriculumData.esperienze);
-  renderIstruzione(STATE.curriculumData.istruzione);
-  renderCompetenze(STATE.curriculumData.competenze);
-  renderWebSite(STATE.curriculumData.sites);
-
-  // Make sections visible with animation
-  document
-    .querySelectorAll("#curriculum .section")
-    .forEach((section, index) => {
-      setTimeout(() => {
-        section.style.opacity = "1";
-        section.style.transform = "translateY(0)";
-      }, 100 * index);
-    });
-}
-
-/**
- * Toggle section visibility
- */
-function toggleSection(sectionIndex) {
-  const sections = document.querySelectorAll("#curriculum .section");
-  const section = sections[sectionIndex];
-  const cardContainer = section.querySelector(".card-container");
-  const toggleIcon = section.querySelector(".toggle-icon");
-
-  // Close all sections first
-  document
-    .querySelectorAll("#curriculum .section .card-container")
-    .forEach((container) => {
-      container.style.display = "none";
-    });
-
-  document
-    .querySelectorAll("#curriculum .section .toggle-icon")
-    .forEach((icon) => {
-      icon.textContent = "▶";
-    });
-
-  // Toggle the selected section
-  if (STATE.expandedSections[sectionIndex]) {
-    // Close section
-    cardContainer.style.display = "none";
-    toggleIcon.textContent = "▶";
-    STATE.expandedSections[sectionIndex] = false;
-  } else {
-    // Open section with animation
-    cardContainer.style.display = "flex";
-    cardContainer.style.opacity = "0";
-    cardContainer.style.transform = "translateY(20px)";
-
-    setTimeout(() => {
-      cardContainer.style.opacity = "1";
-      cardContainer.style.transform = "translateY(0)";
-    }, 10);
-
-    toggleIcon.textContent = "▼";
-    STATE.expandedSections[sectionIndex] = true;
-
-    // Animate cards inside the section
-    animateCardsInSection(cardContainer);
-
-    // Initialize skill animations if this is the competenze section
-    if (sectionIndex === 4) {
-      setTimeout(() => {
-        initializeSkillAnimations();
-      }, 300);
-    }
-  }
-}
-
-/**
- * Animate cards in a section
- */
-function animateCardsInSection(container) {
-  if (!container) return;
-
-  const cards = container.querySelectorAll(".card");
-  cards.forEach((card, index) => {
-    card.style.opacity = "0";
-    card.style.transform = "translateY(50px)";
-
-    setTimeout(() => {
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }, 100 + index * 50);
-  });
-}
-
-/**
- * Animate all cards
- */
-function animateCards() {
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card, index) => {
-    card.style.setProperty("--i", (index % 5) + 1);
-    card.classList.add("animated");
-  });
-}
-
-/**
- * Initialize skill progress bar animations
- */
-function initializeSkillAnimations() {
-  const progressBars = document.querySelectorAll(".progress-bar");
-  if (!progressBars || progressBars.length === 0) {
-    console.log("Curriculum.js: No progress bars found to animate");
-    return;
-  }
-
-  console.log(
-    `Curriculum.js: Initializing animations for ${progressBars.length} progress bars`
-  );
-
-  progressBars.forEach((bar) => {
-    const progress = bar.getAttribute("data-progress") || "75";
-    const fill = bar.querySelector(".progress-fill");
-
-    if (fill) {
-      // Reset first
-      fill.style.width = "0%";
-
-      // Animate after a short delay
-      setTimeout(() => {
-        fill.style.width = `${progress}%`;
-      }, 100);
-    }
-  });
-}
-
-/**
- * Show loading state
- */
-function showLoading(isLoading) {
-  STATE.isLoading = isLoading;
-
-  // You could add a loading spinner here if needed
-  if (isLoading) {
-    console.log("Curriculum.js: Loading...");
-  } else {
-    console.log("Curriculum.js: Loading complete");
-  }
-}
-
-/**
- * Show error message
- */
-function showError(message) {
-  STATE.hasError = true;
-  STATE.errorMessage = message;
-
-  const curriculumSection = document.getElementById("curriculum");
-  if (!curriculumSection) return;
-
-  const container = curriculumSection.querySelector(".container");
-  if (!container) return;
-
-  const errorDiv = document.createElement("div");
-  errorDiv.className = "error-message";
-  errorDiv.innerHTML = `
-    <i class='bx bx-error-circle'></i>
-    <p>${message}</p>
-    <button onclick="location.reload()" class="reload-btn">
-      <i class='bx bx-refresh'></i> Ricarica
-    </button>
-  `;
-
-  container.appendChild(errorDiv);
-}
-
-/**
- * Categorize skills directly from JSON data
- * This function prioritizes the 'categoria' property in the JSON
- */
-function categorizeSkillsFromJson(competenze) {
-  if (!competenze || !Array.isArray(competenze)) {
-    return {};
-  }
-
-  // First, collect all unique categories from the JSON data
-  const uniqueCategories = new Set();
-  competenze.forEach((skill) => {
-    if (skill.categoria) {
-      uniqueCategories.add(skill.categoria);
-    }
-  });
-
-  // If no categories found in JSON, use default categorization
-  if (uniqueCategories.size === 0) {
-    return categorizeSkillsByName(competenze);
-  }
-
-  // Create categorized object based on JSON categories
-  const categorized = {};
-
-  // First, add skills with explicit categories
-  uniqueCategories.forEach((category) => {
-    categorized[category] = competenze.filter(
-      (skill) => skill.categoria === category
-    );
-  });
-
-  // Then add any uncategorized skills to "Altro"
-  const categorizedSkillIds = Object.values(categorized)
-    .flat()
-    .map((skill) => skill.nome);
-
-  const uncategorizedSkills = competenze.filter(
-    (skill) => !skill.categoria && !categorizedSkillIds.includes(skill.nome)
-  );
-
-  if (uncategorizedSkills.length > 0) {
-    // Try to categorize remaining skills by name
-    const remainingCategorized = categorizeSkillsByName(uncategorizedSkills);
-
-    // Merge with existing categories
-    Object.keys(remainingCategorized).forEach((category) => {
-      if (categorized[category]) {
-        categorized[category] = [
-          ...categorized[category],
-          ...remainingCategorized[category],
-        ];
-      } else {
-        categorized[category] = remainingCategorized[category];
-      }
-    });
-  }
-
-  return categorized;
-}
-
-/**
- * Fallback categorization by skill name
- */
-function categorizeSkillsByName(competenze) {
-  // Use categories from the loaded JSON if available
-  let categories = {};
-
-  if (STATE.categoriesData && STATE.categoriesData.skillCategories) {
-    categories = STATE.categoriesData.skillCategories;
-  } else {
-    // Fallback to hardcoded categories
-    categories = {
-      Programmazione: [
-        "C",
-        "C#",
-        "C++",
-        "Python",
-        "JavaScript",
-        "HTML5",
-        "CSS3",
-        "React JS",
-        "Node.js",
-        "Vite",
-      ],
-      "DevOps & Tools": [
-        "Git",
-        "VS Code",
-        "Docker",
-        "PostgreSQL",
-        "Linux",
-        "Windows",
-      ],
-      "IoT & Protocolli": [
-        "MQTT",
-        "AMQP",
-        "CoAP",
-        "HTTP",
-        "OPC-UA",
-        "Raspberry Pi",
-        "Node-RED",
-      ],
-      Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
-    };
-  }
-
-  const categorized = {};
-
-  // Categorize based on predefined categories
-  Object.keys(categories).forEach((category) => {
-    categorized[category] = competenze.filter((skill) =>
-      categories[category].includes(skill.nome)
-    );
-  });
-
-  // Add "Altro" category for uncategorized skills
-  const categorizedSkillNames = Object.values(categorized)
-    .flat()
-    .map((skill) => skill.nome);
-
-  const otherSkills = competenze.filter(
-    (skill) => !categorizedSkillNames.includes(skill.nome)
-  );
-
-  if (otherSkills.length > 0) {
-    categorized["Altro"] = otherSkills;
-  }
-
-  return categorized;
-}
-
-/**
- * Get icon for skill category
- */
-function getCategoryIcon(category) {
-  const icons = {
-    Programmazione: "bx-code-alt",
-    "DevOps & Tools": "bx-wrench",
-    "IoT & Protocolli": "bx-network-chart",
-    Visualizzazione: "bx-bar-chart-alt-2",
-    Frontend: "bx-layout",
-    Backend: "bx-server",
-    Database: "bx-data",
-    Mobile: "bx-mobile-alt",
-    Cloud: "bx-cloud",
-    Security: "bx-shield-quarter",
-    Altro: "bx-category",
-  };
-
-  return icons[category] || "bx-category";
-}
-
-/**
- * Render attestati section
- */
-function renderAttestati(attestati) {
-  if (!attestati || !Array.isArray(attestati) || !DOM.sections.attestati) {
-    console.warn(
-      "Curriculum.js: Invalid attestati data or container not found"
-    );
-    return;
-  }
-
-  DOM.sections.attestati.innerHTML = "";
-
-  attestati.forEach((attestato, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.setAttribute("data-aos", "fade-up");
-    card.setAttribute("data-aos-delay", (index * 100).toString());
-
-    let html = `
-      <div class="card-header">
-        <div class="certificate-icon">
-          <i class='bx bx-certification'></i>
-        </div>
-        <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
-      </div>
-      <div class="card-body">
-        <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
-      </div>
-    `;
-
-    // Add certificate download link if available
-    if (attestato.certificato) {
-      html += `
-        <div class="card-footer">
-          <a href="${attestato.certificato}" class="testo" download>
-            <span>Scarica Certificato</span>
-            <i class='bx bx-download'></i>
-          </a>
-        </div>
-      `;
-    }
-
-    card.innerHTML = html;
-    DOM.sections.attestati.appendChild(card);
-  });
-}
-
-/**
- * Render competenze linguistiche section
- */
-function renderLinguistiche(linguistiche) {
-  if (
-    !linguistiche ||
-    !Array.isArray(linguistiche) ||
-    !DOM.sections.linguistiche
-  ) {
-    console.warn(
-      "Curriculum.js: Invalid linguistiche data or container not found"
-    );
-    return;
-  }
-
-  DOM.sections.linguistiche.innerHTML = "";
-
-  linguistiche.forEach((lingua, index) => {
-    const card = document.createElement("div");
-    card.className = "card language-card";
-    card.setAttribute("data-aos", "zoom-in");
-    card.setAttribute("data-aos-delay", (index * 100).toString());
-
-    // Create visual level indicator
-    const levelIndicator = createLevelIndicator(lingua.livello);
-
-    // Handle potential missing image
-    const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100";
-
-    card.innerHTML = `
-      <div class="language-flag">
-        <img src="${imgSrc}" alt="Bandiera ${
-      lingua.lingua
-    }" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
-      </div>
-      <h4>${lingua.lingua || "Lingua non specificata"}</h4>
-      <div class="language-level">
-        <strong>Livello:</strong> ${lingua.livello || "Non specificato"}
-      </div>
-      <div class="level-indicator">
-        ${levelIndicator}
-      </div>
-      ${
-        lingua.link
-          ? `
-        <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">
-          <span>Impara la lingua</span>
-          <i class='bx bx-book-open'></i>
-        </button>
-      `
-          : ""
-      }
-    `;
-
-    DOM.sections.linguistiche.appendChild(card);
-  });
-}
-
-/**
- * Create visual language level indicator
- */
-function createLevelIndicator(level) {
-  const levels = {
-    A1: 1,
-    A2: 2,
-    B1: 3,
-    B2: 4,
-    C1: 5,
-    C2: 6,
-    Madrelingua: 6,
-  };
-
-  const levelValue = levels[level] || 0;
-  let indicators = "";
-
-  for (let i = 1; i <= 6; i++) {
-    const active = i <= levelValue ? "active" : "";
-    indicators += `<div class="level-dot ${active}" data-level="${i}"></div>`;
-  }
-
-  return `
-    <div class="level-dots">
-      ${indicators}
-    </div>
-    <div class="level-labels">
-      <span>A1</span>
-      <span>A2</span>
-      <span>B1</span>
-      <span>B2</span>
-      <span>C1</span>
-      <span>C2</span>
-    </div>
-  `;
-}
-
-/**
- * Render esperienze lavorative section
- */
-function renderEsperienze(esperienze) {
-  if (!esperienze || !Array.isArray(esperienze) || !DOM.sections.esperienze) {
-    console.warn(
-      "Curriculum.js: Invalid esperienze data or container not found"
-    );
-    return;
-  }
-
-  DOM.sections.esperienze.innerHTML = "";
-  DOM.sections.esperienze.className = "card-container timeline-container";
-
-  esperienze.forEach((esperienza, index) => {
-    const card = document.createElement("div");
-    card.className = "card experience-card";
-    card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left");
-    card.setAttribute("data-aos-delay", (index * 150).toString());
-
-    // Create activities list
-    const attivitaList = Array.isArray(esperienza.attivita)
-      ? esperienza.attivita
-          .map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`)
-          .join("")
-      : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>";
-
-    // Handle potential missing logo
-    const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64";
-
-    card.innerHTML = `
-      <div class="timeline-dot"></div>
-      <div class="experience-header">
-        <div class="company-logo">
-          <img class="azienda" src="${logoSrc}" alt="Logo ${
-      esperienza.azienda
-    }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
-        </div>
-        <div class="company-info">
-          <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
-          <div class="role-badge">${
-            esperienza.ruolo || "Ruolo non specificato"
-          }</div>
-        </div>
-      </div>
-      <div class="experience-period">
-        <i class='bx bx-calendar'></i>
-        <span>${esperienza.periodo || "Periodo non specificato"}</span>
-      </div>
-      <div class="experience-location">
-        <i class='bx bx-map'></i>
-        <span>${esperienza.luogo || "Luogo non specificato"}</span>
-      </div>
-      <div class="experience-activities">
-        <h5>Attività svolte:</h5>
-        <ul class="activities-list">
-          ${attivitaList}
-        </ul>
-      </div>
-      ${
-        esperienza.sito
-          ? `
-        <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">
-          <span>Visita il sito</span>
-          <i class='bx bx-link-external'></i>
-        </button>
-      `
-          : ""
-      }
-    `;
-
-    DOM.sections.esperienze.appendChild(card);
-  });
 }
 
 /**
@@ -1023,398 +1135,53 @@ function renderEsperienze(esperienze) {
  */
 function renderIstruzione(istruzione) {
   if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
-    console.warn(
-      "Curriculum.js: Invalid istruzione data or container not found"
-    );
-    return;
+    console.warn("Curriculum.js: Invalid istruzione data or container not found")
+    return
   }
 
-  DOM.sections.istruzione.innerHTML = "";
+  DOM.sections.istruzione.innerHTML = ""
 
-  istruzione.forEach((corso, index) => {
-    const card = document.createElement("div");
-    card.className = "card education-card";
-    card.setAttribute("data-aos", "flip-up");
-    card.setAttribute("data-aos-delay", (index * 100).toString());
-    card.setAttribute("data-tilt", "");
-    card.setAttribute("data-tilt-max", "10");
+  istruzione.forEach((item, index) => {
+    const card = document.createElement("div")
+    card.className = "card istruzione-card"
+    card.setAttribute("data-aos", "fade-up")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
 
     // Handle potential missing logo
-    const logoSrc = corso.logo || "/placeholder.svg?height=64&width=64";
-
-    let html = `
-      <div class="education-header">
-        <div class="education-logo">
-          <img src="${logoSrc}" alt="Logo ${
-      corso.istituto
-    }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
-        </div>
-        <div class="education-level">
-          ${
-            corso.livello
-              ? `<div class="eqf-badge">EQF ${corso.livello}</div>`
-              : ""
-          }
-        </div>
-      </div>
-      <h4>${corso.titolo || "Titolo non specificato"}</h4>
-      <div class="education-institute">
-        <i class='bx bxs-school'></i>
-        <strong>${corso.istituto || "Istituto non specificato"}</strong>
-      </div>
-      <div class="education-period">
-        <i class='bx bx-calendar'></i>
-        <span>${corso.periodo || "Periodo non specificato"}</span>
-      </div>
-      <div class="education-location">
-        <i class='bx bx-map'></i>
-        <span>${corso.luogo || "Luogo non specificato"}</span>
-      </div>
-    `;
-
-    // Add skills if present
-    if (
-      corso.competenze &&
-      Array.isArray(corso.competenze) &&
-      corso.competenze.length > 0
-    ) {
-      html += `<div class="education-skills">
-        <h5>Competenze acquisite:</h5>
-        <div class="skills-list">`;
-
-      corso.competenze.forEach((competenza) => {
-        html += `<div class="skill-pill"><i class='bx bx-check-circle'></i> ${competenza}</div>`;
-      });
-
-      html += `</div></div>`;
-    }
-
-    // Add description if present
-    if (corso.descrizione) {
-      html += `<div class="education-description">
-        <p>${corso.descrizione}</p>
-      </div>`;
-    }
-
-    // Add buttons for website and diploma
-    html += `<div class="site-links">`;
-
-    // "Visit website" button
-    if (corso.sito) {
-      html += `<button class="go-live-btn" onclick="window.open('${corso.sito}', '_blank')">
-        <span>Visita il sito</span>
-        <i class='bx bx-link-external'></i>
-      </button>`;
-    }
-
-    // "Download diploma" button
-    if (corso.diploma) {
-      html += `<a href="${corso.diploma}" download class="testo">
-        <span>Scarica Diploma</span>
-        <i class='bx bx-download'></i>
-      </a>`;
-    }
-
-    html += `</div>`;
-
-    card.innerHTML = html;
-    DOM.sections.istruzione.appendChild(card);
-  });
-
-  // Initialize tilt effect if library is available
-  if (typeof VanillaTilt !== "undefined") {
-    VanillaTilt.init(document.querySelectorAll(".education-card"), {
-      max: 10,
-      speed: 400,
-      glare: true,
-      "max-glare": 0.3,
-    });
-  } else {
-    console.warn(
-      "Curriculum.js: VanillaTilt is not defined. Tilt effect will not be applied."
-    );
-  }
-}
-
-/**
- * Render competenze section with categories
- */
-function renderCompetenze(competenze) {
-  if (!competenze || !Array.isArray(competenze) || !DOM.sections.competenze) {
-    console.warn(
-      "Curriculum.js: Invalid competenze data or container not found"
-    );
-    return;
-  }
-
-  DOM.sections.competenze.innerHTML = "";
-
-  // Create tabs for categories
-  const tabsContainer = document.createElement("div");
-  tabsContainer.className = "skills-tabs";
-
-  // Create container for skill cards
-  const skillsContainer = document.createElement("div");
-  skillsContainer.className = "skills-container";
-
-  // Add tabs for each category
-  Object.keys(STATE.categorizedSkills).forEach((category, index) => {
-    const tab = document.createElement("div");
-    tab.className = `skill-tab ${index === 0 ? "active" : ""}`;
-    tab.setAttribute("data-category", category);
-    tab.innerHTML = `
-      <i class='bx ${getCategoryIcon(category)}'></i>
-      <span>${category}</span>
-    `;
-
-    tab.addEventListener("click", () => {
-      // Update active tab
-      document.querySelectorAll(".skill-tab").forEach((t) => {
-        t.classList.remove("active");
-      });
-      tab.classList.add("active");
-
-      // Update skills display with animation
-      skillsContainer.classList.add("fade-out");
-
-      setTimeout(() => {
-        renderSkillCategory(STATE.categorizedSkills[category], skillsContainer);
-        skillsContainer.classList.remove("fade-out");
-
-        // Initialize progress bar animations
-        setTimeout(() => {
-          initializeSkillAnimations();
-        }, 100);
-      }, 300);
-    });
-
-    tabsContainer.appendChild(tab);
-  });
-
-  DOM.sections.competenze.appendChild(tabsContainer);
-  DOM.sections.competenze.appendChild(skillsContainer);
-
-  // Show first category by default
-  const firstCategory = Object.keys(STATE.categorizedSkills)[0];
-  if (firstCategory) {
-    renderSkillCategory(
-      STATE.categorizedSkills[firstCategory],
-      skillsContainer
-    );
-  }
-}
-
-/**
- * Render skills for a specific category
- */
-function renderSkillCategory(skills, container) {
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  if (!skills || !Array.isArray(skills) || skills.length === 0) {
-    container.innerHTML = `
-      <div class="empty-category">
-        <i class='bx bx-info-circle'></i>
-        <p>Nessuna competenza in questa categoria.</p>
-      </div>
-    `;
-    return;
-  }
-
-  skills.forEach((skill, index) => {
-    const card = document.createElement("div");
-    card.className = "card skill-card";
-    card.setAttribute("data-aos", "zoom-in");
-    card.setAttribute("data-aos-delay", (index * 50).toString());
-
-    // Generate random color for progress bar
-    const hue = Math.floor(Math.random() * 360);
-    const progressColor = `hsl(${hue}, 70%, 60%)`;
-
-    // Handle potential missing image
-    const imgSrc = skill.immagine || "/placeholder.svg?height=80&width=80";
+    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64"
 
     card.innerHTML = `
-      <div class="skill-icon" style="background-color: ${progressColor}20;">
-        <img src="${imgSrc}" alt="${
-      skill.nome
-    }" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;" />
-      </div>
-      <h4>${skill.nome || "Competenza non specificata"}</h4>
-      <div class="skill-progress">
-        <div class="progress-bar" data-progress="85" style="--progress-color: ${progressColor};">
-          <div class="progress-fill"></div>
+      <div class="istruzione-header">
+        <div class="istituto-logo">
+          <img class="azienda" src="${logoSrc}" alt="Logo ${
+            item.istituto
+          }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+        </div>
+        <div class="istituto-info">
+          <h4>${item.titolo || "Titolo non specificato"}</h4>
+          <div>${item.istituto || "Istituto non specificato"}</div>
         </div>
       </div>
-      <p>${skill.descrizione || "Descrizione non disponibile"}</p>
+      <div class="istruzione-period">
+        <i class='bx bx-calendar'></i>
+        <span>${item.periodo || "Periodo non specificato"}</span>
+      </div>
+      <div class="istruzione-location">
+        <i class='bx bx-map'></i>
+        <span>${item.luogo || "Luogo non specificato"}</span>
+      </div>
       ${
-        skill.link
+        item.sito
           ? `
-        <button class="go-live-btn" onclick="window.open('${skill.link}', '_blank')">
-          <span>Scopri di più</span>
+        <button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')">
+          <span>Visita il sito</span>
           <i class='bx bx-link-external'></i>
         </button>
       `
           : ""
       }
-    `;
+    `
 
-    container.appendChild(card);
-  });
+    DOM.sections.istruzione.appendChild(card)
+  })
 }
-
-/**
- * Render siti web section with mobile optimizations
- */
-function renderWebSite(sites) {
-  if (!sites || !Array.isArray(sites) || !DOM.sections.sites) {
-    console.warn("Curriculum.js: Invalid sites data or container not found");
-    return;
-  }
-
-  DOM.sections.sites.innerHTML = "";
-
-  // Use different layout for mobile vs desktop
-  if (STATE.isMobile) {
-    DOM.sections.sites.className = "card-container mobile-sites-grid";
-  } else {
-    DOM.sections.sites.className = "card-container portfolio-grid";
-  }
-
-  sites.forEach((site, index) => {
-    const card = document.createElement("div");
-    card.className = "card portfolio-card";
-    card.setAttribute("data-aos", "fade-up");
-    card.setAttribute("data-aos-delay", (index * 100).toString());
-
-    // Handle potential missing image
-    const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300";
-
-    // Determine image size based on device
-    const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200;
-
-    const html = `
-      <div class="portfolio-image" style="height: ${imageHeight}px;">
-        <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
-             style="max-height: ${imageHeight}px;" 
-             onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${
-      imageHeight * 1.5
-    }'; this.onerror=null;" />
-        <div class="portfolio-overlay">
-          <div class="portfolio-buttons">
-            ${
-              site.link
-                ? `
-              <a href="${site.link}" target="_blank" class="portfolio-btn view-btn">
-                <i class='bx bx-link-external'></i>
-                <span>Visita</span>
-              </a>
-            `
-                : ""
-            }
-            ${
-              site.codice
-                ? `
-              <a href="${site.codice}" target="_blank" class="portfolio-btn code-btn">
-                <i class='bx bx-code-alt'></i>
-                <span>Codice</span>
-              </a>
-            `
-                : ""
-            }
-          </div>
-        </div>
-      </div>
-      <div class="portfolio-info">
-        <h4>${site.nome || "Progetto non specificato"}</h4>
-        ${
-          STATE.isMobile
-            ? ""
-            : `
-        <div class="portfolio-tags">
-          ${generateProjectTags()}
-        </div>`
-        }
-      </div>
-    `;
-
-    card.innerHTML = html;
-    DOM.sections.sites.appendChild(card);
-  });
-
-  // Add mobile-specific styles for site cards
-  if (STATE.isMobile) {
-    const siteCards = DOM.sections.sites.querySelectorAll(".portfolio-card");
-    siteCards.forEach((card) => {
-      card.style.marginBottom = "1.5rem";
-    });
-  }
-}
-
-/**
- * Generate tags for projects using the default project tags from categories.json
- */
-function generateProjectTags() {
-  // Use default tags from categories.json if available
-  let defaultTags = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "Responsive",
-    "Frontend",
-    "UI/UX",
-  ];
-
-  if (STATE.categoriesData && STATE.categoriesData.defaultProjectTags) {
-    defaultTags = STATE.categoriesData.defaultProjectTags;
-  }
-
-  // Always include all tags as requested
-  return defaultTags
-    .map((tag) => `<span class="portfolio-tag">${tag}</span>`)
-    .join("");
-}
-
-// Add mobile-specific CSS
-document.addEventListener("DOMContentLoaded", () => {
-  const style = document.createElement("style");
-  style.textContent = `
-    @media (max-width: ${CONFIG.mobileBreakpoint}px) {
-      /* Center curriculum title */
-      #curriculum .section-title {
-        text-align: center !important;
-        width: 100% !important;
-        left: auto !important;
-        transform: none !important;
-      }
-      
-      /* Mobile sites grid */
-      .mobile-sites-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .mobile-sites-grid .portfolio-card {
-        width: 100%;
-      }
-      
-      .mobile-sites-grid .portfolio-image {
-        height: ${CONFIG.siteImageMaxHeight}px !important;
-      }
-      
-      .mobile-sites-grid .site-image {
-        max-height: ${CONFIG.siteImageMaxHeight}px !important;
-        object-fit: contain !important;
-      }
-      
-      /* Remove scrollable containers */
-      .card-container {
-        max-height: none !important;
-        overflow-y: visible !important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-});
