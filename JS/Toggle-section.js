@@ -1,6 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Aggiungi icona e funzionalità di toggle a tutte le sezioni
+  // Aggiungi funzionalità di toggle a tutte le sezioni
   setupToggleSections();
+
+  // Apri la sezione dall'hash URL se presente
+  openSectionFromHash();
+
+  // Gestisci i cambiamenti dell'hash URL
+  window.addEventListener("hashchange", openSectionFromHash);
 });
 
 function setupToggleSections() {
@@ -13,20 +19,19 @@ function setupToggleSections() {
       .closest(".section")
       .querySelector(".card-container");
 
-    // Nasconde il container all'inizio, tranne il primo che sarà aperto
-    if (index !== 0) {
-      cardContainer.style.display = "none";
-    } else {
-      title.querySelector(".toggle-icon").textContent = "▼";
-    }
+    // Nascondi tutti i container inizialmente
+    cardContainer.style.display = "none";
+    title.querySelector(".toggle-icon").textContent = "▶";
+    title.setAttribute("data-expanded", "false");
 
     // Aggiungi la classe per lo stile del cursore e altre proprietà
     title.classList.add("toggleable");
 
     // Aggiungi l'event listener per il click
     title.addEventListener("click", () => {
-      // Toggle della visibilità
-      if (cardContainer.style.display === "none") {
+      const isExpanded = title.getAttribute("data-expanded") === "true";
+
+      if (!isExpanded) {
         // Chiudi tutte le altre sezioni
         document
           .querySelectorAll("#curriculum .section .card-container")
@@ -34,9 +39,10 @@ function setupToggleSections() {
             container.style.display = "none";
           });
         document
-          .querySelectorAll("#curriculum .section h3 .toggle-icon")
-          .forEach((icon) => {
-            icon.textContent = "▶";
+          .querySelectorAll("#curriculum .section h3")
+          .forEach((header) => {
+            header.querySelector(".toggle-icon").textContent = "▶";
+            header.setAttribute("data-expanded", "false");
           });
 
         // Apri questa sezione con animazione
@@ -50,6 +56,7 @@ function setupToggleSections() {
         }, 10);
 
         title.querySelector(".toggle-icon").textContent = "▼";
+        title.setAttribute("data-expanded", "true");
 
         // Anima le card all'interno
         const cards = cardContainer.querySelectorAll(".card");
@@ -62,6 +69,13 @@ function setupToggleSections() {
             card.style.transform = "translateY(0)";
           }, 100 + i * 50);
         });
+
+        // Inizializza le animazioni delle skill se questa è la sezione competenze
+        if (title.closest("#competenze")) {
+          setTimeout(() => {
+            initializeSkillAnimations();
+          }, 300);
+        }
       } else {
         // Chiudi questa sezione con animazione
         cardContainer.style.opacity = "0";
@@ -72,9 +86,16 @@ function setupToggleSections() {
         }, 300);
 
         title.querySelector(".toggle-icon").textContent = "▶";
+        title.setAttribute("data-expanded", "false");
       }
     });
   });
+
+  // Apri immediatamente la sezione esperienze lavorative
+  const workExperienceSection = document.querySelector("#esperienze h3");
+  if (workExperienceSection) {
+    workExperienceSection.click();
+  }
 }
 
 // Funzione per aprire una sezione specifica tramite URL hash
@@ -84,14 +105,16 @@ function openSectionFromHash() {
     const sectionId = hash.substring(1);
     const section = document.getElementById(sectionId);
 
-    if (section && section.classList.contains("section")) {
+    // Evita di aprire automaticamente la sezione 'attestati'
+    if (
+      section &&
+      section.classList.contains("section") &&
+      section.id !== "attestati"
+    ) {
       const title = section.querySelector("h3");
       if (title) {
-        // Simula un click sul titolo per aprire la sezione
         setTimeout(() => {
           title.click();
-
-          // Scorri alla sezione
           section.scrollIntoView({ behavior: "smooth" });
         }, 500);
       }
@@ -99,11 +122,22 @@ function openSectionFromHash() {
   }
 }
 
-// Esegui quando il DOM è caricato
-document.addEventListener("DOMContentLoaded", () => {
-  // Apri la sezione dall'hash URL se presente
-  openSectionFromHash();
+// Inizializza le animazioni delle barre di progresso delle competenze
+function initializeSkillAnimations() {
+  const progressBars = document.querySelectorAll(".progress-bar");
 
-  // Gestisci i cambiamenti dell'hash URL
-  window.addEventListener("hashchange", openSectionFromHash);
-});
+  if (!progressBars || progressBars.length === 0) return;
+
+  progressBars.forEach((bar) => {
+    const progress = bar.getAttribute("data-progress") || "75";
+    const fill = bar.querySelector(".progress-fill");
+
+    if (fill) {
+      fill.style.width = "0%";
+
+      setTimeout(() => {
+        fill.style.width = `${progress}%`;
+      }, 100);
+    }
+  });
+}

@@ -4763,3 +4763,85 @@ section {
     height: 120px !important;
   }
 }
+
+/* Aggiungi queste regole specifiche per la sezione competenze su mobile */
+
+/* Stili per la sezione competenze su mobile */
+@media (max-width: 768px) {
+  /* Rimuovi lo scrolling per la sezione competenze */
+  #competenze .card-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+    padding-bottom: 2rem;
+  }
+
+  /* Migliora il layout delle tab delle competenze */
+  #competenze .skills-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  #competenze .skill-tab {
+    width: calc(50% - 0.5rem);
+    padding: 0.7rem 1rem;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  /* Migliora il layout delle card delle competenze */
+  #competenze .skills-container {
+    flex-direction: column;
+  }
+
+  #competenze .skill-card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Assicurati che le barre di progresso siano ben visibili */
+  #competenze .progress-bar {
+    height: 10px;
+  }
+
+  /* Migliora la visualizzazione delle icone delle competenze */
+  #competenze .skill-icon {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* Stili generali per tutte le sezioni del curriculum su mobile */
+@media (max-width: 768px) {
+  /* Rimuovi lo scrolling per tutte le sezioni */
+  .card-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  /* Migliora la visualizzazione delle card */
+  .card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Assicurati che le sezioni siano ben distanziate */
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  /* Migliora la visualizzazione dei titoli delle sezioni */
+  .section h3 {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Centra il titolo del curriculum */
+  #curriculum .section-title {
+    text-align: center !important;
+    width: 100% !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}
+
