@@ -59,7 +59,23 @@ document.addEventListener("DOMContentLoaded", () => {
     "UI/UX Designer",
     "Frontend Developer",
     "Programmatore",
+    "Grafico Digitale",
+    "Appassionato di Videomaking",
+    "Creativo",
+    "Problem Solver",
+    "Esperto HTML, CSS e JavaScript",
   ];
+
+  // Funzione per mescolare le frasi
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  };
+
+  shuffle(phrases); // Mescola le frasi
+
   let phraseIndex = 0;
   let charIndex = 0;
   let isDeleting = false;

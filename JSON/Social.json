@@ -1,6 +1,12 @@
 {
   "socialLinks": [
     {
+      "name": "Gmail",
+      "url": "mailto:nicola.marano02@gmail.com",
+      "icon": "Icons/gmail.png",
+      "alt": "Gmail"
+    },
+    {
       "name": "Facebook",
       "url": "https://www.facebook.com/nicola.marano.775/",
       "icon": "Icons/facebook.png",
