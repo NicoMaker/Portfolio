@@ -2,18 +2,15 @@
   "attestati": [
     {
       "titolo": "Protezione dei dati Personali (GDPR, Privacy, Sicurezza)",
-      "descrizione": "Questo attestato certifica la comprensione e la conoscenza delle normative relative alla protezione dei dati personali, con particolare riferimento al GDPR (Regolamento Generale sulla Protezione dei Dati). Il corso copre le pratiche migliori per garantire la privacy, la sicurezza e la gestione sicura delle informazioni sensibili, sia a livello aziendale che individuale.",
-      "certificato": "Attestati/GDPR.pdf"
+      "descrizione": "Questo attestato certifica la comprensione e la conoscenza delle normative relative alla protezione dei dati personali, con particolare riferimento al GDPR (Regolamento Generale sulla Protezione dei Dati). Il corso copre le pratiche migliori per garantire la privacy, la sicurezza e la gestione sicura delle informazioni sensibili, sia a livello aziendale che individuale."
     },
     {
       "titolo": "Sicurezza <br> Generale",
-      "descrizione": "<br> Questo certificato attesta la conoscenza delle norme fondamentali sulla sicurezza nei luoghi di lavoro. Copre aspetti essenziali come la prevenzione degli infortuni, l'uso corretto dei dispositivi di protezione, la gestione dei rischi e l'adozione di comportamenti sicuri per garantire un ambiente lavorativo protetto e conforme alle normative vigenti. <br> <br>",
-      "certificato": "Attestati/formazion generale.pdf"
+      "descrizione": "<br> Questo certificato attesta la conoscenza delle norme fondamentali sulla sicurezza nei luoghi di lavoro. Copre aspetti essenziali come la prevenzione degli infortuni, l'uso corretto dei dispositivi di protezione, la gestione dei rischi e l'adozione di comportamenti sicuri per garantire un ambiente lavorativo protetto e conforme alle normative vigenti."
     },
     {
       "titolo": "Sicurezza <br> Specifica",
-      "descrizione": "<br> Questo certificato attesta la conoscenza delle norme fondamentali sulla sicurezza nei luoghi di lavoro. Copre aspetti essenziali come la prevenzione degli infortuni, l'uso corretto dei dispositivi di protezione, la gestione dei rischi e l'adozione di comportamenti sicuri per garantire un ambiente lavorativo protetto e conforme alle normative vigenti. <br> <br>",
-      "certificato": "Attestati/formazione specifica.pdf"
+      "descrizione": "<br> Questo certificato attesta la conoscenza delle norme fondamentali sulla sicurezza nei luoghi di lavoro. Copre aspetti essenziali come la prevenzione degli infortuni, l'uso corretto dei dispositivi di protezione, la gestione dei rischi e l'adozione di comportamenti sicuri per garantire un ambiente lavorativo protetto e conforme alle normative vigenti."
     }
   ],
   "linguistiche": [
@@ -87,8 +84,7 @@
         "Competenze per garantire la sicurezza intrinseca delle pagine web."
       ],
       "logo": "Loghi/Alto Adriatico.png",
-      "sito": "https://www.itsaltoadriatico.it/",
-      "diploma": ""
+      "sito": "https://www.itsaltoadriatico.it/"
     },
     {
       "titolo": "Diploma Tecnico Superiore IIOT (Industrial Internet of Things)",
@@ -101,8 +97,7 @@
         "Sviluppo di abilità nel web development, nel coding e nella gestione di database."
       ],
       "logo": "Loghi/Alto Adriatico.png",
-      "sito": "https://www.itsaltoadriatico.it/",
-      "diploma": "Istruzione/ITS.pdf"
+      "sito": "https://www.itsaltoadriatico.it/"
     },
     {
       "titolo": "Diploma Superiore in Manutenzione e Assistenza Tecnica",
@@ -112,8 +107,7 @@
       "luogo": "Pordenone",
       "descrizione": "Specializzazione in apparati, impianti e servizi tecnici industriali e civili.",
       "logo": "Loghi/Zanussi.JPG",
-      "sito": "https://www.isiszanussi.edu.it/",
-      "diploma": "Istruzione/Diploma Superiori.pdf"
+      "sito": "https://www.isiszanussi.edu.it/"
     },
     {
       "titolo": "Diploma in I.T.I.S. J.F. Kennedy",
@@ -123,8 +117,7 @@
       "luogo": "Pordenone",
       "descrizione": "Formazione tecnica in ambito industriale e tecnologico.",
       "logo": "Loghi/Kennedy.jpeg",
-      "sito": "https://itstkennedy.edu.it/",
-      "diploma": ""
+      "sito": "https://itstkennedy.edu.it/"
     }
   ],
   "competenze": [
