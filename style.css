@@ -4848,3 +4848,11 @@ section {
 .social-links a:hover img {
   filter: brightness(0.5) invert(1);
 }
+
+
+#home{
+  background-image: url("https://th.bing.com/th/id/OIP.ZlMD5ShTfnwLevQ21L3ybQHaEo?rs=1&pid=ImgDetMain");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
