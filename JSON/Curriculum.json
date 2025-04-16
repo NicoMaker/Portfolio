@@ -188,6 +188,12 @@
       "link": "https://nodejs.org/en/"
     },
     {
+      "nome": "Express",
+      "descrizione": "Esperienza nell'uso di Express.js per la creazione di server web leggeri e veloci, con una vasta gamma di middleware per gestire richieste HTTP e routing.",
+      "immagine": "https://repository-images.githubusercontent.com/232512685/70107a80-31f8-11ea-9436-66c4dc25c0e2",
+      "link": "https://expressjs.com/"
+    },    
+    {
       "nome": "React JS",
       "descrizione": "Competenze nell'uso di React per lo sviluppo di interfacce utente moderne, ottimizzando le prestazioni con l'uso di hooks, state management e routing.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg",
