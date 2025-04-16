@@ -227,9 +227,10 @@
                     type="tel"
                     id="telefono"
                     name="telefono"
-                    placeholder="Il tuo numero di telefono"
+                    placeholder="Il tuo numero di telefono (es. +39 123 456 789)"
                     required
-                    pattern="^[0-9]{1,10}$"
+                    pattern="^\+([1-9]{1}[0-9]{1,3})\s?([0-9]{6,15})$"
+                    title="Il numero di telefono deve includere il prefisso internazionale (es. +39 123 456 789)"
                   />
                 </div>
               </div>
