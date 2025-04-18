@@ -1,27 +1,30 @@
-const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const nodemailer = require("nodemailer");
 const emailAddresses = require("email-addresses");
 const dotenv = require("dotenv");
 
+const express = require("express");
+const serverless = require("serverless-http");
+const app = express();
+const router = express.Router();
+
 dotenv.config(); // Carica variabili da .env
 
-const app = express();
-
 // Middleware per servire file statici e gestire JSON/form
-app.use(express.static(__dirname));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+router.use(express.static(__dirname));
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
 
 // Rotta GET per servire l'index.html
-app.get("/", (req, res) => {
-  const index = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
+router.get("/", (req, res) => {
+  const index = fs.readFileSync(path.join(__dirname, "../index.html"), "utf-8");
+  console.log(path.join(__dirname, "../index.html"));
   res.send(index);
 });
 
 // Rotta POST per invio email
-app.post("/send-mail", (req, res) => {
+router.post("/send-mail", (req, res) => {
   const { name, surname, email, phone, subject, message } = req.body;
 
   // ✅ Controllo campi obbligatori
@@ -79,3 +82,6 @@ ${name}`,
 app.listen(3000, () => {
   console.log("Server avviato su http://localhost:3000");
 });
+
+app.use("/.netlify/functions/Server", router);
+module.exports.handler = serverless(app);
