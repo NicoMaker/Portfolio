@@ -79,9 +79,9 @@ ${name}`,
 });
 
 // Avvio server
-app.listen(3000, () => {
-  console.log("Server avviato su http://localhost:3000");
-});
+// app.listen(3000, () => {
+//   console.log("Server avviato su http://localhost:3000");
+// });
 
 app.use("/.netlify/functions/Server", router);
 module.exports.handler = serverless(app);
