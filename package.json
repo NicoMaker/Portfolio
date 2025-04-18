@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Server.js",
     "dev": "node --watch functions/Server.js",
-    "build": "netlify deploy --prod"
+    "build": "netlify deploy --prod",
+    "netstart": "netlify dev",
+    "netbuild": "echo 'Nothing to build for static site'"
   },
   "repository": {
     "type": "git",
