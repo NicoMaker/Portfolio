@@ -4848,3 +4848,227 @@ section {
 .social-links a:hover img {
   filter: brightness(0.5) invert(1);
 }
+
+/* Alert base styles */
+.alert {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Success alert */
+.alert-success {
+  background-color: #d1fae5;
+  border-left: 4px solid #10b981;
+  color: #065f46;
+}
+
+/* Error alert */
+.alert-error {
+  background-color: #fee2e2;
+  border-left: 4px solid #ef4444;
+  color: #b91c1c;
+}
+
+/* Icon container */
+.alert-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+/* Success icon (checkmark) */
+.alert-success .alert-icon {
+  background-color: #10b981;
+  color: white;
+}
+
+/* Error icon (x) */
+.alert-error .alert-icon {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* Alert content */
+.alert-content {
+  flex: 1;
+}
+
+.alert-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.alert-message {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close button */
+.alert-close {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  opacity: 0.7;
+  padding: 0;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  transition: opacity 0.2s;
+}
+
+.alert-close:hover {
+  opacity: 1;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.alert.fade-out {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Checkmark animation */
+.checkmark {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+
+.checkmark:before,
+.checkmark:after {
+  content: '';
+  position: absolute;
+  background-color: currentColor;
+}
+
+.checkmark:before {
+  width: 3px;
+  height: 9px;
+  left: 9px;
+  top: 1px;
+  transform: rotate(45deg);
+  animation: checkmark-before 0.3s ease-in-out forwards;
+  opacity: 0;
+  transform-origin: bottom;
+}
+
+.checkmark:after {
+  width: 3px;
+  height: 15px;
+  left: 4px;
+  top: 4px;
+  transform: rotate(-45deg);
+  animation: checkmark-after 0.3s ease-in-out 0.15s forwards;
+  opacity: 0;
+  transform-origin: bottom;
+}
+
+@keyframes checkmark-before {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 9px;
+    opacity: 1;
+  }
+}
+
+@keyframes checkmark-after {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 15px;
+    opacity: 1;
+  }
+}
+
+/* X mark animation */
+.xmark {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  display: inline-block;
+}
+
+.xmark:before,
+.xmark:after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  height: 18px;
+  background-color: currentColor;
+  top: 0;
+  left: 8px;
+}
+
+.xmark:before {
+  transform: rotate(45deg);
+  animation: xmark-before 0.3s ease-in-out forwards;
+  opacity: 0;
+}
+
+.xmark:after {
+  transform: rotate(-45deg);
+  animation: xmark-after 0.3s ease-in-out 0.15s forwards;
+  opacity: 0;
+}
+
+@keyframes xmark-before {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 18px;
+    opacity: 1;
+  }
+}
+
+@keyframes xmark-after {
+  0% {
+    height: 0;
+    opacity: 0;
+  }
+  100% {
+    height: 18px;
+    opacity: 1;
+  }
+}
