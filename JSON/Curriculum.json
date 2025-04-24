@@ -192,7 +192,7 @@
       "descrizione": "Esperienza nell'uso di Express.js per la creazione di server web leggeri e veloci, con una vasta gamma di middleware per gestire richieste HTTP e routing.",
       "immagine": "https://repository-images.githubusercontent.com/232512685/70107a80-31f8-11ea-9436-66c4dc25c0e2",
       "link": "https://expressjs.com/"
-    },    
+    },
     {
       "nome": "React JS",
       "descrizione": "Competenze nell'uso di React per lo sviluppo di interfacce utente moderne, ottimizzando le prestazioni con l'uso di hooks, state management e routing.",
@@ -309,16 +309,16 @@
       "link": "https://idealegnofvg.com/"
     },
     {
-      "nome": "Giri in Bici",
-      "immagine": "Web_Site/Bici.jpg",
-      "link": "https://giri-in-bici.netlify.app/",
-      "codice": "https://github.com/NicoMaker/Giri-in-bici"
-    },
-    {
       "nome": "Pagina Generale Siti",
       "immagine": "Web_Site/Pagina_Generale_Siti.jpg",
       "link": "https://paginageneralesiti.netlify.app/",
       "codice": "https://github.com/NicoMaker/Pagina_Generale_Siti"
+    },
+    {
+      "nome": "Giri in Bici",
+      "immagine": "Web_Site/Bici.jpg",
+      "link": "https://giri-in-bici.netlify.app/",
+      "codice": "https://github.com/NicoMaker/Giri-in-bici"
     },
     {
       "nome": "PokeApi",
