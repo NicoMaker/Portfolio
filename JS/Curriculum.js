@@ -891,7 +891,7 @@ function renderWebSite(sites) {
                 ? `
               <a href="${site.link}" target="_blank" class="portfolio-btn view-btn">
                 <i class='bx bx-link-external'></i>
-                <span>Visita</span>
+                <span class="white">Visita</span>
               </a>
             `
                 : ""
@@ -901,7 +901,7 @@ function renderWebSite(sites) {
                 ? `
               <a href="${site.codice}" target="_blank" class="portfolio-btn code-btn">
                 <i class='bx bx-code-alt'></i>
-                <span>Codice</span>
+                <span class="white">Codice</span>
               </a>
             `
                 : ""
