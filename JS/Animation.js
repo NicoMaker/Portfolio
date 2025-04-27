@@ -2,23 +2,55 @@ document.addEventListener("DOMContentLoaded", () => {
   // Loader animation
   const loader = document.querySelector(".loader");
   const progress = document.querySelector(".progress");
+  const loaderLogo = document.querySelector(".loader-logo img");
+  const loaderAvatar = document.querySelector(".loader-avatar-img");
+  const loaderPortfolio = document.querySelector(".loader-portfolio");
 
-  let width = 0;
-  const interval = setInterval(() => {
-    width += 1;
-    progress.style.width = width + "%";
+  // Anima l'avatar dopo 300ms
+  setTimeout(() => {
+    loaderAvatar.style.transition = "all 0.8s ease";
+    loaderAvatar.style.opacity = "1";
+    loaderAvatar.style.transform = "translateY(0)";
 
-    if (width >= 100) {
-      clearInterval(interval);
+    // Anima il logo dopo che l'avatar è apparso
+    setTimeout(() => {
+      loaderLogo.style.transition = "all 0.8s ease";
+      loaderLogo.style.opacity = "1";
+      loaderLogo.style.transform = "scale(1)";
+
+      // Anima la scritta Portfolio dopo che il logo è apparso
       setTimeout(() => {
-        loader.style.opacity = "0";
+        loaderPortfolio.style.transition = "all 0.8s ease";
+        loaderPortfolio.style.opacity = "1";
+        loaderPortfolio.style.transform = "translateY(0)";
+
+        // Inizia la barra di progresso dopo che tutti gli elementi sono apparsi
         setTimeout(() => {
-          loader.style.display = "none";
-          animateElements();
+          startProgressBar();
         }, 500);
-      }, 500);
-    }
-  }, 20);
+      }, 600);
+    }, 600);
+  }, 300);
+
+  // Funzione per avviare la barra di progresso
+  function startProgressBar() {
+    let width = 0;
+    const interval = setInterval(() => {
+      width += 1;
+      progress.style.width = width + "%";
+
+      if (width >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.style.display = "none";
+            animateElements();
+          }, 500);
+        }, 500);
+      }
+    }, 20);
+  }
 
   // Custom cursor
   const cursor = document.querySelector(".cursor");
@@ -154,20 +186,5 @@ document.addEventListener("DOMContentLoaded", () => {
         card.style.setProperty("--i", cardIndex + 1);
       });
     });
-  }
-
-  // Modify hamburger.js to use boxicons
-  const hamburger = document.getElementById("hamburger");
-  const menu = document.getElementById("menu");
-  if (hamburger) {
-    const originalClickHandler = hamburger.onclick;
-    hamburger.onclick = function () {
-      if (menu.classList.contains("show")) {
-        hamburger.innerHTML = "<i class='bx bx-menu'></i>";
-      } else {
-        hamburger.innerHTML = "<i class='bx bx-x'></i>";
-      }
-      if (originalClickHandler) originalClickHandler.call(this);
-    };
   }
 });
