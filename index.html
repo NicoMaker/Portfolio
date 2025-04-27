@@ -67,9 +67,11 @@
             </li>
           </ul>
         </nav>
-        <button id="hamburger" class="hamburger">
-          <i class="bx bx-menu"></i>
+        <!-- Modifica il bottone hamburger nell'header -->
+        <button id="hamburger" class="hamburger" aria-label="Menu">
+          <i class="bx bx-menu" id="hamburger-icon"></i>
         </button>
+        
       </div>
     </div>
   </header>
@@ -233,6 +235,30 @@
   </main>
 
   <div id="footer"></div>
+
+  <!-- Aggiungi questo div per il menu mobile overlay -->
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+    <div class="mobile-menu-content">
+      <div class="mobile-menu-header">
+        <img src="Icons/Logo_Chiaro.jpg" alt="Logo Nicola Marano" class="mobile-menu-logo">
+        <button id="close-menu" class="close-menu" aria-label="Chiudi menu">
+          <i class="bx bx-x"></i>
+        </button>
+      </div>
+
+      <div class="avatar-container">
+        <img class="avatar-menu" src="Icons/Avatar.jpg" alt="Nicola Marano">
+      </div>
+
+      <nav class="mobile-nav">
+        <ul>
+          <li><a href="#home" class="mobile-nav-link">Home</a></li>
+          <li><a href="#curriculum" class="mobile-nav-link">Curriculum</a></li>
+          <li><a href="#contacts" class="mobile-nav-link">Contatti</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
   <div class="back-to-top">
     <i class="bx bx-up-arrow-alt"></i>
