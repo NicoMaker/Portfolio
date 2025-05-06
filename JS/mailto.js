@@ -16,7 +16,7 @@ function sendEmail(event) {
         `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
         `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
         `Resto a disposizione per eventuali chiarimenti.\n` +
-        `Cordiali saluti,\n${name}`
+        `Cordiali saluti,\n${name} ${surname}`
     );
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
