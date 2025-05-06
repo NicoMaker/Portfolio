@@ -320,7 +320,7 @@ Contiene tutte le informazioni relative a:
 - Esperienze lavorative
 - Istruzione
 - Competenze tecniche
-- Progetti web
+- Siti Web 
 
 ### Categories.json
 
