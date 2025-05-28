@@ -1,4 +1,4 @@
--document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   // Assicurati che la pagina venga sempre caricata all'inizio (home page)
   if (window.location.hash) {
     // Se c'è un hash nell'URL (ad esempio #curriculum), lo rimuoviamo
@@ -13,31 +13,50 @@
   const loaderAvatar = document.querySelector(".loader-avatar-img")
   const loaderPortfolio = document.querySelector(".loader-portfolio")
 
-  // Anima l'avatar dopo 300ms
-  setTimeout(() => {
-    loaderAvatar.style.transition = "all 0.8s ease"
-    loaderAvatar.style.opacity = "1"
-    loaderAvatar.style.transform = "translateY(0)"
+  // Funzione per avviare l'animazione del loader
+  function startLoaderAnimation() {
+    // Reset degli stili del loader
+    loader.style.display = "flex"
+    loader.style.opacity = "1"
+    progress.style.width = "0%"
 
-    // Anima il logo dopo che l'avatar è apparso
+    // Reset degli elementi del loader
+    loaderAvatar.style.opacity = "0"
+    loaderAvatar.style.transform = "translateY(20px)"
+    loaderLogo.style.opacity = "0"
+    loaderLogo.style.transform = "scale(0.8)"
+    loaderPortfolio.style.opacity = "0"
+    loaderPortfolio.style.transform = "translateY(20px)"
+
+    // Anima l'avatar dopo 300ms
     setTimeout(() => {
-      loaderLogo.style.transition = "all 0.8s ease"
-      loaderLogo.style.opacity = "1"
-      loaderLogo.style.transform = "scale(1)"
+      loaderAvatar.style.transition = "all 0.8s ease"
+      loaderAvatar.style.opacity = "1"
+      loaderAvatar.style.transform = "translateY(0)"
 
-      // Anima la scritta Portfolio dopo che il logo è apparso
+      // Anima il logo dopo che l'avatar è apparso
       setTimeout(() => {
-        loaderPortfolio.style.transition = "all 0.8s ease"
-        loaderPortfolio.style.opacity = "1"
-        loaderPortfolio.style.transform = "translateY(0)"
+        loaderLogo.style.transition = "all 0.8s ease"
+        loaderLogo.style.opacity = "1"
+        loaderLogo.style.transform = "scale(1)"
 
-        // Inizia la barra di progresso dopo che tutti gli elementi sono apparsi
+        // Anima la scritta Portfolio dopo che il logo è apparso
         setTimeout(() => {
-          startProgressBar()
-        }, 500)
+          loaderPortfolio.style.transition = "all 0.8s ease"
+          loaderPortfolio.style.opacity = "1"
+          loaderPortfolio.style.transform = "translateY(0)"
+
+          // Inizia la barra di progresso dopo che tutti gli elementi sono apparsi
+          setTimeout(() => {
+            startProgressBar()
+          }, 500)
+        }, 600)
       }, 600)
-    }, 600)
-  }, 300)
+    }, 300)
+  }
+
+  // Avvia l'animazione del loader iniziale
+  startLoaderAnimation()
 
   // Funzione per avviare la barra di progresso
   function startProgressBar() {
@@ -87,6 +106,38 @@
       } else {
         link.classList.remove("active-link")
       }
+    })
+
+    // Chiudi il menu hamburger se è aperto
+    const hamburger = document.getElementById("hamburger")
+    const menu = document.getElementById("menu")
+    const hamburgerIcon = document.getElementById("hamburger-icon")
+
+    if (menu && menu.classList.contains("active")) {
+      menu.classList.remove("active")
+      hamburger.classList.remove("active")
+      hamburgerIcon.classList.remove("bx-x")
+      hamburgerIcon.classList.add("bx-menu")
+    }
+  }
+
+  // Gestione click sui loghi (header e hamburger menu)
+  const headerLogo = document.querySelector('header .logo')
+  const avatarMenu = document.querySelector('.avatar-menu')
+
+  // Click sul logo nell'header
+  if (headerLogo) {
+    headerLogo.addEventListener('click', (e) => {
+      e.preventDefault()
+      startLoaderAnimation()
+    })
+  }
+
+  // Click sul logo nell'hamburger menu
+  if (avatarMenu) {
+    avatarMenu.addEventListener('click', (e) => {
+      e.preventDefault()
+      startLoaderAnimation()
     })
   }
 
