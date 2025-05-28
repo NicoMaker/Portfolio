@@ -206,7 +206,6 @@ nav ul li a:hover {
   border-radius: 50%;
   object-fit: cover;
   box-shadow: var(--shadow-lg);
-  border: 4px solid var(--text-light);
   margin-bottom: 1.5rem;
 }
 
@@ -2161,7 +2160,6 @@ section {
     border-radius: 50%;
     object-fit: cover;
     box-shadow: var(--shadow-lg);
-    border: 4px solid var(--text-light);
     margin-bottom: 1.5rem;
   }
 }
