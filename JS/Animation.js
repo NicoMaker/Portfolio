@@ -173,58 +173,76 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
+  // Carica le frasi dal file JSON e avvia l'effetto typing
+  async function loadPhrasesAndStartTyping() {
+    try {
+      const response = await fetch('JSON/phrases.json')
+      const data = await response.json()
+      startTypingEffect(data.typingPhrases)
+    } catch (error) {
+      console.error('Errore nel caricamento del file phrases.json:', error)
+      // Fallback con frasi predefinite
+      const fallbackPhrases = [
+        "Web Developer",
+        "UI/UX Designer",
+        "Frontend Developer",
+        "Programmatore",
+        "Grafico Digitale",
+        "Appassionato di Videomaking",
+        "Creativo",
+        "Problem Solver",
+        "Esperto HTML, CSS e JavaScript"
+      ]
+      startTypingEffect(fallbackPhrases)
+    }
+  }
+
   // Typing effect
-  const dynamicText = document.querySelector(".dynamic-text")
-  const phrases = [
-    "Web Developer",
-    "UI/UX Designer",
-    "Frontend Developer",
-    "Programmatore",
-    "Grafico Digitale",
-    "Appassionato di Videomaking",
-    "Creativo",
-    "Problem Solver",
-    "Esperto HTML, CSS e JavaScript",
-  ]
+  function startTypingEffect(phrases) {
+    const dynamicText = document.querySelector(".dynamic-text")
 
-  // Funzione per mescolare le frasi
-  const shuffle = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-        ;[array[i], array[j]] = [array[j], array[i]]
+    // Funzione per mescolare le frasi
+    const shuffle = (array) => {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+          ;[array[i], array[j]] = [array[j], array[i]]
+      }
     }
+
+    shuffle(phrases) // Mescola le frasi
+
+    let phraseIndex = 0
+    let charIndex = 0
+    let isDeleting = false
+
+    const typeEffect = () => {
+      const currentPhrase = phrases[phraseIndex]
+
+      if (isDeleting) {
+        dynamicText.textContent = currentPhrase.substring(0, charIndex - 1)
+        charIndex--
+      } else {
+        dynamicText.textContent = currentPhrase.substring(0, charIndex + 1)
+        charIndex++
+      }
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        isDeleting = true
+        setTimeout(typeEffect, 1500)
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false
+        phraseIndex = (phraseIndex + 1) % phrases.length
+        setTimeout(typeEffect, 500)
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 100)
+      }
+    }
+
+    setTimeout(typeEffect, 1000)
   }
 
-  shuffle(phrases) // Mescola le frasi
-
-  let phraseIndex = 0
-  let charIndex = 0
-  let isDeleting = false
-
-  const typeEffect = () => {
-    const currentPhrase = phrases[phraseIndex]
-
-    if (isDeleting) {
-      dynamicText.textContent = currentPhrase.substring(0, charIndex - 1)
-      charIndex--
-    } else {
-      dynamicText.textContent = currentPhrase.substring(0, charIndex + 1)
-      charIndex++
-    }
-
-    if (!isDeleting && charIndex === currentPhrase.length) {
-      isDeleting = true
-      setTimeout(typeEffect, 1500)
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false
-      phraseIndex = (phraseIndex + 1) % phrases.length
-      setTimeout(typeEffect, 500)
-    } else {
-      setTimeout(typeEffect, isDeleting ? 50 : 100)
-    }
-  }
-
-  setTimeout(typeEffect, 1000)
+  // Avvia il caricamento delle frasi e l'effetto typing
+  loadPhrasesAndStartTyping()
 
   // Scroll reveal animation
   const revealElements = document.querySelectorAll(".reveal-left, .reveal-right, .reveal-top, .reveal-bottom")
