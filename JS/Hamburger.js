@@ -7,8 +7,14 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.style.display = "none";
   }
 
-  hamburger.addEventListener("click", () => {
-    // Toggle menu visibility
+  hamburger.addEventListener("click", (e) => {
+    // CONTROLLA SE IL CLICK È SUL LOGO AVATAR
+    if (e.target.closest('.avatar-menu')) {
+      // Se è il logo, non fare nulla - lascia che Animation.js gestisca
+      return;
+    }
+
+    // Toggle menu visibility solo se NON è il logo
     if (menu.style.display === "none" || menu.style.display === "") {
       menu.style.display = "flex";
       hamburger.innerHTML = '<i class="bx bx-x"></i>'; // Icona X

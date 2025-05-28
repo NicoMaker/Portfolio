@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // INTERCETTA I CLICK SUL LOGO NEL MENU HAMBURGER A LIVELLO GLOBALE
+  document.addEventListener('click', (e) => {
+    // Se il click è sul logo avatar nel menu hamburger
+    if (e.target.closest('.avatar-menu')) {
+      e.preventDefault()
+      e.stopImmediatePropagation()
+
+      // Avvia direttamente l'animazione del loader
+      startLoaderAnimation()
+      return false
+    }
+  }, true) // Capture phase - si attiva PRIMA di tutti gli altri handler
+
   // Assicurati che la pagina venga sempre caricata all'inizio (home page)
   if (window.location.hash) {
     // Se c'è un hash nell'URL (ad esempio #curriculum), lo rimuoviamo
@@ -121,9 +134,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Gestione click sui loghi (header e hamburger menu)
+  // Gestione click sui loghi (header)
   const headerLogo = document.querySelector('header .logo')
-  const avatarMenu = document.querySelector('.avatar-menu')
 
   // Click sul logo nell'header
   if (headerLogo) {
@@ -133,13 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Click sul logo nell'hamburger menu
-  if (avatarMenu) {
-    avatarMenu.addEventListener('click', (e) => {
-      e.preventDefault()
-      startLoaderAnimation()
-    })
-  }
+  // Il click sul logo nell'hamburger menu è già gestito dall'event listener globale sopra
 
   // Custom cursor
   const cursor = document.querySelector(".cursor")
