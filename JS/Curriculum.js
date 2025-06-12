@@ -860,7 +860,7 @@ function renderWebSite(sites) {
 
   // Use different layout for mobile vs desktop
   if (STATE.isMobile) {
-    DOM.sections.sites.className = "card-container mobile-sites-grid"
+    DOM.sections.sites.className = "card-container"
   } else {
     DOM.sections.sites.className = "card-container portfolio-grid"
   }

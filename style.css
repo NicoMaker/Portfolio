@@ -307,7 +307,6 @@ h1 {
   position: relative;
 }
 
-
 .glitch::before {
   left: 2px;
   text-shadow: -2px 0 var(--primary-light);
@@ -2320,3 +2319,14 @@ section {
     white-space: normal;
   }
 }
+
+/* media all query mobile */
+@media (max-width: 768px) {
+  /* Rimuove lo scrolling orizzontale nella sezione curriculum */
+  .card-container {
+    height: 600px !important; /* Imposta un'altezza fissa per evitare lo scrolling */
+    overflow-y: auto !important;
+    overflow-x: hidden !important; /* Impedisce lo scrolling orizzontale */
+  }
+}
+
