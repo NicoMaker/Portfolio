@@ -164,6 +164,12 @@
       "link": "https://www.postgresql.org/"
     },
     {
+      "nome": "MySQL",
+      "descrizione": "Gestione di database relazionali con MySQL, competenza nell'amministrazione di server, ottimizzazione delle performance e sviluppo di architetture scalabili per applicazioni web e enterprise.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/mysql-colored.svg",
+      "link": "https://www.mysql.com/"
+    },
+    {
       "nome": "HTML5",
       "descrizione": "Competenze nella creazione di pagine web con HTML5, con particolare attenzione all'accessibilità e alle best practices per la semantica e il SEO.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg",
