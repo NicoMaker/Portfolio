@@ -20,7 +20,9 @@
       "PostgreSQL",
       "MySQL",
       "Linux",
-      "Windows"
+      "Windows",
+      "VMware",
+      "VirtualBox"
     ],
     "IoT & Protocolli": [
       "MQTT",

@@ -306,6 +306,18 @@
       "descrizione": "Conoscenza base di AWS, la piattaforma cloud di Amazon, per la gestione di risorse informatiche scalabili, come server virtuali, database, storage e strumenti di machine learning.",
       "immagine": "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
       "link": "https://aws.amazon.com/"
+    },
+    {
+      "nome": "VMware",
+      "descrizione": "Conoscenza di base di VMware, una piattaforma di virtualizzazione che consente di eseguire più sistemi operativi su una singola macchina fisica, utilizzata per ambienti di test, sviluppo e produzione.",
+      "immagine": "https://th.bing.com/th/id/R.73edb51e8df2545075ca10d035d9221c?rik=vi2uitlRG9Npgw&pid=ImgRaw&r=0",
+      "link": "https://www.vmware.com/"
+    },
+    {
+      "nome": "VirtualBox",
+      "descrizione": "Conoscenze introduttive su VirtualBox, software open-source di virtualizzazione sviluppato da Oracle, che permette di creare ed eseguire macchine virtuali su diversi sistemi operativi host.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Virtualbox_logo.png",
+      "link": "https://www.virtualbox.org/"
     }
   ],
   "sites": [
