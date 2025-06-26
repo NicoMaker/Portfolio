@@ -3,9 +3,28 @@ let generatedCaptcha = "";
 function generateCaptcha() {
   const canvas = document.getElementById("captchaCanvas");
   const ctx = canvas.getContext("2d");
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  generatedCaptcha = Array.from({ length: 5 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
 
+  const uppercase = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  const lowercase = "abcdefghjkmnpqrstuvwxyz";
+  const digits = "23456789";
+  const allChars = uppercase + lowercase + digits;
+
+  // Garantire almeno 1 maiuscola, 1 minuscola e 1 numero
+  let captchaArray = [
+    uppercase[Math.floor(Math.random() * uppercase.length)],
+    lowercase[Math.floor(Math.random() * lowercase.length)],
+    digits[Math.floor(Math.random() * digits.length)],
+  ];
+
+  // Aggiungere altri 5 caratteri casuali
+  while (captchaArray.length < 8) {
+    captchaArray.push(allChars[Math.floor(Math.random() * allChars.length)]);
+  }
+
+  // Mischiare i caratteri
+  generatedCaptcha = captchaArray.sort(() => 0.5 - Math.random()).join("");
+
+  // Disegnare il CAPTCHA
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.font = "24px Poppins";
   ctx.fillStyle = "#1e293b";
@@ -40,7 +59,7 @@ function sendEmail(event) {
     return;
   }
 
-  if (captchaInput.toUpperCase() !== generatedCaptcha) {
+  if (captchaInput.toUpperCase() !== generatedCaptcha.toUpperCase()) {
     alert("Captcha errato. Riprova.");
     generateCaptcha();
     return;
