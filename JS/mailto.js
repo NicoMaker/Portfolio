@@ -1,29 +1,67 @@
+let generatedCaptcha = "";
+
+function generateCaptcha() {
+  const canvas = document.getElementById("captchaCanvas");
+  const ctx = canvas.getContext("2d");
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  generatedCaptcha = Array.from({ length: 5 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "24px Poppins";
+  ctx.fillStyle = "#1e293b";
+  ctx.fillText(generatedCaptcha, 10, 30);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  generateCaptcha();
+  const refreshBtn = document.getElementById("refreshCaptcha");
+  if (refreshBtn) refreshBtn.addEventListener("click", generateCaptcha);
+});
+
 function sendEmail(event) {
-  event.preventDefault(); // Previene il comportamento predefinito del form
+  event.preventDefault();
 
-  const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"],
-    [name, surname, email, telefono, oggetto, message] =
-      fields.map(getInputValue);
+  const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"];
+  const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
+  const captchaInput = getInputValue("captchaInput");
 
-  if (!isValidPhone(telefono)) {
-    alert("Per favore, inserisci un numero di telefono valido.");
+  if (!name || !surname || !email || !telefono || !oggetto || !message) {
+    alert("Tutti i campi devono essere compilati.");
     return;
   }
 
-  const subject = encodeURIComponent(oggetto),
-    body = encodeURIComponent(
-      `Gentile Nicola Marano,\n\n` +
-        `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
-        `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
-        `Resto a disposizione per eventuali chiarimenti.\n` +
-        `Cordiali saluti,\n${name} ${surname}`
-    );
+  if (!isValidEmail(email)) {
+    alert("L'indirizzo email non è valido.");
+    return;
+  }
+
+  if (!isValidPhone(telefono)) {
+    alert("Per favore, inserisci un numero di telefono valido nel formato internazionale (es. +39...).");
+    return;
+  }
+
+  if (captchaInput.toUpperCase() !== generatedCaptcha) {
+    alert("Captcha errato. Riprova.");
+    generateCaptcha();
+    return;
+  }
+
+  const subject = encodeURIComponent(oggetto);
+  const body = encodeURIComponent(
+    `Gentile Nicola Marano,\n\n` +
+    `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
+    `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
+    `Resto a disposizione per eventuali chiarimenti.\n` +
+    `Cordiali saluti,\n${name} ${surname}`
+  );
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
 }
 
-// Funzione per ottenere il valore di un input
+// Helpers
 const getInputValue = (id) => document.getElementById(id)?.value.trim() || "";
 
-// Valida un numero di telefono internazionale
 const isValidPhone = (number) => /^\+?[0-9]{10,15}$/.test(number);
+
+const isValidEmail = (email) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

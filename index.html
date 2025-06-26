@@ -238,11 +238,27 @@
               </div>
             </div>
 
+
+            <div class="form-group">
+              <label for="captchaInput">Verifica Captcha</label>
+              <div class="input-container" style="gap: 10px; flex-wrap: wrap;">
+                <canvas id="captchaCanvas" width="120" height="40"
+                  style="border-radius: 8px; background: #f1f5f9;"></canvas>
+                <button type="button" id="refreshCaptcha"
+                  style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 8px; background: var(--primary); color: white; border: none; cursor: pointer;">Cambia
+                  codice</button>
+                <input type="text" id="captchaInput" name="captchaInput" required placeholder="Scrivi il codice"
+                  style="flex: 1; min-width: 180px;" />
+              </div>
+            </div>
+
+
             <button type="submit" class="submit-btn">
               <span>Invia messaggio</span>
               <i class="bx bx-send"></i>
             </button>
           </form>
+
 
           <div class="social-container">
             <h3>Seguimi sui Social</h3>
