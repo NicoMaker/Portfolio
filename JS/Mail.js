@@ -1,203 +1,86 @@
+let generatedCaptcha = "";
+
+function generateCaptcha() {
+  const canvas = document.getElementById("captchaCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const uppercase = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  const lowercase = "abcdefghjkmnpqrstuvwxyz";
+  const digits = "23456789";
+  const allChars = uppercase + lowercase + digits;
+
+  // Garantire almeno 1 maiuscola, 1 minuscola e 1 numero
+  let captchaArray = [
+    uppercase[Math.floor(Math.random() * uppercase.length)],
+    lowercase[Math.floor(Math.random() * lowercase.length)],
+    digits[Math.floor(Math.random() * digits.length)],
+  ];
+
+  // Aggiungere altri 5 caratteri casuali
+  while (captchaArray.length < 8) {
+    captchaArray.push(allChars[Math.floor(Math.random() * allChars.length)]);
+  }
+
+  // Mischiare i caratteri
+  generatedCaptcha = captchaArray.sort(() => 0.5 - Math.random()).join("");
+
+  // Disegnare il CAPTCHA
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "24px Poppins";
+  ctx.fillStyle = "#1e293b";
+  ctx.fillText(generatedCaptcha, 10, 30);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  generateCaptcha();
+  const refreshBtn = document.getElementById("refreshCaptcha");
+  if (refreshBtn) refreshBtn.addEventListener("click", generateCaptcha);
+});
+
 function sendEmail(event) {
   event.preventDefault();
 
-  // Get form and create notification container if it doesn't exist
-  const form = document.getElementById("contactForm");
-  let notificationContainer = document.querySelector(".notification-container");
-
-  if (!notificationContainer) {
-    notificationContainer = document.createElement("div");
-    notificationContainer.className = "notification-container";
-    form.prepend(notificationContainer);
-  }
-
-  // Clear previous notifications
-  notificationContainer.innerHTML = "";
-
-  // Get form fields
   const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"];
-  const [name, surname, email, phone, subject, message] =
-    fields.map(getInputValue);
+  const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
+  const captchaInput = getInputValue("captchaInput");
 
-  // Validate phone number
-  if (!isValidPhone(phone)) {
-    showNotification(
-      notificationContainer,
-      "error",
-      "Per favore, inserisci un numero di telefono valido con prefisso internazionale (es. +39 123456789)."
-    );
-    highlightField("telefono");
+  if (!name || !surname || !email || !telefono || !oggetto || !message) {
+    alert("Tutti i campi devono essere compilati.");
     return;
   }
 
-  // Show loading state
-  const submitBtn = document.querySelector(".submit-btn");
-  const originalBtnText = submitBtn.innerHTML;
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span class="spinner"></span> Invio in corso...';
-
-  // Send the form data
-  fetch("/send-mail", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, surname, email, phone, subject, message }),
-  })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Errore ${res.status}: ${res.statusText}`);
-      }
-      return res.text();
-    })
-    .then((data) => {
-      // Success case
-      showNotification(
-        notificationContainer,
-        "success",
-        "Messaggio inviato con successo! Ti risponderemo al più presto."
-      );
-      form.reset();
-
-      // Visual success feedback
-      const formElements = form.querySelectorAll("input, textarea");
-      formElements.forEach((el) => {
-        el.classList.add("success-field");
-        setTimeout(() => el.classList.remove("success-field"), 2000);
-      });
-
-      // Scroll to notification
-      notificationContainer.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    })
-    .catch((err) => {
-      // Error case
-      console.error("Errore:", err);
-      showNotification(
-        notificationContainer,
-        "error",
-        "Si è verificato un errore durante l'invio del messaggio. Riprova più tardi o contattaci direttamente via email."
-      );
-
-      // Scroll to notification
-      notificationContainer.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    })
-    .finally(() => {
-      // Reset button state
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = originalBtnText;
-    });
-}
-
-// Helper functions
-const getInputValue = (id) => document.getElementById(id)?.value.trim() || "";
-const isValidPhone = (number) =>
-  /^\+([1-9][0-9]{0,3})([0-9]{6,14})$/.test(number.replace(/\s+/g, ""));
-
-function showNotification(container, type, message) {
-  const notification = document.createElement("div");
-  notification.className = `notification ${type}`;
-
-  // Add appropriate icon based on type
-  const icon =
-    type === "success"
-      ? '<i class="bx bx-check-circle" aria-hidden="true"></i>'
-      : '<i class="bx bx-error-circle" aria-hidden="true"></i>';
-
-  notification.innerHTML = `
-    ${icon}
-    <span class="notification-message">${message}</span>
-    <button class="notification-close" aria-label="Chiudi notifica">
-      <i class="bx bx-x"></i>
-    </button>
-  `;
-
-  // Add close button functionality
-  notification
-    .querySelector(".notification-close")
-    .addEventListener("click", () => {
-      notification.classList.add("notification-hiding");
-      setTimeout(() => notification.remove(), 300);
-    });
-
-  // Auto-dismiss success notifications after 5 seconds
-  if (type === "success") {
-    setTimeout(() => {
-      if (notification.parentNode) {
-        notification.classList.add("notification-hiding");
-        setTimeout(() => notification.remove(), 300);
-      }
-    }, 5000);
+  if (!isValidEmail(email)) {
+    alert("L'indirizzo email non è valido.");
+    return;
   }
 
-  // Add to container with animation
-  notification.style.opacity = "0";
-  notification.style.transform = "translateY(-20px)";
-  container.appendChild(notification);
+  if (!isValidPhone(telefono)) {
+    alert("Per favore, inserisci un numero di telefono valido nel formato internazionale (es. +39...).");
+    return;
+  }
 
-  // Trigger animation
-  setTimeout(() => {
-    notification.style.opacity = "1";
-    notification.style.transform = "translateY(0)";
-  }, 10);
+  if (captchaInput.toUpperCase() !== generatedCaptcha.toUpperCase()) {
+    alert("Captcha errato. Riprova.");
+    generateCaptcha();
+    return;
+  }
+
+  const subject = encodeURIComponent(oggetto);
+  const body = encodeURIComponent(
+    `Gentile Nicola Marano,\n\n` +
+    `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
+    `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
+    `Resto a disposizione per eventuali chiarimenti.\n` +
+    `Cordiali saluti,\n${name} ${surname}`
+  );
+
+  window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
 }
 
-function highlightField(fieldId) {
-  const field = document.getElementById(fieldId);
-  field.classList.add("error-field");
-  field.focus();
+// Helpers
+const getInputValue = (id) => document.getElementById(id)?.value.trim() || "";
 
-  // Add shake animation
-  field.classList.add("shake-animation");
+const isValidPhone = (number) => /^\+?[0-9]{10,15}$/.test(number);
 
-  // Remove animation and highlight after delay
-  setTimeout(() => {
-    field.classList.remove("shake-animation");
-
-    // Add event listener to remove error class when user starts typing
-    field.addEventListener("input", function removeErrorClass() {
-      field.classList.remove("error-field");
-      field.removeEventListener("input", removeErrorClass);
-    });
-  }, 500);
-}
-
-// Add form validation on input
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("contactForm");
-  const inputs = form.querySelectorAll("input, textarea");
-
-  inputs.forEach((input) => {
-    // Add validation on blur
-    input.addEventListener("blur", () => {
-      if (input.required && !input.value.trim()) {
-        input.classList.add("error-field");
-      } else if (
-        input.id === "email" &&
-        input.value.trim() &&
-        !isValidEmail(input.value)
-      ) {
-        input.classList.add("error-field");
-      } else if (
-        input.id === "telefono" &&
-        input.value.trim() &&
-        !isValidPhone(input.value)
-      ) {
-        input.classList.add("error-field");
-      } else {
-        input.classList.remove("error-field");
-      }
-    });
-
-    // Remove error class on input
-    input.addEventListener("input", () => {
-      input.classList.remove("error-field");
-    });
-  });
-});
-
-// Email validation helper
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const isValidEmail = (email) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
