@@ -2330,56 +2330,54 @@ section {
   }
 }
 
-  .form-group {
-    margin-bottom: 1.5rem;
-    font-family: "Poppins", sans-serif;
-  }
+.form-group {
+  margin-bottom: 1.5rem;
+  font-family: "Poppins", sans-serif;
+}
 
-  .form-group label {
-    font-weight: 600;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
+.form-group label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
 
-  .input-container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 0.5rem;
-  }
-
-  #captchaCanvas {
-    width: 250px;
-    height: 40px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    font-family: "Poppins", sans-serif;
-  }
-
-  #refreshCaptcha {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-    border-radius: 8px;
-    background: #2563eb; /* oppure var(--primary) se hai una variabile */
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-
-  #captchaInput {
-    flex: 1;
-    min-width: 180px;
-    padding: 0.4rem;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 0.9rem;
-  }
-
-#refreshCaptcha, #captchaInput{
-  font-size: 1.5rem;
+.input-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 #captchaCanvas {
-  text-align: center;
+  width: 250px;
+  height: 40px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+}
+
+#refreshCaptcha {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  background: #2563eb; /* oppure var(--primary) se hai una variabile */
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#captchaInput {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.4rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+#refreshCaptcha,
+#captchaInput,
+.send {
+  font-size: 1.5rem;
 }
