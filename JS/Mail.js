@@ -185,7 +185,6 @@ function sendEmail(event) {
   const captchaInput = getInputValue("captchaInput");
 
   if (!name || !surname || !email || !telefono || !oggetto || !message) {
-    alert("Tutti i campi devono essere compilati.");
     return;
   }
 
@@ -327,3 +326,180 @@ function drawCaptchaTextMobile(ctx, text, width, height) {
 const getInputValue = (id) => document.getElementById(id)?.value.trim() || "";
 const isValidPhone = (number) => /^\+?[0-9]{10,15}$/.test(number);
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+// === Auto-salvataggio dei dati ===
+const formFieldIds = ["name", "cognome", "email", "telefono", "oggetto", "message"];
+
+function saveFormData() {
+  const formData = {};
+  formFieldIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) formData[id] = el.value;
+  });
+  localStorage.setItem("formData", JSON.stringify(formData));
+}
+
+function restoreFormData() {
+  const saved = localStorage.getItem("formData");
+  if (saved) {
+    const data = JSON.parse(saved);
+    formFieldIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && data[id] !== undefined) {
+        el.value = data[id];
+      }
+    });
+  }
+}
+
+function clearFormData() {
+  localStorage.removeItem("formData");
+}
+
+function bindAutoSave() {
+  formFieldIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("input", saveFormData);
+  });
+}
+
+function validateCaptcha() {
+  const input = document.getElementById("captchaInput");
+  const status = document.getElementById("captchaStatus");
+  const inputValue = input.value.trim();
+
+  if (inputValue.length === 0) {
+    input.className = "";
+    status.className = "input-status";
+    status.textContent = "";
+    return false;
+  }
+
+  if (inputValue.toUpperCase() === generatedCaptcha.toUpperCase()) {
+    input.className = "valid";
+    status.className = "input-status valid";
+    status.textContent = "✓";
+    return true;
+  } else {
+    input.className = "invalid";
+    status.className = "input-status invalid";
+    status.textContent = "✗";
+
+    // NUOVO: se l’utente ha scritto 8 caratteri ma sbaglia, rigenera CAPTCHA
+    if (inputValue.length >= 8) {
+      setTimeout(() => {
+        generateCaptcha();
+        input.focus();
+      }, 500);
+    }
+    return false;
+  }
+}
+
+function sendEmail(event) {
+  event.preventDefault();
+
+  const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"];
+  const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
+  const captchaInput = getInputValue("captchaInput");
+
+  if (!name || !surname || !email || !telefono || !oggetto || !message) {
+    alert("Tutti i campi devono essere compilati.");
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    alert("L'indirizzo email non è valido.");
+    return;
+  }
+
+  if (!isValidPhone(telefono)) {
+    alert("Per favore, inserisci un numero di telefono valido nel formato internazionale (es. +39...).");
+    return;
+  }
+
+  if (captchaInput.toUpperCase() !== generatedCaptcha.toUpperCase()) {
+    alert("Captcha errato. Riprova.");
+    generateCaptcha();
+    const input = document.getElementById("captchaInput");
+    input.className = "invalid";
+    setTimeout(() => input.focus(), 100);
+    return;
+  }
+
+  // ✅ Pulisci i dati dal localStorage e dal form
+  clearFormData();
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  document.getElementById("captchaInput").value = "";
+  validateCaptcha();
+  generateCaptcha();
+
+  // ✅ Invia email
+  const subject = encodeURIComponent(oggetto);
+  const body = encodeURIComponent(
+    `Gentile Nicola Marano,\n\n` +
+    `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
+    `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
+    `Resto a disposizione per eventuali chiarimenti.\n` +
+    `Cordiali saluti,\n${name} ${surname}`
+  );
+
+  window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
+}
+
+function validateCaptcha() {
+  const input = document.getElementById("captchaInput");
+  const status = document.getElementById("captchaStatus");
+  const inputValue = input.value;
+
+  if (inputValue.length === 0) {
+    input.className = "";
+    status.className = "input-status";
+    status.textContent = "";
+    return false;
+  }
+
+  if (inputValue.toUpperCase() === generatedCaptcha.toUpperCase()) {
+    input.className = "valid";
+    status.className = "input-status valid";
+    status.textContent = "✓";
+    return true;
+  } else {
+    input.className = "invalid";
+    status.className = "input-status invalid";
+    status.textContent = "✗";
+
+    // Se ha scritto 8 caratteri, rigenera CAPTCHA
+    if (inputValue.length >= 8) {
+      setTimeout(() => {
+        generateCaptcha();
+        input.focus();
+      }, 500);
+    }
+    return false;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  generateCaptcha();
+  restoreFormData();
+  bindAutoSave();
+
+  const refreshBtn = document.getElementById("refreshCaptcha");
+  const captchaInput = document.getElementById("captchaInput");
+  const canvas = document.getElementById("captchaCanvas");
+  const form = document.getElementById("contactForm");
+
+  if (refreshBtn) refreshBtn.addEventListener("click", generateCaptcha);
+
+  if (captchaInput) {
+    captchaInput.addEventListener("input", validateCaptcha);
+    captchaInput.addEventListener("paste", e => e.preventDefault());
+  }
+
+  if (canvas) canvas.addEventListener("click", generateCaptcha);
+  if (form) form.addEventListener("submit", sendEmail);
+});
