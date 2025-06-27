@@ -41,6 +41,12 @@
       "url": "tel:+393337024320",
       "icon": "Icons/cell.png",
       "alt": "Telefono"
+    },
+    {
+      "name": "Qr COe",
+      "url": "https://drive.google.com/file/d/1ZlG1Q7WsTXF9v9F70idfZJ8qBiVSfV_s/view?usp=drive_linkg",
+      "icon": "https://th.bing.com/th/id/OIP.rjNbPQCWj3G1IgRAWm8e2QAAAA?pid=ImgDet&w=180&h=180&c=7&dpr=1,1",
+      "alt": "QR Code"
     }
   ]
 }
