@@ -184,32 +184,36 @@ function sendEmail(event) {
   const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
   const captchaInput = getInputValue("captchaInput");
 
+  // Validazione dei campi
   if (!name || !surname || !email || !telefono || !oggetto || !message) {
+    generateCaptcha(); // ✅ CAPTCHA si rigenera anche se altri campi sono errati
     return;
   }
 
-  if (!isValidEmail(email)) {
-    alert("L'indirizzo email non è valido.");
-    return;
-  }
-
-  if (!isValidPhone(telefono)) {
-    alert("Per favore, inserisci un numero di telefono valido nel formato internazionale (es. +39...).");
+  if (!isValidEmail(email) || !isValidPhone(telefono)) {
+    generateCaptcha(); // ✅ CAPTCHA si rigenera anche in caso di email o telefono errati
     return;
   }
 
   if (captchaInput.toUpperCase() !== generatedCaptcha.toUpperCase()) {
-    alert("Captcha errato. Riprova.");
     generateCaptcha();
-    // Forza l'aggiornamento dello stato visivo
     const input = document.getElementById("captchaInput");
     input.className = "invalid";
-    setTimeout(() => {
-      input.focus();
-    }, 100);
+    setTimeout(() => input.focus(), 100);
     return;
   }
 
+  // ✅ Pulisci i dati dal localStorage e dal form
+  clearFormData();
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  document.getElementById("captchaInput").value = "";
+  validateCaptcha();
+  generateCaptcha();
+
+  // ✅ Invia email
   const subject = encodeURIComponent(oggetto);
   const body = encodeURIComponent(
     `Gentile Nicola Marano,\n\n` +
@@ -221,6 +225,7 @@ function sendEmail(event) {
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
 }
+
 
 function drawCaptchaText(ctx, text, width, height) {
   const colors = ["#1e293b", "#374151", "#4338ca", "#7c3aed", "#dc2626"];
@@ -403,23 +408,7 @@ function sendEmail(event) {
   const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
   const captchaInput = getInputValue("captchaInput");
 
-  if (!name || !surname || !email || !telefono || !oggetto || !message) {
-    alert("Tutti i campi devono essere compilati.");
-    return;
-  }
-
-  if (!isValidEmail(email)) {
-    alert("L'indirizzo email non è valido.");
-    return;
-  }
-
-  if (!isValidPhone(telefono)) {
-    alert("Per favore, inserisci un numero di telefono valido nel formato internazionale (es. +39...).");
-    return;
-  }
-
   if (captchaInput.toUpperCase() !== generatedCaptcha.toUpperCase()) {
-    alert("Captcha errato. Riprova.");
     generateCaptcha();
     const input = document.getElementById("captchaInput");
     input.className = "invalid";
@@ -503,3 +492,49 @@ window.addEventListener("DOMContentLoaded", () => {
   if (canvas) canvas.addEventListener("click", generateCaptcha);
   if (form) form.addEventListener("submit", sendEmail);
 });
+
+
+function bindPhoneInputRestriction() {
+  const telefonoInput = document.getElementById("telefono");
+  if (!telefonoInput) return;
+
+  telefonoInput.addEventListener("input", () => {
+    let value = telefonoInput.value;
+
+    // Rimuove tutti i caratteri non numerici, eccetto +
+    value = value.replace(/[^\d+]/g, "");
+
+    // Mantiene solo il primo + se è all'inizio
+    if (value.includes("+")) {
+      value = "+" + value.replace(/\+/g, "").replace(/[^\d]/g, "");
+    }
+
+    telefonoInput.value = value;
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  generateCaptcha();
+  restoreFormData();
+  bindAutoSave();
+
+  // 👉 AGGIUNGI QUESTO
+  bindPhoneInputRestriction();
+
+  const refreshBtn = document.getElementById("refreshCaptcha");
+  const captchaInput = document.getElementById("captchaInput");
+  const canvas = document.getElementById("captchaCanvas");
+  const form = document.getElementById("contactForm");
+
+  if (refreshBtn) refreshBtn.addEventListener("click", generateCaptcha);
+
+  if (captchaInput) {
+    captchaInput.addEventListener("input", validateCaptcha);
+    captchaInput.addEventListener("paste", e => e.preventDefault());
+  }
+
+  if (canvas) canvas.addEventListener("click", generateCaptcha);
+  if (form) form.addEventListener("submit", sendEmail);
+});
+
+
