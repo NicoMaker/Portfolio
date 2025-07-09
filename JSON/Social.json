@@ -3,7 +3,7 @@
     {
       "name": "Gmail",
       "url": "mailto:nicola.marano02@gmail.com",
-      "icon": "Icons/gmail.png",
+      "icon": "Icons/Gmail.png",
       "alt": "Gmail"
     },
     {
@@ -27,7 +27,7 @@
     {
       "name": "GitHub",
       "url": "https://github.com/NicoMaker",
-      "icon": "Icons/github.png",
+      "icon": "Icons/Github.png",
       "alt": "GitHub"
     },
     {
