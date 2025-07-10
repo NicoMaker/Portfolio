@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Appassionato di Videomaking",
         "Creativo",
         "Problem Solver",
-        "Esperto HTML, CSS e JavaScript"
+        "Programmatore base HTML, CSS e JavaScript"
       ]
       startTypingEffect(fallbackPhrases)
     }
