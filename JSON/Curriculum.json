@@ -29,10 +29,23 @@
   ],
   "esperienze": [
     {
+      "azienda": "FTVTech",
+      "ruolo": "Tirocinio Curricolare",
+      "periodo": "[16/06/2025 - 08/08/2050]",
+      "luogo": "Martignacco (UD)",
+      "attivita": [
+        "Sviluppo di un'applicazione web per la gestione delle ore lavorative dei dipendenti utilizzando Node.js, HTML, CSS, JavaScript e SQLite.",
+        "Realizzazione di un'applicazione cloud-based per il caricamento e l'organizzazione di file e cartelle, con tecnologie Node.js, HTML, CSS, JavaScript e SQLite.",
+        "Utilizzo di WordPress e WooCommerce per la creazione e modifica di siti web aziendali e per la gestione dei dati su piattaforme e-commerce.",
+        "Pubblicazione di un sito web personale su dominio personalizzato."
+      ],
+      "logo": "Loghi/FTVTech.png"
+    },
+    {
       "azienda": "Omniaevo",
       "ruolo": "Stage Curricolare",
       "periodo": "[08/01/2024 – 29/03/2024]",
-      "luogo": "Codroipo UD",
+      "luogo": "Codroipo (UD)",
       "attivita": [
         "Utilizzo di una piattaforma per la lettura dei dati telemetrici della scheda Raspberry (RAM, ROM, CPU, Ingressi e Uscite digitali) attraverso il protocollo MQTT."
       ],
@@ -43,7 +56,7 @@
       "azienda": "Omniaevo",
       "ruolo": "Stage Curricolare",
       "periodo": "[12/06/2023 – 04/08/2023]",
-      "luogo": "Codroipo UD",
+      "luogo": "Codroipo (UD)",
       "attivita": [
         "Scrittura di siti web in HTML, CSS e JS.",
         "Applicazione con l'ASP.NET, collegato a C#, che tramite una web app gestiva anche HTML, CSS e JS.",
@@ -56,7 +69,7 @@
       "azienda": "Omniaevo",
       "ruolo": "PCTO",
       "periodo": "[12/10/2021 – 29/10/2021]",
-      "luogo": "Codroipo UD",
+      "luogo": "Codroipo (UD)",
       "attivita": [
         "Gestione di schede elettriche con il linguaggio C.",
         "Utilizzo protocollo MODBUS.",
