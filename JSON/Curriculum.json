@@ -49,7 +49,7 @@
       "periodo": "[08/01/2024 – 29/03/2024]",
       "luogo": "Codroipo (UD)",
       "attivita": [
-        "Utilizzo di una piattaforma per la lettura dei dati telemetrici della scheda Raspberry (RAM, ROM, CPU, Ingressi e Uscite digitali) attraverso il protocollo MQTT e la tecnologia ASP.NET.",
+        "Utilizzo di una piattaforma per la lettura dei dati telemetrici della scheda Raspberry (RAM, ROM, CPU, Ingressi e Uscite digitali) attraverso il protocollo MQTT e la tecnologia ASP.NET in combinazione a C#.",
         "Affiancamento degli operatori dell'azienda nell'attività di programmazione."
       ],
       "logo": "Loghi/Omniaevo.png",
