@@ -35,9 +35,10 @@
       "luogo": "Martignacco (UD)",
       "attivita": [
         "Sviluppo di un'applicazione web per la gestione delle ore lavorative dei dipendenti utilizzando Node.js, HTML, CSS, JavaScript e SQLite.",
-        "Realizzazione di un'applicazione cloud-based per il caricamento e l'organizzazione di file e cartelle, con tecnologie Node.js, HTML, CSS, JavaScript e SQLite.",
+        "Realizzazione di un'applicazione cloud-based per il caricamento e l'organizzazione di file e cartelle, con le tecnologie Node.js, HTML, CSS, JavaScript e SQLite.",
+        "Sviluppo di un'applicazione per la visualizzazione del file system con download di file e cartelle in zip tramite le tecnologie Node.js, HTML, CSS e JavaScript.",
         "Utilizzo di WordPress e WooCommerce per la creazione e modifica di siti web aziendali e per la gestione dei dati su piattaforme e-commerce.",
-        "Pubblicazione di un sito web personale su dominio personalizzato."
+        "Pubblicazione di un sito web personale con dominio personalizzato e configurazione hosting."
       ],
       "logo": "Loghi/FTVTech.png",
       "sito": "https://ftvtech.net//"
@@ -48,7 +49,8 @@
       "periodo": "[08/01/2024 – 29/03/2024]",
       "luogo": "Codroipo (UD)",
       "attivita": [
-        "Utilizzo di una piattaforma per la lettura dei dati telemetrici della scheda Raspberry (RAM, ROM, CPU, Ingressi e Uscite digitali) attraverso il protocollo MQTT."
+        "Utilizzo di una piattaforma per la lettura dei dati telemetrici della scheda Raspberry (RAM, ROM, CPU, Ingressi e Uscite digitali) attraverso il protocollo MQTT e la tecnologia ASP.NET.",
+        "Affiancamento degli operatori dell'azienda nell'attività di programmazione."
       ],
       "logo": "Loghi/Omniaevo.png",
       "sito": "https://www.omniaevo.it/"
@@ -60,7 +62,7 @@
       "luogo": "Codroipo (UD)",
       "attivita": [
         "Scrittura di siti web in HTML, CSS e JS.",
-        "Applicazione con l'ASP.NET, collegato a C#, che tramite una web app gestiva anche HTML, CSS e JS.",
+        "Applicazione realizzata utilizzando ASP.NET in combinazione con C#, con una web app che integrava HTML, CSS e JavaScript per la gestione dell’interfaccia utente.",
         "Affiancamento degli operatori dell'azienda nell'attività di programmazione."
       ],
       "logo": "Loghi/Omniaevo.png",
