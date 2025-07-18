@@ -193,7 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "UI/UX Designer",
         "Frontend Developer",
         "Programmatore",
-        "Grafico Digitale",
         "Appassionato di Videomaking",
         "Creativo",
         "Problem Solver",
