@@ -31,7 +31,7 @@
     {
       "azienda": "FTVTech",
       "ruolo": "Stage Curricolare",
-      "periodo": "[16/06/2025 - 08/08/2050]",
+      "periodo": "[16/06/2025 - 08/08/2025]",
       "luogo": "Martignacco (UD)",
       "attivita": [
         "Sviluppo di un'applicazione web per la gestione delle ore lavorative dei dipendenti utilizzando Node.js, HTML, CSS, JavaScript e SQLite.",
