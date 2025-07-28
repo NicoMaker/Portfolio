@@ -22,7 +22,9 @@
       "Linux",
       "Windows",
       "VMware",
-      "VirtualBox"
+      "VirtualBox",
+      "WordPress",
+      "WooCommerce"
     ],
     "IoT & Protocolli": [
       "MQTT",

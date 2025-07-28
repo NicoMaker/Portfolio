@@ -334,6 +334,18 @@
       "descrizione": "Conoscenze introduttive su VirtualBox, software open-source di virtualizzazione sviluppato da Oracle, che permette di creare ed eseguire macchine virtuali su diversi sistemi operativi host.",
       "immagine": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Virtualbox_logo.png",
       "link": "https://www.virtualbox.org/"
+    },
+    {
+      "nome": "WordPress",
+      "descrizione": "Esperienza nell'utilizzo di WordPress per la creazione e gestione di siti web e blog, con competenze nella personalizzazione di temi, installazione di plugin e ottimizzazione SEO. Conoscenza di base del backend e sviluppo di funzionalità personalizzate tramite PHP e JavaScript.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/9/98/WordPress_blue_logo.svg",
+      "link": "https://wordpress.org/"
+    },
+    {
+      "nome": "WooCommerce",
+      "descrizione": "Esperienza nell'utilizzo di WooCommerce per la realizzazione di eCommerce su piattaforma WordPress, con competenze nella configurazione di prodotti, metodi di pagamento, spedizioni e personalizzazione del layout. Conoscenza nell'estensione delle funzionalità tramite plugin e sviluppo custom in PHP e JavaScript.",
+      "immagine": "https://tse4.mm.bing.net/th/id/OIP.E6ZvOAf8qj68Jq6S46VMCgHaFA?rs=1&pid=ImgDetMain&o=7&rm=3",
+      "link": "https://woocommerce.com/"
     }
   ],
   "sites": [
