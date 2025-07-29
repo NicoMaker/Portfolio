@@ -190,10 +190,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // Fallback con frasi predefinite
       const fallbackPhrases = [
         "Web Developer",
-        "UI/UX Designer",
         "Frontend Developer",
         "Programmatore",
-        "Appassionato di Videomaking",
         "Creativo",
         "Problem Solver",
         "Programmatore base HTML, CSS e JavaScript"
