@@ -192,7 +192,6 @@ document.addEventListener("DOMContentLoaded", () => {
         "Web Developer",
         "Frontend Developer",
         "Programmatore",
-        "Creativo",
         "Problem Solver",
         "Programmatore base HTML, CSS e JavaScript"
       ]
