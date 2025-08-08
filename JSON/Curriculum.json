@@ -188,6 +188,12 @@
       "link": "https://www.mysql.com/"
     },
     {
+      "nome": "SQLite",
+      "descrizione": "Gestione di database leggeri e portatili con SQLite, competenza nella progettazione di schemi, ottimizzazione delle query e integrazione in applicazioni desktop, mobile.",
+      "immagine": "https://c8.alamy.com/comp/2M8F3D1/sqlite-rotated-logo-white-background-b-2M8F3D1.jpg",
+      "link": "https://www.sqlite.org/"
+    },
+    {
       "nome": "HTML5",
       "descrizione": "Competenze nella creazione di pagine web con HTML5, con particolare attenzione all'accessibilità e alle best practices per la semantica e il SEO.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg",
