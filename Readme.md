@@ -1,4 +1,4 @@
-### Documentazione Portfolio di Nicola Marano g 
+### Documentazione Portfolio di Nicola Marano 
 
 ## Indice
 
