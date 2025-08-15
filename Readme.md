@@ -1,6 +1,6 @@
 ### Documentazione Portfolio di Nicola Marano 
 
-## Indice x
+## Indice
 
 1. [Panoramica](#panoramica)
 2. [Struttura del Progetto](#struttura-del-progetto)
