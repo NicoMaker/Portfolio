@@ -1,4 +1,4 @@
-### Documentazione Portfolio di Nicola Marano github
+### Documentazione Portfolio di Nicola Marano
 
 ## Indice
 
