@@ -250,8 +250,14 @@
     {
       "nome": "MathJax",
       "descrizione": "Utilizzo di MathJax per la visualizzazione di formule matematiche e simboli in pagine web e documenti digitali.",
-      "immagine": "https://th.bing.com/th/id/OIP.Aq2YcFqi2adP77Q_An4zIwHaEK?rs=1&pid=ImgDetMain",
+      "immagine": "https://camo.githubusercontent.com/7ca5e5ac9d754e50095619448a539a3fdaf92a2ac0a0a6425487989119baf688/68747470733a2f2f706172616c6c2e61782f706172616c6c61782d323031362f696d672f7376672f6a737064662d6c6f676f2e737667",
       "link": "https://www.mathjax.org/"
+    },
+    {
+      "nome": "jsPDF",
+      "descrizione": "Esperienza nell'uso di jsPDF per la generazione di documenti PDF direttamente dal browser, con supporto per testi, immagini, tabelle e grafici.",
+      "immagine": "https://bestofjs.org/api/og/projects/jspdf?t=2023-12-09T21-21",
+      "link": "https://parall.ax/products/jspdf"
     },
     {
       "nome": "Windows",

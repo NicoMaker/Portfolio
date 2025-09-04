@@ -39,7 +39,7 @@
       "Microsoft Azure",
       "Amazon Web Services (AWS)"
     ],
-    "Visualizzazione": ["Mermaid", "Chart.js", "MathJax"]
+    "Visualizzazione": ["Mermaid", "Chart.js", "MathJax", "jsPDF"]
   },
   "defaultProjectTags": [
     "HTML",
