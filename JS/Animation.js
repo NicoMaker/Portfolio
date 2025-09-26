@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Carica le frasi dal file JSON e avvia l'effetto typing
   async function loadPhrasesAndStartTyping() {
     try {
-      const response = await fetch('JSON/phrases.json')
+      const response = await fetch('JSON/phares.json')
       const data = await response.json()
       startTypingEffect(data.typingPhrases)
     } catch (error) {
