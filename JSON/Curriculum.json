@@ -397,6 +397,12 @@
       "immagine": "https://logodetimes.com/times/milan/logo-milan-4096.png",
       "link": "https://milannico.netlify.app/",
       "codice": "https://github.com/NicoMaker/Milan"
+    },
+    {
+      "nome": "Calendario Classifica e Giornate Serie A",
+      "immagine": "https://logodetimes.com/times/milan/logo-milan-4096.png",
+      "link": "https://risultatiseriea.netlify.app/",
+      "codice": "https://github.com/NicoMaker/Risultati_Serie_A"
     }
   ]
 }
