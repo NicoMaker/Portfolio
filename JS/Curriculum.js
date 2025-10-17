@@ -54,7 +54,7 @@ const CONFIG = {
   fallbackJsonPath: "JSON/Curriculum.json", // Fallback in case of typo in filename
   animationDuration: 500,
   animationDelay: 100,
-  defaultOpenSection: 0, // Index of section to open by default (0 = first section)
+  defaultOpenSection: 2, // Index of section to open by default (2 = Esperienze Lavorative)
   debugMode: true,
   // Mobile configuration
   mobileBreakpoint: 768,
