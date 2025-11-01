@@ -351,7 +351,7 @@
     },
     {
       "nome": "WordPress",
-      "descrizione": "Esperienza nell'utilizzo di WordPress per la creazione e gestione di siti web e blog, con competenze nella personalizzazione di temi, installazione di plugin e ottimizzazione SEO. Conoscenza di base del backend e sviluppo di funzionalità personalizzate tramite PHP e JavaScript.",
+      "descrizione": "Esperienza nell'utilizzo di WordPress per la creazione e gestione di siti web e blog, con competenze nella personalizzazione di temi, installazione di plugin e ottimizzazione SEO. Conoscenza di base del backend e sviluppo di funzionalità personalizzate tramite HTML CSS e JavaScript.",
       "immagine": "https://upload.wikimedia.org/wikipedia/commons/9/98/WordPress_blue_logo.svg",
       "link": "https://wordpress.org/"
     },
@@ -360,6 +360,18 @@
       "descrizione": "Esperienza nell'utilizzo di WooCommerce per la realizzazione di eCommerce su piattaforma WordPress, con competenze nella configurazione di prodotti, metodi di pagamento, spedizioni e personalizzazione del layout. Conoscenza nell'estensione delle funzionalità tramite plugin e sviluppo custom in PHP e JavaScript.",
       "immagine": "https://tse4.mm.bing.net/th/id/OIP.E6ZvOAf8qj68Jq6S46VMCgHaFA?rs=1&pid=ImgDetMain&o=7&rm=3",
       "link": "https://woocommerce.com/"
+    },
+    {
+      "nome": "Flutter",
+      "descrizione": "Esperienza nello sviluppo di applicazioni multipiattaforma con Flutter, utilizzando widget reattivi e Material Design per creare interfacce moderne e performanti.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png",
+      "link": "https://flutter.dev/"
+    },
+    {
+      "nome": "Dart",
+      "descrizione": "Conoscenza del linguaggio Dart per la programmazione strutturata e orientata agli oggetti, utilizzato principalmente nello sviluppo di app con Flutter.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png",
+      "link": "https://dart.dev/"
     }
   ],
   "sites": [
@@ -369,10 +381,10 @@
       "link": "https://idealegnofvg.com/"
     },
     {
-      "nome":"Gestione Auto",
-      "immagine":"https://static.vecteezy.com/ti/vettori-gratis/p1/48062608-auto-flotta-gestione-icona-su-bianca-vettoriale.jpg",
-      "link":"https://v0-machine-management-app-one.vercel.app/",
-      "codice":"https://github.com/NicoMaker/Gestione-auto"
+      "nome": "Gestione Auto",
+      "immagine": "https://static.vecteezy.com/ti/vettori-gratis/p1/48062608-auto-flotta-gestione-icona-su-bianca-vettoriale.jpg",
+      "link": "https://v0-machine-management-app-one.vercel.app/",
+      "codice": "https://github.com/NicoMaker/Gestione-auto"
     },
     {
       "nome": "Pagina Generale Siti",
