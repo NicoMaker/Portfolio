@@ -391,30 +391,6 @@
       "immagine": "Web_Site/Bici.jpg",
       "link": "https://giri-in-bici.netlify.app/",
       "codice": "https://github.com/NicoMaker/Giri-in-bici"
-    },
-    {
-      "nome": "PokeApi",
-      "immagine": "https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png",
-      "link": "https://pokeapinico.netlify.app/",
-      "codice": "https://github.com/NicoMaker/PokeApi"
-    },
-    {
-      "nome": "Albo Classifica Serie A",
-      "immagine": "https://www.calciomagazine.net/wp-content/uploads/2024/07/serie-a-enilive-logo.jpg",
-      "link": "https://tabelloneseriea.netlify.app/",
-      "codice": "https://github.com/NicoMaker/Tabellone_Serie_A"
-    },
-    {
-      "nome": "Archivio Rose Milan",
-      "immagine": "https://logodetimes.com/times/milan/logo-milan-4096.png",
-      "link": "https://milannico.netlify.app/",
-      "codice": "https://github.com/NicoMaker/Milan"
-    },
-    {
-      "nome": "Albo Calendario Classifica e Giornate Serie A",
-      "immagine": "https://www.calciomagazine.net/wp-content/uploads/2024/07/serie-a-enilive-logo.jpg",
-      "link": "https://risultatiseriea.netlify.app/",
-      "codice": "https://github.com/NicoMaker/Risultati_Serie_A"
     }
   ]
 }
