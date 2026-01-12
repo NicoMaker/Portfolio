@@ -25,6 +25,9 @@ function renderSocialLinks(socialLinks) {
     socialLink.target = "_blank";
     socialLink.className = "icona";
 
+    // 👉 Tooltip al passaggio del mouse
+    socialLink.title = link.title;
+
     const icon = document.createElement("img");
     icon.className = "icona";
     icon.src = link.icon;

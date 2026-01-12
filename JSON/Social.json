@@ -4,49 +4,57 @@
       "name": "Gmail",
       "url": "mailto:nicola.marano02@gmail.com",
       "icon": "Icons/Gmail.png",
-      "alt": "Gmail"
+      "alt": "Gmail",
+      "title": "Gmail"
     },
     {
       "name": "Facebook",
       "url": "https://www.facebook.com/nicola.marano.775/",
       "icon": "Icons/facebook.png",
-      "alt": "Facebook"
+      "alt": "Facebook",
+      "title": "Facebook"
     },
     {
       "name": "Instagram",
       "url": "https://www.instagram.com/nicola.marano02/",
       "icon": "Icons/Instagram.png",
-      "alt": "Instagram"
+      "alt": "Instagram",
+      "title": "Instagram"
     },
     {
       "name": "WhatsApp",
       "url": "https://wa.me/3337024320?text=%2A%2AInfo%20da%20Portfolio%2A%2A",
       "icon": "Icons/Whatsapp.png",
-      "alt": "WhatsApp"
+      "alt": "WhatsApp",
+      "title": "WhatsApp"
     },
     {
       "name": "GitHub",
       "url": "https://github.com/NicoMaker",
       "icon": "Icons/Github.png",
-      "alt": "GitHub"
+      "alt": "GitHub",
+      "title": "GitHub"
     },
     {
       "name": "Komoot",
       "url": "https://www.komoot.com/it-it/user/1372754001803",
       "icon": "Icons/Koomot.png",
-      "alt": "Komoot"
+      "alt": "Komoot",
+      "title": "Komoot"
     },
     {
       "name": "Telefono",
       "url": "tel:+393337024320",
       "icon": "Icons/cell.png",
-      "alt": "Telefono"
+      "alt": "Telefono",
+      "title": "Telefono"
     },
     {
       "name": "Qr COe",
       "url": "https://drive.google.com/file/d/1ZlG1Q7WsTXF9v9F70idfZJ8qBiVSfV_s/view?usp=drive_linkg",
       "icon": "https://th.bing.com/th/id/OIP.rjNbPQCWj3G1IgRAWm8e2QAAAA?pid=ImgDet&w=180&h=180&c=7&dpr=1,1",
-      "alt": "QR Code"
+      "alt": "QR Code",
+      "title": "QR Code"
     }
   ]
 }
