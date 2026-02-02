@@ -736,8 +736,13 @@ function renderCompetenze(competenze) {
   const skillsContainer = document.createElement("div")
   skillsContainer.className = "skills-container"
 
+  // Ordina le categorie in ordine alfabetico
+  const sortedCategories = Object.keys(STATE.categorizedSkills).sort((a, b) => {
+    return a.localeCompare(b, 'it')
+  })
+
   // Add tabs for each category
-  Object.keys(STATE.categorizedSkills).forEach((category, index) => {
+  sortedCategories.forEach((category, index) => {
     const tab = document.createElement("div")
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`
     tab.setAttribute("data-category", category)
@@ -781,7 +786,7 @@ function renderCompetenze(competenze) {
   DOM.sections.competenze.appendChild(skillsContainer)
 
   // Show first category by default
-  const firstCategory = Object.keys(STATE.categorizedSkills)[0]
+  const firstCategory = sortedCategories[0]
   if (firstCategory) {
     renderSkillCategory(STATE.categorizedSkills[firstCategory], skillsContainer)
   }
@@ -805,7 +810,14 @@ function renderSkillCategory(skills, container) {
     return
   }
 
-  skills.forEach((skill, index) => {
+  // Ordina le competenze in ordine alfabetico per nome
+  const sortedSkills = [...skills].sort((a, b) => {
+    const nameA = (a.nome || "").toLowerCase()
+    const nameB = (b.nome || "").toLowerCase()
+    return nameA.localeCompare(nameB, 'it')
+  })
+
+  sortedSkills.forEach((skill, index) => {
     const card = document.createElement("div")
     card.className = "card skill-card"
     card.setAttribute("data-aos", "zoom-in")
