@@ -15,13 +15,15 @@
       "Flutter",
       "Dart"
     ],
+    "Database": [
+      "PostgreSQL",
+      "MySQL",
+      "SQLite"
+    ],
     "DevOps & Tools": [
       "Git",
       "VS Code",
       "Docker",
-      "PostgreSQL",
-      "MySQL",
-      "SQLite",
       "Linux",
       "Windows",
       "VMware",
@@ -41,7 +43,12 @@
       "Microsoft Azure",
       "Amazon Web Services (AWS)"
     ],
-    "Visualizzazione": ["Mermaid", "Chart.js", "MathJax", "jsPDF"]
+    "Visualizzazione": [
+      "Mermaid",
+      "Chart.js",
+      "MathJax",
+      "jsPDF"
+    ]
   },
   "defaultProjectTags": [
     "HTML",
