@@ -194,6 +194,12 @@
       "link": "https://www.sqlite.org/"
     },
     {
+      "nome": "SQLite3",
+      "descrizione": "Utilizzo di SQLite3, l'ultima versione stabile di SQLite, per la gestione efficiente di database embedded. Competenza nell'uso della CLI sqlite3 per query interattive, backup e ottimizzazione. Esperienza nell'integrazione con applicazioni Node.js, Python e C# per lo sviluppo di soluzioni locali e portatili.",
+      "immagine": "https://i.ytimg.com/vi/CUiH79hA6uE/maxresdefault.jpg",
+      "link": "https://www.npmjs.com/package/sqlite3"
+    },
+    {
       "nome": "HTML5",
       "descrizione": "Competenze nella creazione di pagine web con HTML5, con particolare attenzione all'accessibilità e alle best practices per la semantica e il SEO.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg",
