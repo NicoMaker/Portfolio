@@ -382,6 +382,11 @@
   ],
   "sites": [
     {
+      "nome": "Maceleria da Ketti",
+      "immagine": "Web_Site/Macelleria_da_Ketti.png",
+      "link": "https://macelleriadaketti.it/"
+    },
+    {
       "nome": "IdeaLegno",
       "immagine": "Web_Site/IDEALEGNO.jpg",
       "link": "https://idealegnofvg.com/"
