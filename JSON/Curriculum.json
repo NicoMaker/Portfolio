@@ -35,6 +35,7 @@
       "luogo": "Polo Tecnologico Pordenone (PN)",
       "attivita": [
         "Analisi e redazione della Relazione Tecnica per il festival 'Cortile del Libro e della Carta', definendo architettura informativa, requisiti di sicurezza (HTTPS/HSTS) e conformità GDPR.",
+        "Analisi comparativa (Benchmarking) dei competitor nel settore dei festival culturali per l'identificazione di best practice UX/UI e la definizione del vantaggio competitivo.",
         "Progettazione UI/UX su Figma del template web, applicando l'identità visiva del festival con palette dedicata (Avorio #F7F3E8, Salvia #A0A088, Terracotta #C37A67).",
         "Sviluppo integrale del sito web con Next.js e React, organizzando la struttura in componenti modulari (Hero, Proposte, Candidature, Food, Programma, Edizioni, Info Visita).",
         "Implementazione di un Section Indicator (Reading Progress Bar) personalizzato in JavaScript per migliorare l'orientamento dell'utente durante la navigazione.",
