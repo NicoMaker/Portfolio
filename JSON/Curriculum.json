@@ -29,6 +29,22 @@
   ],
   "esperienze": [
     {
+      "azienda": "Fuori Dagli Schemi",
+      "ruolo": "Stage Curricolare",
+      "periodo": "[26/01/2026 - 27/04/2026]",
+      "luogo": "Polo Tecnologico Pordenone (PN)",
+      "attivita": [
+        "Analisi e redazione della Relazione Tecnica per il festival 'Cortile del Libro e della Carta', definendo architettura informativa, requisiti di sicurezza (HTTPS/HSTS) e conformità GDPR.",
+        "Progettazione UI/UX su Figma del template web, applicando l'identità visiva del festival con palette dedicata (Avorio #F7F3E8, Salvia #A0A088, Terracotta #C37A67).",
+        "Sviluppo integrale del sito web con Next.js e React, organizzando la struttura in componenti modulari (Hero, Proposte, Candidature, Food, Programma, Edizioni, Info Visita).",
+        "Implementazione di un Section Indicator (Reading Progress Bar) personalizzato in JavaScript per migliorare l'orientamento dell'utente durante la navigazione.",
+        "Ottimizzazione SEO locale per il territorio di Montereale Valcellina e gestione dei meta-tag per l'indicizzazione delle edizioni passate del festival.",
+        "Analisi e tuning delle performance web basato sui Core Web Vitals (LCP, FID, CLS) tramite l'utilizzo di immagini WebP e tecniche di lazy-loading."
+      ],
+      "logo": "Loghi/Fuori_Dagli_Schemi.svg",
+      "sito": "https://www.fuoridaglischemi.com/"
+    },
+    {
       "azienda": "FTVTech",
       "ruolo": "Stage Curricolare",
       "periodo": "[16/06/2025 - 08/08/2025]",
