@@ -13,7 +13,9 @@
       "Express",
       "Vite",
       "Flutter",
-      "Dart"
+      "Dart",
+      "Tailwind CSS",
+      "Bootstrap"
     ],
     "Database": ["PostgreSQL", "MySQL", "SQLite", "SQLite3"],
     "DevOps & Tools": [

@@ -395,6 +395,18 @@
       "descrizione": "Conoscenza del linguaggio Dart per la programmazione strutturata e orientata agli oggetti, utilizzato principalmente nello sviluppo di app con Flutter.",
       "immagine": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png",
       "link": "https://dart.dev/"
+    },
+    {
+      "nome": "Tailwind CSS",
+      "descrizione": "Utilizzo di Tailwind CSS per la creazione di interfacce moderne e responsive tramite utility classes, con approccio mobile-first e personalizzazione avanzata del design system.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
+      "link": "https://tailwindcss.com/"
+    },
+    {
+      "nome": "Bootstrap",
+      "descrizione": "Esperienza nell'uso di Bootstrap per lo sviluppo rapido di interfacce web responsive, sfruttando il sistema a griglia, i componenti predefiniti e le utility CSS per garantire compatibilità cross-browser.",
+      "immagine": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg",
+      "link": "https://getbootstrap.com/"
     }
   ],
   "sites": [
