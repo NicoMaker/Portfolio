@@ -407,6 +407,18 @@
       "descrizione": "Esperienza nell'uso di Bootstrap per lo sviluppo rapido di interfacce web responsive, sfruttando il sistema a griglia, i componenti predefiniti e le utility CSS per garantire compatibilità cross-browser.",
       "immagine": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Bootstrap_logo.svg",
       "link": "https://getbootstrap.com/"
+    },
+    {
+      "nome": "TypeScript",
+      "descrizione": "Esperienza nell'uso di TypeScript per lo sviluppo di applicazioni JavaScript tipizzate, migliorando la manutenibilità e la robustezza del codice grazie al sistema di tipi statici, interfacce e decoratori.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg",
+      "link": "https://www.typescriptlang.org/"
+    },
+    {
+      "nome": "Next.js",
+      "descrizione": "Competenze nello sviluppo di applicazioni web full-stack con Next.js, sfruttando il rendering lato server (SSR), la generazione statica (SSG), le API Routes e l'ottimizzazione delle performance per applicazioni React scalabili.",
+      "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg",
+      "link": "https://nextjs.org/"
     }
   ],
   "sites": [

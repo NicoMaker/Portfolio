@@ -15,7 +15,9 @@
       "Flutter",
       "Dart",
       "Tailwind CSS",
-      "Bootstrap"
+      "Bootstrap",
+      "TypeScript",
+      "Next.js"
     ],
     "Database": ["PostgreSQL", "MySQL", "SQLite", "SQLite3"],
     "DevOps & Tools": [
