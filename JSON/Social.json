@@ -50,6 +50,13 @@
       "title": "Telefono"
     },
     {
+      "name": "SMS",
+      "url": "sms:+393337024320",
+      "icon": "https://cdn-icons-png.flaticon.com/512/676/676073.png",
+      "alt": "SMS",
+      "title": "SMS"
+    },
+    {
       "name": "Qr COe",
       "url": "https://drive.google.com/file/d/1ZlG1Q7WsTXF9v9F70idfZJ8qBiVSfV_s/view?usp=drive_linkg",
       "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Qrcode_CORRETTO.svg/250px-Qrcode_CORRETTO.svg.png",
