@@ -1604,6 +1604,7 @@ section {
   max-height: 700px;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: 1.5rem;
 }
 
 #esperienze .card-container,
@@ -1632,6 +1633,14 @@ section {
   max-height: 700px;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-bottom: 1.5rem;
+}
+
+#esperienze .card-container,
+#istruzione .card-container {
+  max-height: none !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
 }
 
 #istruzione .card.istruzione-card {
@@ -1772,14 +1781,6 @@ section {
   margin-bottom: 0.8rem;
 }
 
-#esperienze .skills-tabs {
-  width: 100%;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-
 .skill-tab {
   padding: 0.8rem 1.5rem;
   background-color: #f1f5f9;
@@ -1854,6 +1855,39 @@ section {
 .year-ok-btn:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
+}
+
+.year-reset-btn {
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  color: var(--text-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.year-reset-btn:hover {
+  background-color: #eef2ff;
+  border-color: var(--primary-light);
+}
+
+.empty-filter-message {
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--border-radius);
+  color: var(--text-muted);
+  background-color: #f8fafc;
+}
+
+.empty-filter-message i {
+  font-size: 1.4rem;
+  color: var(--primary);
+  display: block;
+  margin-bottom: 0.4rem;
 }
 
 .skills-container {

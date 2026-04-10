@@ -768,6 +768,16 @@ function renderEsperienze(esperienze) {
   const renderEsperienzeCards = (items) => {
     cardsContainer.innerHTML = ""
 
+    if (!items || items.length === 0) {
+      cardsContainer.innerHTML = `
+        <div class="empty-filter-message">
+          <i class='bx bx-info-circle'></i>
+          <p>Non ci sono dati per questi criteri.</p>
+        </div>
+      `
+      return
+    }
+
     items.forEach((esperienza, index) => {
       const card = document.createElement("div")
       card.className = "card experience-card"
@@ -867,11 +877,13 @@ function renderEsperienze(esperienze) {
       <input type="number" class="year-input year-to" min="${minYear}" max="${maxYear}" placeholder="${maxYear}" />
       <button type="button" class="year-ok-btn">OK</button>
     </label>
+    <button type="button" class="year-reset-btn">Reset</button>
   `
 
   const fromInput = yearsBar.querySelector(".year-from")
   const toInput = yearsBar.querySelector(".year-to")
   const okButtons = yearsBar.querySelectorAll(".year-ok-btn")
+  const resetButton = yearsBar.querySelector(".year-reset-btn")
 
   const updateYears = () => {
     const fromValue = Number.parseInt(fromInput.value, 10)
@@ -901,6 +913,14 @@ function renderEsperienze(esperienze) {
 
   toInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") updateYears()
+  })
+
+  resetButton.addEventListener("click", () => {
+    fromInput.value = ""
+    toInput.value = ""
+    fromYear = null
+    toYear = null
+    applyEsperienzeFilters()
   })
 
   DOM.sections.esperienze.appendChild(tabsContainer)
@@ -1381,6 +1401,16 @@ function renderIstruzione(istruzione) {
   const renderIstruzioneCards = (items) => {
     cardsContainer.innerHTML = "";
 
+    if (!items || items.length === 0) {
+      cardsContainer.innerHTML = `
+        <div class="empty-filter-message">
+          <i class='bx bx-info-circle'></i>
+          <p>Non ci sono dati per questi criteri.</p>
+        </div>
+      `;
+      return;
+    }
+
     items.forEach((item, index) => {
       const card = document.createElement("div");
       card.className = "card istruzione-card";
@@ -1490,11 +1520,13 @@ function renderIstruzione(istruzione) {
       <input type="number" class="year-input year-to" min="${minYear}" max="${maxYear}" placeholder="${maxYear}" />
       <button type="button" class="year-ok-btn">OK</button>
     </label>
+    <button type="button" class="year-reset-btn">Reset</button>
   `;
 
   const fromInput = yearsBar.querySelector(".year-from");
   const toInput = yearsBar.querySelector(".year-to");
   const okButtons = yearsBar.querySelectorAll(".year-ok-btn");
+  const resetButton = yearsBar.querySelector(".year-reset-btn");
 
   const updateYears = () => {
     const fromValue = Number.parseInt(fromInput.value, 10);
@@ -1524,6 +1556,14 @@ function renderIstruzione(istruzione) {
 
   toInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") updateYears();
+  });
+
+  resetButton.addEventListener("click", () => {
+    fromInput.value = "";
+    toInput.value = "";
+    fromYear = null;
+    toYear = null;
+    applyIstruzioneFilters();
   });
 
   DOM.sections.istruzione.appendChild(tabsContainer);
