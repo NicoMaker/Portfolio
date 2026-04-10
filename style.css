@@ -1738,6 +1738,12 @@ section {
   gap: 1rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
+  position: sticky;
+  top: 90px;
+  z-index: 20;
+  background-color: var(--background);
+  padding: 0.7rem 0;
+  border-radius: var(--border-radius);
 }
 
 .skill-tab {
@@ -1773,6 +1779,17 @@ section {
 
 .skill-card {
   text-align: center;
+}
+
+.skill-category-badge {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background-color: #eef2ff;
+  color: var(--primary-dark);
+  font-weight: 600;
 }
 
 .skill-icon {

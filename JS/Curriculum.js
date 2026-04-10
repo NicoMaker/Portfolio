@@ -648,6 +648,39 @@ function createLevelIndicator(level) {
 }
 
 /**
+ * Scroll to the top of a curriculum section
+ */
+function scrollToSectionTop(element) {
+  const section = element?.closest(".section")
+  if (!section) return
+
+  const header = document.querySelector("header")
+  const headerOffset = header ? header.offsetHeight + 16 : 16
+  const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset
+
+  window.scrollTo({
+    top: targetY,
+    behavior: "smooth",
+  })
+}
+
+/**
+ * Resolve category label for a skill using categorized data
+ */
+function getSkillCategoryLabel(skill) {
+  if (!STATE.categorizedSkills) return "Altro"
+
+  const skillName = (skill?.nome || "").trim()
+  if (!skillName) return "Altro"
+
+  const foundCategory = Object.keys(STATE.categorizedSkills).find((category) =>
+    (STATE.categorizedSkills[category] || []).some((item) => (item.nome || "").trim() === skillName),
+  )
+
+  return foundCategory || "Altro"
+}
+
+/**
  * Render esperienze lavorative section with improved layout
  */
 function renderEsperienze(esperienze) {
@@ -742,7 +775,10 @@ function renderEsperienze(esperienze) {
       setTimeout(() => {
         renderEsperienzeCards(filteredItems)
         cardsContainer.classList.remove("fade-out")
+        cardsContainer.scrollTop = 0
       }, 250)
+
+      scrollToSectionTop(tab)
     })
 
     tabsContainer.appendChild(tab)
@@ -797,7 +833,7 @@ function renderCompetenze(competenze) {
 
     tab.addEventListener("click", () => {
       // Update active tab
-      document.querySelectorAll(".skill-tab").forEach((t) => {
+      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => {
         t.classList.remove("active")
       })
       tab.classList.add("active")
@@ -807,9 +843,9 @@ function renderCompetenze(competenze) {
 
       setTimeout(() => {
         if (category === "Tutti") {
-          renderSkillCategory(competenze, skillsContainer)
+          renderSkillCategory(competenze, skillsContainer, true)
         } else {
-          renderSkillCategory(STATE.categorizedSkills[category], skillsContainer)
+          renderSkillCategory(STATE.categorizedSkills[category], skillsContainer, false)
         }
         skillsContainer.classList.remove("fade-out")
 
@@ -818,6 +854,8 @@ function renderCompetenze(competenze) {
           initializeSkillAnimations()
         }, 100)
       }, 300)
+
+      scrollToSectionTop(tab)
     })
 
     tabsContainer.appendChild(tab)
@@ -827,13 +865,13 @@ function renderCompetenze(competenze) {
   DOM.sections.competenze.appendChild(skillsContainer)
 
   // Show "Tutti" by default
-  renderSkillCategory(competenze, skillsContainer)
+  renderSkillCategory(competenze, skillsContainer, true)
 }
 
 /**
  * Render skills for a specific category with improved layout
  */
-function renderSkillCategory(skills, container) {
+function renderSkillCategory(skills, container, showCategory = false) {
   if (!container) return
 
   container.innerHTML = ""
@@ -875,6 +913,11 @@ function renderSkillCategory(skills, container) {
         }" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;" />
       </div>
       <h4>${skill.nome || "Competenza non specificata"}</h4>
+      ${
+        showCategory
+          ? `<div class="skill-category-badge">${getSkillCategoryLabel(skill)}</div>`
+          : ""
+      }
       <div class="skill-progress">
         <div class="progress-bar" data-progress="85" style="--progress-color: ${progressColor};">
           <div class="progress-fill"></div>
@@ -1285,7 +1328,10 @@ function renderIstruzione(istruzione) {
       setTimeout(() => {
         renderIstruzioneCards(filteredItems);
         cardsContainer.classList.remove("fade-out");
+        cardsContainer.scrollTop = 0;
       }, 250);
+
+      scrollToSectionTop(tab);
     });
 
     tabsContainer.appendChild(tab);
