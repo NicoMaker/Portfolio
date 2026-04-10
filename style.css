@@ -1819,6 +1819,30 @@ section {
   border-radius: var(--border-radius);
 }
 
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+#competenze .skills-sticky-controls {
+  position: sticky;
+  top: 0;
+  z-index: 23;
+  background-color: var(--background);
+  padding-top: 0.25rem;
+}
+
+#competenze .skills-sticky-controls .skills-tabs {
+  position: static;
+  z-index: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 0.6rem;
+}
+
+#competenze .skills-sticky-controls .year-filter-bar {
+  position: static;
+  z-index: auto;
+  width: fit-content;
+  margin: 0 auto 0.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
 .year-filter-bar label {
   display: flex;
   align-items: center;

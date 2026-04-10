@@ -948,11 +948,56 @@ function renderCompetenze(competenze) {
   const skillsContainer = document.createElement("div")
   skillsContainer.className = "skills-container"
 
+  // Sticky wrapper to keep category filters + search fixed while scrolling
+  const stickyControls = document.createElement("div")
+  stickyControls.className = "skills-sticky-controls"
+
+  // Create search bar using the same visual style of year filters
+  const searchBar = document.createElement("div")
+  searchBar.className = "year-filter-bar"
+
   // Ordina le categorie in ordine alfabetico
   const sortedCategories = Object.keys(STATE.categorizedSkills).sort((a, b) => {
     return a.localeCompare(b, 'it')
   })
   const categoriesWithAll = ["Tutti", ...sortedCategories]
+  let activeCategory = "Tutti"
+  let searchTerm = ""
+
+  const getCategoryItems = () => {
+    if (activeCategory === "Tutti") return competenze
+    return STATE.categorizedSkills[activeCategory] || []
+  }
+
+  const applyCompetenzeFilters = () => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+    let filtered = getCategoryItems()
+
+    if (normalizedSearch) {
+      filtered = filtered.filter((skill) => {
+        const name = (skill?.nome || "").toLowerCase()
+        const description = (skill?.descrizione || "").toLowerCase()
+        const category = getSkillCategoryLabel(skill).toLowerCase()
+
+        return (
+          name.includes(normalizedSearch) ||
+          description.includes(normalizedSearch) ||
+          category.includes(normalizedSearch)
+        )
+      })
+    }
+
+    skillsContainer.classList.add("fade-out")
+    setTimeout(() => {
+      renderSkillCategory(filtered, skillsContainer, activeCategory === "Tutti")
+      skillsContainer.classList.remove("fade-out")
+
+      // Initialize progress bar animations
+      setTimeout(() => {
+        initializeSkillAnimations()
+      }, 100)
+    }, 250)
+  }
 
   // Add tabs for each category
   categoriesWithAll.forEach((category, index) => {
@@ -977,23 +1022,9 @@ function renderCompetenze(competenze) {
         t.classList.remove("active")
       })
       tab.classList.add("active")
+      activeCategory = category
 
-      // Update skills display with animation
-      skillsContainer.classList.add("fade-out")
-
-      setTimeout(() => {
-        if (category === "Tutti") {
-          renderSkillCategory(competenze, skillsContainer, true)
-        } else {
-          renderSkillCategory(STATE.categorizedSkills[category], skillsContainer, false)
-        }
-        skillsContainer.classList.remove("fade-out")
-
-        // Initialize progress bar animations
-        setTimeout(() => {
-          initializeSkillAnimations()
-        }, 100)
-      }, 300)
+      applyCompetenzeFilters()
 
       scrollToSectionTop(tab)
     })
@@ -1001,11 +1032,48 @@ function renderCompetenze(competenze) {
     tabsContainer.appendChild(tab)
   })
 
-  DOM.sections.competenze.appendChild(tabsContainer)
+  searchBar.innerHTML = `
+    <label>
+      <span>Cerca</span>
+      <input
+        type="search"
+        class="year-input skill-search-input"
+        placeholder="Es. JavaScript, Docker, Frontend..."
+      />
+    </label>
+    <button type="button" class="year-reset-btn skill-search-reset">Reset</button>
+  `
+
+  const searchInput = searchBar.querySelector(".skill-search-input")
+  const searchResetButton = searchBar.querySelector(".skill-search-reset")
+
+  const updateSearch = () => {
+    searchTerm = searchInput.value || ""
+    applyCompetenzeFilters()
+  }
+
+  searchInput.addEventListener("input", updateSearch)
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      updateSearch()
+    }
+  })
+
+  searchResetButton.addEventListener("click", () => {
+    searchInput.value = ""
+    searchTerm = ""
+    applyCompetenzeFilters()
+  })
+
+  stickyControls.appendChild(tabsContainer)
+  stickyControls.appendChild(searchBar)
+
+  DOM.sections.competenze.appendChild(stickyControls)
   DOM.sections.competenze.appendChild(skillsContainer)
 
   // Show "Tutti" by default
-  renderSkillCategory(competenze, skillsContainer, true)
+  applyCompetenzeFilters()
 }
 
 /**
