@@ -1826,8 +1826,11 @@ section {
   position: sticky;
   top: 0;
   z-index: 23;
-  background-color: var(--background);
-  padding-top: 0.25rem;
+  background-color: #fff;
+  padding: 0.25rem 0 0.2rem;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #fff;
 }
 
 #attestati .skills-sticky-controls .year-filter-bar,
@@ -1846,6 +1849,7 @@ section {
   z-index: auto;
   width: fit-content;
   margin: 0 auto 0.8rem;
+  background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
@@ -1864,6 +1868,12 @@ section {
 #sites .sites-list {
   width: 100%;
   transition: opacity 0.3s ease;
+}
+
+#sites .sites-list.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
 }
 
 #sites .sites-list.fade-out {
