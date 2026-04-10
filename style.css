@@ -1596,6 +1596,26 @@ section {
   overflow-x: hidden;
 }
 
+#esperienze .experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+#esperienze .card.experience-card {
+  width: 100%;
+}
+
+#istruzione .istruzione-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 #istruzione .card.istruzione-card {
   width: 100% !important;
   flex: 0 0 auto;

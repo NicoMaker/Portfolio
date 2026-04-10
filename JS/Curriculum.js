@@ -658,63 +658,99 @@ function renderEsperienze(esperienze) {
 
   DOM.sections.esperienze.innerHTML = ""
 
-  // Use standard card container for better consistency with other sections
-  DOM.sections.esperienze.className = "card-container"
+  const roles = [...new Set(esperienze.map((item) => (item.ruolo || "").trim()).filter(Boolean))]
+  const filters = ["Tutti", ...roles]
 
-  esperienze.forEach((esperienza, index) => {
-    const card = document.createElement("div")
-    card.className = "card experience-card"
-    card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left")
-    card.setAttribute("data-aos-delay", (index * 150).toString())
+  const tabsContainer = document.createElement("div")
+  tabsContainer.className = "skills-tabs"
 
-    // Create activities list
-    const attivitaList = Array.isArray(esperienza.attivita)
-      ? esperienza.attivita.map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`).join("")
-      : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>"
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = "experience-list"
 
-    // Handle potential missing logo
-    const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64"
+  const renderEsperienzeCards = (items) => {
+    cardsContainer.innerHTML = ""
 
-    card.innerHTML = `
-      <div class="experience-header">
-        <div class="company-logo">
-          <img class="azienda" src="${logoSrc}" alt="Logo ${
-            esperienza.azienda
-          }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+    items.forEach((esperienza, index) => {
+      const card = document.createElement("div")
+      card.className = "card experience-card"
+      card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left")
+      card.setAttribute("data-aos-delay", (index * 150).toString())
+
+      const attivitaList = Array.isArray(esperienza.attivita)
+        ? esperienza.attivita.map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`).join("")
+        : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>"
+
+      const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64"
+
+      card.innerHTML = `
+        <div class="experience-header">
+          <div class="company-logo">
+            <img class="azienda" src="${logoSrc}" alt="Logo ${
+              esperienza.azienda
+            }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+          </div>
+          <div class="company-info">
+            <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
+            <div class="role-badge">${esperienza.ruolo || "Ruolo non specificato"}</div>
+          </div>
         </div>
-        <div class="company-info">
-          <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
-          <div class="role-badge">${esperienza.ruolo || "Ruolo non specificato"}</div>
+        <div class="experience-period">
+          <i class='bx bx-calendar'></i>
+          <span>${esperienza.periodo || "Periodo non specificato"}</span>
         </div>
-      </div>
-      <div class="experience-period">
-        <i class='bx bx-calendar'></i>
-        <span>${esperienza.periodo || "Periodo non specificato"}</span>
-      </div>
-      <div class="experience-location">
-        <i class='bx bx-map'></i>
-        <span>${esperienza.luogo || "Luogo non specificato"}</span>
-      </div>
-      <div class="experience-activities">
-        <h5>Attività svolte:</h5>
-        <ul class="activities-list">
-          ${attivitaList}
-        </ul>
-      </div>
-      ${
-        esperienza.sito
-          ? `
-        <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">
-          <span>Visita il sito</span>
-          <i class='bx bx-link-external'></i>
-        </button>
+        <div class="experience-location">
+          <i class='bx bx-map'></i>
+          <span>${esperienza.luogo || "Luogo non specificato"}</span>
+        </div>
+        <div class="experience-activities">
+          <h5>Attività svolte:</h5>
+          <ul class="activities-list">
+            ${attivitaList}
+          </ul>
+        </div>
+        ${
+          esperienza.sito
+            ? `
+          <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">
+            <span>Visita il sito</span>
+            <i class='bx bx-link-external'></i>
+          </button>
+        `
+            : ""
+        }
       `
-          : ""
-      }
-    `
 
-    DOM.sections.esperienze.appendChild(card)
+      cardsContainer.appendChild(card)
+    })
+  }
+
+  filters.forEach((filter, index) => {
+    const tab = document.createElement("div")
+    tab.className = `skill-tab ${index === 0 ? "active" : ""}`
+    tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`
+
+    tab.addEventListener("click", () => {
+      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"))
+      tab.classList.add("active")
+
+      const filteredItems =
+        filter === "Tutti"
+          ? esperienze
+          : esperienze.filter((item) => (item.ruolo || "").trim() === filter)
+
+      cardsContainer.classList.add("fade-out")
+      setTimeout(() => {
+        renderEsperienzeCards(filteredItems)
+        cardsContainer.classList.remove("fade-out")
+      }, 250)
+    })
+
+    tabsContainer.appendChild(tab)
   })
+
+  DOM.sections.esperienze.appendChild(tabsContainer)
+  DOM.sections.esperienze.appendChild(cardsContainer)
+  renderEsperienzeCards(esperienze)
 }
 
 /**
@@ -740,9 +776,10 @@ function renderCompetenze(competenze) {
   const sortedCategories = Object.keys(STATE.categorizedSkills).sort((a, b) => {
     return a.localeCompare(b, 'it')
   })
+  const categoriesWithAll = ["Tutti", ...sortedCategories]
 
   // Add tabs for each category
-  sortedCategories.forEach((category, index) => {
+  categoriesWithAll.forEach((category, index) => {
     const tab = document.createElement("div")
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`
     tab.setAttribute("data-category", category)
@@ -754,7 +791,7 @@ function renderCompetenze(competenze) {
     }
 
     tab.innerHTML = `
-      <i class='bx ${getCategoryIcon(category)}'></i>
+      <i class='bx ${category === "Tutti" ? "bx-category-alt" : getCategoryIcon(category)}'></i>
       <span>${category}</span>
     `
 
@@ -769,7 +806,11 @@ function renderCompetenze(competenze) {
       skillsContainer.classList.add("fade-out")
 
       setTimeout(() => {
-        renderSkillCategory(STATE.categorizedSkills[category], skillsContainer)
+        if (category === "Tutti") {
+          renderSkillCategory(competenze, skillsContainer)
+        } else {
+          renderSkillCategory(STATE.categorizedSkills[category], skillsContainer)
+        }
         skillsContainer.classList.remove("fade-out")
 
         // Initialize progress bar animations
@@ -785,11 +826,8 @@ function renderCompetenze(competenze) {
   DOM.sections.competenze.appendChild(tabsContainer)
   DOM.sections.competenze.appendChild(skillsContainer)
 
-  // Show first category by default
-  const firstCategory = sortedCategories[0]
-  if (firstCategory) {
-    renderSkillCategory(STATE.categorizedSkills[firstCategory], skillsContainer)
-  }
+  // Show "Tutti" by default
+  renderSkillCategory(competenze, skillsContainer)
 }
 
 /**
@@ -1144,7 +1182,8 @@ function generateFallbackData() {
 
 /**
  * Render istruzione section
- */function renderIstruzione(istruzione) {
+ */
+function renderIstruzione(istruzione) {
   if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
     console.warn("Curriculum.js: Invalid istruzione data or container not found");
     return;
@@ -1152,69 +1191,107 @@ function generateFallbackData() {
 
   DOM.sections.istruzione.innerHTML = "";
 
-  istruzione.forEach((item, index) => {
-    const card = document.createElement("div");
-    card.className = "card istruzione-card";
-    card.setAttribute("data-aos", "fade-up");
-    card.setAttribute("data-aos-delay", (index * 100).toString());
+  const livelli = [...new Set(istruzione.map((item) => (item.livello || "").trim()).filter(Boolean))]
+  const filters = ["Tutti", ...livelli];
 
-    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64";
+  const tabsContainer = document.createElement("div");
+  tabsContainer.className = "skills-tabs";
 
-    // Genera lista competenze se presenti
-    let competenzeHtml = "";
-    if (Array.isArray(item.competenze)) {
-      competenzeHtml = `
-        <ul class="competenze">
-          ${item.competenze.map(comp => `<li>${comp}</li>`).join("")}
-        </ul>
+  const cardsContainer = document.createElement("div");
+  cardsContainer.className = "istruzione-list";
+
+  const renderIstruzioneCards = (items) => {
+    cardsContainer.innerHTML = "";
+
+    items.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "card istruzione-card";
+      card.setAttribute("data-aos", "fade-up");
+      card.setAttribute("data-aos-delay", (index * 100).toString());
+
+      const logoSrc = item.logo || "/placeholder.svg?height=64&width=64";
+
+      let competenzeHtml = "";
+      if (Array.isArray(item.competenze)) {
+        competenzeHtml = `
+          <ul class="competenze">
+            ${item.competenze.map(comp => `<li>${comp}</li>`).join("")}
+          </ul>
+        `;
+      } else if (item.descrizione) {
+        competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`;
+      }
+
+      const downloadButton = item.diploma
+        ? `<a href="${item.diploma}" class="go-live-btn" download>
+            <span>Scarica diploma</span>
+            <i class='bx bx-download'></i>
+          </a>`
+        : "";
+
+      const siteButton = item.sito
+        ? `<button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')">
+            <span>Visita il sito</span>
+            <i class='bx bx-link-external'></i>
+          </button>`
+        : "";
+
+      card.innerHTML = `
+        <div class="istruzione-header">
+          <div class="istituto-logo">
+            <img class="azienda" src="${logoSrc}" alt="Logo ${item.istituto}" 
+                 onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+          </div>
+          <div class="istituto-info">
+            <h4>${item.titolo || "Titolo non specificato"}</h4>
+            <div>${item.istituto || "Istituto non specificato"}</div>
+            <div class="livello-eqf">${item.livello || ""}</div>
+          </div>
+        </div>
+        <div class="istruzione-period">
+          <i class='bx bx-calendar'></i>
+          <span>${item.periodo || "Periodo non specificato"}</span>
+        </div>
+        <div class="istruzione-location">
+          <i class='bx bx-map'></i>
+          <span>${item.luogo || "Luogo non specificato"}</span>
+        </div>
+        ${competenzeHtml}
+        <div class="istruzione-buttons">
+          ${siteButton}
+          ${downloadButton}
+        </div>
       `;
-    } else if (item.descrizione) {
-      competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`;
-    }
 
-    // Aggiunta bottone per scaricare il diploma
-    const downloadButton = item.diploma
-      ? `<a href="${item.diploma}" class="go-live-btn" download>
-          <span>Scarica diploma</span>
-          <i class='bx bx-download'></i>
-        </a>`
-      : "";
+      cardsContainer.appendChild(card);
+    });
+  };
 
-    // Bottone per il sito dell’istituto
-    const siteButton = item.sito
-      ? `<button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')">
-          <span>Visita il sito</span>
-          <i class='bx bx-link-external'></i>
-        </button>`
-      : "";
+  filters.forEach((filter, index) => {
+    const tab = document.createElement("div");
+    tab.className = `skill-tab ${index === 0 ? "active" : ""}`;
+    tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`;
 
-    card.innerHTML = `
-      <div class="istruzione-header">
-        <div class="istituto-logo">
-          <img class="azienda" src="${logoSrc}" alt="Logo ${item.istituto}" 
-               onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
-        </div>
-        <div class="istituto-info">
-          <h4>${item.titolo || "Titolo non specificato"}</h4>
-          <div>${item.istituto || "Istituto non specificato"}</div>
-          <div class="livello-eqf">${item.livello || ""}</div>
-        </div>
-      </div>
-      <div class="istruzione-period">
-        <i class='bx bx-calendar'></i>
-        <span>${item.periodo || "Periodo non specificato"}</span>
-      </div>
-      <div class="istruzione-location">
-        <i class='bx bx-map'></i>
-        <span>${item.luogo || "Luogo non specificato"}</span>
-      </div>
-      ${competenzeHtml}
-      <div class="istruzione-buttons">
-        ${siteButton}
-        ${downloadButton}
-      </div>
-    `;
+    tab.addEventListener("click", () => {
+      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
 
-    DOM.sections.istruzione.appendChild(card);
+      const filteredItems =
+        filter === "Tutti"
+          ? istruzione
+          : istruzione.filter((item) => (item.livello || "").trim() === filter);
+
+      cardsContainer.classList.add("fade-out");
+      setTimeout(() => {
+        renderIstruzioneCards(filteredItems);
+        cardsContainer.classList.remove("fade-out");
+      }, 250);
+    });
+
+    tabsContainer.appendChild(tab);
   });
+
+  DOM.sections.istruzione.appendChild(tabsContainer);
+  DOM.sections.istruzione.appendChild(cardsContainer);
+  renderIstruzioneCards(istruzione);
 }
