@@ -1800,7 +1800,6 @@ section {
   flex-wrap: wrap;
   gap: 2rem;
   transition: opacity 0.3s ease;
-  align-items: stretch;
 }
 
 .skills-container.fade-out {
@@ -1809,25 +1808,10 @@ section {
 
 .skill-card {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-}
-
-.skill-card h4 {
-  width: 100%;
-  min-height: 3.6rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
 .skill-category-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   margin: 0 0 1rem;
   padding: 0.25rem 0.7rem;
   border-radius: 20px;
@@ -1835,14 +1819,6 @@ section {
   background-color: #eef2ff;
   color: var(--primary-dark);
   font-weight: 600;
-  min-width: 140px;
-  min-height: 30px;
-  text-align: center;
-}
-
-.skill-card p {
-  width: 100%;
-  min-height: 190px;
 }
 
 .skill-icon {
