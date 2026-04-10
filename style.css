@@ -1500,6 +1500,52 @@ section {
   display: block;
 }
 
+.istruzione-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.istituto-logo {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.4rem;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.istituto-logo .azienda {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+
+.istituto-info {
+  flex: 1;
+}
+
+.livello-eqf {
+  display: inline-block;
+  background-color: var(--primary-light);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
 .company-info {
   flex: 1;
 }
@@ -1521,6 +1567,38 @@ section {
   gap: 0.5rem;
   margin-bottom: 0.8rem;
   color: var(--text-muted);
+}
+
+.istruzione-period,
+.istruzione-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-muted);
+}
+
+.istruzione-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#istruzione .card-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#istruzione .card.istruzione-card {
+  width: 100% !important;
+  flex: 0 0 auto;
 }
 
 .experience-activities {
@@ -1902,6 +1980,11 @@ section {
 
 @media (max-width: 768px) {
   .company-logo {
+    width: 82px;
+    height: 82px;
+  }
+
+  .istituto-logo {
     width: 82px;
     height: 82px;
   }

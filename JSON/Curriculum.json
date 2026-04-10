@@ -143,10 +143,11 @@
       "sito": "https://www.isiszanussi.edu.it/"
     },
     {
-      "titolo": "Biennio I.T.I.S. J.F. Kennedy",
+      "titolo": "I.T.I.S. J.F. Kennedy",
       "istituto": "I.T.I.S. J.F. Kennedy",
       "periodo": "[09/2016 - 11/2019]",
       "luogo": "Pordenone",
+      "livello": "Biennio",
       "descrizione": "Formazione tecnica in ambito industriale e tecnologico.",
       "logo": "Loghi/Kennedy.jpeg",
       "sito": "https://itstkennedy.edu.it/"
