@@ -667,7 +667,7 @@ function renderLinguistiche(linguistiche) {
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "linguistiche-list"
 
-  let activeLevel = "Tutti"
+  let activeLevels = new Set()
   let searchTerm = ""
 
   const renderLinguisticheCards = (items) => {
@@ -725,8 +725,8 @@ function renderLinguistiche(linguistiche) {
     const normalizedSearch = searchTerm.trim().toLowerCase()
     let filtered = linguistiche
 
-    if (activeLevel !== "Tutti") {
-      filtered = filtered.filter((item) => (item.livello || "").trim() === activeLevel)
+    if (activeLevels.size > 0) {
+      filtered = filtered.filter((item) => activeLevels.has((item.livello || "").trim()))
     }
 
     if (normalizedSearch) {
@@ -745,15 +745,36 @@ function renderLinguistiche(linguistiche) {
     }, 250)
   }
 
+  const updateActiveTabs = () => {
+    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
+      const tabFilter = tab.getAttribute("data-filter")
+      tab.classList.toggle("active", tabFilter === "Tutti" ? activeLevels.size === 0 : activeLevels.has(tabFilter))
+    })
+  }
+
   filters.forEach((filter, index) => {
     const tab = document.createElement("div")
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`
+    tab.setAttribute("data-filter", filter)
     tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`
 
     tab.addEventListener("click", () => {
-      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"))
-      tab.classList.add("active")
-      activeLevel = filter
+      if (filter === "Tutti") {
+        activeLevels.clear()
+      } else {
+        if (activeLevels.has(filter)) {
+          activeLevels.delete(filter)
+        } else {
+          activeLevels.add(filter)
+        }
+
+        // If all specific filters are selected, collapse back to "Tutti"
+        if (activeLevels.size === filters.length - 1) {
+          activeLevels.clear()
+        }
+      }
+
+      updateActiveTabs()
       applyLinguisticheFilters()
       scrollToSectionTop(tab)
     })
@@ -799,6 +820,7 @@ function renderLinguistiche(linguistiche) {
   stickyControls.appendChild(searchBar)
   DOM.sections.linguistiche.appendChild(stickyControls)
   DOM.sections.linguistiche.appendChild(cardsContainer)
+  updateActiveTabs()
   applyLinguisticheFilters()
 }
 
@@ -1007,6 +1029,8 @@ function renderEsperienze(esperienze) {
 
   const yearsBar = document.createElement("div")
   yearsBar.className = "year-filter-bar"
+  const searchBar = document.createElement("div")
+  searchBar.className = "year-filter-bar"
 
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "experience-list"
@@ -1021,9 +1045,10 @@ function renderEsperienze(esperienze) {
   const minMonthValue = availableMonthValues.length ? Math.min(...availableMonthValues) : fallbackMonthValue
   const maxMonthValue = availableMonthValues.length ? Math.max(...availableMonthValues) : fallbackMonthValue
 
-  let activeRole = "Tutti"
+  let activeRoles = new Set()
   let fromMonthValue = null
   let toMonthValue = null
+  let searchTerm = ""
 
   const renderEsperienzeCards = (items) => {
     cardsContainer.innerHTML = ""
@@ -1095,11 +1120,30 @@ function renderEsperienze(esperienze) {
   const applyEsperienzeFilters = () => {
     let filtered = esperienze
 
-    if (activeRole !== "Tutti") {
-      filtered = filtered.filter((item) => (item.ruolo || "").trim() === activeRole)
+    if (activeRoles.size > 0) {
+      filtered = filtered.filter((item) => activeRoles.has((item.ruolo || "").trim()))
     }
 
     filtered = filtered.filter((item) => isItemInMonthRange(item, fromMonthValue, toMonthValue))
+
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+    if (normalizedSearch) {
+      filtered = filtered.filter((item) => {
+        const azienda = (item?.azienda || "").toLowerCase()
+        const ruolo = (item?.ruolo || "").toLowerCase()
+        const luogo = (item?.luogo || "").toLowerCase()
+        const periodo = (item?.periodo || "").toLowerCase()
+        const attivita = Array.isArray(item?.attivita) ? item.attivita.join(" ").toLowerCase() : ""
+
+        return (
+          azienda.includes(normalizedSearch) ||
+          ruolo.includes(normalizedSearch) ||
+          luogo.includes(normalizedSearch) ||
+          periodo.includes(normalizedSearch) ||
+          attivita.includes(normalizedSearch)
+        )
+      })
+    }
 
     cardsContainer.classList.add("fade-out")
     setTimeout(() => {
@@ -1109,15 +1153,36 @@ function renderEsperienze(esperienze) {
     }, 250)
   }
 
+  const updateActiveTabs = () => {
+    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
+      const tabFilter = tab.getAttribute("data-filter")
+      tab.classList.toggle("active", tabFilter === "Tutti" ? activeRoles.size === 0 : activeRoles.has(tabFilter))
+    })
+  }
+
   filters.forEach((filter, index) => {
     const tab = document.createElement("div")
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`
+    tab.setAttribute("data-filter", filter)
     tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`
 
     tab.addEventListener("click", () => {
-      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"))
-      tab.classList.add("active")
-      activeRole = filter
+      if (filter === "Tutti") {
+        activeRoles.clear()
+      } else {
+        if (activeRoles.has(filter)) {
+          activeRoles.delete(filter)
+        } else {
+          activeRoles.add(filter)
+        }
+
+        // If all specific filters are selected, collapse back to "Tutti"
+        if (activeRoles.size === filters.length - 1) {
+          activeRoles.clear()
+        }
+      }
+
+      updateActiveTabs()
       applyEsperienzeFilters()
 
       scrollToSectionTop(tab)
@@ -1198,9 +1263,45 @@ function renderEsperienze(esperienze) {
     applyEsperienzeFilters()
   })
 
+  searchBar.innerHTML = `
+    <label>
+      <span>Cerca</span>
+      <input
+        type="search"
+        class="year-input esperienze-search-input"
+        placeholder="Es. azienda, ruolo, luogo..."
+      />
+    </label>
+    <button type="button" class="year-reset-btn esperienze-search-reset">Reset</button>
+  `
+
+  const esperienzeSearchInput = searchBar.querySelector(".esperienze-search-input")
+  const esperienzeSearchReset = searchBar.querySelector(".esperienze-search-reset")
+
+  const updateEsperienzeSearch = () => {
+    searchTerm = esperienzeSearchInput.value || ""
+    applyEsperienzeFilters()
+  }
+
+  esperienzeSearchInput.addEventListener("input", updateEsperienzeSearch)
+  esperienzeSearchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      updateEsperienzeSearch()
+    }
+  })
+
+  esperienzeSearchReset.addEventListener("click", () => {
+    esperienzeSearchInput.value = ""
+    searchTerm = ""
+    applyEsperienzeFilters()
+  })
+
   DOM.sections.esperienze.appendChild(tabsContainer)
   DOM.sections.esperienze.appendChild(yearsBar)
+  DOM.sections.esperienze.appendChild(searchBar)
   DOM.sections.esperienze.appendChild(cardsContainer)
+  updateActiveTabs()
   renderEsperienzeCards(esperienze)
 }
 
@@ -1236,12 +1337,20 @@ function renderCompetenze(competenze) {
     return a.localeCompare(b, 'it')
   })
   const categoriesWithAll = ["Tutti", ...sortedCategories]
-  let activeCategory = "Tutti"
+  let activeCategories = new Set()
   let searchTerm = ""
 
   const getCategoryItems = () => {
-    if (activeCategory === "Tutti") return competenze
-    return STATE.categorizedSkills[activeCategory] || []
+    if (activeCategories.size === 0) return competenze
+
+    const selectedItems = [...activeCategories].flatMap((category) => STATE.categorizedSkills[category] || [])
+    const uniqueByName = new Map()
+    selectedItems.forEach((item) => {
+      if (item?.nome && !uniqueByName.has(item.nome)) {
+        uniqueByName.set(item.nome, item)
+      }
+    })
+    return [...uniqueByName.values()]
   }
 
   const applyCompetenzeFilters = () => {
@@ -1264,7 +1373,7 @@ function renderCompetenze(competenze) {
 
     skillsContainer.classList.add("fade-out")
     setTimeout(() => {
-      renderSkillCategory(filtered, skillsContainer, activeCategory === "Tutti")
+      renderSkillCategory(filtered, skillsContainer, activeCategories.size !== 1)
       skillsContainer.classList.remove("fade-out")
 
       // Initialize progress bar animations
@@ -1272,6 +1381,13 @@ function renderCompetenze(competenze) {
         initializeSkillAnimations()
       }, 100)
     }, 250)
+  }
+
+  const updateActiveTabs = () => {
+    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
+      const tabCategory = tab.getAttribute("data-category")
+      tab.classList.toggle("active", tabCategory === "Tutti" ? activeCategories.size === 0 : activeCategories.has(tabCategory))
+    })
   }
 
   // Add tabs for each category
@@ -1292,12 +1408,22 @@ function renderCompetenze(competenze) {
     `
 
     tab.addEventListener("click", () => {
-      // Update active tab
-      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => {
-        t.classList.remove("active")
-      })
-      tab.classList.add("active")
-      activeCategory = category
+      if (category === "Tutti") {
+        activeCategories.clear()
+      } else {
+        if (activeCategories.has(category)) {
+          activeCategories.delete(category)
+        } else {
+          activeCategories.add(category)
+        }
+
+        // If all specific filters are selected, collapse back to "Tutti"
+        if (activeCategories.size === categoriesWithAll.length - 1) {
+          activeCategories.clear()
+        }
+      }
+
+      updateActiveTabs()
 
       applyCompetenzeFilters()
 
@@ -1348,6 +1474,7 @@ function renderCompetenze(competenze) {
   DOM.sections.competenze.appendChild(skillsContainer)
 
   // Show "Tutti" by default
+  updateActiveTabs()
   applyCompetenzeFilters()
 }
 
@@ -1801,6 +1928,8 @@ function renderIstruzione(istruzione) {
 
   const yearsBar = document.createElement("div");
   yearsBar.className = "year-filter-bar";
+  const searchBar = document.createElement("div");
+  searchBar.className = "year-filter-bar";
 
   const cardsContainer = document.createElement("div");
   cardsContainer.className = "istruzione-list";
@@ -1815,9 +1944,10 @@ function renderIstruzione(istruzione) {
   const minMonthValue = availableMonthValues.length ? Math.min(...availableMonthValues) : fallbackMonthValue
   const maxMonthValue = availableMonthValues.length ? Math.max(...availableMonthValues) : fallbackMonthValue
 
-  let activeLevel = "Tutti";
+  let activeLevels = new Set();
   let fromMonthValue = null;
   let toMonthValue = null;
+  let searchTerm = "";
 
   const renderIstruzioneCards = (items) => {
     cardsContainer.innerHTML = "";
@@ -1899,11 +2029,34 @@ function renderIstruzione(istruzione) {
   const applyIstruzioneFilters = () => {
     let filtered = istruzione;
 
-    if (activeLevel !== "Tutti") {
-      filtered = filtered.filter((item) => (item.livello || "").trim() === activeLevel);
+    if (activeLevels.size > 0) {
+      filtered = filtered.filter((item) => activeLevels.has((item.livello || "").trim()));
     }
 
     filtered = filtered.filter((item) => isItemInMonthRange(item, fromMonthValue, toMonthValue));
+
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+    if (normalizedSearch) {
+      filtered = filtered.filter((item) => {
+        const titolo = (item?.titolo || "").toLowerCase();
+        const istituto = (item?.istituto || "").toLowerCase();
+        const livello = (item?.livello || "").toLowerCase();
+        const luogo = (item?.luogo || "").toLowerCase();
+        const periodo = (item?.periodo || "").toLowerCase();
+        const descrizione = (item?.descrizione || "").toLowerCase();
+        const competenze = Array.isArray(item?.competenze) ? item.competenze.join(" ").toLowerCase() : "";
+
+        return (
+          titolo.includes(normalizedSearch) ||
+          istituto.includes(normalizedSearch) ||
+          livello.includes(normalizedSearch) ||
+          luogo.includes(normalizedSearch) ||
+          periodo.includes(normalizedSearch) ||
+          descrizione.includes(normalizedSearch) ||
+          competenze.includes(normalizedSearch)
+        );
+      });
+    }
 
     cardsContainer.classList.add("fade-out");
     setTimeout(() => {
@@ -1913,15 +2066,36 @@ function renderIstruzione(istruzione) {
     }, 250);
   };
 
+  const updateActiveTabs = () => {
+    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
+      const tabFilter = tab.getAttribute("data-filter");
+      tab.classList.toggle("active", tabFilter === "Tutti" ? activeLevels.size === 0 : activeLevels.has(tabFilter));
+    });
+  };
+
   filters.forEach((filter, index) => {
     const tab = document.createElement("div");
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`;
+    tab.setAttribute("data-filter", filter);
     tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`;
 
     tab.addEventListener("click", () => {
-      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-      activeLevel = filter;
+      if (filter === "Tutti") {
+        activeLevels.clear();
+      } else {
+        if (activeLevels.has(filter)) {
+          activeLevels.delete(filter);
+        } else {
+          activeLevels.add(filter);
+        }
+
+        // If all specific filters are selected, collapse back to "Tutti"
+        if (activeLevels.size === filters.length - 1) {
+          activeLevels.clear();
+        }
+      }
+
+      updateActiveTabs();
       applyIstruzioneFilters();
 
       scrollToSectionTop(tab);
@@ -2002,8 +2176,44 @@ function renderIstruzione(istruzione) {
     applyIstruzioneFilters();
   });
 
+  searchBar.innerHTML = `
+    <label>
+      <span>Cerca</span>
+      <input
+        type="search"
+        class="year-input istruzione-search-input"
+        placeholder="Es. diploma, istituto, livello..."
+      />
+    </label>
+    <button type="button" class="year-reset-btn istruzione-search-reset">Reset</button>
+  `;
+
+  const istruzioneSearchInput = searchBar.querySelector(".istruzione-search-input");
+  const istruzioneSearchReset = searchBar.querySelector(".istruzione-search-reset");
+
+  const updateIstruzioneSearch = () => {
+    searchTerm = istruzioneSearchInput.value || "";
+    applyIstruzioneFilters();
+  };
+
+  istruzioneSearchInput.addEventListener("input", updateIstruzioneSearch);
+  istruzioneSearchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      updateIstruzioneSearch();
+    }
+  });
+
+  istruzioneSearchReset.addEventListener("click", () => {
+    istruzioneSearchInput.value = "";
+    searchTerm = "";
+    applyIstruzioneFilters();
+  });
+
   DOM.sections.istruzione.appendChild(tabsContainer);
   DOM.sections.istruzione.appendChild(yearsBar);
+  DOM.sections.istruzione.appendChild(searchBar);
   DOM.sections.istruzione.appendChild(cardsContainer);
+  updateActiveTabs();
   renderIstruzioneCards(istruzione);
 }

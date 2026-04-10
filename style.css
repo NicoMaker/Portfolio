@@ -1916,6 +1916,7 @@ section {
   max-width: 72vw;
 }
 
+
 .year-input:focus {
   outline: none;
   border-color: var(--primary);
