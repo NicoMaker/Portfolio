@@ -681,6 +681,56 @@ function getSkillCategoryLabel(skill) {
 }
 
 /**
+ * Extract numeric years from a period string
+ */
+function extractYearsFromPeriod(periodText) {
+  if (!periodText) return []
+  const matches = String(periodText).match(/\b(19|20)\d{2}\b/g) || []
+  return matches.map((year) => Number.parseInt(year, 10)).filter((year) => !Number.isNaN(year))
+}
+
+/**
+ * Get start/end year from an item period string
+ */
+function getItemYearSpan(item) {
+  const currentYear = new Date().getFullYear()
+  const periodText = String(item?.periodo || "")
+  const years = extractYearsFromPeriod(periodText)
+
+  if (years.length === 0) return null
+
+  let startYear = Math.min(...years)
+  let endYear = Math.max(...years)
+
+  if (/ora|presente|present/i.test(periodText)) {
+    endYear = currentYear
+  }
+
+  if (endYear < startYear) {
+    const temp = startYear
+    startYear = endYear
+    endYear = temp
+  }
+
+  return { startYear, endYear }
+}
+
+/**
+ * Check if item years overlap selected range
+ */
+function isItemInYearRange(item, fromYear, toYear) {
+  if (!fromYear && !toYear) return true
+
+  const span = getItemYearSpan(item)
+  if (!span) return false
+
+  const selectedFrom = fromYear || span.startYear
+  const selectedTo = toYear || span.endYear
+
+  return span.startYear <= selectedTo && span.endYear >= selectedFrom
+}
+
+/**
  * Render esperienze lavorative section with improved layout
  */
 function renderEsperienze(esperienze) {
@@ -697,8 +747,23 @@ function renderEsperienze(esperienze) {
   const tabsContainer = document.createElement("div")
   tabsContainer.className = "skills-tabs"
 
+  const yearsBar = document.createElement("div")
+  yearsBar.className = "year-filter-bar"
+
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "experience-list"
+
+  const availableYears = esperienze
+    .map((item) => getItemYearSpan(item))
+    .filter(Boolean)
+    .flatMap((span) => [span.startYear, span.endYear])
+
+  const minYear = availableYears.length ? Math.min(...availableYears) : 2000
+  const maxYear = availableYears.length ? Math.max(...availableYears) : new Date().getFullYear()
+
+  let activeRole = "Tutti"
+  let fromYear = null
+  let toYear = null
 
   const renderEsperienzeCards = (items) => {
     cardsContainer.innerHTML = ""
@@ -757,6 +822,23 @@ function renderEsperienze(esperienze) {
     })
   }
 
+  const applyEsperienzeFilters = () => {
+    let filtered = esperienze
+
+    if (activeRole !== "Tutti") {
+      filtered = filtered.filter((item) => (item.ruolo || "").trim() === activeRole)
+    }
+
+    filtered = filtered.filter((item) => isItemInYearRange(item, fromYear, toYear))
+
+    cardsContainer.classList.add("fade-out")
+    setTimeout(() => {
+      renderEsperienzeCards(filtered)
+      cardsContainer.classList.remove("fade-out")
+      cardsContainer.scrollTop = 0
+    }, 250)
+  }
+
   filters.forEach((filter, index) => {
     const tab = document.createElement("div")
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`
@@ -765,18 +847,8 @@ function renderEsperienze(esperienze) {
     tab.addEventListener("click", () => {
       tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"))
       tab.classList.add("active")
-
-      const filteredItems =
-        filter === "Tutti"
-          ? esperienze
-          : esperienze.filter((item) => (item.ruolo || "").trim() === filter)
-
-      cardsContainer.classList.add("fade-out")
-      setTimeout(() => {
-        renderEsperienzeCards(filteredItems)
-        cardsContainer.classList.remove("fade-out")
-        cardsContainer.scrollTop = 0
-      }, 250)
+      activeRole = filter
+      applyEsperienzeFilters()
 
       scrollToSectionTop(tab)
     })
@@ -784,7 +856,55 @@ function renderEsperienze(esperienze) {
     tabsContainer.appendChild(tab)
   })
 
+  yearsBar.innerHTML = `
+    <label>
+      <span>Da</span>
+      <input type="number" class="year-input year-from" min="${minYear}" max="${maxYear}" placeholder="${minYear}" />
+      <button type="button" class="year-ok-btn">OK</button>
+    </label>
+    <label>
+      <span>A</span>
+      <input type="number" class="year-input year-to" min="${minYear}" max="${maxYear}" placeholder="${maxYear}" />
+      <button type="button" class="year-ok-btn">OK</button>
+    </label>
+  `
+
+  const fromInput = yearsBar.querySelector(".year-from")
+  const toInput = yearsBar.querySelector(".year-to")
+  const okButtons = yearsBar.querySelectorAll(".year-ok-btn")
+
+  const updateYears = () => {
+    const fromValue = Number.parseInt(fromInput.value, 10)
+    const toValue = Number.parseInt(toInput.value, 10)
+
+    fromYear = Number.isNaN(fromValue) ? null : fromValue
+    toYear = Number.isNaN(toValue) ? null : toValue
+
+    if (fromYear && toYear && fromYear > toYear) {
+      const temp = fromYear
+      fromYear = toYear
+      toYear = temp
+      fromInput.value = fromYear
+      toInput.value = toYear
+    }
+
+    applyEsperienzeFilters()
+  }
+
+  okButtons.forEach((btn) => {
+    btn.addEventListener("click", updateYears)
+  })
+
+  fromInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") updateYears()
+  })
+
+  toInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") updateYears()
+  })
+
   DOM.sections.esperienze.appendChild(tabsContainer)
+  DOM.sections.esperienze.appendChild(yearsBar)
   DOM.sections.esperienze.appendChild(cardsContainer)
   renderEsperienzeCards(esperienze)
 }
@@ -1240,8 +1360,23 @@ function renderIstruzione(istruzione) {
   const tabsContainer = document.createElement("div");
   tabsContainer.className = "skills-tabs";
 
+  const yearsBar = document.createElement("div");
+  yearsBar.className = "year-filter-bar";
+
   const cardsContainer = document.createElement("div");
   cardsContainer.className = "istruzione-list";
+
+  const availableYears = istruzione
+    .map((item) => getItemYearSpan(item))
+    .filter(Boolean)
+    .flatMap((span) => [span.startYear, span.endYear])
+
+  const minYear = availableYears.length ? Math.min(...availableYears) : 2000
+  const maxYear = availableYears.length ? Math.max(...availableYears) : new Date().getFullYear()
+
+  let activeLevel = "Tutti";
+  let fromYear = null;
+  let toYear = null;
 
   const renderIstruzioneCards = (items) => {
     cardsContainer.innerHTML = "";
@@ -1310,6 +1445,23 @@ function renderIstruzione(istruzione) {
     });
   };
 
+  const applyIstruzioneFilters = () => {
+    let filtered = istruzione;
+
+    if (activeLevel !== "Tutti") {
+      filtered = filtered.filter((item) => (item.livello || "").trim() === activeLevel);
+    }
+
+    filtered = filtered.filter((item) => isItemInYearRange(item, fromYear, toYear));
+
+    cardsContainer.classList.add("fade-out");
+    setTimeout(() => {
+      renderIstruzioneCards(filtered);
+      cardsContainer.classList.remove("fade-out");
+      cardsContainer.scrollTop = 0;
+    }, 250);
+  };
+
   filters.forEach((filter, index) => {
     const tab = document.createElement("div");
     tab.className = `skill-tab ${index === 0 ? "active" : ""}`;
@@ -1318,18 +1470,8 @@ function renderIstruzione(istruzione) {
     tab.addEventListener("click", () => {
       tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"));
       tab.classList.add("active");
-
-      const filteredItems =
-        filter === "Tutti"
-          ? istruzione
-          : istruzione.filter((item) => (item.livello || "").trim() === filter);
-
-      cardsContainer.classList.add("fade-out");
-      setTimeout(() => {
-        renderIstruzioneCards(filteredItems);
-        cardsContainer.classList.remove("fade-out");
-        cardsContainer.scrollTop = 0;
-      }, 250);
+      activeLevel = filter;
+      applyIstruzioneFilters();
 
       scrollToSectionTop(tab);
     });
@@ -1337,7 +1479,55 @@ function renderIstruzione(istruzione) {
     tabsContainer.appendChild(tab);
   });
 
+  yearsBar.innerHTML = `
+    <label>
+      <span>Da</span>
+      <input type="number" class="year-input year-from" min="${minYear}" max="${maxYear}" placeholder="${minYear}" />
+      <button type="button" class="year-ok-btn">OK</button>
+    </label>
+    <label>
+      <span>A</span>
+      <input type="number" class="year-input year-to" min="${minYear}" max="${maxYear}" placeholder="${maxYear}" />
+      <button type="button" class="year-ok-btn">OK</button>
+    </label>
+  `;
+
+  const fromInput = yearsBar.querySelector(".year-from");
+  const toInput = yearsBar.querySelector(".year-to");
+  const okButtons = yearsBar.querySelectorAll(".year-ok-btn");
+
+  const updateYears = () => {
+    const fromValue = Number.parseInt(fromInput.value, 10);
+    const toValue = Number.parseInt(toInput.value, 10);
+
+    fromYear = Number.isNaN(fromValue) ? null : fromValue;
+    toYear = Number.isNaN(toValue) ? null : toValue;
+
+    if (fromYear && toYear && fromYear > toYear) {
+      const temp = fromYear;
+      fromYear = toYear;
+      toYear = temp;
+      fromInput.value = fromYear;
+      toInput.value = toYear;
+    }
+
+    applyIstruzioneFilters();
+  };
+
+  okButtons.forEach((btn) => {
+    btn.addEventListener("click", updateYears);
+  });
+
+  fromInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") updateYears();
+  });
+
+  toInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") updateYears();
+  });
+
   DOM.sections.istruzione.appendChild(tabsContainer);
+  DOM.sections.istruzione.appendChild(yearsBar);
   DOM.sections.istruzione.appendChild(cardsContainer);
   renderIstruzioneCards(istruzione);
 }
