@@ -1820,6 +1820,8 @@ section {
 }
 
 /* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+#attestati .skills-sticky-controls,
+#sites .skills-sticky-controls,
 #competenze .skills-sticky-controls {
   position: sticky;
   top: 0;
@@ -1828,6 +1830,8 @@ section {
   padding-top: 0.25rem;
 }
 
+#attestati .skills-sticky-controls .year-filter-bar,
+#sites .skills-sticky-controls .year-filter-bar,
 #competenze .skills-sticky-controls .skills-tabs {
   position: static;
   z-index: auto;
@@ -1835,12 +1839,35 @@ section {
   margin-bottom: 0.6rem;
 }
 
+#attestati .skills-sticky-controls .year-filter-bar,
+#sites .skills-sticky-controls .year-filter-bar,
 #competenze .skills-sticky-controls .year-filter-bar {
   position: static;
   z-index: auto;
   width: fit-content;
   margin: 0 auto 0.8rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+#attestati .attestati-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+#attestati .attestati-list.fade-out {
+  opacity: 0;
+}
+
+#sites .sites-list {
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+#sites .sites-list.fade-out {
+  opacity: 0;
 }
 
 .year-filter-bar label {

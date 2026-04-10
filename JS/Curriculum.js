@@ -523,39 +523,122 @@ function renderAttestati(attestati) {
 
   DOM.sections.attestati.innerHTML = ""
 
-  attestati.forEach((attestato, index) => {
-    const card = document.createElement("div")
-    card.className = "card"
-    card.setAttribute("data-aos", "fade-up")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+  const stickyControls = document.createElement("div")
+  stickyControls.className = "skills-sticky-controls"
 
-    let html = `
-      <div class="card-header">
-        <div class="certificate-icon">
-          <i class='bx bx-certification'></i>
-        </div>
-        <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
-      </div>
-      <div class="card-body">
-        <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
-      </div>
-    `
+  const searchBar = document.createElement("div")
+  searchBar.className = "year-filter-bar"
 
-    // Add certificate download link if available
-    if (attestato.certificato) {
-      html += `
-        <div class="card-footer">
-          <a href="${attestato.certificato}" class="testo" download>
-            <span>Scarica Certificato</span>
-            <i class='bx bx-download'></i>
-          </a>
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = "attestati-list"
+
+  let searchTerm = ""
+
+  const renderAttestatiCards = (items) => {
+    cardsContainer.innerHTML = ""
+
+    if (!items || items.length === 0) {
+      cardsContainer.innerHTML = `
+        <div class="empty-filter-message">
+          <i class='bx bx-info-circle'></i>
+          <p>Non ci sono attestati per questi criteri.</p>
         </div>
       `
+      return
     }
 
-    card.innerHTML = html
-    DOM.sections.attestati.appendChild(card)
+    items.forEach((attestato, index) => {
+      const card = document.createElement("div")
+      card.className = "card"
+      card.setAttribute("data-aos", "fade-up")
+      card.setAttribute("data-aos-delay", (index * 100).toString())
+
+      let html = `
+        <div class="card-header">
+          <div class="certificate-icon">
+            <i class='bx bx-certification'></i>
+          </div>
+          <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
+        </div>
+        <div class="card-body">
+          <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
+        </div>
+      `
+
+      if (attestato.certificato) {
+        html += `
+          <div class="card-footer">
+            <a href="${attestato.certificato}" class="testo" download>
+              <span>Scarica Certificato</span>
+              <i class='bx bx-download'></i>
+            </a>
+          </div>
+        `
+      }
+
+      card.innerHTML = html
+      cardsContainer.appendChild(card)
+    })
+  }
+
+  const applyAttestatiFilters = () => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+    let filtered = attestati
+
+    if (normalizedSearch) {
+      filtered = filtered.filter((item) => {
+        const title = (item?.titolo || "").toLowerCase()
+        const description = (item?.descrizione || "").toLowerCase()
+        return title.includes(normalizedSearch) || description.includes(normalizedSearch)
+      })
+    }
+
+    cardsContainer.classList.add("fade-out")
+    setTimeout(() => {
+      renderAttestatiCards(filtered)
+      cardsContainer.classList.remove("fade-out")
+      cardsContainer.scrollTop = 0
+    }, 250)
+  }
+
+  searchBar.innerHTML = `
+    <label>
+      <span>Cerca</span>
+      <input
+        type="search"
+        class="year-input attestati-search-input"
+        placeholder="Es. sicurezza, GDPR, certificato..."
+      />
+    </label>
+    <button type="button" class="year-reset-btn attestati-search-reset">Reset</button>
+  `
+
+  const searchInput = searchBar.querySelector(".attestati-search-input")
+  const resetButton = searchBar.querySelector(".attestati-search-reset")
+
+  const updateSearch = () => {
+    searchTerm = searchInput.value || ""
+    applyAttestatiFilters()
+  }
+
+  searchInput.addEventListener("input", updateSearch)
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      updateSearch()
+    }
   })
+
+  resetButton.addEventListener("click", () => {
+    searchInput.value = ""
+    searchTerm = ""
+    applyAttestatiFilters()
+  })
+
+  stickyControls.appendChild(searchBar)
+  DOM.sections.attestati.appendChild(stickyControls)
+  DOM.sections.attestati.appendChild(cardsContainer)
+  applyAttestatiFilters()
 }
 
 /**
@@ -681,53 +764,119 @@ function getSkillCategoryLabel(skill) {
 }
 
 /**
- * Extract numeric years from a period string
+ * Parse a date token and return month/year.
+ * Supports: dd/mm/yyyy, mm/yyyy, yyyy.
  */
-function extractYearsFromPeriod(periodText) {
-  if (!periodText) return []
-  const matches = String(periodText).match(/\b(19|20)\d{2}\b/g) || []
-  return matches.map((year) => Number.parseInt(year, 10)).filter((year) => !Number.isNaN(year))
+function parseMonthYearToken(token) {
+  if (!token) return null
+  const cleanToken = String(token).trim()
+
+  const dayMonthYear = cleanToken.match(/^(\d{1,2})\/(\d{1,2})\/((?:19|20)\d{2})$/)
+  if (dayMonthYear) {
+    const month = Number.parseInt(dayMonthYear[2], 10)
+    const year = Number.parseInt(dayMonthYear[3], 10)
+    if (month >= 1 && month <= 12) return { month, year }
+  }
+
+  const monthYear = cleanToken.match(/^(\d{1,2})\/((?:19|20)\d{2})$/)
+  if (monthYear) {
+    const month = Number.parseInt(monthYear[1], 10)
+    const year = Number.parseInt(monthYear[2], 10)
+    if (month >= 1 && month <= 12) return { month, year }
+  }
+
+  const yearOnly = cleanToken.match(/^((?:19|20)\d{2})$/)
+  if (yearOnly) {
+    const year = Number.parseInt(yearOnly[1], 10)
+    return { month: 1, year }
+  }
+
+  return null
 }
 
 /**
- * Get start/end year from an item period string
+ * Convert month/year to comparable numeric value
  */
-function getItemYearSpan(item) {
-  const currentYear = new Date().getFullYear()
+function monthYearToValue(month, year) {
+  return year * 12 + (month - 1)
+}
+
+/**
+ * Extract start/end month-year values from an item period string
+ */
+function getItemMonthSpan(item) {
+  const now = new Date()
+  const currentMonth = now.getMonth() + 1
+  const currentYear = now.getFullYear()
   const periodText = String(item?.periodo || "")
-  const years = extractYearsFromPeriod(periodText)
+  const normalizedPeriod = periodText.replace(/[–—]/g, "-")
 
-  if (years.length === 0) return null
+  const matches = [...normalizedPeriod.matchAll(/(\d{1,2}\/\d{1,2}\/(?:19|20)\d{2}|\d{1,2}\/(?:19|20)\d{2}|(?:19|20)\d{2})/g)]
+  const points = matches.map((match) => parseMonthYearToken(match[1])).filter(Boolean)
 
-  let startYear = Math.min(...years)
-  let endYear = Math.max(...years)
+  if (points.length === 0) return null
+
+  const values = points.map((point) => monthYearToValue(point.month, point.year))
+  let startValue = Math.min(...values)
+  let endValue = Math.max(...values)
 
   if (/ora|presente|present/i.test(periodText)) {
-    endYear = currentYear
+    endValue = monthYearToValue(currentMonth, currentYear)
   }
 
-  if (endYear < startYear) {
-    const temp = startYear
-    startYear = endYear
-    endYear = temp
+  if (endValue < startValue) {
+    const temp = startValue
+    startValue = endValue
+    endValue = temp
   }
 
-  return { startYear, endYear }
+  return { startValue, endValue }
 }
 
 /**
- * Check if item years overlap selected range
+ * Parse MM/YYYY text input
  */
-function isItemInYearRange(item, fromYear, toYear) {
-  if (!fromYear && !toYear) return true
+function parseMonthYearInput(inputText) {
+  if (!inputText) return null
+  const text = String(inputText).trim()
+  if (!text) return null
+  const parsed = parseMonthYearToken(text)
+  if (!parsed) return null
+  return monthYearToValue(parsed.month, parsed.year)
+}
 
-  const span = getItemYearSpan(item)
+/**
+ * Format a month/year value as MM/YYYY
+ */
+function formatMonthYearValue(value) {
+  if (typeof value !== "number" || Number.isNaN(value)) return ""
+  const year = Math.floor(value / 12)
+  const month = (value % 12) + 1
+  return `${String(month).padStart(2, "0")}/${year}`
+}
+
+/**
+ * Format free user typing to MM/YYYY while typing
+ */
+function normalizeMonthYearTyping(rawValue) {
+  const digitsOnly = String(rawValue || "").replace(/\D/g, "").slice(0, 6)
+  if (digitsOnly.length <= 2) return digitsOnly
+  return `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2)}`
+}
+
+/**
+ * Check if item period overlaps selected month/year range
+ */
+function isItemInMonthRange(item, fromValue, toValue) {
+  if (fromValue === null && toValue === null) return true
+
+  const span = getItemMonthSpan(item)
   if (!span) return false
 
-  const selectedFrom = fromYear || span.startYear
-  const selectedTo = toYear || span.endYear
+  const selectedFrom = fromValue === null ? span.startValue : fromValue
+  const selectedTo = toValue === null ? span.endValue : toValue
 
-  return span.startYear <= selectedTo && span.endYear >= selectedFrom
+  return span.startValue <= selectedTo && span.endValue >= selectedFrom
 }
 
 /**
@@ -753,17 +902,19 @@ function renderEsperienze(esperienze) {
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "experience-list"
 
-  const availableYears = esperienze
-    .map((item) => getItemYearSpan(item))
+  const availableMonthValues = esperienze
+    .map((item) => getItemMonthSpan(item))
     .filter(Boolean)
-    .flatMap((span) => [span.startYear, span.endYear])
+    .flatMap((span) => [span.startValue, span.endValue])
 
-  const minYear = availableYears.length ? Math.min(...availableYears) : 2000
-  const maxYear = availableYears.length ? Math.max(...availableYears) : new Date().getFullYear()
+  const now = new Date()
+  const fallbackMonthValue = monthYearToValue(now.getMonth() + 1, now.getFullYear())
+  const minMonthValue = availableMonthValues.length ? Math.min(...availableMonthValues) : fallbackMonthValue
+  const maxMonthValue = availableMonthValues.length ? Math.max(...availableMonthValues) : fallbackMonthValue
 
   let activeRole = "Tutti"
-  let fromYear = null
-  let toYear = null
+  let fromMonthValue = null
+  let toMonthValue = null
 
   const renderEsperienzeCards = (items) => {
     cardsContainer.innerHTML = ""
@@ -839,7 +990,7 @@ function renderEsperienze(esperienze) {
       filtered = filtered.filter((item) => (item.ruolo || "").trim() === activeRole)
     }
 
-    filtered = filtered.filter((item) => isItemInYearRange(item, fromYear, toYear))
+    filtered = filtered.filter((item) => isItemInMonthRange(item, fromMonthValue, toMonthValue))
 
     cardsContainer.classList.add("fade-out")
     setTimeout(() => {
@@ -869,12 +1020,12 @@ function renderEsperienze(esperienze) {
   yearsBar.innerHTML = `
     <label>
       <span>Da</span>
-      <input type="number" class="year-input year-from" min="${minYear}" max="${maxYear}" placeholder="${minYear}" />
+      <input type="text" class="year-input year-from" placeholder="${formatMonthYearValue(minMonthValue)}" inputmode="numeric" />
       <button type="button" class="year-ok-btn">OK</button>
     </label>
     <label>
       <span>A</span>
-      <input type="number" class="year-input year-to" min="${minYear}" max="${maxYear}" placeholder="${maxYear}" />
+      <input type="text" class="year-input year-to" placeholder="${formatMonthYearValue(maxMonthValue)}" inputmode="numeric" />
       <button type="button" class="year-ok-btn">OK</button>
     </label>
     <button type="button" class="year-reset-btn">Reset</button>
@@ -885,19 +1036,32 @@ function renderEsperienze(esperienze) {
   const okButtons = yearsBar.querySelectorAll(".year-ok-btn")
   const resetButton = yearsBar.querySelector(".year-reset-btn")
 
+  const handleMonthYearTyping = (event) => {
+    event.target.value = normalizeMonthYearTyping(event.target.value)
+  }
+
   const updateYears = () => {
-    const fromValue = Number.parseInt(fromInput.value, 10)
-    const toValue = Number.parseInt(toInput.value, 10)
+    fromMonthValue = parseMonthYearInput(fromInput.value)
+    toMonthValue = parseMonthYearInput(toInput.value)
 
-    fromYear = Number.isNaN(fromValue) ? null : fromValue
-    toYear = Number.isNaN(toValue) ? null : toValue
+    if (fromInput.value.trim() && fromMonthValue === null) {
+      fromInput.value = ""
+    } else if (fromMonthValue !== null) {
+      fromInput.value = formatMonthYearValue(fromMonthValue)
+    }
 
-    if (fromYear && toYear && fromYear > toYear) {
-      const temp = fromYear
-      fromYear = toYear
-      toYear = temp
-      fromInput.value = fromYear
-      toInput.value = toYear
+    if (toInput.value.trim() && toMonthValue === null) {
+      toInput.value = ""
+    } else if (toMonthValue !== null) {
+      toInput.value = formatMonthYearValue(toMonthValue)
+    }
+
+    if (fromMonthValue !== null && toMonthValue !== null && fromMonthValue > toMonthValue) {
+      const temp = fromMonthValue
+      fromMonthValue = toMonthValue
+      toMonthValue = temp
+      fromInput.value = formatMonthYearValue(fromMonthValue)
+      toInput.value = formatMonthYearValue(toMonthValue)
     }
 
     applyEsperienzeFilters()
@@ -910,16 +1074,18 @@ function renderEsperienze(esperienze) {
   fromInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") updateYears()
   })
+  fromInput.addEventListener("input", handleMonthYearTyping)
 
   toInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") updateYears()
   })
+  toInput.addEventListener("input", handleMonthYearTyping)
 
   resetButton.addEventListener("click", () => {
     fromInput.value = ""
     toInput.value = ""
-    fromYear = null
-    toYear = null
+    fromMonthValue = null
+    toMonthValue = null
     applyEsperienzeFilters()
   })
 
@@ -1158,69 +1324,145 @@ function renderWebSite(sites) {
   }
 
   DOM.sections.sites.innerHTML = ""
+  DOM.sections.sites.className = "card-container"
 
-  // Use different layout for mobile vs desktop
-  if (STATE.isMobile) {
-    DOM.sections.sites.className = "card-container"
-  } else {
-    DOM.sections.sites.className = "card-container portfolio-grid"
-  }
+  const stickyControls = document.createElement("div")
+  stickyControls.className = "skills-sticky-controls"
 
-  sites.forEach((site, index) => {
-    const card = document.createElement("div")
-    card.className = "card portfolio-card"
-    card.setAttribute("data-aos", "fade-up")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+  const searchBar = document.createElement("div")
+  searchBar.className = "year-filter-bar"
 
-    // Handle potential missing image
-    const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300"
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = STATE.isMobile ? "sites-list" : "sites-list portfolio-grid"
 
-    // Determine image size based on device
-    const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200
+  let searchTerm = ""
 
-    const html = `
-      <div class="portfolio-image" style="height: ${imageHeight}px;">
-        <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
-             style="max-height: ${imageHeight}px;" 
-             onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${
-               imageHeight * 1.5
-             }'; this.onerror=null;" />
-        <div class="portfolio-overlay">
-          <div class="portfolio-buttons">
-            ${
-              site.link
-                ? `
-              <a href="${site.link}" target="_blank" class="portfolio-btn view-btn">
-                <i class='bx bx-link-external'></i>
-                <span class="white">Visita</span>
-              </a>
-            `
-                : ""
-            }
-            ${
-              site.codice
-                ? `
-              <a href="${site.codice}" target="_blank" class="portfolio-btn code-btn">
-                <i class='bx bx-code-alt'></i>
-                <span class="white">Codice</span>
-              </a>
-            `
-                : ""
-            }
+  const renderSitesCards = (items) => {
+    cardsContainer.innerHTML = ""
+
+    if (!items || items.length === 0) {
+      cardsContainer.innerHTML = `
+        <div class="empty-filter-message">
+          <i class='bx bx-info-circle'></i>
+          <p>Non ci sono siti per questi criteri.</p>
+        </div>
+      `
+      return
+    }
+
+    items.forEach((site, index) => {
+      const card = document.createElement("div")
+      card.className = "card portfolio-card"
+      card.setAttribute("data-aos", "fade-up")
+      card.setAttribute("data-aos-delay", (index * 100).toString())
+
+      const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300"
+      const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200
+
+      const html = `
+        <div class="portfolio-image" style="height: ${imageHeight}px;">
+          <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
+               style="max-height: ${imageHeight}px;" 
+               onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${
+                 imageHeight * 1.5
+               }'; this.onerror=null;" />
+          <div class="portfolio-overlay">
+            <div class="portfolio-buttons">
+              ${
+                site.link
+                  ? `
+                <a href="${site.link}" target="_blank" class="portfolio-btn view-btn">
+                  <i class='bx bx-link-external'></i>
+                  <span class="white">Visita</span>
+                </a>
+              `
+                  : ""
+              }
+              ${
+                site.codice
+                  ? `
+                <a href="${site.codice}" target="_blank" class="portfolio-btn code-btn">
+                  <i class='bx bx-code-alt'></i>
+                  <span class="white">Codice</span>
+                </a>
+              `
+                  : ""
+              }
+            </div>
           </div>
         </div>
-      </div>
-      <div class="portfolio-info">
-        <h4>${site.nome || "Progetto non specificato"}</h4>
-        <div class="portfolio-tags">
-          ${generateProjectTags()}
+        <div class="portfolio-info">
+          <h4>${site.nome || "Progetto non specificato"}</h4>
+          <div class="portfolio-tags">
+            ${generateProjectTags()}
+          </div>
         </div>
-      </div>
-    `
+      `
 
-    card.innerHTML = html
-    DOM.sections.sites.appendChild(card)
+      card.innerHTML = html
+      cardsContainer.appendChild(card)
+    })
+  }
+
+  const applySitesFilters = () => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+    let filtered = sites
+
+    if (normalizedSearch) {
+      filtered = filtered.filter((site) => {
+        const name = (site?.nome || "").toLowerCase()
+        const link = (site?.link || "").toLowerCase()
+        const code = (site?.codice || "").toLowerCase()
+        return name.includes(normalizedSearch) || link.includes(normalizedSearch) || code.includes(normalizedSearch)
+      })
+    }
+
+    cardsContainer.classList.add("fade-out")
+    setTimeout(() => {
+      renderSitesCards(filtered)
+      cardsContainer.classList.remove("fade-out")
+      cardsContainer.scrollTop = 0
+    }, 250)
+  }
+
+  searchBar.innerHTML = `
+    <label>
+      <span>Cerca</span>
+      <input
+        type="search"
+        class="year-input sites-search-input"
+        placeholder="Es. portfolio, github, ecommerce..."
+      />
+    </label>
+    <button type="button" class="year-reset-btn sites-search-reset">Reset</button>
+  `
+
+  const searchInput = searchBar.querySelector(".sites-search-input")
+  const searchResetButton = searchBar.querySelector(".sites-search-reset")
+
+  const updateSearch = () => {
+    searchTerm = searchInput.value || ""
+    applySitesFilters()
+  }
+
+  searchInput.addEventListener("input", updateSearch)
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      updateSearch()
+    }
   })
+
+  searchResetButton.addEventListener("click", () => {
+    searchInput.value = ""
+    searchTerm = ""
+    applySitesFilters()
+  })
+
+  stickyControls.appendChild(searchBar)
+  DOM.sections.sites.appendChild(stickyControls)
+  DOM.sections.sites.appendChild(cardsContainer)
+  applySitesFilters()
 }
 
 /**
@@ -1454,17 +1696,19 @@ function renderIstruzione(istruzione) {
   const cardsContainer = document.createElement("div");
   cardsContainer.className = "istruzione-list";
 
-  const availableYears = istruzione
-    .map((item) => getItemYearSpan(item))
+  const availableMonthValues = istruzione
+    .map((item) => getItemMonthSpan(item))
     .filter(Boolean)
-    .flatMap((span) => [span.startYear, span.endYear])
+    .flatMap((span) => [span.startValue, span.endValue])
 
-  const minYear = availableYears.length ? Math.min(...availableYears) : 2000
-  const maxYear = availableYears.length ? Math.max(...availableYears) : new Date().getFullYear()
+  const now = new Date()
+  const fallbackMonthValue = monthYearToValue(now.getMonth() + 1, now.getFullYear())
+  const minMonthValue = availableMonthValues.length ? Math.min(...availableMonthValues) : fallbackMonthValue
+  const maxMonthValue = availableMonthValues.length ? Math.max(...availableMonthValues) : fallbackMonthValue
 
   let activeLevel = "Tutti";
-  let fromYear = null;
-  let toYear = null;
+  let fromMonthValue = null;
+  let toMonthValue = null;
 
   const renderIstruzioneCards = (items) => {
     cardsContainer.innerHTML = "";
@@ -1550,7 +1794,7 @@ function renderIstruzione(istruzione) {
       filtered = filtered.filter((item) => (item.livello || "").trim() === activeLevel);
     }
 
-    filtered = filtered.filter((item) => isItemInYearRange(item, fromYear, toYear));
+    filtered = filtered.filter((item) => isItemInMonthRange(item, fromMonthValue, toMonthValue));
 
     cardsContainer.classList.add("fade-out");
     setTimeout(() => {
@@ -1580,12 +1824,12 @@ function renderIstruzione(istruzione) {
   yearsBar.innerHTML = `
     <label>
       <span>Da</span>
-      <input type="number" class="year-input year-from" min="${minYear}" max="${maxYear}" placeholder="${minYear}" />
+      <input type="text" class="year-input year-from" placeholder="${formatMonthYearValue(minMonthValue)}" inputmode="numeric" />
       <button type="button" class="year-ok-btn">OK</button>
     </label>
     <label>
       <span>A</span>
-      <input type="number" class="year-input year-to" min="${minYear}" max="${maxYear}" placeholder="${maxYear}" />
+      <input type="text" class="year-input year-to" placeholder="${formatMonthYearValue(maxMonthValue)}" inputmode="numeric" />
       <button type="button" class="year-ok-btn">OK</button>
     </label>
     <button type="button" class="year-reset-btn">Reset</button>
@@ -1596,19 +1840,32 @@ function renderIstruzione(istruzione) {
   const okButtons = yearsBar.querySelectorAll(".year-ok-btn");
   const resetButton = yearsBar.querySelector(".year-reset-btn");
 
+  const handleMonthYearTyping = (event) => {
+    event.target.value = normalizeMonthYearTyping(event.target.value);
+  };
+
   const updateYears = () => {
-    const fromValue = Number.parseInt(fromInput.value, 10);
-    const toValue = Number.parseInt(toInput.value, 10);
+    fromMonthValue = parseMonthYearInput(fromInput.value);
+    toMonthValue = parseMonthYearInput(toInput.value);
 
-    fromYear = Number.isNaN(fromValue) ? null : fromValue;
-    toYear = Number.isNaN(toValue) ? null : toValue;
+    if (fromInput.value.trim() && fromMonthValue === null) {
+      fromInput.value = "";
+    } else if (fromMonthValue !== null) {
+      fromInput.value = formatMonthYearValue(fromMonthValue);
+    }
 
-    if (fromYear && toYear && fromYear > toYear) {
-      const temp = fromYear;
-      fromYear = toYear;
-      toYear = temp;
-      fromInput.value = fromYear;
-      toInput.value = toYear;
+    if (toInput.value.trim() && toMonthValue === null) {
+      toInput.value = "";
+    } else if (toMonthValue !== null) {
+      toInput.value = formatMonthYearValue(toMonthValue);
+    }
+
+    if (fromMonthValue !== null && toMonthValue !== null && fromMonthValue > toMonthValue) {
+      const temp = fromMonthValue;
+      fromMonthValue = toMonthValue;
+      toMonthValue = temp;
+      fromInput.value = formatMonthYearValue(fromMonthValue);
+      toInput.value = formatMonthYearValue(toMonthValue);
     }
 
     applyIstruzioneFilters();
@@ -1621,16 +1878,18 @@ function renderIstruzione(istruzione) {
   fromInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") updateYears();
   });
+  fromInput.addEventListener("input", handleMonthYearTyping);
 
   toInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") updateYears();
   });
+  toInput.addEventListener("input", handleMonthYearTyping);
 
   resetButton.addEventListener("click", () => {
     fromInput.value = "";
     toInput.value = "";
-    fromYear = null;
-    toYear = null;
+    fromMonthValue = null;
+    toMonthValue = null;
     applyIstruzioneFilters();
   });
 
