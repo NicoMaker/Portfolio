@@ -1602,6 +1602,19 @@ section {
   gap: 2rem;
 }
 
+#esperienze .card-container,
+#istruzione .card-container,
+#competenze .card-container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+#esperienze .skills-tabs,
+#istruzione .skills-tabs,
+#competenze .skills-tabs {
+  margin-top: 0 !important;
+}
+
 #esperienze .card.experience-card {
   width: 100%;
 }
@@ -1736,14 +1749,21 @@ section {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
   flex-wrap: wrap;
   position: sticky;
-  top: 90px;
+  top: 0;
   z-index: 20;
   background-color: var(--background);
-  padding: 0.7rem 0;
+  padding: 0.45rem 0;
   border-radius: var(--border-radius);
+}
+
+#istruzione .skills-tabs {
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
 }
 
 .skill-tab {
