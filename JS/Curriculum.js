@@ -652,45 +652,154 @@ function renderLinguistiche(linguistiche) {
 
   DOM.sections.linguistiche.innerHTML = ""
 
-  linguistiche.forEach((lingua, index) => {
-    const card = document.createElement("div")
-    card.className = "card language-card"
-    card.setAttribute("data-aos", "zoom-in")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+  const levels = [...new Set(linguistiche.map((item) => (item.livello || "").trim()).filter(Boolean))]
+  const filters = ["Tutti", ...levels]
 
-    // Create visual level indicator
-    const levelIndicator = createLevelIndicator(lingua.livello)
+  const stickyControls = document.createElement("div")
+  stickyControls.className = "skills-sticky-controls"
 
-    // Handle potential missing image
-    const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
+  const tabsContainer = document.createElement("div")
+  tabsContainer.className = "skills-tabs"
 
-    card.innerHTML = `
-      <div class="language-flag">
-        <img src="${imgSrc}" alt="Bandiera ${
-          lingua.lingua
-        }" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
-      </div>
-      <h4>${lingua.lingua || "Lingua non specificata"}</h4>
-      <div class="language-level">
-        <strong>Livello:</strong> ${lingua.livello || "Non specificato"}
-      </div>
-      <div class="level-indicator">
-        ${levelIndicator}
-      </div>
-      ${
-        lingua.link
-          ? `
-        <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">
-          <span>Impara la lingua</span>
-          <i class='bx bx-book-open'></i>
-        </button>
+  const searchBar = document.createElement("div")
+  searchBar.className = "year-filter-bar"
+
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = "linguistiche-list"
+
+  let activeLevel = "Tutti"
+  let searchTerm = ""
+
+  const renderLinguisticheCards = (items) => {
+    cardsContainer.innerHTML = ""
+
+    if (!items || items.length === 0) {
+      cardsContainer.innerHTML = `
+        <div class="empty-filter-message">
+          <i class='bx bx-info-circle'></i>
+          <p>Non ci sono lingue per questi criteri.</p>
+        </div>
       `
-          : ""
-      }
-    `
+      return
+    }
 
-    DOM.sections.linguistiche.appendChild(card)
+    items.forEach((lingua, index) => {
+      const card = document.createElement("div")
+      card.className = "card language-card"
+      card.setAttribute("data-aos", "zoom-in")
+      card.setAttribute("data-aos-delay", (index * 100).toString())
+
+      const levelIndicator = createLevelIndicator(lingua.livello)
+      const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
+
+      card.innerHTML = `
+        <div class="language-flag">
+          <img src="${imgSrc}" alt="Bandiera ${
+            lingua.lingua
+          }" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
+        </div>
+        <h4>${lingua.lingua || "Lingua non specificata"}</h4>
+        <div class="language-level">
+          <strong>Livello:</strong> ${lingua.livello || "Non specificato"}
+        </div>
+        <div class="level-indicator">
+          ${levelIndicator}
+        </div>
+        ${
+          lingua.link
+            ? `
+          <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">
+            <span>Impara la lingua</span>
+            <i class='bx bx-book-open'></i>
+          </button>
+        `
+            : ""
+        }
+      `
+
+      cardsContainer.appendChild(card)
+    })
+  }
+
+  const applyLinguisticheFilters = () => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+    let filtered = linguistiche
+
+    if (activeLevel !== "Tutti") {
+      filtered = filtered.filter((item) => (item.livello || "").trim() === activeLevel)
+    }
+
+    if (normalizedSearch) {
+      filtered = filtered.filter((item) => {
+        const language = (item?.lingua || "").toLowerCase()
+        const level = (item?.livello || "").toLowerCase()
+        return language.includes(normalizedSearch) || level.includes(normalizedSearch)
+      })
+    }
+
+    cardsContainer.classList.add("fade-out")
+    setTimeout(() => {
+      renderLinguisticheCards(filtered)
+      cardsContainer.classList.remove("fade-out")
+      cardsContainer.scrollTop = 0
+    }, 250)
+  }
+
+  filters.forEach((filter, index) => {
+    const tab = document.createElement("div")
+    tab.className = `skill-tab ${index === 0 ? "active" : ""}`
+    tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`
+
+    tab.addEventListener("click", () => {
+      tabsContainer.querySelectorAll(".skill-tab").forEach((t) => t.classList.remove("active"))
+      tab.classList.add("active")
+      activeLevel = filter
+      applyLinguisticheFilters()
+      scrollToSectionTop(tab)
+    })
+
+    tabsContainer.appendChild(tab)
   })
+
+  searchBar.innerHTML = `
+    <label>
+      <span>Cerca</span>
+      <input
+        type="search"
+        class="year-input linguistiche-search-input"
+        placeholder="Es. inglese, italiano, A2, C1..."
+      />
+    </label>
+    <button type="button" class="year-reset-btn linguistiche-search-reset">Reset</button>
+  `
+
+  const searchInput = searchBar.querySelector(".linguistiche-search-input")
+  const resetButton = searchBar.querySelector(".linguistiche-search-reset")
+
+  const updateSearch = () => {
+    searchTerm = searchInput.value || ""
+    applyLinguisticheFilters()
+  }
+
+  searchInput.addEventListener("input", updateSearch)
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      updateSearch()
+    }
+  })
+
+  resetButton.addEventListener("click", () => {
+    searchInput.value = ""
+    searchTerm = ""
+    applyLinguisticheFilters()
+  })
+
+  stickyControls.appendChild(tabsContainer)
+  stickyControls.appendChild(searchBar)
+  DOM.sections.linguistiche.appendChild(stickyControls)
+  DOM.sections.linguistiche.appendChild(cardsContainer)
+  applyLinguisticheFilters()
 }
 
 /**

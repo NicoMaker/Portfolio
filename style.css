@@ -1821,6 +1821,7 @@ section {
 
 /* Competenze: tabs e ricerca sempre visibili durante lo scroll */
 #attestati .skills-sticky-controls,
+#linguistiche .skills-sticky-controls,
 #sites .skills-sticky-controls,
 #competenze .skills-sticky-controls {
   position: sticky;
@@ -1834,6 +1835,7 @@ section {
 }
 
 #attestati .skills-sticky-controls .year-filter-bar,
+#linguistiche .skills-sticky-controls .year-filter-bar,
 #sites .skills-sticky-controls .year-filter-bar,
 #competenze .skills-sticky-controls .skills-tabs {
   position: static;
@@ -1843,6 +1845,7 @@ section {
 }
 
 #attestati .skills-sticky-controls .year-filter-bar,
+#linguistiche .skills-sticky-controls .year-filter-bar,
 #sites .skills-sticky-controls .year-filter-bar,
 #competenze .skills-sticky-controls .year-filter-bar {
   position: static;
@@ -1862,6 +1865,18 @@ section {
 }
 
 #attestati .attestati-list.fade-out {
+  opacity: 0;
+}
+
+#linguistiche .linguistiche-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+#linguistiche .linguistiche-list.fade-out {
   opacity: 0;
 }
 
@@ -1889,11 +1904,16 @@ section {
 }
 
 .year-input {
-  width: 110px;
+  width: 170px;
   padding: 0.45rem 0.6rem;
   border: 1px solid #dbe2f0;
   border-radius: 10px;
   font-family: "Poppins", sans-serif;
+}
+
+.year-filter-bar input[type="search"].year-input {
+  width: 360px;
+  max-width: 72vw;
 }
 
 .year-input:focus {
