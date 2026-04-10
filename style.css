@@ -1759,11 +1759,20 @@ section {
   border-radius: var(--border-radius);
 }
 
+#esperienze .skills-tabs,
 #istruzione .skills-tabs {
   justify-content: center;
   align-items: center;
-  margin-top: 0.2rem;
+  margin-top: 0;
   margin-bottom: 0.8rem;
+}
+
+#esperienze .skills-tabs {
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .skill-tab {
