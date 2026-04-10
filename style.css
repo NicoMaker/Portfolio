@@ -1599,7 +1599,11 @@ section {
 #esperienze .experience-list {
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
   gap: 2rem;
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #esperienze .card-container,
@@ -1617,6 +1621,7 @@ section {
 
 #esperienze .card.experience-card {
   width: 100%;
+  flex: 0 0 auto;
 }
 
 #istruzione .istruzione-list {
@@ -1805,6 +1810,12 @@ section {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
+  position: sticky;
+  top: 52px;
+  z-index: 19;
+  background-color: var(--background);
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--border-radius);
 }
 
 .year-filter-bar label {
