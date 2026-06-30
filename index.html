@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nicola Marano - Portfolio</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link
@@ -14,7 +14,8 @@
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="Icons/Logo_Scuro.jpg" />
+    <link rel="icon" type="image/svg+xml" href="Icons/Logo_Scuro.jpg" />
+    <meta name="theme-color" content="#0a192f" />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
     <script src="JS/Arrow.js" defer></script>
@@ -28,6 +29,8 @@
     <script src="JS/Animation.js" defer></script>
     <script src="JS/scroll.js" defer></script>
     <script src="JS/scarica_cv.js" defer></script>
+    <script src="JS/Scroll-progress.js" defer></script>
+    <script src="JS/Hero-code.js" defer></script>
 
     <!-- Meta descrizione (breve e coinvolgente) -->
     <meta
@@ -83,22 +86,34 @@
   </head>
 
   <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <defs>
+        <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#6d28d9" />
+          <stop offset="50%" stop-color="#06b6d4" />
+          <stop offset="100%" stop-color="#f472b6" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="scroll-progress" id="scrollProgress"></div>
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
     <div class="loader">
       <div class="loader-content">
         <div class="loader-avatar">
-          <img
-            src="Icons/Avatar.jpg"
-            alt="Nicola Marano"
-            class="loader-avatar-img"
-          />
+          <img src="Icons/Avatar.jpg" alt="Nicola Marano" />
         </div>
-        <div class="loader-logo">
-          <img src="Icons/Logo_Chiaro.jpg" alt="Logo Nicola Marano" />
+        <div class="terminal-window">
+          <div class="terminal-titlebar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-filename">nicola-marano.dev</span>
+          </div>
+          <div class="terminal-body" id="terminalBody"></div>
         </div>
-        <p class="loader-portfolio">Portfolio</p>
+        <p class="loader-portfolio">// caricamento portfolio<span class="terminal-cursor-blink"></span></p>
         <div class="progress-bar">
           <div class="progress"></div>
         </div>
@@ -117,7 +132,7 @@
                 <div class="avatar-container">
                   <img
                     class="avatar-menu"
-                    src="Icons/Logo_Chiaro.jpg"
+                    src="Icons/Avatar.jpg"
                     alt="Nicola Marano"
                   />
                 </div>
@@ -144,11 +159,9 @@
     <main>
       <section id="home">
         <div class="container">
-          <div class="hero-content-wrapper">
-            <div class="avatar-wrapper reveal-left">
-              <img class="avatar" src="Icons/Avatar.jpg" alt="Nicola Marano" />
-            </div>
-            <div class="hero-content reveal-right">
+          <div class="hero-content-wrapper hero-grid">
+            <div class="hero-content reveal-left">
+              <span class="hero-badge"><span class="dot"></span> Disponibile per nuovi progetti</span>
               <h1 class="glitch">Nicola Marano</h1>
               <div class="typing-container">
                 <span class="static-text">Sono un &nbsp; </span>
@@ -180,11 +193,29 @@
                   </span>
                 </a>
               </div>
-              <a href="#curriculum" class="scroll-arrow">
-                <i class="bx bx-chevron-down"></i>
-              </a>
+            </div>
+
+            <div class="hero-visual reveal-right">
+              <div class="avatar-wrapper">
+                <img class="avatar" src="Icons/Avatar.jpg" alt="Nicola Marano" />
+              </div>
+              <div class="code-float-panel">
+                <div class="terminal-titlebar">
+                  <span class="terminal-dot red"></span>
+                  <span class="terminal-dot yellow"></span>
+                  <span class="terminal-dot green"></span>
+                  <span class="terminal-filename">nicola.config.js</span>
+                </div>
+                <div class="terminal-body" id="heroCodeBody"></div>
+              </div>
+              <span class="float-glyph g1">&lt;/&gt;</span>
+              <span class="float-glyph g2">{ }</span>
+              <span class="float-glyph g3">=&gt;</span>
             </div>
           </div>
+          <a href="#curriculum" class="scroll-arrow">
+            <i class="bx bx-chevron-down"></i>
+          </a>
         </div>
         <div class="shape-divider">
           <svg

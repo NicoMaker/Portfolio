@@ -22,9 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Loader animation
   const loader = document.querySelector(".loader")
   const progress = document.querySelector(".progress")
-  const loaderLogo = document.querySelector(".loader-logo img")
-  const loaderAvatar = document.querySelector(".loader-avatar-img")
+  const terminalBody = document.querySelector("#terminalBody")
   const loaderPortfolio = document.querySelector(".loader-portfolio")
+
+  // Righe di "codice" mostrate nel terminale del loader, con piccola sintassi colorata
+  const codeLines = [
+    [{ t: "tk-keyword", v: "const" }, { t: "", v: " " }, { t: "tk-key", v: "developer" }, { t: "tk-punct", v: " = {" }],
+    [{ t: "", v: "  " }, { t: "tk-key", v: "name" }, { t: "tk-punct", v: ": " }, { t: "tk-string", v: "'Nicola Marano'" }, { t: "tk-punct", v: "," }],
+    [{ t: "", v: "  " }, { t: "tk-key", v: "role" }, { t: "tk-punct", v: ": " }, { t: "tk-string", v: "'Web Developer'" }, { t: "tk-punct", v: "," }],
+    [{ t: "", v: "  " }, { t: "tk-key", v: "focus" }, { t: "tk-punct", v: ": " }, { t: "tk-string", v: "'UI/UX & clean code'" }, { t: "tk-punct", v: "," }],
+    [{ t: "tk-punct", v: "};" }],
+    [{ t: "tk-comment", v: "// caricamento portfolio in corso..." }],
+  ]
 
   // Funzione per avviare l'animazione del loader
   function startLoaderAnimation() {
@@ -32,40 +41,62 @@ document.addEventListener("DOMContentLoaded", () => {
     loader.style.display = "flex"
     loader.style.opacity = "1"
     progress.style.width = "0%"
+    if (loaderPortfolio) loaderPortfolio.style.opacity = "0.6"
+    if (terminalBody) terminalBody.innerHTML = ""
 
-    // Reset degli elementi del loader
-    loaderAvatar.style.opacity = "0"
-    loaderAvatar.style.transform = "translateY(20px)"
-    loaderLogo.style.opacity = "0"
-    loaderLogo.style.transform = "scale(0.8)"
-    loaderPortfolio.style.opacity = "0"
-    loaderPortfolio.style.transform = "translateY(20px)"
-
-    // Anima l'avatar dopo 300ms
-    setTimeout(() => {
-      loaderAvatar.style.transition = "all 0.8s ease"
-      loaderAvatar.style.opacity = "1"
-      loaderAvatar.style.transform = "translateY(0)"
-
-      // Anima il logo dopo che l'avatar è apparso
+    typeCodeLines(0, () => {
       setTimeout(() => {
-        loaderLogo.style.transition = "all 0.8s ease"
-        loaderLogo.style.opacity = "1"
-        loaderLogo.style.transform = "scale(1)"
+        startProgressBar()
+      }, 350)
+    })
+  }
 
-        // Anima la scritta Portfolio dopo che il logo è apparso
-        setTimeout(() => {
-          loaderPortfolio.style.transition = "all 0.8s ease"
-          loaderPortfolio.style.opacity = "1"
-          loaderPortfolio.style.transform = "translateY(0)"
+  // Effetto "macchina da scrivere" che digita il codice riga per riga
+  function typeCodeLines(lineIndex, onComplete) {
+    if (!terminalBody) {
+      onComplete()
+      return
+    }
+    if (lineIndex >= codeLines.length) {
+      onComplete()
+      return
+    }
 
-          // Inizia la barra di progresso dopo che tutti gli elementi sono apparsi
-          setTimeout(() => {
-            startProgressBar()
-          }, 500)
-        }, 600)
-      }, 600)
-    }, 300)
+    const lineEl = document.createElement("div")
+    terminalBody.appendChild(lineEl)
+    const tokens = codeLines[lineIndex]
+    let tokenIndex = 0
+    let charIndex = 0
+
+    function typeNextChar() {
+      if (tokenIndex >= tokens.length) {
+        typeCodeLines(lineIndex + 1, onComplete)
+        return
+      }
+      const token = tokens[tokenIndex]
+      const span = lineEl.lastElementChild && lineEl.lastElementChild.dataset.tokenIndex == tokenIndex
+        ? lineEl.lastElementChild
+        : (() => {
+            const s = document.createElement("span")
+            if (token.t) s.className = token.t
+            s.dataset.tokenIndex = tokenIndex
+            lineEl.appendChild(s)
+            return s
+          })()
+
+      charIndex++
+      span.textContent = token.v.substring(0, charIndex)
+
+      if (charIndex >= token.v.length) {
+        tokenIndex++
+        charIndex = 0
+        setTimeout(typeNextChar, 14)
+      } else {
+        setTimeout(typeNextChar, 14)
+      }
+    }
+
+    typeNextChar()
   }
 
   // Avvia l'animazione del loader iniziale
@@ -147,19 +178,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Il click sul logo nell'hamburger menu è già gestito dall'event listener globale sopra
 
-  // Custom cursor
+  // Custom cursor (movimento fluido con lerp)
   const cursor = document.querySelector(".cursor")
   const cursorFollower = document.querySelector(".cursor-follower")
 
-  document.addEventListener("mousemove", (e) => {
-    cursor.style.left = e.clientX + "px"
-    cursor.style.top = e.clientY + "px"
+  let mouseX = 0, mouseY = 0
+  let followerX = 0, followerY = 0
 
-    setTimeout(() => {
-      cursorFollower.style.left = e.clientX + "px"
-      cursorFollower.style.top = e.clientY + "px"
-    }, 100)
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX
+    mouseY = e.clientY
+    cursor.style.left = mouseX + "px"
+    cursor.style.top = mouseY + "px"
   })
+
+  function animateFollower() {
+    followerX += (mouseX - followerX) * 0.18
+    followerY += (mouseY - followerY) * 0.18
+    cursorFollower.style.left = followerX + "px"
+    cursorFollower.style.top = followerY + "px"
+    requestAnimationFrame(animateFollower)
+  }
+  animateFollower()
 
   // Hover effect on links and buttons
   const links = document.querySelectorAll("a, button")
@@ -168,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor.style.transform = "translate(-50%, -50%) scale(1.5)"
       cursorFollower.style.width = "40px"
       cursorFollower.style.height = "40px"
-      cursorFollower.style.borderColor = "rgba(37, 99, 235, 0.2)"
+      cursorFollower.style.borderColor = "rgba(109, 41, 217, 0.35)"
     })
 
     link.addEventListener("mouseleave", () => {
