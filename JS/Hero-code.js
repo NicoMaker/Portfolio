@@ -36,6 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "tk-string", v: "'Node.js'" },
       { t: "tk-punct", v: ", " },
       { t: "tk-string", v: "'Express'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'MYSql'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'SQLite3'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'PostgreSQL'" },
       { t: "tk-punct", v: "]," },
     ],
     [
