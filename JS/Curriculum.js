@@ -553,59 +553,10 @@ function renderAttestati(attestati) {
   // Pulisci il container
   DOM.sections.attestati.innerHTML = "";
 
-  // Crea un wrapper per la sezione (contenitore relativo per lo sticky)
-  const sectionWrapper = document.createElement("div");
-  sectionWrapper.className = "section-search-wrapper";
-
-  // Barra di ricerca sticky
-  const searchBar = document.createElement("div");
-  searchBar.className = "search-bar sticky-search";
-  searchBar.innerHTML = `
-    <div class="search-input-group">
-      <i class='bx bx-search'></i>
-      <input type="search" class="search-input" placeholder="Cerca attestato (titolo, ente, descrizione...)">
-      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
-    </div>
-  `;
-  sectionWrapper.appendChild(searchBar);
-
-  // Contenitore per le card
+  // Contenitore per le card (la ricerca è gestita dalla barra globale fissa in header)
   const cardsContainer = document.createElement("div");
   cardsContainer.className = "attestati-list";
-  sectionWrapper.appendChild(cardsContainer);
-
-  // Aggiungi tutto al container della sezione
-  DOM.sections.attestati.appendChild(sectionWrapper);
-
-  const searchInput = searchBar.querySelector(".search-input");
-  const resetBtn = searchBar.querySelector(".search-reset-btn");
-
-  // Funzione di filtraggio
-  function filterAttestati() {
-    const query = searchInput.value.trim().toLowerCase();
-    const cards = cardsContainer.querySelectorAll(".card");
-
-    cards.forEach((card) => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? "" : "none";
-    });
-
-    // Mostra/nascondi messaggio "nessun risultato"
-    const visibleCards = cardsContainer.querySelectorAll(
-      ".card[style*='display: none']",
-    );
-    const noResultMsg = cardsContainer.querySelector(".no-results");
-    if (visibleCards.length === cards.length && cards.length > 0) {
-      if (!noResultMsg) {
-        const msg = document.createElement("div");
-        msg.className = "no-results";
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun attestato trovato per "${query}".</p>`;
-        cardsContainer.appendChild(msg);
-      }
-    } else {
-      if (noResultMsg) noResultMsg.remove();
-    }
-  }
+  DOM.sections.attestati.appendChild(cardsContainer);
 
   // Renderizza le card
   attestati.forEach((attestato, index) => {
@@ -636,14 +587,6 @@ function renderAttestati(attestati) {
     }
     card.innerHTML = html;
     cardsContainer.appendChild(card);
-  });
-
-  // Event listener per la ricerca
-  searchInput.addEventListener("input", filterAttestati);
-  resetBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    filterAttestati();
-    searchInput.focus();
   });
 }
 
@@ -701,53 +644,9 @@ function renderLinguistiche(linguistiche) {
 
   DOM.sections.linguistiche.innerHTML = "";
 
-  const sectionWrapper = document.createElement("div");
-  sectionWrapper.className = "section-search-wrapper";
-
-  const searchBar = document.createElement("div");
-  searchBar.className = "search-bar sticky-search";
-  searchBar.innerHTML = `
-    <div class="search-input-group">
-      <i class='bx bx-search'></i>
-      <input type="search" class="search-input" placeholder="Cerca lingua o livello (es. inglese, B2...)">
-      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
-    </div>
-  `;
-  sectionWrapper.appendChild(searchBar);
-
   const cardsContainer = document.createElement("div");
   cardsContainer.className = "linguistiche-list";
-  sectionWrapper.appendChild(cardsContainer);
-
-  DOM.sections.linguistiche.appendChild(sectionWrapper);
-
-  const searchInput = searchBar.querySelector(".search-input");
-  const resetBtn = searchBar.querySelector(".search-reset-btn");
-
-  function filterLinguistiche() {
-    const query = searchInput.value.trim().toLowerCase();
-    const cards = cardsContainer.querySelectorAll(".card");
-
-    cards.forEach((card) => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(query) ? "" : "none";
-    });
-
-    const visibleCards = cardsContainer.querySelectorAll(
-      ".card[style*='display: none']",
-    );
-    const noResultMsg = cardsContainer.querySelector(".no-results");
-    if (visibleCards.length === cards.length && cards.length > 0) {
-      if (!noResultMsg) {
-        const msg = document.createElement("div");
-        msg.className = "no-results";
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna lingua trovata per "${query}".</p>`;
-        cardsContainer.appendChild(msg);
-      }
-    } else {
-      if (noResultMsg) noResultMsg.remove();
-    }
-  }
+  DOM.sections.linguistiche.appendChild(cardsContainer);
 
   linguistiche.forEach((lingua, index) => {
     const card = document.createElement("div");
@@ -770,13 +669,6 @@ function renderLinguistiche(linguistiche) {
       ${lingua.link ? `<button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')"><span>Impara la lingua</span><i class='bx bx-book-open'></i></button>` : ""}
     `;
     cardsContainer.appendChild(card);
-  });
-
-  searchInput.addEventListener("input", filterLinguistiche);
-  resetBtn.addEventListener("click", () => {
-    searchInput.value = "";
-    filterLinguistiche();
-    searchInput.focus();
   });
 }
 

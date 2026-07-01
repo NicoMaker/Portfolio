@@ -3458,6 +3458,19 @@ h1.glitch {
     justify-content: center;
     text-align: center;
   }
+  /* Su mobile l'avatar deve stare sopra al testo, non sotto */
+  .hero-content-wrapper.hero-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-content-wrapper.hero-grid .hero-visual {
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+  .hero-content-wrapper.hero-grid .hero-content {
+    order: 2;
+  }
   .hero-visual {
     margin-top: 2.5rem;
     min-height: auto;
@@ -4188,12 +4201,13 @@ footer {
 .code-float-panel .terminal-body {
   overflow-wrap: anywhere;
   word-break: break-word;
-  white-space: normal;
+  white-space: pre-wrap;
 }
 
 .code-float-panel .terminal-body div {
   overflow-wrap: anywhere;
   word-break: break-word;
+  white-space: pre-wrap;
 }
 
 @media (max-width: 900px) {
