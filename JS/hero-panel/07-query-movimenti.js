@@ -7,8 +7,16 @@ window.HeroFiles.push({
   name: "movimenti.sql",
   lines: [
     [{ t: "tk-keyword", v: "SELECT" }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.id" }, { t: "tk-punct", v: "," }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.prodotto_id" }, { t: "tk-punct", v: "," }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.id" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.prodotto_id" },
+      { t: "tk-punct", v: "," },
+    ],
     [
       { t: "", v: "  " },
       { t: "tk-key", v: "p.nome" },
@@ -36,9 +44,21 @@ window.HeroFiles.push({
       { t: "tk-key", v: "prodotto_descrizione" },
       { t: "tk-punct", v: "," },
     ],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.tipo" }, { t: "tk-punct", v: "," }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.quantita" }, { t: "tk-punct", v: "," }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.prezzo" }, { t: "tk-punct", v: "," }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.tipo" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.quantita" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.prezzo" },
+      { t: "tk-punct", v: "," },
+    ],
     [
       { t: "", v: "  " },
       { t: "tk-key", v: "d.prezzo_totale_movimento" },
@@ -48,7 +68,10 @@ window.HeroFiles.push({
       { t: "tk-key", v: "prezzo_totale_movimento" },
       { t: "tk-punct", v: "," },
     ],
-    [{ t: "", v: "  " }, { t: "tk-keyword", v: "CASE" }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-keyword", v: "CASE" },
+    ],
     [
       { t: "", v: "    " },
       { t: "tk-keyword", v: "WHEN" },
@@ -80,7 +103,12 @@ window.HeroFiles.push({
       { t: "", v: " / " },
       { t: "tk-key", v: "d.quantita" },
     ],
-    [{ t: "", v: "    " }, { t: "tk-keyword", v: "ELSE" }, { t: "", v: " " }, { t: "tk-keyword", v: "NULL" }],
+    [
+      { t: "", v: "    " },
+      { t: "tk-keyword", v: "ELSE" },
+      { t: "", v: " " },
+      { t: "tk-keyword", v: "NULL" },
+    ],
     [
       { t: "", v: "  " },
       { t: "tk-keyword", v: "END" },
@@ -90,11 +118,30 @@ window.HeroFiles.push({
       { t: "tk-key", v: "prezzo_unitario_scarico" },
       { t: "tk-punct", v: "," },
     ],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.data_movimento" }, { t: "tk-punct", v: "," }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.data_registrazione" }, { t: "tk-punct", v: "," }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.fattura_doc" }, { t: "tk-punct", v: "," }],
-    [{ t: "", v: "  " }, { t: "tk-key", v: "d.fornitore_cliente_id" }],
-    [{ t: "tk-keyword", v: "FROM" }, { t: "", v: " " }, { t: "tk-key", v: "dati d" }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.data_movimento" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.data_registrazione" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.fattura_doc" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "d.fornitore_cliente_id" },
+    ],
+    [
+      { t: "tk-keyword", v: "FROM" },
+      { t: "", v: " " },
+      { t: "tk-key", v: "dati d" },
+    ],
     [
       { t: "", v: "  " },
       { t: "tk-keyword", v: "JOIN" },
@@ -138,7 +185,10 @@ window.HeroFiles.push({
       { t: "", v: " " },
       { t: "tk-comment", v: "-- 2. per nome prodotto" },
     ],
-    [{ t: "", v: "  " }, { t: "tk-keyword", v: "CASE" }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-keyword", v: "CASE" },
+    ],
     [
       { t: "", v: "    " },
       { t: "tk-keyword", v: "WHEN" },

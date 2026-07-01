@@ -5,9 +5,7 @@ window.HeroFiles = window.HeroFiles || [];
 window.HeroFiles.push({
   name: "contatti.js",
   lines: [
-    [
-      { t: "tk-comment", v: "// contatti rapidi" },
-    ],
+    [{ t: "tk-comment", v: "// contatti rapidi" }],
     [
       { t: "tk-keyword", v: "function" },
       { t: "", v: " " },
@@ -33,7 +31,10 @@ window.HeroFiles.push({
       { t: "tk-string", v: "'+39 333 702 4320'" },
       { t: "tk-punct", v: "," },
     ],
-    [{ t: "", v: "  " }, { t: "tk-punct", v: "};" }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-punct", v: "};" },
+    ],
     [{ t: "tk-punct", v: "}" }],
   ],
 });

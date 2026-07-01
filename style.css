@@ -3359,7 +3359,9 @@ h1.glitch {
   overflow-y: auto;
   overflow-x: hidden;
   color: var(--text-dark);
-  transition: font-size 0.2s ease, line-height 0.2s ease;
+  transition:
+    font-size 0.2s ease,
+    line-height 0.2s ease;
 }
 
 /* Scrollbar sottile e discreta, coerente col tema scuro */

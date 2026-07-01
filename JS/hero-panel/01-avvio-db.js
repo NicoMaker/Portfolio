@@ -5,9 +5,7 @@ window.HeroFiles = window.HeroFiles || [];
 window.HeroFiles.push({
   name: "avvio-db.js",
   lines: [
-    [
-      { t: "tk-comment", v: "// avvio server: connessione al database" },
-    ],
+    [{ t: "tk-comment", v: "// avvio server: connessione al database" }],
     [
       { t: "tk-keyword", v: "const" },
       { t: "", v: " " },

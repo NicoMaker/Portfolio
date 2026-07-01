@@ -5,9 +5,7 @@ window.HeroFiles = window.HeroFiles || [];
 window.HeroFiles.push({
   name: "cv.js",
   lines: [
-    [
-      { t: "tk-comment", v: "// scarica il CV in pdf" },
-    ],
+    [{ t: "tk-comment", v: "// scarica il CV in pdf" }],
     [
       { t: "tk-keyword", v: "function" },
       { t: "", v: " " },

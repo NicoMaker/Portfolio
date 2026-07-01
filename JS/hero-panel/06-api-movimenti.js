@@ -85,7 +85,10 @@ window.HeroFiles.push({
       { t: "tk-key", v: "rows" },
       { t: "tk-punct", v: ");" },
     ],
-    [{ t: "", v: "  " }, { t: "tk-punct", v: "});" }],
+    [
+      { t: "", v: "  " },
+      { t: "tk-punct", v: "});" },
+    ],
     [{ t: "tk-punct", v: "});" }],
     [{ t: "", v: "" }],
     [

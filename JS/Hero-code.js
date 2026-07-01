@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (panel) {
       panel.classList.toggle(
         "code-compact",
-        file.lines.length > COMPACT_THRESHOLD
+        file.lines.length > COMPACT_THRESHOLD,
       );
     }
 
