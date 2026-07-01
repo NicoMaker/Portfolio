@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "tk-string", v: "'HTML/CSS'" },
       { t: "tk-punct", v: ", " },
       { t: "tk-string", v: "'Node.js'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Express'" },
       { t: "tk-punct", v: "]," },
     ],
     [
