@@ -43,14 +43,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 const CONFIG = {
   jsonPath: "JSON/Curriculum.json",
   categoriesJsonPath: "JSON/categories.json",
-  fallbackJsonPath: "JSON/Curriculum.json", // Fallback in case of typo in filename
+  fallbackJsonPath: "JSON/Curriculum.json",
   animationDuration: 500,
   animationDelay: 100,
   debugMode: true,
-  // Mobile configuration
   mobileBreakpoint: 768,
-  siteImageMaxHeight: 120, // Smaller site images for better visibility
-  removeScrollableContainers: true, // Remove scrollable containers for better UX
+  siteImageMaxHeight: 120,
+  removeScrollableContainers: true,
 }
 
 // State management
@@ -83,7 +82,6 @@ function handleResize() {
   const wasMobile = STATE.isMobile
   checkMobileState()
 
-  // If we crossed the mobile breakpoint, apply or remove mobile styles
   if (wasMobile !== STATE.isMobile) {
     if (STATE.isMobile) {
       applyMobileStyles()
@@ -94,13 +92,9 @@ function handleResize() {
     // Re-render sections that need responsive adjustments
     if (STATE.curriculumData) {
       renderWebSite(STATE.curriculumData.sites)
-
-      // Re-render competenze section for better mobile experience
-      if (STATE.categorizedSkills) {
+      if (STATE.curriculumData.competenze) {
         renderCompetenze(STATE.curriculumData.competenze)
       }
-
-      // Re-render esperienze section for better mobile experience
       if (STATE.curriculumData.esperienze) {
         renderEsperienze(STATE.curriculumData.esperienze)
       }
@@ -112,7 +106,6 @@ function handleResize() {
  * Apply mobile-specific styles
  */
 function applyMobileStyles() {
-  // Center curriculum titles on mobile (una per ogni sezione ora indipendente)
   document.querySelectorAll(".curriculum-part .section-title").forEach((sectionTitle) => {
     sectionTitle.style.textAlign = "center"
     sectionTitle.style.width = "100%"
@@ -120,32 +113,18 @@ function applyMobileStyles() {
     sectionTitle.style.transform = "none"
   })
 
-  // Remove scrollable containers if configured
   if (CONFIG.removeScrollableContainers) {
     document.querySelectorAll(".card-container").forEach((container) => {
       container.style.maxHeight = "none"
       container.style.overflowY = "visible"
     })
   }
-
-  // Adjust skill tabs for better mobile experience
-  document.querySelectorAll(".skill-tab").forEach((tab) => {
-    tab.style.width = STATE.isMobile ? "calc(50% - 0.4rem)" : ""
-    tab.style.justifyContent = STATE.isMobile ? "center" : ""
-  })
-
-  // Adjust role badges for better mobile experience
-  document.querySelectorAll(".role-badge").forEach((badge) => {
-    badge.style.margin = STATE.isMobile ? "0.3rem" : ""
-    badge.style.display = STATE.isMobile ? "inline-block" : ""
-  })
 }
 
 /**
  * Remove mobile-specific styles
  */
 function removeMobileStyles() {
-  // Restore curriculum title styles
   document.querySelectorAll(".curriculum-part .section-title").forEach((sectionTitle) => {
     sectionTitle.style.textAlign = ""
     sectionTitle.style.width = ""
@@ -153,36 +132,16 @@ function removeMobileStyles() {
     sectionTitle.style.transform = ""
   })
 
-  // Restore scrollable containers if they were removed
   if (CONFIG.removeScrollableContainers) {
     document.querySelectorAll(".card-container").forEach((container) => {
       container.style.maxHeight = ""
       container.style.overflowY = ""
     })
   }
-
-  // Reset skill tabs for desktop experience
-  document.querySelectorAll(".skill-tab").forEach((tab) => {
-    tab.style.width = ""
-    tab.style.justifyContent = ""
-  })
-
-  // Reset role badges for desktop experience
-  document.querySelectorAll(".role-badge").forEach((badge) => {
-    badge.style.margin = ""
-    badge.style.display = ""
-  })
 }
 
 /**
  * Initialize the section structure in the DOM.
- *
- * Ogni parte del curriculum (Attestati, Istruzione, Competenze...) è ora
- * una <section> reale e indipendente della pagina, sempre visibile: non
- * più schede (tab) che si nascondono a vicenda dentro un unico blocco
- * "Curriculum". Questa funzione si limita a collegare i riferimenti alle
- * sezioni già presenti nell'HTML e a costruire la barra di navigazione
- * rapida (i pulsanti in alto) che scorre fino alla sezione scelta.
  */
 function initializeSections() {
   const parts = [
@@ -214,8 +173,6 @@ function initializeSections() {
     })
   }
 
-  // Ogni parte è già presente nell'HTML come <section id="..."> con dentro
-  // un <div class="card-container">: qui recuperiamo solo i riferimenti.
   DOM.sections = {}
   parts.forEach((part) => {
     DOM.sections[part.id] = document.querySelector(`#${part.id} .card-container`)
@@ -225,8 +182,7 @@ function initializeSections() {
 }
 
 /**
- * Scorre in modo fluido fino alla sezione del curriculum indicata,
- * tenendo conto dell'altezza dell'header fisso.
+ * Smooth scroll to a curriculum section.
  */
 function scrollToCurriculumPart(targetId) {
   const section = document.getElementById(targetId)
@@ -240,10 +196,7 @@ function scrollToCurriculumPart(targetId) {
 }
 
 /**
- * Tiene aggiornato il pulsante attivo nella barra di navigazione rapida
- * mentre l'utente scorre tra le varie sezioni del curriculum (Attestati,
- * Istruzione, Competenze...), dato che ora sono tutte visibili una sotto
- * l'altra invece di essere schede nascoste.
+ * Scroll spy for quick navigation pills.
  */
 function setupQuickNavScrollSpy(parts) {
   const pills = document.querySelectorAll(".curr-nav-pill")
@@ -271,7 +224,7 @@ function setupQuickNavScrollSpy(parts) {
 }
 
 /**
- * Animate cards in a section
+ * Animate cards in a section.
  */
 function animateCardsInSection(container) {
   if (!container) return
@@ -292,7 +245,7 @@ function animateCardsInSection(container) {
 }
 
 /**
- * Animate all cards
+ * Animate all cards.
  */
 function animateCards() {
   const cards = document.querySelectorAll(".card")
@@ -303,7 +256,7 @@ function animateCards() {
 }
 
 /**
- * Initialize skill progress bar animations
+ * Initialize skill progress bar animations.
  */
 function initializeSkillAnimations() {
   const progressBars = document.querySelectorAll(".progress-bar")
@@ -319,10 +272,7 @@ function initializeSkillAnimations() {
     const fill = bar.querySelector(".progress-fill")
 
     if (fill) {
-      // Reset first
       fill.style.width = "0%"
-
-      // Animate after a short delay
       setTimeout(() => {
         fill.style.width = `${progress}%`
       }, 100)
@@ -331,12 +281,10 @@ function initializeSkillAnimations() {
 }
 
 /**
- * Show loading state
+ * Show loading state.
  */
 function showLoading(isLoading) {
   STATE.isLoading = isLoading
-
-  // You could add a loading spinner here if needed
   if (isLoading) {
     console.log("Curriculum.js: Loading...")
   } else {
@@ -345,7 +293,7 @@ function showLoading(isLoading) {
 }
 
 /**
- * Show error message
+ * Show error message.
  */
 function showError(message) {
   STATE.hasError = true
@@ -371,7 +319,7 @@ function showError(message) {
 }
 
 /**
- * Load categories data from JSON file
+ * Load categories data from JSON file.
  */
 async function loadCategoriesData() {
   try {
@@ -380,7 +328,6 @@ async function loadCategoriesData() {
 
     if (!response.ok) {
       console.warn(`Curriculum.js: Failed to load categories from ${CONFIG.categoriesJsonPath}`)
-      // Use hardcoded categories as fallback
       STATE.categoriesData = {
         skillCategories: {
           Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
@@ -398,8 +345,6 @@ async function loadCategoriesData() {
     return STATE.categoriesData
   } catch (error) {
     console.error("Curriculum.js: Error loading categories data:", error)
-
-    // Use hardcoded categories as fallback
     STATE.categoriesData = {
       skillCategories: {
         Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
@@ -413,7 +358,7 @@ async function loadCategoriesData() {
 }
 
 /**
- * Load curriculum data from JSON file
+ * Load curriculum data from JSON file.
  */
 async function loadCurriculumData() {
   try {
@@ -422,7 +367,6 @@ async function loadCurriculumData() {
 
     if (!response.ok) {
       console.warn(`Curriculum.js: Failed to load from ${CONFIG.jsonPath}, trying fallback...`)
-      // Try fallback path
       const fallbackResponse = await fetch(CONFIG.fallbackJsonPath)
 
       if (!fallbackResponse.ok) {
@@ -436,7 +380,6 @@ async function loadCurriculumData() {
       console.log("Curriculum.js: Data loaded successfully")
     }
 
-    // Categorize skills based on JSON data
     if (STATE.curriculumData.competenze) {
       STATE.categorizedSkills = categorizeSkillsFromJson(STATE.curriculumData.competenze)
     }
@@ -447,7 +390,6 @@ async function loadCurriculumData() {
     STATE.hasError = true
     STATE.errorMessage = error.message
 
-    // Load fallback data
     STATE.curriculumData = generateFallbackData()
     STATE.categorizedSkills = categorizeSkillsFromJson(STATE.curriculumData.competenze)
 
@@ -456,7 +398,7 @@ async function loadCurriculumData() {
 }
 
 /**
- * Render all sections with the loaded data
+ * Render all sections with the loaded data.
  */
 function renderAllSections() {
   if (!STATE.curriculumData) {
@@ -466,7 +408,6 @@ function renderAllSections() {
 
   console.log("Curriculum.js: Rendering all sections")
 
-  // Render each section
   renderAttestati(STATE.curriculumData.attestati)
   renderLinguistiche(STATE.curriculumData.linguistiche)
   renderEsperienze(STATE.curriculumData.esperienze)
@@ -474,22 +415,17 @@ function renderAllSections() {
   renderCompetenze(STATE.curriculumData.competenze)
   renderWebSite(STATE.curriculumData.sites)
 
-  // Ogni sezione del curriculum è ora indipendente e sempre visibile:
-  // animiamo le card di tutte le sezioni, non solo di una scheda attiva.
   document.querySelectorAll(".curriculum-part .card-container").forEach((container) => {
     animateCardsInSection(container)
   })
 
-  // Le barre di progresso delle competenze si animano quando quella scheda viene aperta
   setTimeout(() => {
     initializeSkillAnimations()
   }, 300)
 }
 
 /**
- * Estrae l'ente/istituto che ha rilasciato l'attestato dal testo della
- * descrizione (es. "Rilasciato da Aica il 13/12/2024"), da usare come
- * categoria per il filtro "Tutti / Ente...".
+ * Extract the issuing entity from an attestato description.
  */
 function getAttestatoEnte(attestato) {
   const plainText = String(attestato?.descrizione || "")
@@ -507,7 +443,7 @@ function getAttestatoEnte(attestato) {
 }
 
 /**
- * Render attestati section
+ * Render attestati section – no filters, just cards.
  */
 function renderAttestati(attestati) {
   if (!attestati || !Array.isArray(attestati) || !DOM.sections.attestati) {
@@ -517,305 +453,44 @@ function renderAttestati(attestati) {
 
   DOM.sections.attestati.innerHTML = ""
 
-  const enti = [...new Set(attestati.map((item) => getAttestatoEnte(item)).filter(Boolean))]
-  const filters = ["Tutti", ...enti]
-
-  const stickyControls = document.createElement("div")
-  stickyControls.className = "skills-sticky-controls"
-
-  const tabsContainer = document.createElement("div")
-  tabsContainer.className = "skills-tabs"
-
-  const searchBar = document.createElement("div")
-  searchBar.className = "year-filter-bar"
-
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "attestati-list"
 
-  let activeEnti = new Set()
-  let searchTerm = ""
+  attestati.forEach((attestato, index) => {
+    const card = document.createElement("div")
+    card.className = "card"
+    card.setAttribute("data-aos", "fade-up")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
 
-  const renderAttestatiCards = (items) => {
-    cardsContainer.innerHTML = ""
-
-    if (!items || items.length === 0) {
-      cardsContainer.innerHTML = `
-        <div class="empty-filter-message">
-          <i class='bx bx-info-circle'></i>
-          <p>Non ci sono attestati per questi criteri.</p>
+    let html = `
+      <div class="card-header">
+        <div class="certificate-icon"><i class='bx bx-certification'></i></div>
+        <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
+      </div>
+      <div class="skill-category-badge">${getAttestatoEnte(attestato)}</div>
+      <div class="card-body">
+        <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
+      </div>
+    `
+    if (attestato.certificato) {
+      html += `
+        <div class="card-footer">
+          <a href="${attestato.certificato}" class="testo" download>
+            <span>Scarica Certificato</span>
+            <i class='bx bx-download'></i>
+          </a>
         </div>
       `
-      return
     }
-
-    items.forEach((attestato, index) => {
-      const card = document.createElement("div")
-      card.className = "card"
-      card.setAttribute("data-aos", "fade-up")
-      card.setAttribute("data-aos-delay", (index * 100).toString())
-
-      let html = `
-        <div class="card-header">
-          <div class="certificate-icon">
-            <i class='bx bx-certification'></i>
-          </div>
-          <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
-        </div>
-        <div class="skill-category-badge">${getAttestatoEnte(attestato)}</div>
-        <div class="card-body">
-          <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
-        </div>
-      `
-
-      if (attestato.certificato) {
-        html += `
-          <div class="card-footer">
-            <a href="${attestato.certificato}" class="testo" download>
-              <span>Scarica Certificato</span>
-              <i class='bx bx-download'></i>
-            </a>
-          </div>
-        `
-      }
-
-      card.innerHTML = html
-      cardsContainer.appendChild(card)
-    })
-  }
-
-  const applyAttestatiFilters = () => {
-    let filtered = attestati
-
-    if (activeEnti.size > 0) {
-      filtered = filtered.filter((item) => activeEnti.has(getAttestatoEnte(item)))
-    }
-
-    const normalizedSearch = searchTerm.trim().toLowerCase()
-    if (normalizedSearch) {
-      filtered = filtered.filter((item) => {
-        const title = (item?.titolo || "").toLowerCase()
-        const description = (item?.descrizione || "").toLowerCase()
-        const ente = getAttestatoEnte(item).toLowerCase()
-        return title.includes(normalizedSearch) || description.includes(normalizedSearch) || ente.includes(normalizedSearch)
-      })
-    }
-
-    cardsContainer.classList.add("fade-out")
-    setTimeout(() => {
-      renderAttestatiCards(filtered)
-      cardsContainer.classList.remove("fade-out")
-      cardsContainer.scrollTop = 0
-    }, 250)
-  }
-
-  const updateActiveTabs = () => {
-    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
-      const tabFilter = tab.getAttribute("data-filter")
-      tab.classList.toggle("active", tabFilter === "Tutti" ? activeEnti.size === 0 : activeEnti.has(tabFilter))
-    })
-  }
-
-  buildFilterSelect(tabsContainer, filters, activeEnti, applyAttestatiFilters)
-
-  searchBar.innerHTML = `
-    <label>
-      <span>Cerca</span>
-      <input
-        type="search"
-        class="year-input attestati-search-input"
-        placeholder="Es. sicurezza, GDPR, certificato..."
-      />
-    </label>
-    <button type="button" class="year-reset-btn attestati-search-reset">Reset</button>
-  `
-
-  const searchInput = searchBar.querySelector(".attestati-search-input")
-  const resetButton = searchBar.querySelector(".attestati-search-reset")
-
-  const updateSearch = () => {
-    searchTerm = searchInput.value || ""
-    applyAttestatiFilters()
-  }
-
-  searchInput.addEventListener("input", updateSearch)
-  searchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault()
-      updateSearch()
-    }
+    card.innerHTML = html
+    cardsContainer.appendChild(card)
   })
 
-  resetButton.addEventListener("click", () => {
-    searchInput.value = ""
-    searchTerm = ""
-    applyAttestatiFilters()
-  })
-
-  stickyControls.appendChild(tabsContainer)
-  stickyControls.appendChild(searchBar)
-  DOM.sections.attestati.appendChild(stickyControls)
   DOM.sections.attestati.appendChild(cardsContainer)
-  updateActiveTabs()
-  applyAttestatiFilters()
 }
 
 /**
- * Render competenze linguistiche section
- */
-function renderLinguistiche(linguistiche) {
-  if (!linguistiche || !Array.isArray(linguistiche) || !DOM.sections.linguistiche) {
-    console.warn("Curriculum.js: Invalid linguistiche data or container not found")
-    return
-  }
-
-  DOM.sections.linguistiche.innerHTML = ""
-
-  const levels = [...new Set(linguistiche.map((item) => (item.livello || "").trim()).filter(Boolean))]
-  const filters = ["Tutti", ...levels]
-
-  const stickyControls = document.createElement("div")
-  stickyControls.className = "skills-sticky-controls"
-
-  const tabsContainer = document.createElement("div")
-  tabsContainer.className = "skills-tabs"
-
-  const searchBar = document.createElement("div")
-  searchBar.className = "year-filter-bar"
-
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "linguistiche-list"
-
-  let activeLevels = new Set()
-  let searchTerm = ""
-
-  const renderLinguisticheCards = (items) => {
-    cardsContainer.innerHTML = ""
-
-    if (!items || items.length === 0) {
-      cardsContainer.innerHTML = `
-        <div class="empty-filter-message">
-          <i class='bx bx-info-circle'></i>
-          <p>Non ci sono lingue per questi criteri.</p>
-        </div>
-      `
-      return
-    }
-
-    items.forEach((lingua, index) => {
-      const card = document.createElement("div")
-      card.className = "card language-card"
-      card.setAttribute("data-aos", "zoom-in")
-      card.setAttribute("data-aos-delay", (index * 100).toString())
-
-      const levelIndicator = createLevelIndicator(lingua.livello)
-      const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
-
-      card.innerHTML = `
-        <div class="language-flag">
-          <img src="${imgSrc}" alt="Bandiera ${
-            lingua.lingua
-          }" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
-        </div>
-        <h4>${lingua.lingua || "Lingua non specificata"}</h4>
-        <div class="language-level">
-          <strong>Livello:</strong> ${lingua.livello || "Non specificato"}
-        </div>
-        <div class="level-indicator">
-          ${levelIndicator}
-        </div>
-        ${
-          lingua.link
-            ? `
-          <button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')">
-            <span>Impara la lingua</span>
-            <i class='bx bx-book-open'></i>
-          </button>
-        `
-            : ""
-        }
-      `
-
-      cardsContainer.appendChild(card)
-    })
-  }
-
-  const applyLinguisticheFilters = () => {
-    const normalizedSearch = searchTerm.trim().toLowerCase()
-    let filtered = linguistiche
-
-    if (activeLevels.size > 0) {
-      filtered = filtered.filter((item) => activeLevels.has((item.livello || "").trim()))
-    }
-
-    if (normalizedSearch) {
-      filtered = filtered.filter((item) => {
-        const language = (item?.lingua || "").toLowerCase()
-        const level = (item?.livello || "").toLowerCase()
-        return language.includes(normalizedSearch) || level.includes(normalizedSearch)
-      })
-    }
-
-    cardsContainer.classList.add("fade-out")
-    setTimeout(() => {
-      renderLinguisticheCards(filtered)
-      cardsContainer.classList.remove("fade-out")
-      cardsContainer.scrollTop = 0
-    }, 250)
-  }
-
-  const updateActiveTabs = () => {
-    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
-      const tabFilter = tab.getAttribute("data-filter")
-      tab.classList.toggle("active", tabFilter === "Tutti" ? activeLevels.size === 0 : activeLevels.has(tabFilter))
-    })
-  }
-
-  buildFilterSelect(tabsContainer, filters, activeLevels, applyLinguisticheFilters)
-
-  searchBar.innerHTML = `
-    <label>
-      <span>Cerca</span>
-      <input
-        type="search"
-        class="year-input linguistiche-search-input"
-        placeholder="Es. inglese, italiano, A2, C1..."
-      />
-    </label>
-    <button type="button" class="year-reset-btn linguistiche-search-reset">Reset</button>
-  `
-
-  const searchInput = searchBar.querySelector(".linguistiche-search-input")
-  const resetButton = searchBar.querySelector(".linguistiche-search-reset")
-
-  const updateSearch = () => {
-    searchTerm = searchInput.value || ""
-    applyLinguisticheFilters()
-  }
-
-  searchInput.addEventListener("input", updateSearch)
-  searchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault()
-      updateSearch()
-    }
-  })
-
-  resetButton.addEventListener("click", () => {
-    searchInput.value = ""
-    searchTerm = ""
-    applyLinguisticheFilters()
-  })
-
-  stickyControls.appendChild(tabsContainer)
-  stickyControls.appendChild(searchBar)
-  DOM.sections.linguistiche.appendChild(stickyControls)
-  DOM.sections.linguistiche.appendChild(cardsContainer)
-  updateActiveTabs()
-  applyLinguisticheFilters()
-}
-
-/**
- * Create visual language level indicator
+ * Create visual language level indicator.
  */
 function createLevelIndicator(level) {
   const levels = {
@@ -852,59 +527,148 @@ function createLevelIndicator(level) {
 }
 
 /**
- * Scroll to the top of a curriculum section
+ * Render linguistiche section – no filters, just cards.
  */
-function scrollToSectionTop(element) {
-  const section = element?.closest(".curriculum-part")
-  if (!section) return
+function renderLinguistiche(linguistiche) {
+  if (!linguistiche || !Array.isArray(linguistiche) || !DOM.sections.linguistiche) {
+    console.warn("Curriculum.js: Invalid linguistiche data or container not found")
+    return
+  }
 
-  const header = document.querySelector("header")
-  const headerOffset = header ? header.offsetHeight + 16 : 16
-  const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset
+  DOM.sections.linguistiche.innerHTML = ""
 
-  window.scrollTo({
-    top: targetY,
-    behavior: "smooth",
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = "linguistiche-list"
+
+  linguistiche.forEach((lingua, index) => {
+    const card = document.createElement("div")
+    card.className = "card language-card"
+    card.setAttribute("data-aos", "zoom-in")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
+
+    const levelIndicator = createLevelIndicator(lingua.livello)
+    const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
+
+    card.innerHTML = `
+      <div class="language-flag">
+        <img src="${imgSrc}" alt="Bandiera ${lingua.lingua}" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
+      </div>
+      <h4>${lingua.lingua || "Lingua non specificata"}</h4>
+      <div class="language-level"><strong>Livello:</strong> ${lingua.livello || "Non specificato"}</div>
+      <div class="level-indicator">${levelIndicator}</div>
+      ${lingua.link ? `<button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')"><span>Impara la lingua</span><i class='bx bx-book-open'></i></button>` : ""}
+    `
+    cardsContainer.appendChild(card)
   })
+
+  DOM.sections.linguistiche.appendChild(cardsContainer)
 }
 
 /**
- * Costruisce un menu a tendina (select) per i filtri generati dai dati
- * (es. Livello 5 EQF, Madrelingua, Stage Curricolare...), al posto delle
- * pillole cliccabili: più compatto e comodo su mobile.
- * `activeLevels` è lo stesso Set già usato dai filtri esistenti: quando si
- * sceglie "Tutti" viene svuotato, altrimenti contiene solo il valore scelto.
+ * Render esperienze section – no filters, just cards.
  */
-function buildFilterSelect(tabsContainer, filters, activeLevels, onChange) {
-  tabsContainer.classList.add("skills-select-wrap")
-  tabsContainer.innerHTML = `
-    <label class="skill-select-label">
-      <i class='bx bx-filter-alt'></i>
-      <select class="skill-select"></select>
-    </label>
-  `
-  const select = tabsContainer.querySelector(".skill-select")
-  filters.forEach((filter) => {
-    const option = document.createElement("option")
-    option.value = filter
-    option.textContent = filter
-    select.appendChild(option)
+function renderEsperienze(esperienze) {
+  if (!esperienze || !Array.isArray(esperienze) || !DOM.sections.esperienze) {
+    console.warn("Curriculum.js: Invalid esperienze data or container not found")
+    return
+  }
+
+  DOM.sections.esperienze.innerHTML = ""
+
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = "experience-list"
+
+  esperienze.forEach((esperienza, index) => {
+    const card = document.createElement("div")
+    card.className = "card experience-card"
+    card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left")
+    card.setAttribute("data-aos-delay", (index * 150).toString())
+
+    const attivitaList = Array.isArray(esperienza.attivita)
+      ? esperienza.attivita.map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`).join("")
+      : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>"
+
+    const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64"
+
+    card.innerHTML = `
+      <div class="experience-header">
+        <div class="company-logo">
+          <img class="azienda" src="${logoSrc}" alt="Logo ${esperienza.azienda}" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
+        </div>
+        <div class="company-info">
+          <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
+          <div class="role-badge">${esperienza.ruolo || "Ruolo non specificato"}</div>
+        </div>
+      </div>
+      <div class="experience-period"><i class='bx bx-calendar'></i><span>${esperienza.periodo || "Periodo non specificato"}</span></div>
+      <div class="experience-location"><i class='bx bx-map'></i><span>${esperienza.luogo || "Luogo non specificato"}</span></div>
+      <div class="experience-activities"><h5>Attività svolte:</h5><ul class="activities-list">${attivitaList}</ul></div>
+      ${esperienza.sito ? `<button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')"><span>Visita il sito</span><i class='bx bx-link-external'></i></button>` : ""}
+    `
+    cardsContainer.appendChild(card)
   })
 
-  select.addEventListener("change", () => {
-    activeLevels.clear()
-    if (select.value !== "Tutti") {
-      activeLevels.add(select.value)
+  DOM.sections.esperienze.appendChild(cardsContainer)
+}
+
+/**
+ * Render istruzione section – no filters, just cards.
+ */
+function renderIstruzione(istruzione) {
+  if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
+    console.warn("Curriculum.js: Invalid istruzione data or container not found")
+    return
+  }
+
+  DOM.sections.istruzione.innerHTML = ""
+
+  const cardsContainer = document.createElement("div")
+  cardsContainer.className = "istruzione-list"
+
+  istruzione.forEach((item, index) => {
+    const card = document.createElement("div")
+    card.className = "card istruzione-card"
+    card.setAttribute("data-aos", "fade-up")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
+
+    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64"
+
+    let competenzeHtml = ""
+    if (Array.isArray(item.competenze)) {
+      competenzeHtml = `<ul class="competenze">${item.competenze.map(comp => `<li>${comp}</li>`).join("")}</ul>`
+    } else if (item.descrizione) {
+      competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`
     }
-    onChange()
-    scrollToSectionTop(tabsContainer)
+
+    const downloadButton = item.diploma
+      ? `<a href="${item.diploma}" class="go-live-btn" download><span>Scarica diploma</span><i class='bx bx-download'></i></a>`
+      : ""
+    const siteButton = item.sito
+      ? `<button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')"><span>Visita il sito</span><i class='bx bx-link-external'></i></button>`
+      : ""
+
+    card.innerHTML = `
+      <div class="istruzione-header">
+        <div class="istituto-logo"><img class="azienda" src="${logoSrc}" alt="Logo ${item.istituto}" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" /></div>
+        <div class="istituto-info">
+          <h4>${item.titolo || "Titolo non specificato"}</h4>
+          <div>${item.istituto || "Istituto non specificato"}</div>
+          <div class="livello-eqf">${item.livello || ""}</div>
+        </div>
+      </div>
+      <div class="istruzione-period"><i class='bx bx-calendar'></i><span>${item.periodo || "Periodo non specificato"}</span></div>
+      <div class="istruzione-location"><i class='bx bx-map'></i><span>${item.luogo || "Luogo non specificato"}</span></div>
+      ${competenzeHtml}
+      <div class="istruzione-buttons">${siteButton}${downloadButton}</div>
+    `
+    cardsContainer.appendChild(card)
   })
 
-  return select
+  DOM.sections.istruzione.appendChild(cardsContainer)
 }
 
 /**
- * Resolve category label for a skill using categorized data
+ * Resolve category label for a skill.
  */
 function getSkillCategoryLabel(skill) {
   if (!STATE.categorizedSkills) return "Altro"
@@ -920,393 +684,7 @@ function getSkillCategoryLabel(skill) {
 }
 
 /**
- * Parse a date token and return month/year.
- * Supports: dd/mm/yyyy, mm/yyyy, yyyy.
- */
-function parseMonthYearToken(token) {
-  if (!token) return null
-  const cleanToken = String(token).trim()
-
-  const dayMonthYear = cleanToken.match(/^(\d{1,2})\/(\d{1,2})\/((?:19|20)\d{2})$/)
-  if (dayMonthYear) {
-    const month = Number.parseInt(dayMonthYear[2], 10)
-    const year = Number.parseInt(dayMonthYear[3], 10)
-    if (month >= 1 && month <= 12) return { month, year }
-  }
-
-  const monthYear = cleanToken.match(/^(\d{1,2})\/((?:19|20)\d{2})$/)
-  if (monthYear) {
-    const month = Number.parseInt(monthYear[1], 10)
-    const year = Number.parseInt(monthYear[2], 10)
-    if (month >= 1 && month <= 12) return { month, year }
-  }
-
-  const yearOnly = cleanToken.match(/^((?:19|20)\d{2})$/)
-  if (yearOnly) {
-    const year = Number.parseInt(yearOnly[1], 10)
-    return { month: 1, year }
-  }
-
-  return null
-}
-
-/**
- * Convert month/year to comparable numeric value
- */
-function monthYearToValue(month, year) {
-  return year * 12 + (month - 1)
-}
-
-/**
- * Extract start/end month-year values from an item period string
- */
-function getItemMonthSpan(item) {
-  const now = new Date()
-  const currentMonth = now.getMonth() + 1
-  const currentYear = now.getFullYear()
-  const periodText = String(item?.periodo || "")
-  const normalizedPeriod = periodText.replace(/[–—]/g, "-")
-
-  const matches = [...normalizedPeriod.matchAll(/(\d{1,2}\/\d{1,2}\/(?:19|20)\d{2}|\d{1,2}\/(?:19|20)\d{2}|(?:19|20)\d{2})/g)]
-  const points = matches.map((match) => parseMonthYearToken(match[1])).filter(Boolean)
-
-  if (points.length === 0) return null
-
-  const values = points.map((point) => monthYearToValue(point.month, point.year))
-  let startValue = Math.min(...values)
-  let endValue = Math.max(...values)
-
-  if (/ora|presente|present/i.test(periodText)) {
-    endValue = monthYearToValue(currentMonth, currentYear)
-  }
-
-  if (endValue < startValue) {
-    const temp = startValue
-    startValue = endValue
-    endValue = temp
-  }
-
-  return { startValue, endValue }
-}
-
-/**
- * Parse MM/YYYY text input
- */
-function parseMonthYearInput(inputText) {
-  if (!inputText) return null
-  const text = String(inputText).trim()
-  if (!text) return null
-  const parsed = parseMonthYearToken(text)
-  if (!parsed) return null
-  return monthYearToValue(parsed.month, parsed.year)
-}
-
-/**
- * Format a month/year value as MM/YYYY
- */
-function formatMonthYearValue(value) {
-  if (typeof value !== "number" || Number.isNaN(value)) return ""
-  const year = Math.floor(value / 12)
-  const month = (value % 12) + 1
-  return `${String(month).padStart(2, "0")}/${year}`
-}
-
-/**
- * Format free user typing to MM/YYYY while typing
- */
-function normalizeMonthYearTyping(rawValue) {
-  const digitsOnly = String(rawValue || "").replace(/\D/g, "").slice(0, 6)
-  if (digitsOnly.length <= 2) return digitsOnly
-  return `${digitsOnly.slice(0, 2)}/${digitsOnly.slice(2)}`
-}
-
-/**
- * Check if item period overlaps selected month/year range
- */
-function isItemInMonthRange(item, fromValue, toValue) {
-  if (fromValue === null && toValue === null) return true
-
-  const span = getItemMonthSpan(item)
-  if (!span) return false
-
-  const selectedFrom = fromValue === null ? span.startValue : fromValue
-  const selectedTo = toValue === null ? span.endValue : toValue
-
-  return span.startValue <= selectedTo && span.endValue >= selectedFrom
-}
-
-/**
- * Render esperienze lavorative section with improved layout
- */
-function renderEsperienze(esperienze) {
-  if (!esperienze || !Array.isArray(esperienze) || !DOM.sections.esperienze) {
-    console.warn("Curriculum.js: Invalid esperienze data or container not found")
-    return
-  }
-
-  DOM.sections.esperienze.innerHTML = ""
-
-  const roles = [...new Set(esperienze.map((item) => (item.ruolo || "").trim()).filter(Boolean))]
-  const filters = ["Tutti", ...roles]
-
-  const tabsContainer = document.createElement("div")
-  tabsContainer.className = "skills-tabs"
-
-  const yearsBar = document.createElement("div")
-  yearsBar.className = "year-filter-bar"
-  const searchBar = document.createElement("div")
-  searchBar.className = "year-filter-bar"
-
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "experience-list"
-
-  const availableMonthValues = esperienze
-    .map((item) => getItemMonthSpan(item))
-    .filter(Boolean)
-    .flatMap((span) => [span.startValue, span.endValue])
-
-  const now = new Date()
-  const fallbackMonthValue = monthYearToValue(now.getMonth() + 1, now.getFullYear())
-  const minMonthValue = availableMonthValues.length ? Math.min(...availableMonthValues) : fallbackMonthValue
-  const maxMonthValue = availableMonthValues.length ? Math.max(...availableMonthValues) : fallbackMonthValue
-
-  let activeRoles = new Set()
-  let fromMonthValue = null
-  let toMonthValue = null
-  let searchTerm = ""
-
-  const renderEsperienzeCards = (items) => {
-    cardsContainer.innerHTML = ""
-
-    if (!items || items.length === 0) {
-      cardsContainer.innerHTML = `
-        <div class="empty-filter-message">
-          <i class='bx bx-info-circle'></i>
-          <p>Non ci sono dati per questi criteri.</p>
-        </div>
-      `
-      return
-    }
-
-    items.forEach((esperienza, index) => {
-      const card = document.createElement("div")
-      card.className = "card experience-card"
-      card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left")
-      card.setAttribute("data-aos-delay", (index * 150).toString())
-
-      const attivitaList = Array.isArray(esperienza.attivita)
-        ? esperienza.attivita.map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`).join("")
-        : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>"
-
-      const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64"
-
-      card.innerHTML = `
-        <div class="experience-header">
-          <div class="company-logo">
-            <img class="azienda" src="${logoSrc}" alt="Logo ${
-              esperienza.azienda
-            }" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
-          </div>
-          <div class="company-info">
-            <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
-            <div class="role-badge">${esperienza.ruolo || "Ruolo non specificato"}</div>
-          </div>
-        </div>
-        <div class="experience-period">
-          <i class='bx bx-calendar'></i>
-          <span>${esperienza.periodo || "Periodo non specificato"}</span>
-        </div>
-        <div class="experience-location">
-          <i class='bx bx-map'></i>
-          <span>${esperienza.luogo || "Luogo non specificato"}</span>
-        </div>
-        <div class="experience-activities">
-          <h5>Attività svolte:</h5>
-          <ul class="activities-list">
-            ${attivitaList}
-          </ul>
-        </div>
-        ${
-          esperienza.sito
-            ? `
-          <button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')">
-            <span>Visita il sito</span>
-            <i class='bx bx-link-external'></i>
-          </button>
-        `
-            : ""
-        }
-      `
-
-      cardsContainer.appendChild(card)
-    })
-  }
-
-  const applyEsperienzeFilters = () => {
-    let filtered = esperienze
-
-    if (activeRoles.size > 0) {
-      filtered = filtered.filter((item) => activeRoles.has((item.ruolo || "").trim()))
-    }
-
-    filtered = filtered.filter((item) => isItemInMonthRange(item, fromMonthValue, toMonthValue))
-
-    const normalizedSearch = searchTerm.trim().toLowerCase()
-    if (normalizedSearch) {
-      filtered = filtered.filter((item) => {
-        const azienda = (item?.azienda || "").toLowerCase()
-        const ruolo = (item?.ruolo || "").toLowerCase()
-        const luogo = (item?.luogo || "").toLowerCase()
-        const periodo = (item?.periodo || "").toLowerCase()
-        const attivita = Array.isArray(item?.attivita) ? item.attivita.join(" ").toLowerCase() : ""
-
-        return (
-          azienda.includes(normalizedSearch) ||
-          ruolo.includes(normalizedSearch) ||
-          luogo.includes(normalizedSearch) ||
-          periodo.includes(normalizedSearch) ||
-          attivita.includes(normalizedSearch)
-        )
-      })
-    }
-
-    cardsContainer.classList.add("fade-out")
-    setTimeout(() => {
-      renderEsperienzeCards(filtered)
-      cardsContainer.classList.remove("fade-out")
-      cardsContainer.scrollTop = 0
-    }, 250)
-  }
-
-  const updateActiveTabs = () => {
-    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
-      const tabFilter = tab.getAttribute("data-filter")
-      tab.classList.toggle("active", tabFilter === "Tutti" ? activeRoles.size === 0 : activeRoles.has(tabFilter))
-    })
-  }
-
-  buildFilterSelect(tabsContainer, filters, activeRoles, applyEsperienzeFilters)
-
-  yearsBar.innerHTML = `
-    <label>
-      <span>Da</span>
-      <input type="text" class="year-input year-from" placeholder="${formatMonthYearValue(minMonthValue)}" inputmode="numeric" />
-      <button type="button" class="year-ok-btn">OK</button>
-    </label>
-    <label>
-      <span>A</span>
-      <input type="text" class="year-input year-to" placeholder="${formatMonthYearValue(maxMonthValue)}" inputmode="numeric" />
-      <button type="button" class="year-ok-btn">OK</button>
-    </label>
-    <button type="button" class="year-reset-btn">Reset</button>
-  `
-
-  const fromInput = yearsBar.querySelector(".year-from")
-  const toInput = yearsBar.querySelector(".year-to")
-  const okButtons = yearsBar.querySelectorAll(".year-ok-btn")
-  const resetButton = yearsBar.querySelector(".year-reset-btn")
-
-  const handleMonthYearTyping = (event) => {
-    event.target.value = normalizeMonthYearTyping(event.target.value)
-  }
-
-  const updateYears = () => {
-    fromMonthValue = parseMonthYearInput(fromInput.value)
-    toMonthValue = parseMonthYearInput(toInput.value)
-
-    if (fromInput.value.trim() && fromMonthValue === null) {
-      fromInput.value = ""
-    } else if (fromMonthValue !== null) {
-      fromInput.value = formatMonthYearValue(fromMonthValue)
-    }
-
-    if (toInput.value.trim() && toMonthValue === null) {
-      toInput.value = ""
-    } else if (toMonthValue !== null) {
-      toInput.value = formatMonthYearValue(toMonthValue)
-    }
-
-    if (fromMonthValue !== null && toMonthValue !== null && fromMonthValue > toMonthValue) {
-      const temp = fromMonthValue
-      fromMonthValue = toMonthValue
-      toMonthValue = temp
-      fromInput.value = formatMonthYearValue(fromMonthValue)
-      toInput.value = formatMonthYearValue(toMonthValue)
-    }
-
-    applyEsperienzeFilters()
-  }
-
-  okButtons.forEach((btn) => {
-    btn.addEventListener("click", updateYears)
-  })
-
-  fromInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") updateYears()
-  })
-  fromInput.addEventListener("input", handleMonthYearTyping)
-
-  toInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") updateYears()
-  })
-  toInput.addEventListener("input", handleMonthYearTyping)
-
-  resetButton.addEventListener("click", () => {
-    fromInput.value = ""
-    toInput.value = ""
-    fromMonthValue = null
-    toMonthValue = null
-    applyEsperienzeFilters()
-  })
-
-  searchBar.innerHTML = `
-    <label>
-      <span>Cerca</span>
-      <input
-        type="search"
-        class="year-input esperienze-search-input"
-        placeholder="Es. azienda, ruolo, luogo..."
-      />
-    </label>
-    <button type="button" class="year-reset-btn esperienze-search-reset">Reset</button>
-  `
-
-  const esperienzeSearchInput = searchBar.querySelector(".esperienze-search-input")
-  const esperienzeSearchReset = searchBar.querySelector(".esperienze-search-reset")
-
-  const updateEsperienzeSearch = () => {
-    searchTerm = esperienzeSearchInput.value || ""
-    applyEsperienzeFilters()
-  }
-
-  esperienzeSearchInput.addEventListener("input", updateEsperienzeSearch)
-  esperienzeSearchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault()
-      updateEsperienzeSearch()
-    }
-  })
-
-  esperienzeSearchReset.addEventListener("click", () => {
-    esperienzeSearchInput.value = ""
-    searchTerm = ""
-    applyEsperienzeFilters()
-  })
-
-  const esperienzeStickyControls = document.createElement("div")
-  esperienzeStickyControls.className = "skills-sticky-controls"
-  esperienzeStickyControls.appendChild(tabsContainer)
-  esperienzeStickyControls.appendChild(yearsBar)
-  esperienzeStickyControls.appendChild(searchBar)
-
-  DOM.sections.esperienze.appendChild(esperienzeStickyControls)
-  DOM.sections.esperienze.appendChild(cardsContainer)
-  updateActiveTabs()
-  renderEsperienzeCards(esperienze)
-}
-
-/**
- * Render competenze section with improved mobile experience
+ * Render competenze section – no filters, just cards.
  */
 function renderCompetenze(competenze) {
   if (!competenze || !Array.isArray(competenze) || !DOM.sections.competenze) {
@@ -1316,211 +694,67 @@ function renderCompetenze(competenze) {
 
   DOM.sections.competenze.innerHTML = ""
 
-  // Create tabs for categories
-  const tabsContainer = document.createElement("div")
-  tabsContainer.className = "skills-tabs"
-
-  // Create container for skill cards
   const skillsContainer = document.createElement("div")
   skillsContainer.className = "skills-container"
 
-  // Sticky wrapper to keep category filters + search fixed while scrolling
-  const stickyControls = document.createElement("div")
-  stickyControls.className = "skills-sticky-controls"
+  // Ordina alfabeticamente per nome
+  const sorted = [...competenze].sort((a, b) => (a.nome || "").localeCompare(b.nome || "", 'it'))
 
-  // Create search bar using the same visual style of year filters
-  const searchBar = document.createElement("div")
-  searchBar.className = "year-filter-bar"
-
-  // Ordina le categorie in ordine alfabetico
-  const sortedCategories = Object.keys(STATE.categorizedSkills).sort((a, b) => {
-    return a.localeCompare(b, 'it')
-  })
-  const categoriesWithAll = ["Tutti", ...sortedCategories]
-  let activeCategories = new Set()
-  let searchTerm = ""
-
-  const getCategoryItems = () => {
-    if (activeCategories.size === 0) return competenze
-
-    const selectedItems = [...activeCategories].flatMap((category) => STATE.categorizedSkills[category] || [])
-    const uniqueByName = new Map()
-    selectedItems.forEach((item) => {
-      if (item?.nome && !uniqueByName.has(item.nome)) {
-        uniqueByName.set(item.nome, item)
-      }
-    })
-    return [...uniqueByName.values()]
-  }
-
-  const applyCompetenzeFilters = () => {
-    const normalizedSearch = searchTerm.trim().toLowerCase()
-    let filtered = getCategoryItems()
-
-    if (normalizedSearch) {
-      filtered = filtered.filter((skill) => {
-        const name = (skill?.nome || "").toLowerCase()
-        const description = (skill?.descrizione || "").toLowerCase()
-        const category = getSkillCategoryLabel(skill).toLowerCase()
-
-        return (
-          name.includes(normalizedSearch) ||
-          description.includes(normalizedSearch) ||
-          category.includes(normalizedSearch)
-        )
-      })
-    }
-
-    skillsContainer.classList.add("fade-out")
-    setTimeout(() => {
-      renderSkillCategory(filtered, skillsContainer, activeCategories.size !== 1)
-      skillsContainer.classList.remove("fade-out")
-
-      // Initialize progress bar animations
-      setTimeout(() => {
-        initializeSkillAnimations()
-      }, 100)
-    }, 250)
-  }
-
-  const updateActiveTabs = () => {
-    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
-      const tabCategory = tab.getAttribute("data-category")
-      tab.classList.toggle("active", tabCategory === "Tutti" ? activeCategories.size === 0 : activeCategories.has(tabCategory))
-    })
-  }
-
-  buildFilterSelect(tabsContainer, categoriesWithAll, activeCategories, applyCompetenzeFilters)
-
-  searchBar.innerHTML = `
-    <label>
-      <span>Cerca</span>
-      <input
-        type="search"
-        class="year-input skill-search-input"
-        placeholder="Es. JavaScript, Docker, Frontend..."
-      />
-    </label>
-    <button type="button" class="year-reset-btn skill-search-reset">Reset</button>
-  `
-
-  const searchInput = searchBar.querySelector(".skill-search-input")
-  const searchResetButton = searchBar.querySelector(".skill-search-reset")
-
-  const updateSearch = () => {
-    searchTerm = searchInput.value || ""
-    applyCompetenzeFilters()
-  }
-
-  searchInput.addEventListener("input", updateSearch)
-  searchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault()
-      updateSearch()
-    }
-  })
-
-  searchResetButton.addEventListener("click", () => {
-    searchInput.value = ""
-    searchTerm = ""
-    applyCompetenzeFilters()
-  })
-
-  stickyControls.appendChild(tabsContainer)
-  stickyControls.appendChild(searchBar)
-
-  DOM.sections.competenze.appendChild(stickyControls)
-  DOM.sections.competenze.appendChild(skillsContainer)
-
-  // Show "Tutti" by default
-  updateActiveTabs()
-  applyCompetenzeFilters()
-}
-
-/**
- * Render skills for a specific category with improved layout
- */
-function renderSkillCategory(skills, container, showCategory = false) {
-  if (!container) return
-
-  container.innerHTML = ""
-
-  if (!skills || !Array.isArray(skills) || skills.length === 0) {
-    container.innerHTML = `
-      <div class="empty-category">
-        <i class='bx bx-info-circle'></i>
-        <p>Nessuna competenza in questa categoria.</p>
-      </div>
-    `
-    return
-  }
-
-  // Ordina le competenze in ordine alfabetico per nome
-  const sortedSkills = [...skills].sort((a, b) => {
-    const nameA = (a.nome || "").toLowerCase()
-    const nameB = (b.nome || "").toLowerCase()
-    return nameA.localeCompare(nameB, 'it')
-  })
-
-  sortedSkills.forEach((skill, index) => {
+  sorted.forEach((skill, index) => {
     const card = document.createElement("div")
     card.className = "card skill-card"
     card.setAttribute("data-aos", "zoom-in")
     card.setAttribute("data-aos-delay", (index * 50).toString())
 
-    // Generate random color for progress bar
     const hue = Math.floor(Math.random() * 360)
     const progressColor = `hsl(${hue}, 70%, 60%)`
-
-    // Handle potential missing image
     const imgSrc = skill.immagine || "/placeholder.svg?height=80&width=80"
 
     card.innerHTML = `
       <div class="skill-icon" style="background-color: ${progressColor}20;">
-        <img src="${imgSrc}" alt="${
-          skill.nome
-        }" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;" />
+        <img src="${imgSrc}" alt="${skill.nome}" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;" />
       </div>
       <h4>${skill.nome || "Competenza non specificata"}</h4>
-      ${
-        showCategory
-          ? `<div class="skill-category-badge">${getSkillCategoryLabel(skill)}</div>`
-          : ""
-      }
+      <div class="skill-category-badge">${getSkillCategoryLabel(skill)}</div>
       <div class="skill-progress">
         <div class="progress-bar" data-progress="85" style="--progress-color: ${progressColor};">
           <div class="progress-fill"></div>
         </div>
       </div>
       <p>${skill.descrizione || "Descrizione non disponibile"}</p>
-      ${
-        skill.link
-          ? `
-        <button class="go-live-btn" onclick="window.open('${skill.link}', '_blank')">
-          <span>Scopri di più</span>
-          <i class='bx bx-link-external'></i>
-        </button>
-      `
-          : ""
-      }
+      ${skill.link ? `<button class="go-live-btn" onclick="window.open('${skill.link}', '_blank')"><span>Scopri di più</span><i class='bx bx-link-external'></i></button>` : ""}
     `
-
-    container.appendChild(card)
+    skillsContainer.appendChild(card)
   })
+
+  DOM.sections.competenze.appendChild(skillsContainer)
+
+  setTimeout(() => initializeSkillAnimations(), 300)
 }
 
 /**
- * Render siti web section with mobile optimizations
- */
-/**
- * Determina la categoria di un sito/progetto in base ai dati disponibili:
- * se ha un link al codice sorgente è un progetto "Con Codice", altrimenti
- * è un lavoro "Solo Live" (es. siti realizzati per clienti).
+ * Determine site category (with code or live only).
  */
 function getSiteCategory(site) {
   return site && site.codice ? "Con Codice" : "Solo Live"
 }
 
+/**
+ * Generate project tags.
+ */
+function generateProjectTags() {
+  let defaultTags = ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"]
+
+  if (STATE.categoriesData && STATE.categoriesData.defaultProjectTags) {
+    defaultTags = STATE.categoriesData.defaultProjectTags
+  }
+
+  return defaultTags.map((tag) => `<span class="portfolio-tag">${tag}</span>`).join("")
+}
+
+/**
+ * Render siti web section – no filters, just cards.
+ */
 function renderWebSite(sites) {
   if (!sites || !Array.isArray(sites) || !DOM.sections.sites) {
     console.warn("Curriculum.js: Invalid sites data or container not found")
@@ -1528,216 +762,53 @@ function renderWebSite(sites) {
   }
 
   DOM.sections.sites.innerHTML = ""
-  DOM.sections.sites.className = "card-container"
-
-  const tipi = [...new Set(sites.map((item) => getSiteCategory(item)).filter(Boolean))]
-  const filters = ["Tutti", ...tipi]
-
-  const stickyControls = document.createElement("div")
-  stickyControls.className = "skills-sticky-controls"
-
-  const tabsContainer = document.createElement("div")
-  tabsContainer.className = "skills-tabs"
-
-  const searchBar = document.createElement("div")
-  searchBar.className = "year-filter-bar"
+  DOM.sections.sites.className = "card-container sites-list"
 
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "sites-list"
 
-  let activeTipi = new Set()
-  let searchTerm = ""
+  sites.forEach((site, index) => {
+    const card = document.createElement("div")
+    card.className = "card portfolio-card"
+    card.setAttribute("data-aos", "fade-up")
+    card.setAttribute("data-aos-delay", (index * 100).toString())
 
-  const renderSitesCards = (items) => {
-    cardsContainer.innerHTML = ""
+    const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300"
+    const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200
 
-    if (!items || items.length === 0) {
-      cardsContainer.innerHTML = `
-        <div class="empty-filter-message">
-          <i class='bx bx-info-circle'></i>
-          <p>Non ci sono siti per questi criteri.</p>
-        </div>
-      `
-      return
-    }
-
-    items.forEach((site, index) => {
-      const card = document.createElement("div")
-      card.className = "card portfolio-card"
-      card.setAttribute("data-aos", "fade-up")
-      card.setAttribute("data-aos-delay", (index * 100).toString())
-
-      const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300"
-      const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200
-
-      const html = `
-        <div class="portfolio-image" style="height: ${imageHeight}px;">
-          <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
-               style="max-height: ${imageHeight}px;" 
-               onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${
-                 imageHeight * 1.5
-               }'; this.onerror=null;" />
-          <div class="portfolio-overlay">
-            <div class="portfolio-buttons">
-              ${
-                site.link
-                  ? `
-                <a href="${site.link}" target="_blank" class="portfolio-btn view-btn">
-                  <i class='bx bx-link-external'></i>
-                  <span class="white">Visita</span>
-                </a>
-              `
-                  : ""
-              }
-              ${
-                site.codice
-                  ? `
-                <a href="${site.codice}" target="_blank" class="portfolio-btn code-btn">
-                  <i class='bx bx-code-alt'></i>
-                  <span class="white">Codice</span>
-                </a>
-              `
-                  : ""
-              }
-            </div>
+    const html = `
+      <div class="portfolio-image" style="height: ${imageHeight}px;">
+        <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
+             style="max-height: ${imageHeight}px;" 
+             onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${imageHeight*1.5}'; this.onerror=null;" />
+        <div class="portfolio-overlay">
+          <div class="portfolio-buttons">
+            ${site.link ? `<a href="${site.link}" target="_blank" class="portfolio-btn view-btn"><i class='bx bx-link-external'></i><span class="white">Visita</span></a>` : ""}
+            ${site.codice ? `<a href="${site.codice}" target="_blank" class="portfolio-btn code-btn"><i class='bx bx-code-alt'></i><span class="white">Codice</span></a>` : ""}
           </div>
         </div>
-        <div class="portfolio-info">
-          <h4>${site.nome || "Progetto non specificato"}</h4>
-          <div class="skill-category-badge">${getSiteCategory(site)}</div>
-          <div class="portfolio-tags">
-            ${generateProjectTags()}
-          </div>
-        </div>
-      `
-
-      card.innerHTML = html
-      cardsContainer.appendChild(card)
-    })
-  }
-
-  const applySitesFilters = () => {
-    let filtered = sites
-
-    if (activeTipi.size > 0) {
-      filtered = filtered.filter((item) => activeTipi.has(getSiteCategory(item)))
-    }
-
-    const normalizedSearch = searchTerm.trim().toLowerCase()
-    if (normalizedSearch) {
-      filtered = filtered.filter((site) => {
-        const name = (site?.nome || "").toLowerCase()
-        const link = (site?.link || "").toLowerCase()
-        const code = (site?.codice || "").toLowerCase()
-        return name.includes(normalizedSearch) || link.includes(normalizedSearch) || code.includes(normalizedSearch)
-      })
-    }
-
-    cardsContainer.classList.add("fade-out")
-    setTimeout(() => {
-      renderSitesCards(filtered)
-      cardsContainer.classList.remove("fade-out")
-      cardsContainer.scrollTop = 0
-    }, 250)
-  }
-
-  const updateActiveTabs = () => {
-    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
-      const tabFilter = tab.getAttribute("data-filter")
-      tab.classList.toggle("active", tabFilter === "Tutti" ? activeTipi.size === 0 : activeTipi.has(tabFilter))
-    })
-  }
-
-  buildFilterSelect(tabsContainer, filters, activeTipi, applySitesFilters)
-
-  searchBar.innerHTML = `
-    <label>
-      <span>Cerca</span>
-      <input
-        type="search"
-        class="year-input sites-search-input"
-        placeholder="Es. portfolio, github, ecommerce..."
-      />
-    </label>
-    <button type="button" class="year-reset-btn sites-search-reset">Reset</button>
-  `
-
-  const searchInput = searchBar.querySelector(".sites-search-input")
-  const searchResetButton = searchBar.querySelector(".sites-search-reset")
-
-  const updateSearch = () => {
-    searchTerm = searchInput.value || ""
-    applySitesFilters()
-  }
-
-  searchInput.addEventListener("input", updateSearch)
-  searchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault()
-      updateSearch()
-    }
+      </div>
+      <div class="portfolio-info">
+        <h4>${site.nome || "Progetto non specificato"}</h4>
+        <div class="skill-category-badge">${getSiteCategory(site)}</div>
+        <div class="portfolio-tags">${generateProjectTags()}</div>
+      </div>
+    `
+    card.innerHTML = html
+    cardsContainer.appendChild(card)
   })
 
-  searchResetButton.addEventListener("click", () => {
-    searchInput.value = ""
-    searchTerm = ""
-    applySitesFilters()
-  })
-
-  stickyControls.appendChild(tabsContainer)
-  stickyControls.appendChild(searchBar)
-  DOM.sections.sites.appendChild(stickyControls)
   DOM.sections.sites.appendChild(cardsContainer)
-  updateActiveTabs()
-  applySitesFilters()
 }
 
 /**
- * Generate tags for projects using the default project tags from categories.json
- */
-function generateProjectTags() {
-  // Use default tags from categories.json if available
-  let defaultTags = ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"]
-
-  if (STATE.categoriesData && STATE.categoriesData.defaultProjectTags) {
-    defaultTags = STATE.categoriesData.defaultProjectTags
-  }
-
-  // Always include all tags as requested
-  return defaultTags.map((tag) => `<span class="portfolio-tag">${tag}</span>`).join("")
-}
-
-/**
- * Get icon for skill category
- */
-function getCategoryIcon(category) {
-  const icons = {
-    Programmazione: "bx-code-alt",
-    "DevOps & Tools": "bx-wrench",
-    "IoT & Protocolli": "bx-network-chart",
-    Visualizzazione: "bx-bar-chart-alt-2",
-    Frontend: "bx-layout",
-    Backend: "bx-server",
-    Database: "bx-data",
-    Mobile: "bx-mobile-alt",
-    Cloud: "bx-cloud",
-    Security: "bx-shield-quarter",
-    Altro: "bx-category",
-  }
-
-  return icons[category] || "bx-category"
-}
-
-/**
- * Categorize skills directly from JSON data
- * This function prioritizes the 'categoria' property in the JSON
+ * Categorize skills directly from JSON data.
  */
 function categorizeSkillsFromJson(competenze) {
   if (!competenze || !Array.isArray(competenze)) {
     return {}
   }
 
-  // First, collect all unique categories from the JSON data
   const uniqueCategories = new Set()
   competenze.forEach((skill) => {
     if (skill.categoria) {
@@ -1745,20 +816,16 @@ function categorizeSkillsFromJson(competenze) {
     }
   })
 
-  // If no categories found in JSON, use default categorization
   if (uniqueCategories.size === 0) {
     return categorizeSkillsByName(competenze)
   }
 
-  // Create categorized object based on JSON categories
   const categorized = {}
 
-  // First, add skills with explicit categories
   uniqueCategories.forEach((category) => {
     categorized[category] = competenze.filter((skill) => skill.categoria === category)
   })
 
-  // Then add any uncategorized skills to "Altro"
   const categorizedSkillIds = Object.values(categorized)
     .flat()
     .map((skill) => skill.nome)
@@ -1768,10 +835,7 @@ function categorizeSkillsFromJson(competenze) {
   )
 
   if (uncategorizedSkills.length > 0) {
-    // Try to categorize remaining skills by name
     const remainingCategorized = categorizeSkillsByName(uncategorizedSkills)
-
-    // Merge with existing categories
     Object.keys(remainingCategorized).forEach((category) => {
       if (categorized[category]) {
         categorized[category] = [...categorized[category], ...remainingCategorized[category]]
@@ -1785,16 +849,14 @@ function categorizeSkillsFromJson(competenze) {
 }
 
 /**
- * Fallback categorization by skill name
+ * Fallback categorization by skill name.
  */
 function categorizeSkillsByName(competenze) {
-  // Use categories from the loaded JSON if available
   let categories = {}
 
   if (STATE.categoriesData && STATE.categoriesData.skillCategories) {
     categories = STATE.categoriesData.skillCategories
   } else {
-    // Fallback to hardcoded categories
     categories = {
       Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
       "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
@@ -1805,12 +867,10 @@ function categorizeSkillsByName(competenze) {
 
   const categorized = {}
 
-  // Categorize based on predefined categories
   Object.keys(categories).forEach((category) => {
     categorized[category] = competenze.filter((skill) => categories[category].includes(skill.nome))
   })
 
-  // Add "Altro" category for uncategorized skills
   const categorizedSkillNames = Object.values(categorized)
     .flat()
     .map((skill) => skill.nome)
@@ -1825,7 +885,7 @@ function categorizeSkillsByName(competenze) {
 }
 
 /**
- * Generate fallback data in case of loading failure
+ * Generate fallback data in case of loading failure.
  */
 function generateFallbackData() {
   console.log("Curriculum.js: Generating fallback data")
@@ -1898,288 +958,4 @@ function generateFallbackData() {
       },
     ],
   }
-}
-
-/**
- * Render istruzione section
- */
-function renderIstruzione(istruzione) {
-  if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
-    console.warn("Curriculum.js: Invalid istruzione data or container not found");
-    return;
-  }
-
-  DOM.sections.istruzione.innerHTML = "";
-
-  const livelli = [...new Set(istruzione.map((item) => (item.livello || "").trim()).filter(Boolean))]
-  const filters = ["Tutti", ...livelli];
-
-  const tabsContainer = document.createElement("div");
-  tabsContainer.className = "skills-tabs";
-
-  const yearsBar = document.createElement("div");
-  yearsBar.className = "year-filter-bar";
-  const searchBar = document.createElement("div");
-  searchBar.className = "year-filter-bar";
-
-  const cardsContainer = document.createElement("div");
-  cardsContainer.className = "istruzione-list";
-
-  const availableMonthValues = istruzione
-    .map((item) => getItemMonthSpan(item))
-    .filter(Boolean)
-    .flatMap((span) => [span.startValue, span.endValue])
-
-  const now = new Date()
-  const fallbackMonthValue = monthYearToValue(now.getMonth() + 1, now.getFullYear())
-  const minMonthValue = availableMonthValues.length ? Math.min(...availableMonthValues) : fallbackMonthValue
-  const maxMonthValue = availableMonthValues.length ? Math.max(...availableMonthValues) : fallbackMonthValue
-
-  let activeLevels = new Set();
-  let fromMonthValue = null;
-  let toMonthValue = null;
-  let searchTerm = "";
-
-  const renderIstruzioneCards = (items) => {
-    cardsContainer.innerHTML = "";
-
-    if (!items || items.length === 0) {
-      cardsContainer.innerHTML = `
-        <div class="empty-filter-message">
-          <i class='bx bx-info-circle'></i>
-          <p>Non ci sono dati per questi criteri.</p>
-        </div>
-      `;
-      return;
-    }
-
-    items.forEach((item, index) => {
-      const card = document.createElement("div");
-      card.className = "card istruzione-card";
-      card.setAttribute("data-aos", "fade-up");
-      card.setAttribute("data-aos-delay", (index * 100).toString());
-
-      const logoSrc = item.logo || "/placeholder.svg?height=64&width=64";
-
-      let competenzeHtml = "";
-      if (Array.isArray(item.competenze)) {
-        competenzeHtml = `
-          <ul class="competenze">
-            ${item.competenze.map(comp => `<li>${comp}</li>`).join("")}
-          </ul>
-        `;
-      } else if (item.descrizione) {
-        competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`;
-      }
-
-      const downloadButton = item.diploma
-        ? `<a href="${item.diploma}" class="go-live-btn" download>
-            <span>Scarica diploma</span>
-            <i class='bx bx-download'></i>
-          </a>`
-        : "";
-
-      const siteButton = item.sito
-        ? `<button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')">
-            <span>Visita il sito</span>
-            <i class='bx bx-link-external'></i>
-          </button>`
-        : "";
-
-      card.innerHTML = `
-        <div class="istruzione-header">
-          <div class="istituto-logo">
-            <img class="azienda" src="${logoSrc}" alt="Logo ${item.istituto}" 
-                 onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
-          </div>
-          <div class="istituto-info">
-            <h4>${item.titolo || "Titolo non specificato"}</h4>
-            <div>${item.istituto || "Istituto non specificato"}</div>
-            <div class="livello-eqf">${item.livello || ""}</div>
-          </div>
-        </div>
-        <div class="istruzione-period">
-          <i class='bx bx-calendar'></i>
-          <span>${item.periodo || "Periodo non specificato"}</span>
-        </div>
-        <div class="istruzione-location">
-          <i class='bx bx-map'></i>
-          <span>${item.luogo || "Luogo non specificato"}</span>
-        </div>
-        ${competenzeHtml}
-        <div class="istruzione-buttons">
-          ${siteButton}
-          ${downloadButton}
-        </div>
-      `;
-
-      cardsContainer.appendChild(card);
-    });
-  };
-
-  const applyIstruzioneFilters = () => {
-    let filtered = istruzione;
-
-    if (activeLevels.size > 0) {
-      filtered = filtered.filter((item) => activeLevels.has((item.livello || "").trim()));
-    }
-
-    filtered = filtered.filter((item) => isItemInMonthRange(item, fromMonthValue, toMonthValue));
-
-    const normalizedSearch = searchTerm.trim().toLowerCase();
-    if (normalizedSearch) {
-      filtered = filtered.filter((item) => {
-        const titolo = (item?.titolo || "").toLowerCase();
-        const istituto = (item?.istituto || "").toLowerCase();
-        const livello = (item?.livello || "").toLowerCase();
-        const luogo = (item?.luogo || "").toLowerCase();
-        const periodo = (item?.periodo || "").toLowerCase();
-        const descrizione = (item?.descrizione || "").toLowerCase();
-        const competenze = Array.isArray(item?.competenze) ? item.competenze.join(" ").toLowerCase() : "";
-
-        return (
-          titolo.includes(normalizedSearch) ||
-          istituto.includes(normalizedSearch) ||
-          livello.includes(normalizedSearch) ||
-          luogo.includes(normalizedSearch) ||
-          periodo.includes(normalizedSearch) ||
-          descrizione.includes(normalizedSearch) ||
-          competenze.includes(normalizedSearch)
-        );
-      });
-    }
-
-    cardsContainer.classList.add("fade-out");
-    setTimeout(() => {
-      renderIstruzioneCards(filtered);
-      cardsContainer.classList.remove("fade-out");
-      cardsContainer.scrollTop = 0;
-    }, 250);
-  };
-
-  const updateActiveTabs = () => {
-    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
-      const tabFilter = tab.getAttribute("data-filter");
-      tab.classList.toggle("active", tabFilter === "Tutti" ? activeLevels.size === 0 : activeLevels.has(tabFilter));
-    });
-  };
-
-  buildFilterSelect(tabsContainer, filters, activeLevels, applyIstruzioneFilters);
-
-  yearsBar.innerHTML = `
-    <label>
-      <span>Da</span>
-      <input type="text" class="year-input year-from" placeholder="${formatMonthYearValue(minMonthValue)}" inputmode="numeric" />
-      <button type="button" class="year-ok-btn">OK</button>
-    </label>
-    <label>
-      <span>A</span>
-      <input type="text" class="year-input year-to" placeholder="${formatMonthYearValue(maxMonthValue)}" inputmode="numeric" />
-      <button type="button" class="year-ok-btn">OK</button>
-    </label>
-    <button type="button" class="year-reset-btn">Reset</button>
-  `;
-
-  const fromInput = yearsBar.querySelector(".year-from");
-  const toInput = yearsBar.querySelector(".year-to");
-  const okButtons = yearsBar.querySelectorAll(".year-ok-btn");
-  const resetButton = yearsBar.querySelector(".year-reset-btn");
-
-  const handleMonthYearTyping = (event) => {
-    event.target.value = normalizeMonthYearTyping(event.target.value);
-  };
-
-  const updateYears = () => {
-    fromMonthValue = parseMonthYearInput(fromInput.value);
-    toMonthValue = parseMonthYearInput(toInput.value);
-
-    if (fromInput.value.trim() && fromMonthValue === null) {
-      fromInput.value = "";
-    } else if (fromMonthValue !== null) {
-      fromInput.value = formatMonthYearValue(fromMonthValue);
-    }
-
-    if (toInput.value.trim() && toMonthValue === null) {
-      toInput.value = "";
-    } else if (toMonthValue !== null) {
-      toInput.value = formatMonthYearValue(toMonthValue);
-    }
-
-    if (fromMonthValue !== null && toMonthValue !== null && fromMonthValue > toMonthValue) {
-      const temp = fromMonthValue;
-      fromMonthValue = toMonthValue;
-      toMonthValue = temp;
-      fromInput.value = formatMonthYearValue(fromMonthValue);
-      toInput.value = formatMonthYearValue(toMonthValue);
-    }
-
-    applyIstruzioneFilters();
-  };
-
-  okButtons.forEach((btn) => {
-    btn.addEventListener("click", updateYears);
-  });
-
-  fromInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") updateYears();
-  });
-  fromInput.addEventListener("input", handleMonthYearTyping);
-
-  toInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") updateYears();
-  });
-  toInput.addEventListener("input", handleMonthYearTyping);
-
-  resetButton.addEventListener("click", () => {
-    fromInput.value = "";
-    toInput.value = "";
-    fromMonthValue = null;
-    toMonthValue = null;
-    applyIstruzioneFilters();
-  });
-
-  searchBar.innerHTML = `
-    <label>
-      <span>Cerca</span>
-      <input
-        type="search"
-        class="year-input istruzione-search-input"
-        placeholder="Es. diploma, istituto, livello..."
-      />
-    </label>
-    <button type="button" class="year-reset-btn istruzione-search-reset">Reset</button>
-  `;
-
-  const istruzioneSearchInput = searchBar.querySelector(".istruzione-search-input");
-  const istruzioneSearchReset = searchBar.querySelector(".istruzione-search-reset");
-
-  const updateIstruzioneSearch = () => {
-    searchTerm = istruzioneSearchInput.value || "";
-    applyIstruzioneFilters();
-  };
-
-  istruzioneSearchInput.addEventListener("input", updateIstruzioneSearch);
-  istruzioneSearchInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      updateIstruzioneSearch();
-    }
-  });
-
-  istruzioneSearchReset.addEventListener("click", () => {
-    istruzioneSearchInput.value = "";
-    searchTerm = "";
-    applyIstruzioneFilters();
-  });
-
-  const istruzioneStickyControls = document.createElement("div");
-  istruzioneStickyControls.className = "skills-sticky-controls";
-  istruzioneStickyControls.appendChild(tabsContainer);
-  istruzioneStickyControls.appendChild(yearsBar);
-  istruzioneStickyControls.appendChild(searchBar);
-
-  DOM.sections.istruzione.appendChild(istruzioneStickyControls);
-  DOM.sections.istruzione.appendChild(cardsContainer);
-  updateActiveTabs();
-  renderIstruzioneCards(istruzione);
 }
