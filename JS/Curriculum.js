@@ -536,7 +536,7 @@ function getAttestatoEnte(attestato) {
     .trim();
 
   const match = plainText.match(
-    /Rilasciat[oa]\s+(?:da|dall['’‘ʼ]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i
+    /Rilasciat[oa]\s+(?:da|dall['’‘ʼ]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i,
   );
 
   if (match && match[1]) {

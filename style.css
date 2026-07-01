@@ -4685,6 +4685,6 @@ header .logo,
   background-color: transparent !important;
 }
 
-.loader-avatar img{
+.loader-avatar img {
   background: var(--background) !important;
 }
