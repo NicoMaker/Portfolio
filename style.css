@@ -3355,7 +3355,31 @@ h1.glitch {
   font-size: 0.88rem;
   line-height: 1.8;
   min-height: 230px;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
   color: var(--text-dark);
+  transition: font-size 0.2s ease, line-height 0.2s ease;
+}
+
+/* Scrollbar sottile e discreta, coerente col tema scuro */
+.code-float-panel .terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.code-float-panel .terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+.code-float-panel .terminal-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* Applicata via JS solo quando il file mostrato ha molte righe (es. la query):
+   riduce font e interlinea così il contenuto entra meglio senza scroll eccessivo */
+.code-float-panel.code-compact .terminal-body {
+  font-size: 0.74rem;
+  line-height: 1.55;
 }
 
 .code-float-panel .tk-key {
@@ -3375,6 +3399,10 @@ h1.glitch {
 }
 .code-float-panel .tk-comment {
   color: #5b5d6b;
+  font-style: italic;
+}
+.code-float-panel .tk-func {
+  color: #fbbf24;
 }
 
 .code-cursor-blink {
@@ -3489,6 +3517,11 @@ h1.glitch {
     font-size: 0.78rem;
     line-height: 1.65;
     min-height: 190px;
+    max-height: 260px;
+  }
+  .code-float-panel.code-compact .terminal-body {
+    font-size: 0.66rem;
+    line-height: 1.45;
   }
   .code-float-panel .terminal-titlebar {
     padding: 0.6rem 0.8rem;
@@ -4228,6 +4261,11 @@ footer {
     font-size: 0.74rem;
     line-height: 1.7;
     min-height: 0;
+    max-height: 260px;
+  }
+  .code-float-panel.code-compact .terminal-body {
+    font-size: 0.64rem;
+    line-height: 1.45;
   }
   .hero-visual {
     min-height: auto;
@@ -4241,6 +4279,9 @@ footer {
 @media (max-width: 360px) {
   .code-float-panel .terminal-body {
     font-size: 0.68rem;
+  }
+  .code-float-panel.code-compact .terminal-body {
+    font-size: 0.6rem;
   }
 }
 

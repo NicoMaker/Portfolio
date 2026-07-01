@@ -1,83 +1,65 @@
-// Anima il pannello "codice" nella hero con i dati reali del portfolio,
-// al posto della classica illustrazione/cubo 3D.
+// Hero-code.js
+// Anima il pannello "codice" nella hero, al posto della classica
+// illustrazione/cubo 3D.
+//
+// Non contiene più i dati: legge solo window.HeroFiles, popolato dai file
+// in JS/hero-panel/*.js (uno per ogni funzionalità: config, contatti, cv,
+// progetti, api-movimenti). Basta caricare quegli script PRIMA di questo
+// in index.html.
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.getElementById("heroCodeBody");
-  if (!body) return;
+  const files = window.HeroFiles || [];
+  if (!body || files.length === 0) return;
 
-  const codeLines = [
-    [
-      { t: "tk-keyword", v: "const" },
-      { t: "", v: " " },
-      { t: "tk-key", v: "NicolaMarano" },
-      { t: "tk-punct", v: " = {" },
-    ],
-    [
-      { t: "", v: "  " },
-      { t: "tk-key", v: "ruolo" },
-      { t: "tk-punct", v: ": " },
-      { t: "tk-string", v: "'Web Developer'" },
-      { t: "tk-punct", v: "," },
-    ],
-    [
-      { t: "", v: "  " },
-      { t: "tk-key", v: "sede" },
-      { t: "tk-punct", v: ": " },
-      { t: "tk-string", v: "'Italia'" },
-      { t: "tk-punct", v: "," },
-    ],
-    [
-      { t: "", v: "  " },
-      { t: "tk-key", v: "stack" },
-      { t: "tk-punct", v: ": [" },
-      { t: "tk-string", v: "'JavaScript'" },
-      { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'HTML/CSS'" },
-      { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'Node.js'" },
-      { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'Express'" },
-      { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'MYSql'" },
-      { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'SQLite3'" },
-      { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'PostgreSQL'" },
-      { t: "tk-punct", v: "]," },
-    ],
-    [
-      { t: "", v: "  " },
-      { t: "tk-key", v: "focus" },
-      { t: "tk-punct", v: ": " },
-      { t: "tk-string", v: "'UI/UX & clean code'" },
-      { t: "tk-punct", v: "," },
-    ],
-    [
-      { t: "", v: "  " },
-      { t: "tk-key", v: "disponibile" },
-      { t: "tk-punct", v: ": " },
-      { t: "tk-bool", v: "true" },
-      { t: "tk-punct", v: "," },
-    ],
-    [{ t: "tk-punct", v: "};" }],
-  ];
+  const panel = body.closest(".code-float-panel");
+  const filenameEl = panel
+    ? panel.querySelector(".terminal-filename")
+    : document.querySelector(".terminal-filename");
 
-  function typeLines(lineIndex, onComplete) {
-    if (lineIndex >= codeLines.length) {
+  // Digitazione più rapida su schermi piccoli, così il ciclo tra i 5 file
+  // non risulta troppo lungo su mobile.
+  const isSmallScreen = window.matchMedia("(max-width: 480px)").matches;
+  const CHAR_DELAY = isSmallScreen ? 8 : 12;
+  const TOKEN_DELAY = isSmallScreen ? 8 : 12;
+  const PAUSE_BETWEEN_FILES = 1400;
+
+  function clearBody() {
+    body.innerHTML = "";
+  }
+
+  function addBlinkCursor() {
+    const old = body.querySelector(".code-cursor-blink");
+    if (old) old.remove();
+    const cursor = document.createElement("span");
+    cursor.className = "code-cursor-blink";
+    body.appendChild(cursor);
+  }
+
+  function typeLines(lines, lineIndex, onComplete) {
+    if (lineIndex >= lines.length) {
       onComplete();
       return;
     }
 
     const lineEl = document.createElement("div");
     body.appendChild(lineEl);
-    const tokens = codeLines[lineIndex];
+    body.scrollTop = body.scrollHeight;
+    const tokens = lines[lineIndex];
     let tokenIndex = 0;
 
     function typeToken() {
       if (tokenIndex >= tokens.length) {
-        typeLines(lineIndex + 1, onComplete);
+        typeLines(lines, lineIndex + 1, onComplete);
         return;
       }
       const token = tokens[tokenIndex];
+
+      if (!token.v) {
+        tokenIndex++;
+        typeToken();
+        return;
+      }
+
       const span = document.createElement("span");
       if (token.t) span.className = token.t;
       lineEl.appendChild(span);
@@ -87,10 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
         charIndex++;
         span.textContent = token.v.substring(0, charIndex);
         if (charIndex < token.v.length) {
-          setTimeout(typeChar, 12);
+          setTimeout(typeChar, CHAR_DELAY);
         } else {
           tokenIndex++;
-          setTimeout(typeToken, 12);
+          setTimeout(typeToken, TOKEN_DELAY);
         }
       }
       typeChar();
@@ -99,15 +81,36 @@ document.addEventListener("DOMContentLoaded", () => {
     typeToken();
   }
 
-  function addBlinkCursor() {
-    const cursor = document.createElement("span");
-    cursor.className = "code-cursor-blink";
-    body.appendChild(cursor);
+  function runFile(fileIndex) {
+    const file = files[fileIndex];
+    clearBody();
+    if (filenameEl) filenameEl.textContent = file.name;
+
+    // File con molte righe (es. la query SQL) -> modalità compatta,
+    // così entra meglio nel pannello senza deformarlo o far scrollare troppo.
+    const COMPACT_THRESHOLD = 14;
+    if (panel) {
+      panel.classList.toggle(
+        "code-compact",
+        file.lines.length > COMPACT_THRESHOLD
+      );
+    }
+
+    typeLines(file.lines, 0, () => {
+      addBlinkCursor();
+      // Mentre digita, se il contenuto supera l'altezza visibile,
+      // tiene lo scroll ancorato in fondo (dove sta scrivendo il cursore).
+      body.scrollTop = body.scrollHeight;
+      setTimeout(() => {
+        const nextIndex = (fileIndex + 1) % files.length;
+        runFile(nextIndex);
+      }, PAUSE_BETWEEN_FILES);
+    });
   }
 
-  // Avvia la digitazione poco dopo il caricamento, così è pronta
-  // quando il loader iniziale si dissolve.
+  // Avvia la digitazione poco dopo il caricamento, così è pronta quando
+  // il loader iniziale si dissolve.
   setTimeout(() => {
-    typeLines(0, addBlinkCursor);
+    runFile(0);
   }, 600);
 });
