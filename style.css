@@ -1902,7 +1902,7 @@ section {
 
 #sites .sites-list.portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
@@ -3676,4 +3676,325 @@ footer {
 @media (max-width: 768px) {
   .cursor, .cursor-follower { display: none; }
   body { cursor: auto; }
+}
+
+/* =========================================================================
+   CURRICULUM — sezioni indipendenti (non più accordion)
+   Ogni parte del curriculum (Attestati, Competenze Linguistiche,
+   Esperienze Lavorative, Istruzione, Competenze, Siti Web) è ora una
+   sezione sempre visibile, con titolo statico, barra di ricerca/filtri
+   e griglia di card — stessa impostazione della pagina prodotti di
+   riferimento, riadattata alla palette scura del sito.
+   ========================================================================= */
+
+.curriculum-quicknav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+  margin: 0.5rem 0 3rem;
+}
+
+.curr-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background-color: var(--card-bg);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.curr-nav-pill i { font-size: 1.05rem; }
+
+.curr-nav-pill:hover {
+  border-color: var(--primary);
+  color: var(--text-light);
+  transform: translateY(-2px);
+}
+
+.curr-nav-pill.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: var(--shadow-md);
+}
+
+/* Ogni bottone ha la propria sezione dedicata: le schede (tab) sono
+   mostrate una alla volta. Solo quella attiva è visibile. */
+#curriculum .curr-block {
+  display: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+#curriculum .curr-block.active-tab {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#curriculum .curr-block h3 {
+  cursor: default;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+}
+
+#curriculum .curr-block h3:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+#curriculum .curr-block h3::before { display: none; }
+
+/* Le card sono sempre visibili: niente più display:none / max-height
+   gestiti dal vecchio script dell'accordion. */
+#curriculum .curr-block .card-container {
+  display: flex !important;
+  opacity: 1;
+  transform: translateY(0);
+  max-height: none;
+  overflow-y: visible;
+}
+
+@media (max-width: 768px) {
+  .curriculum-quicknav {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .curr-nav-pill {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* =========================================================================
+   HERO — correzioni per il pannello "codice" su mobile
+   Evita che il testo del pannello venga tagliato/sovrapposto sui
+   viewport stretti.
+   ========================================================================= */
+
+.hero-visual {
+  width: 100%;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.code-float-panel {
+  box-sizing: border-box;
+}
+
+.code-float-panel .terminal-body {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.code-float-panel .terminal-body div {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 900px) {
+  .hero-visual .avatar-wrapper {
+    margin-bottom: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .code-float-panel {
+    width: 92vw;
+    max-width: 92vw;
+    margin: 0 auto;
+    animation: none; /* niente più "galleggiamento": evita sovrapposizioni sui telefoni */
+  }
+  .code-float-panel .terminal-body {
+    padding: 1rem;
+    font-size: 0.74rem;
+    line-height: 1.7;
+    min-height: 0;
+  }
+  .hero-visual {
+    min-height: auto;
+    padding: 0 0.5rem;
+  }
+  .hero-visual .avatar-wrapper {
+    margin-bottom: 1.4rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .code-float-panel .terminal-body {
+    font-size: 0.68rem;
+  }
+}
+
+
+/* =========================================================================
+   CURRICULUM — barra di ricerca e filtri "fissi" durante lo scroll
+   Vale sia su desktop che su mobile: la barra resta visibile appena sotto
+   l'header mentre si scorre la sezione, poi lascia spazio alla successiva.
+   ========================================================================= */
+
+:root { --header-h: 84px; }
+
+#curriculum .skills-sticky-controls {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  background-color: var(--background);
+  padding: 0.9rem 0.8rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.6rem;
+}
+
+/* Gli elementi dentro la barra fissa non devono essere sticky anche loro:
+   si limitano a impilarsi dentro il wrapper già fisso. */
+#curriculum .skills-sticky-controls .skills-tabs,
+#curriculum .skills-sticky-controls .year-filter-bar,
+#curriculum .skills-sticky-controls .skills-select-wrap {
+  position: static;
+  top: auto;
+  z-index: auto;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+}
+
+/* Menu a tendina (select) per i filtri generati dai dati:
+   Livello 5 EQF, Madrelingua, Stage Curricolare, ecc. */
+.skills-select-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.skill-select-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  min-width: 220px;
+  max-width: 100%;
+}
+
+.skill-select-label i {
+  color: var(--primary-light);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.skill-select {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23818cf8' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 16px;
+}
+
+.skill-select option {
+  background-color: var(--card-bg);
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  #curriculum .skills-sticky-controls {
+    top: calc(var(--header-h) - 10px);
+    padding: 0.7rem 0.6rem;
+    gap: 0.55rem;
+  }
+  .skill-select-label { min-width: 0; width: 100%; }
+}
+
+/* ============================================================
+   SEZIONI CURRICULUM UNIFORMI
+   Attestati, Competenze Linguistiche, Esperienze Lavorative,
+   Istruzione, Competenze e Siti Web usano tutte la stessa griglia
+   di card, responsive, senza riquadri con scroll interno: ogni
+   sezione ha lo stesso identico stile e comportamento.
+   ============================================================ */
+#curriculum .attestati-list,
+#curriculum .linguistiche-list,
+#curriculum .experience-list,
+#curriculum .istruzione-list,
+#curriculum .skills-container,
+#curriculum .sites-list {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  align-items: start !important;
+  gap: 2rem !important;
+  width: 100% !important;
+  max-height: none !important;
+  overflow: visible !important;
+  flex-wrap: unset !important;
+  flex-direction: unset !important;
+  padding-bottom: 0 !important;
+}
+
+#curriculum .attestati-list .card,
+#curriculum .linguistiche-list .card,
+#curriculum .experience-list .card,
+#curriculum .istruzione-list .card,
+#curriculum .skills-container .card,
+#curriculum .sites-list .card,
+#curriculum .sites-list .portfolio-card {
+  width: 100% !important;
+  height: 100%;
+  margin: 0 !important;
+  flex: none !important;
+}
+
+/* Su tablet: due colonne per tutte le sezioni */
+@media (max-width: 900px) {
+  #curriculum .attestati-list,
+  #curriculum .linguistiche-list,
+  #curriculum .experience-list,
+  #curriculum .istruzione-list,
+  #curriculum .skills-container,
+  #curriculum .sites-list {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  }
+}
+
+/* Su mobile: una sola colonna per tutte le sezioni, stesso stile */
+@media (max-width: 640px) {
+  #curriculum .attestati-list,
+  #curriculum .linguistiche-list,
+  #curriculum .experience-list,
+  #curriculum .istruzione-list,
+  #curriculum .skills-container,
+  #curriculum .sites-list {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
 }

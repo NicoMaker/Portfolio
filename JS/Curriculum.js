@@ -28,14 +28,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Render all sections with the loaded data
     renderAllSections()
 
-    // Open the default section
-    setTimeout(() => {
-      const sections = document.querySelectorAll("#curriculum .section h3")
-      if (sections.length > CONFIG.defaultOpenSection) {
-        sections[CONFIG.defaultOpenSection].click()
-      }
-    }, 300)
-
     // Add animation to cards
     animateCards()
 
@@ -195,43 +187,48 @@ function initializeSections() {
     return
   }
 
-  sectionContainer.innerHTML = `
-    <div id="attestati" class="section">
-      <h3><i class='bx bx-medal'></i> Attestati <span class="toggle-icon">▶</span></h3>
-      <div class="card-container">
-      </div>
-    </div>
+  // Ogni bottone corrisponde alla propria sezione dedicata: cliccando un
+  // bottone si vede SOLO quel contenuto (tab), non tutte le sezioni
+  // impilate una sotto l'altra.
+  const parts = [
+    { id: "attestati", icon: "bx-medal", label: "Attestati" },
+    { id: "linguistiche", icon: "bx-globe", label: "Competenze Linguistiche" },
+    { id: "esperienze", icon: "bx-briefcase", label: "Esperienze Lavorative" },
+    { id: "istruzione", icon: "bx-book", label: "Istruzione" },
+    { id: "competenze", icon: "bx-code-block", label: "Competenze" },
+    { id: "sites", icon: "bx-laptop", label: "Siti Web" },
+  ]
 
-    <div id="linguistiche" class="section">
-      <h3><i class='bx bx-globe'></i> Competenze Linguistiche <span class="toggle-icon">▶</span></h3>
-      <div class="card-container">
-      </div>
-    </div>
+  STATE.currTabs = parts
 
-    <div id="esperienze" class="section">
-      <h3><i class='bx bx-briefcase'></i> Esperienze Lavorative <span class="toggle-icon">▶</span></h3>
-      <div class="card-container">
-      </div>
-    </div>
+  const quickNav = document.getElementById("curriculumQuickNav")
+  if (quickNav) {
+    quickNav.innerHTML = parts
+      .map(
+        (part, index) =>
+          `<button type="button" class="curr-nav-pill${index === 0 ? " active" : ""}" data-target="${part.id}">
+            <i class='bx ${part.icon}'></i><span>${part.label}</span>
+          </button>`
+      )
+      .join("")
 
-    <div id="istruzione" class="section">
-      <h3><i class='bx bx-book'></i> Istruzione <span class="toggle-icon">▶</span></h3>
-      <div class="card-container">
-      </div>
-    </div>
+    quickNav.querySelectorAll(".curr-nav-pill").forEach((pill) => {
+      pill.addEventListener("click", () => {
+        activateCurrTab(pill.dataset.target)
+      })
+    })
+  }
 
-    <div id="competenze" class="section">
-      <h3><i class='bx bx-code-block'></i> Competenze <span class="toggle-icon">▶</span></h3>
+  sectionContainer.innerHTML = parts
+    .map(
+      (part, index) => `
+    <div id="${part.id}" class="section curr-block${index === 0 ? " active-tab" : ""}">
+      <h3><i class='bx ${part.icon}'></i> ${part.label}</h3>
       <div class="card-container">
       </div>
-    </div>
-
-    <div id="sites" class="section">
-      <h3><i class='bx bx-laptop'></i> Siti Web <span class="toggle-icon">▶</span></h3>
-      <div class="card-container">
-      </div>
-    </div>
-  `
+    </div>`
+    )
+    .join("")
 
   // Cache DOM elements for later use
   DOM.sections = {
@@ -242,60 +239,41 @@ function initializeSections() {
     competenze: document.querySelector("#competenze .card-container"),
     sites: document.querySelector("#sites .card-container"),
   }
-
-  // Add click event listeners to section headers
-  document.querySelectorAll("#curriculum .section h3").forEach((header, index) => {
-    header.addEventListener("click", () => toggleSection(index))
-  })
 }
 
 /**
- * Toggle section visibility
+ * Attiva la scheda (tab) del curriculum corrispondente a targetId:
+ * mostra solo quella sezione e nasconde tutte le altre, aggiornando
+ * anche lo stato attivo dei bottoni di navigazione.
  */
-function toggleSection(sectionIndex) {
-  const sections = document.querySelectorAll("#curriculum .section")
-  const section = sections[sectionIndex]
-  const cardContainer = section.querySelector(".card-container")
-  const toggleIcon = section.querySelector(".toggle-icon")
+function activateCurrTab(targetId) {
+  if (!STATE.currTabs || !STATE.currTabs.some((part) => part.id === targetId)) return
 
-  // Close all sections first
-  document.querySelectorAll("#curriculum .section .card-container").forEach((container) => {
-    container.style.display = "none"
-  })
-
-  document.querySelectorAll("#curriculum .section .toggle-icon").forEach((icon) => {
-    icon.textContent = "▶"
-  })
-
-  // Toggle the selected section
-  if (STATE.expandedSections[sectionIndex]) {
-    // Close section
-    cardContainer.style.display = "none"
-    toggleIcon.textContent = "▶"
-    STATE.expandedSections[sectionIndex] = false
-  } else {
-    // Open section with animation
-    cardContainer.style.display = "flex"
-    cardContainer.style.opacity = "0"
-    cardContainer.style.transform = "translateY(20px)"
-
-    setTimeout(() => {
-      cardContainer.style.opacity = "1"
-      cardContainer.style.transform = "translateY(0)"
-    }, 10)
-
-    toggleIcon.textContent = "▼"
-    STATE.expandedSections[sectionIndex] = true
-
-    // Animate cards inside the section
-    animateCardsInSection(cardContainer)
-
-    // Initialize skill animations if this is the competenze section
-    if (sectionIndex === 4) {
-      setTimeout(() => {
-        initializeSkillAnimations()
-      }, 300)
+  document.querySelectorAll("#curriculum .curr-block").forEach((block) => {
+    const isTarget = block.id === targetId
+    block.classList.toggle("active-tab", isTarget)
+    if (isTarget) {
+      const cardContainer = block.querySelector(".card-container")
+      if (cardContainer) {
+        animateCardsInSection(cardContainer)
+      }
     }
+  })
+
+  document.querySelectorAll(".curr-nav-pill").forEach((pill) => {
+    pill.classList.toggle("active", pill.dataset.target === targetId)
+  })
+
+  setTimeout(() => {
+    initializeSkillAnimations()
+  }, 150)
+
+  const header = document.querySelector("header")
+  const headerOffset = header ? header.offsetHeight + 16 : 16
+  const section = document.getElementById("curriculum")
+  if (section) {
+    const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset
+    window.scrollTo({ top: targetY, behavior: "smooth" })
   }
 }
 
@@ -503,13 +481,22 @@ function renderAllSections() {
   renderCompetenze(STATE.curriculumData.competenze)
   renderWebSite(STATE.curriculumData.sites)
 
-  // Make sections visible with animation
-  document.querySelectorAll("#curriculum .section").forEach((section, index) => {
-    setTimeout(() => {
-      section.style.opacity = "1"
-      section.style.transform = "translateY(0)"
-    }, 100 * index)
-  })
+  // Anima solo la scheda attiva all'apertura (le altre sono nascoste finché
+  // non vengono selezionate con i bottoni sopra)
+  const activeBlock = document.querySelector("#curriculum .curr-block.active-tab")
+  if (activeBlock) {
+    activeBlock.style.opacity = "1"
+    activeBlock.style.transform = "translateY(0)"
+    const cardContainer = activeBlock.querySelector(".card-container")
+    if (cardContainer) {
+      animateCardsInSection(cardContainer)
+    }
+  }
+
+  // Le barre di progresso delle competenze si animano quando quella scheda viene aperta
+  setTimeout(() => {
+    initializeSkillAnimations()
+  }, 300)
 }
 
 /**
@@ -752,35 +739,7 @@ function renderLinguistiche(linguistiche) {
     })
   }
 
-  filters.forEach((filter, index) => {
-    const tab = document.createElement("div")
-    tab.className = `skill-tab ${index === 0 ? "active" : ""}`
-    tab.setAttribute("data-filter", filter)
-    tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`
-
-    tab.addEventListener("click", () => {
-      if (filter === "Tutti") {
-        activeLevels.clear()
-      } else {
-        if (activeLevels.has(filter)) {
-          activeLevels.delete(filter)
-        } else {
-          activeLevels.add(filter)
-        }
-
-        // If all specific filters are selected, collapse back to "Tutti"
-        if (activeLevels.size === filters.length - 1) {
-          activeLevels.clear()
-        }
-      }
-
-      updateActiveTabs()
-      applyLinguisticheFilters()
-      scrollToSectionTop(tab)
-    })
-
-    tabsContainer.appendChild(tab)
-  })
+  buildFilterSelect(tabsContainer, filters, activeLevels, applyLinguisticheFilters)
 
   searchBar.innerHTML = `
     <label>
@@ -876,6 +835,41 @@ function scrollToSectionTop(element) {
     top: targetY,
     behavior: "smooth",
   })
+}
+
+/**
+ * Costruisce un menu a tendina (select) per i filtri generati dai dati
+ * (es. Livello 5 EQF, Madrelingua, Stage Curricolare...), al posto delle
+ * pillole cliccabili: più compatto e comodo su mobile.
+ * `activeLevels` è lo stesso Set già usato dai filtri esistenti: quando si
+ * sceglie "Tutti" viene svuotato, altrimenti contiene solo il valore scelto.
+ */
+function buildFilterSelect(tabsContainer, filters, activeLevels, onChange) {
+  tabsContainer.classList.add("skills-select-wrap")
+  tabsContainer.innerHTML = `
+    <label class="skill-select-label">
+      <i class='bx bx-filter-alt'></i>
+      <select class="skill-select"></select>
+    </label>
+  `
+  const select = tabsContainer.querySelector(".skill-select")
+  filters.forEach((filter) => {
+    const option = document.createElement("option")
+    option.value = filter
+    option.textContent = filter
+    select.appendChild(option)
+  })
+
+  select.addEventListener("change", () => {
+    activeLevels.clear()
+    if (select.value !== "Tutti") {
+      activeLevels.add(select.value)
+    }
+    onChange()
+    scrollToSectionTop(tabsContainer)
+  })
+
+  return select
 }
 
 /**
@@ -1160,36 +1154,7 @@ function renderEsperienze(esperienze) {
     })
   }
 
-  filters.forEach((filter, index) => {
-    const tab = document.createElement("div")
-    tab.className = `skill-tab ${index === 0 ? "active" : ""}`
-    tab.setAttribute("data-filter", filter)
-    tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`
-
-    tab.addEventListener("click", () => {
-      if (filter === "Tutti") {
-        activeRoles.clear()
-      } else {
-        if (activeRoles.has(filter)) {
-          activeRoles.delete(filter)
-        } else {
-          activeRoles.add(filter)
-        }
-
-        // If all specific filters are selected, collapse back to "Tutti"
-        if (activeRoles.size === filters.length - 1) {
-          activeRoles.clear()
-        }
-      }
-
-      updateActiveTabs()
-      applyEsperienzeFilters()
-
-      scrollToSectionTop(tab)
-    })
-
-    tabsContainer.appendChild(tab)
-  })
+  buildFilterSelect(tabsContainer, filters, activeRoles, applyEsperienzeFilters)
 
   yearsBar.innerHTML = `
     <label>
@@ -1297,9 +1262,13 @@ function renderEsperienze(esperienze) {
     applyEsperienzeFilters()
   })
 
-  DOM.sections.esperienze.appendChild(tabsContainer)
-  DOM.sections.esperienze.appendChild(yearsBar)
-  DOM.sections.esperienze.appendChild(searchBar)
+  const esperienzeStickyControls = document.createElement("div")
+  esperienzeStickyControls.className = "skills-sticky-controls"
+  esperienzeStickyControls.appendChild(tabsContainer)
+  esperienzeStickyControls.appendChild(yearsBar)
+  esperienzeStickyControls.appendChild(searchBar)
+
+  DOM.sections.esperienze.appendChild(esperienzeStickyControls)
   DOM.sections.esperienze.appendChild(cardsContainer)
   updateActiveTabs()
   renderEsperienzeCards(esperienze)
@@ -1390,48 +1359,7 @@ function renderCompetenze(competenze) {
     })
   }
 
-  // Add tabs for each category
-  categoriesWithAll.forEach((category, index) => {
-    const tab = document.createElement("div")
-    tab.className = `skill-tab ${index === 0 ? "active" : ""}`
-    tab.setAttribute("data-category", category)
-
-    // Apply mobile-specific styles if needed
-    if (STATE.isMobile) {
-      tab.style.width = "calc(50% - 0.4rem)"
-      tab.style.justifyContent = "center"
-    }
-
-    tab.innerHTML = `
-      <i class='bx ${category === "Tutti" ? "bx-category-alt" : getCategoryIcon(category)}'></i>
-      <span>${category}</span>
-    `
-
-    tab.addEventListener("click", () => {
-      if (category === "Tutti") {
-        activeCategories.clear()
-      } else {
-        if (activeCategories.has(category)) {
-          activeCategories.delete(category)
-        } else {
-          activeCategories.add(category)
-        }
-
-        // If all specific filters are selected, collapse back to "Tutti"
-        if (activeCategories.size === categoriesWithAll.length - 1) {
-          activeCategories.clear()
-        }
-      }
-
-      updateActiveTabs()
-
-      applyCompetenzeFilters()
-
-      scrollToSectionTop(tab)
-    })
-
-    tabsContainer.appendChild(tab)
-  })
+  buildFilterSelect(tabsContainer, categoriesWithAll, activeCategories, applyCompetenzeFilters)
 
   searchBar.innerHTML = `
     <label>
@@ -1569,7 +1497,7 @@ function renderWebSite(sites) {
   searchBar.className = "year-filter-bar"
 
   const cardsContainer = document.createElement("div")
-  cardsContainer.className = STATE.isMobile ? "sites-list" : "sites-list portfolio-grid"
+  cardsContainer.className = "sites-list"
 
   let searchTerm = ""
 
@@ -2073,36 +2001,7 @@ function renderIstruzione(istruzione) {
     });
   };
 
-  filters.forEach((filter, index) => {
-    const tab = document.createElement("div");
-    tab.className = `skill-tab ${index === 0 ? "active" : ""}`;
-    tab.setAttribute("data-filter", filter);
-    tab.innerHTML = `<i class='bx bx-filter-alt'></i><span>${filter}</span>`;
-
-    tab.addEventListener("click", () => {
-      if (filter === "Tutti") {
-        activeLevels.clear();
-      } else {
-        if (activeLevels.has(filter)) {
-          activeLevels.delete(filter);
-        } else {
-          activeLevels.add(filter);
-        }
-
-        // If all specific filters are selected, collapse back to "Tutti"
-        if (activeLevels.size === filters.length - 1) {
-          activeLevels.clear();
-        }
-      }
-
-      updateActiveTabs();
-      applyIstruzioneFilters();
-
-      scrollToSectionTop(tab);
-    });
-
-    tabsContainer.appendChild(tab);
-  });
+  buildFilterSelect(tabsContainer, filters, activeLevels, applyIstruzioneFilters);
 
   yearsBar.innerHTML = `
     <label>
@@ -2210,9 +2109,13 @@ function renderIstruzione(istruzione) {
     applyIstruzioneFilters();
   });
 
-  DOM.sections.istruzione.appendChild(tabsContainer);
-  DOM.sections.istruzione.appendChild(yearsBar);
-  DOM.sections.istruzione.appendChild(searchBar);
+  const istruzioneStickyControls = document.createElement("div");
+  istruzioneStickyControls.className = "skills-sticky-controls";
+  istruzioneStickyControls.appendChild(tabsContainer);
+  istruzioneStickyControls.appendChild(yearsBar);
+  istruzioneStickyControls.appendChild(searchBar);
+
+  DOM.sections.istruzione.appendChild(istruzioneStickyControls);
   DOM.sections.istruzione.appendChild(cardsContainer);
   updateActiveTabs();
   renderIstruzioneCards(istruzione);
