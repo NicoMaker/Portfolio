@@ -1,43 +1,45 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  console.log("Curriculum.js: Initializing...")
+  console.log("Curriculum.js: Initializing...");
 
   // Check if we're on mobile
-  checkMobileState()
+  checkMobileState();
 
   // Add resize listener for responsive adjustments
-  window.addEventListener("resize", handleResize)
+  window.addEventListener("resize", handleResize);
 
   // Initialize the section structure first
-  initializeSections()
+  initializeSections();
 
   // Add mobile-specific styles
   if (STATE.isMobile) {
-    applyMobileStyles()
+    applyMobileStyles();
   }
 
   // Show loading state
-  showLoading(true)
+  showLoading(true);
 
   try {
     // Load categories data first
-    await loadCategoriesData()
+    await loadCategoriesData();
 
     // Then load curriculum data
-    await loadCurriculumData()
+    await loadCurriculumData();
 
     // Render all sections with the loaded data
-    renderAllSections()
+    renderAllSections();
 
     // Add animation to cards
-    animateCards()
+    animateCards();
 
     // Hide loading state
-    showLoading(false)
+    showLoading(false);
   } catch (error) {
-    console.error("Curriculum.js: Error during initialization:", error)
-    showError("Si è verificato un errore durante l'inizializzazione: " + error.message)
+    console.error("Curriculum.js: Error during initialization:", error);
+    showError(
+      "Si è verificato un errore durante l'inizializzazione: " + error.message,
+    );
   }
-})
+});
 
 // Configuration
 const CONFIG = {
@@ -50,7 +52,7 @@ const CONFIG = {
   mobileBreakpoint: 768,
   siteImageMaxHeight: 120,
   removeScrollableContainers: true,
-}
+};
 
 // State management
 const STATE = {
@@ -62,41 +64,43 @@ const STATE = {
   hasError: false,
   errorMessage: "",
   isMobile: window.innerWidth <= CONFIG.mobileBreakpoint,
-}
+};
 
 // DOM Elements cache
-const DOM = {}
+const DOM = {};
 
 /**
  * Check if we're on mobile and update state
  */
 function checkMobileState() {
-  STATE.isMobile = window.innerWidth <= CONFIG.mobileBreakpoint
-  console.log(`Curriculum.js: Device detected as ${STATE.isMobile ? "mobile" : "desktop"}`)
+  STATE.isMobile = window.innerWidth <= CONFIG.mobileBreakpoint;
+  console.log(
+    `Curriculum.js: Device detected as ${STATE.isMobile ? "mobile" : "desktop"}`,
+  );
 }
 
 /**
  * Handle window resize events
  */
 function handleResize() {
-  const wasMobile = STATE.isMobile
-  checkMobileState()
+  const wasMobile = STATE.isMobile;
+  checkMobileState();
 
   if (wasMobile !== STATE.isMobile) {
     if (STATE.isMobile) {
-      applyMobileStyles()
+      applyMobileStyles();
     } else {
-      removeMobileStyles()
+      removeMobileStyles();
     }
 
     // Re-render sections that need responsive adjustments
     if (STATE.curriculumData) {
-      renderWebSite(STATE.curriculumData.sites)
+      renderWebSite(STATE.curriculumData.sites);
       if (STATE.curriculumData.competenze) {
-        renderCompetenze(STATE.curriculumData.competenze)
+        renderCompetenze(STATE.curriculumData.competenze);
       }
       if (STATE.curriculumData.esperienze) {
-        renderEsperienze(STATE.curriculumData.esperienze)
+        renderEsperienze(STATE.curriculumData.esperienze);
       }
     }
   }
@@ -106,18 +110,20 @@ function handleResize() {
  * Apply mobile-specific styles
  */
 function applyMobileStyles() {
-  document.querySelectorAll(".curriculum-part .section-title").forEach((sectionTitle) => {
-    sectionTitle.style.textAlign = "center"
-    sectionTitle.style.width = "100%"
-    sectionTitle.style.left = "auto"
-    sectionTitle.style.transform = "none"
-  })
+  document
+    .querySelectorAll(".curriculum-part .section-title")
+    .forEach((sectionTitle) => {
+      sectionTitle.style.textAlign = "center";
+      sectionTitle.style.width = "100%";
+      sectionTitle.style.left = "auto";
+      sectionTitle.style.transform = "none";
+    });
 
   if (CONFIG.removeScrollableContainers) {
     document.querySelectorAll(".card-container").forEach((container) => {
-      container.style.maxHeight = "none"
-      container.style.overflowY = "visible"
-    })
+      container.style.maxHeight = "none";
+      container.style.overflowY = "visible";
+    });
   }
 }
 
@@ -125,18 +131,20 @@ function applyMobileStyles() {
  * Remove mobile-specific styles
  */
 function removeMobileStyles() {
-  document.querySelectorAll(".curriculum-part .section-title").forEach((sectionTitle) => {
-    sectionTitle.style.textAlign = ""
-    sectionTitle.style.width = ""
-    sectionTitle.style.left = ""
-    sectionTitle.style.transform = ""
-  })
+  document
+    .querySelectorAll(".curriculum-part .section-title")
+    .forEach((sectionTitle) => {
+      sectionTitle.style.textAlign = "";
+      sectionTitle.style.width = "";
+      sectionTitle.style.left = "";
+      sectionTitle.style.transform = "";
+    });
 
   if (CONFIG.removeScrollableContainers) {
     document.querySelectorAll(".card-container").forEach((container) => {
-      container.style.maxHeight = ""
-      container.style.overflowY = ""
-    })
+      container.style.maxHeight = "";
+      container.style.overflowY = "";
+    });
   }
 }
 
@@ -151,144 +159,149 @@ function initializeSections() {
     { id: "istruzione", icon: "bx-book", label: "Istruzione" },
     { id: "competenze", icon: "bx-code-block", label: "Competenze" },
     { id: "sites", icon: "bx-laptop", label: "Siti Web" },
-  ]
+  ];
 
-  STATE.currTabs = parts
+  STATE.currTabs = parts;
 
-  const quickNav = document.getElementById("curriculumQuickNav")
+  const quickNav = document.getElementById("curriculumQuickNav");
   if (quickNav) {
     quickNav.innerHTML = parts
       .map(
         (part) =>
           `<button type="button" class="curr-nav-pill" data-target="${part.id}">
             <i class='bx ${part.icon}'></i><span>${part.label}</span>
-          </button>`
+          </button>`,
       )
-      .join("")
+      .join("");
 
     quickNav.querySelectorAll(".curr-nav-pill").forEach((pill) => {
       pill.addEventListener("click", () => {
-        scrollToCurriculumPart(pill.dataset.target)
-      })
-    })
+        scrollToCurriculumPart(pill.dataset.target);
+      });
+    });
   }
 
-  DOM.sections = {}
+  DOM.sections = {};
   parts.forEach((part) => {
-    DOM.sections[part.id] = document.querySelector(`#${part.id} .card-container`)
-  })
+    DOM.sections[part.id] = document.querySelector(
+      `#${part.id} .card-container`,
+    );
+  });
 
-  setupQuickNavScrollSpy(parts)
+  setupQuickNavScrollSpy(parts);
 }
 
 /**
  * Smooth scroll to a curriculum section.
  */
 function scrollToCurriculumPart(targetId) {
-  const section = document.getElementById(targetId)
-  if (!section) return
+  const section = document.getElementById(targetId);
+  if (!section) return;
 
-  const header = document.querySelector("header")
-  const headerOffset = header ? header.offsetHeight + 16 : 16
-  const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset
+  const header = document.querySelector("header");
+  const headerOffset = header ? header.offsetHeight + 16 : 16;
+  const targetY =
+    section.getBoundingClientRect().top + window.scrollY - headerOffset;
 
-  window.scrollTo({ top: targetY, behavior: "smooth" })
+  window.scrollTo({ top: targetY, behavior: "smooth" });
 }
 
 /**
  * Scroll spy for quick navigation pills.
  */
 function setupQuickNavScrollSpy(parts) {
-  const pills = document.querySelectorAll(".curr-nav-pill")
-  if (!pills.length) return
+  const pills = document.querySelectorAll(".curr-nav-pill");
+  if (!pills.length) return;
 
   const updateActivePill = () => {
-    let currentId = null
+    let currentId = null;
 
     parts.forEach((part) => {
-      const section = document.getElementById(part.id)
-      if (!section) return
-      const top = section.getBoundingClientRect().top
+      const section = document.getElementById(part.id);
+      if (!section) return;
+      const top = section.getBoundingClientRect().top;
       if (top <= window.innerHeight / 3) {
-        currentId = part.id
+        currentId = part.id;
       }
-    })
+    });
 
     pills.forEach((pill) => {
-      pill.classList.toggle("active", pill.dataset.target === currentId)
-    })
-  }
+      pill.classList.toggle("active", pill.dataset.target === currentId);
+    });
+  };
 
-  window.addEventListener("scroll", updateActivePill, { passive: true })
-  updateActivePill()
+  window.addEventListener("scroll", updateActivePill, { passive: true });
+  updateActivePill();
 }
 
 /**
  * Animate cards in a section.
  */
 function animateCardsInSection(container) {
-  if (!container) return
+  if (!container) return;
 
-  const cards = container.querySelectorAll(".card")
+  const cards = container.querySelectorAll(".card");
   cards.forEach((card, index) => {
-    card.style.opacity = "0"
-    card.style.transform = "translateY(50px)"
+    card.style.opacity = "0";
+    card.style.transform = "translateY(50px)";
 
     setTimeout(
       () => {
-        card.style.opacity = "1"
-        card.style.transform = "translateY(0)"
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
       },
       100 + index * 50,
-    )
-  })
+    );
+  });
 }
 
 /**
  * Animate all cards.
  */
 function animateCards() {
-  const cards = document.querySelectorAll(".card")
+  const cards = document.querySelectorAll(".card");
   cards.forEach((card, index) => {
-    card.style.setProperty("--i", (index % 5) + 1)
-    card.classList.add("animated")
-  })
+    card.style.setProperty("--i", (index % 5) + 1);
+    card.classList.add("animated");
+  });
 }
 
 /**
  * Initialize skill progress bar animations.
  */
 function initializeSkillAnimations() {
-  const progressBars = document.querySelectorAll(".progress-bar")
+  const progressBars = document.querySelectorAll(".progress-bar");
   if (!progressBars || progressBars.length === 0) {
-    console.log("Curriculum.js: No progress bars found to animate")
-    return
+    console.log("Curriculum.js: No progress bars found to animate");
+    return;
   }
 
-  console.log(`Curriculum.js: Initializing animations for ${progressBars.length} progress bars`)
+  console.log(
+    `Curriculum.js: Initializing animations for ${progressBars.length} progress bars`,
+  );
 
   progressBars.forEach((bar) => {
-    const progress = bar.getAttribute("data-progress") || "75"
-    const fill = bar.querySelector(".progress-fill")
+    const progress = bar.getAttribute("data-progress") || "75";
+    const fill = bar.querySelector(".progress-fill");
 
     if (fill) {
-      fill.style.width = "0%"
+      fill.style.width = "0%";
       setTimeout(() => {
-        fill.style.width = `${progress}%`
-      }, 100)
+        fill.style.width = `${progress}%`;
+      }, 100);
     }
-  })
+  });
 }
 
 /**
  * Show loading state.
  */
 function showLoading(isLoading) {
-  STATE.isLoading = isLoading
+  STATE.isLoading = isLoading;
   if (isLoading) {
-    console.log("Curriculum.js: Loading...")
+    console.log("Curriculum.js: Loading...");
   } else {
-    console.log("Curriculum.js: Loading complete")
+    console.log("Curriculum.js: Loading complete");
   }
 }
 
@@ -296,26 +309,26 @@ function showLoading(isLoading) {
  * Show error message.
  */
 function showError(message) {
-  STATE.hasError = true
-  STATE.errorMessage = message
+  STATE.hasError = true;
+  STATE.errorMessage = message;
 
-  const curriculumSection = document.getElementById("curriculum")
-  if (!curriculumSection) return
+  const curriculumSection = document.getElementById("curriculum");
+  if (!curriculumSection) return;
 
-  const container = curriculumSection.querySelector(".container")
-  if (!container) return
+  const container = curriculumSection.querySelector(".container");
+  if (!container) return;
 
-  const errorDiv = document.createElement("div")
-  errorDiv.className = "error-message"
+  const errorDiv = document.createElement("div");
+  errorDiv.className = "error-message";
   errorDiv.innerHTML = `
     <i class='bx bx-error-circle'></i>
     <p>${message}</p>
     <button onclick="location.reload()" class="reload-btn">
       <i class='bx bx-refresh'></i> Ricarica
     </button>
-  `
+  `;
 
-  container.appendChild(errorDiv)
+  container.appendChild(errorDiv);
 }
 
 /**
@@ -323,37 +336,107 @@ function showError(message) {
  */
 async function loadCategoriesData() {
   try {
-    console.log(`Curriculum.js: Attempting to load categories from ${CONFIG.categoriesJsonPath}`)
-    const response = await fetch(CONFIG.categoriesJsonPath)
+    console.log(
+      `Curriculum.js: Attempting to load categories from ${CONFIG.categoriesJsonPath}`,
+    );
+    const response = await fetch(CONFIG.categoriesJsonPath);
 
     if (!response.ok) {
-      console.warn(`Curriculum.js: Failed to load categories from ${CONFIG.categoriesJsonPath}`)
+      console.warn(
+        `Curriculum.js: Failed to load categories from ${CONFIG.categoriesJsonPath}`,
+      );
       STATE.categoriesData = {
         skillCategories: {
-          Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
-          "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
-          "IoT & Protocolli": ["MQTT", "AMQP", "CoAP", "HTTP", "OPC-UA", "Raspberry Pi", "Node-RED"],
+          Programmazione: [
+            "C",
+            "C#",
+            "C++",
+            "Python",
+            "JavaScript",
+            "HTML5",
+            "CSS3",
+            "React JS",
+            "Node.js",
+            "Vite",
+          ],
+          "DevOps & Tools": [
+            "Git",
+            "VS Code",
+            "Docker",
+            "PostgreSQL",
+            "Linux",
+            "Windows",
+          ],
+          "IoT & Protocolli": [
+            "MQTT",
+            "AMQP",
+            "CoAP",
+            "HTTP",
+            "OPC-UA",
+            "Raspberry Pi",
+            "Node-RED",
+          ],
           Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
         },
-        defaultProjectTags: ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"],
-      }
+        defaultProjectTags: [
+          "HTML",
+          "CSS",
+          "JavaScript",
+          "Responsive",
+          "Frontend",
+          "UI/UX",
+        ],
+      };
     } else {
-      STATE.categoriesData = await response.json()
-      console.log("Curriculum.js: Categories data loaded successfully")
+      STATE.categoriesData = await response.json();
+      console.log("Curriculum.js: Categories data loaded successfully");
     }
 
-    return STATE.categoriesData
+    return STATE.categoriesData;
   } catch (error) {
-    console.error("Curriculum.js: Error loading categories data:", error)
+    console.error("Curriculum.js: Error loading categories data:", error);
     STATE.categoriesData = {
       skillCategories: {
-        Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
-        "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
-        "IoT & Protocolli": ["MQTT", "AMQP", "CoAP", "HTTP", "OPC-UA", "Raspberry Pi", "Node-RED"],
+        Programmazione: [
+          "C",
+          "C#",
+          "C++",
+          "Python",
+          "JavaScript",
+          "HTML5",
+          "CSS3",
+          "React JS",
+          "Node.js",
+          "Vite",
+        ],
+        "DevOps & Tools": [
+          "Git",
+          "VS Code",
+          "Docker",
+          "PostgreSQL",
+          "Linux",
+          "Windows",
+        ],
+        "IoT & Protocolli": [
+          "MQTT",
+          "AMQP",
+          "CoAP",
+          "HTTP",
+          "OPC-UA",
+          "Raspberry Pi",
+          "Node-RED",
+        ],
         Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
       },
-      defaultProjectTags: ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"],
-    }
+      defaultProjectTags: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Responsive",
+        "Frontend",
+        "UI/UX",
+      ],
+    };
   }
 }
 
@@ -362,38 +445,48 @@ async function loadCategoriesData() {
  */
 async function loadCurriculumData() {
   try {
-    console.log(`Curriculum.js: Attempting to load data from ${CONFIG.jsonPath}`)
-    const response = await fetch(CONFIG.jsonPath)
+    console.log(
+      `Curriculum.js: Attempting to load data from ${CONFIG.jsonPath}`,
+    );
+    const response = await fetch(CONFIG.jsonPath);
 
     if (!response.ok) {
-      console.warn(`Curriculum.js: Failed to load from ${CONFIG.jsonPath}, trying fallback...`)
-      const fallbackResponse = await fetch(CONFIG.fallbackJsonPath)
+      console.warn(
+        `Curriculum.js: Failed to load from ${CONFIG.jsonPath}, trying fallback...`,
+      );
+      const fallbackResponse = await fetch(CONFIG.fallbackJsonPath);
 
       if (!fallbackResponse.ok) {
-        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`)
+        throw new Error(
+          `Failed to load data: ${response.status} ${response.statusText}`,
+        );
       }
 
-      STATE.curriculumData = await fallbackResponse.json()
-      console.log("Curriculum.js: Data loaded from fallback path successfully")
+      STATE.curriculumData = await fallbackResponse.json();
+      console.log("Curriculum.js: Data loaded from fallback path successfully");
     } else {
-      STATE.curriculumData = await response.json()
-      console.log("Curriculum.js: Data loaded successfully")
+      STATE.curriculumData = await response.json();
+      console.log("Curriculum.js: Data loaded successfully");
     }
 
     if (STATE.curriculumData.competenze) {
-      STATE.categorizedSkills = categorizeSkillsFromJson(STATE.curriculumData.competenze)
+      STATE.categorizedSkills = categorizeSkillsFromJson(
+        STATE.curriculumData.competenze,
+      );
     }
 
-    return STATE.curriculumData
+    return STATE.curriculumData;
   } catch (error) {
-    console.error("Curriculum.js: Error loading data:", error)
-    STATE.hasError = true
-    STATE.errorMessage = error.message
+    console.error("Curriculum.js: Error loading data:", error);
+    STATE.hasError = true;
+    STATE.errorMessage = error.message;
 
-    STATE.curriculumData = generateFallbackData()
-    STATE.categorizedSkills = categorizeSkillsFromJson(STATE.curriculumData.competenze)
+    STATE.curriculumData = generateFallbackData();
+    STATE.categorizedSkills = categorizeSkillsFromJson(
+      STATE.curriculumData.competenze,
+    );
 
-    throw error
+    throw error;
   }
 }
 
@@ -402,26 +495,28 @@ async function loadCurriculumData() {
  */
 function renderAllSections() {
   if (!STATE.curriculumData) {
-    console.error("Curriculum.js: No data available to render")
-    return
+    console.error("Curriculum.js: No data available to render");
+    return;
   }
 
-  console.log("Curriculum.js: Rendering all sections")
+  console.log("Curriculum.js: Rendering all sections");
 
-  renderAttestati(STATE.curriculumData.attestati)
-  renderLinguistiche(STATE.curriculumData.linguistiche)
-  renderEsperienze(STATE.curriculumData.esperienze)
-  renderIstruzione(STATE.curriculumData.istruzione)
-  renderCompetenze(STATE.curriculumData.competenze)
-  renderWebSite(STATE.curriculumData.sites)
+  renderAttestati(STATE.curriculumData.attestati);
+  renderLinguistiche(STATE.curriculumData.linguistiche);
+  renderEsperienze(STATE.curriculumData.esperienze);
+  renderIstruzione(STATE.curriculumData.istruzione);
+  renderCompetenze(STATE.curriculumData.competenze);
+  renderWebSite(STATE.curriculumData.sites);
 
-  document.querySelectorAll(".curriculum-part .card-container").forEach((container) => {
-    animateCardsInSection(container)
-  })
+  document
+    .querySelectorAll(".curriculum-part .card-container")
+    .forEach((container) => {
+      animateCardsInSection(container);
+    });
 
   setTimeout(() => {
-    initializeSkillAnimations()
-  }, 300)
+    initializeSkillAnimations();
+  }, 300);
 }
 
 /**
@@ -432,14 +527,16 @@ function getAttestatoEnte(attestato) {
     .replace(/<br\s*\/?>/gi, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ")
-    .trim()
+    .trim();
 
-  const match = plainText.match(/Rilasciat[oa]\s+(?:da|dall['’]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i)
+  const match = plainText.match(
+    /Rilasciat[oa]\s+(?:da|dall['’]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i,
+  );
   if (match && match[1]) {
-    return match[1].trim()
+    return match[1].trim();
   }
 
-  return "Altro"
+  return "Altro";
 }
 
 /**
@@ -447,71 +544,75 @@ function getAttestatoEnte(attestato) {
  */
 function renderAttestati(attestati) {
   if (!attestati || !Array.isArray(attestati) || !DOM.sections.attestati) {
-    console.warn("Curriculum.js: Invalid attestati data or container not found")
-    return
+    console.warn(
+      "Curriculum.js: Invalid attestati data or container not found",
+    );
+    return;
   }
 
   // Pulisci il container
-  DOM.sections.attestati.innerHTML = ""
+  DOM.sections.attestati.innerHTML = "";
 
   // Crea un wrapper per la sezione (contenitore relativo per lo sticky)
-  const sectionWrapper = document.createElement("div")
-  sectionWrapper.className = "section-search-wrapper"
+  const sectionWrapper = document.createElement("div");
+  sectionWrapper.className = "section-search-wrapper";
 
   // Barra di ricerca sticky
-  const searchBar = document.createElement("div")
-  searchBar.className = "search-bar sticky-search"
+  const searchBar = document.createElement("div");
+  searchBar.className = "search-bar sticky-search";
   searchBar.innerHTML = `
     <div class="search-input-group">
       <i class='bx bx-search'></i>
       <input type="search" class="search-input" placeholder="Cerca attestato (titolo, ente, descrizione...)">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
-  `
-  sectionWrapper.appendChild(searchBar)
+  `;
+  sectionWrapper.appendChild(searchBar);
 
   // Contenitore per le card
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "attestati-list"
-  sectionWrapper.appendChild(cardsContainer)
+  const cardsContainer = document.createElement("div");
+  cardsContainer.className = "attestati-list";
+  sectionWrapper.appendChild(cardsContainer);
 
   // Aggiungi tutto al container della sezione
-  DOM.sections.attestati.appendChild(sectionWrapper)
+  DOM.sections.attestati.appendChild(sectionWrapper);
 
-  const searchInput = searchBar.querySelector(".search-input")
-  const resetBtn = searchBar.querySelector(".search-reset-btn")
+  const searchInput = searchBar.querySelector(".search-input");
+  const resetBtn = searchBar.querySelector(".search-reset-btn");
 
   // Funzione di filtraggio
   function filterAttestati() {
-    const query = searchInput.value.trim().toLowerCase()
-    const cards = cardsContainer.querySelectorAll(".card")
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = cardsContainer.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      const text = card.textContent.toLowerCase()
-      card.style.display = text.includes(query) ? "" : "none"
-    })
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
 
     // Mostra/nascondi messaggio "nessun risultato"
-    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
-    const noResultMsg = cardsContainer.querySelector(".no-results")
+    const visibleCards = cardsContainer.querySelectorAll(
+      ".card[style*='display: none']",
+    );
+    const noResultMsg = cardsContainer.querySelector(".no-results");
     if (visibleCards.length === cards.length && cards.length > 0) {
       if (!noResultMsg) {
-        const msg = document.createElement("div")
-        msg.className = "no-results"
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun attestato trovato per "${query}".</p>`
-        cardsContainer.appendChild(msg)
+        const msg = document.createElement("div");
+        msg.className = "no-results";
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun attestato trovato per "${query}".</p>`;
+        cardsContainer.appendChild(msg);
       }
     } else {
-      if (noResultMsg) noResultMsg.remove()
+      if (noResultMsg) noResultMsg.remove();
     }
   }
 
   // Renderizza le card
   attestati.forEach((attestato, index) => {
-    const card = document.createElement("div")
-    card.className = "card"
-    card.setAttribute("data-aos", "fade-up")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+    const card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("data-aos", "fade-up");
+    card.setAttribute("data-aos-delay", (index * 100).toString());
 
     let html = `
       <div class="card-header">
@@ -522,7 +623,7 @@ function renderAttestati(attestati) {
       <div class="card-body">
         <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
       </div>
-    `
+    `;
     if (attestato.certificato) {
       html += `
         <div class="card-footer">
@@ -531,19 +632,19 @@ function renderAttestati(attestati) {
             <i class='bx bx-download'></i>
           </a>
         </div>
-      `
+      `;
     }
-    card.innerHTML = html
-    cardsContainer.appendChild(card)
-  })
+    card.innerHTML = html;
+    cardsContainer.appendChild(card);
+  });
 
   // Event listener per la ricerca
-  searchInput.addEventListener("input", filterAttestati)
+  searchInput.addEventListener("input", filterAttestati);
   resetBtn.addEventListener("click", () => {
-    searchInput.value = ""
-    filterAttestati()
-    searchInput.focus()
-  })
+    searchInput.value = "";
+    filterAttestati();
+    searchInput.focus();
+  });
 }
 
 /**
@@ -558,14 +659,14 @@ function createLevelIndicator(level) {
     C1: 5,
     C2: 6,
     Madrelingua: 6,
-  }
+  };
 
-  const levelValue = levels[level] || 0
-  let indicators = ""
+  const levelValue = levels[level] || 0;
+  let indicators = "";
 
   for (let i = 1; i <= 6; i++) {
-    const active = i <= levelValue ? "active" : ""
-    indicators += `<div class="level-dot ${active}" data-level="${i}"></div>`
+    const active = i <= levelValue ? "active" : "";
+    indicators += `<div class="level-dot ${active}" data-level="${i}"></div>`;
   }
 
   return `
@@ -580,74 +681,82 @@ function createLevelIndicator(level) {
       <span>C1</span>
       <span>C2</span>
     </div>
-  `
+  `;
 }
 
 /**
  * Render linguistiche section – con barra di ricerca sticky
  */
 function renderLinguistiche(linguistiche) {
-  if (!linguistiche || !Array.isArray(linguistiche) || !DOM.sections.linguistiche) {
-    console.warn("Curriculum.js: Invalid linguistiche data or container not found")
-    return
+  if (
+    !linguistiche ||
+    !Array.isArray(linguistiche) ||
+    !DOM.sections.linguistiche
+  ) {
+    console.warn(
+      "Curriculum.js: Invalid linguistiche data or container not found",
+    );
+    return;
   }
 
-  DOM.sections.linguistiche.innerHTML = ""
+  DOM.sections.linguistiche.innerHTML = "";
 
-  const sectionWrapper = document.createElement("div")
-  sectionWrapper.className = "section-search-wrapper"
+  const sectionWrapper = document.createElement("div");
+  sectionWrapper.className = "section-search-wrapper";
 
-  const searchBar = document.createElement("div")
-  searchBar.className = "search-bar sticky-search"
+  const searchBar = document.createElement("div");
+  searchBar.className = "search-bar sticky-search";
   searchBar.innerHTML = `
     <div class="search-input-group">
       <i class='bx bx-search'></i>
       <input type="search" class="search-input" placeholder="Cerca lingua o livello (es. inglese, B2...)">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
-  `
-  sectionWrapper.appendChild(searchBar)
+  `;
+  sectionWrapper.appendChild(searchBar);
 
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "linguistiche-list"
-  sectionWrapper.appendChild(cardsContainer)
+  const cardsContainer = document.createElement("div");
+  cardsContainer.className = "linguistiche-list";
+  sectionWrapper.appendChild(cardsContainer);
 
-  DOM.sections.linguistiche.appendChild(sectionWrapper)
+  DOM.sections.linguistiche.appendChild(sectionWrapper);
 
-  const searchInput = searchBar.querySelector(".search-input")
-  const resetBtn = searchBar.querySelector(".search-reset-btn")
+  const searchInput = searchBar.querySelector(".search-input");
+  const resetBtn = searchBar.querySelector(".search-reset-btn");
 
   function filterLinguistiche() {
-    const query = searchInput.value.trim().toLowerCase()
-    const cards = cardsContainer.querySelectorAll(".card")
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = cardsContainer.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      const text = card.textContent.toLowerCase()
-      card.style.display = text.includes(query) ? "" : "none"
-    })
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
 
-    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
-    const noResultMsg = cardsContainer.querySelector(".no-results")
+    const visibleCards = cardsContainer.querySelectorAll(
+      ".card[style*='display: none']",
+    );
+    const noResultMsg = cardsContainer.querySelector(".no-results");
     if (visibleCards.length === cards.length && cards.length > 0) {
       if (!noResultMsg) {
-        const msg = document.createElement("div")
-        msg.className = "no-results"
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna lingua trovata per "${query}".</p>`
-        cardsContainer.appendChild(msg)
+        const msg = document.createElement("div");
+        msg.className = "no-results";
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna lingua trovata per "${query}".</p>`;
+        cardsContainer.appendChild(msg);
       }
     } else {
-      if (noResultMsg) noResultMsg.remove()
+      if (noResultMsg) noResultMsg.remove();
     }
   }
 
   linguistiche.forEach((lingua, index) => {
-    const card = document.createElement("div")
-    card.className = "card language-card"
-    card.setAttribute("data-aos", "zoom-in")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+    const card = document.createElement("div");
+    card.className = "card language-card";
+    card.setAttribute("data-aos", "zoom-in");
+    card.setAttribute("data-aos-delay", (index * 100).toString());
 
-    const levelIndicator = createLevelIndicator(lingua.livello)
-    const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
+    const levelIndicator = createLevelIndicator(lingua.livello);
+    const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100";
 
     card.innerHTML = `
     <br>
@@ -659,16 +768,16 @@ function renderLinguistiche(linguistiche) {
       <div class="language-level"><strong>Livello:</strong> ${lingua.livello || "Non specificato"}</div>
       <div class="level-indicator">${levelIndicator}</div>
       ${lingua.link ? `<button class="go-live-btn" onclick="window.open('${lingua.link}', '_blank')"><span>Impara la lingua</span><i class='bx bx-book-open'></i></button>` : ""}
-    `
-    cardsContainer.appendChild(card)
-  })
+    `;
+    cardsContainer.appendChild(card);
+  });
 
-  searchInput.addEventListener("input", filterLinguistiche)
+  searchInput.addEventListener("input", filterLinguistiche);
   resetBtn.addEventListener("click", () => {
-    searchInput.value = ""
-    filterLinguistiche()
-    searchInput.focus()
-  })
+    searchInput.value = "";
+    filterLinguistiche();
+    searchInput.focus();
+  });
 }
 
 /**
@@ -676,69 +785,75 @@ function renderLinguistiche(linguistiche) {
  */
 function renderEsperienze(esperienze) {
   if (!esperienze || !Array.isArray(esperienze) || !DOM.sections.esperienze) {
-    console.warn("Curriculum.js: Invalid esperienze data or container not found")
-    return
+    console.warn(
+      "Curriculum.js: Invalid esperienze data or container not found",
+    );
+    return;
   }
 
-  DOM.sections.esperienze.innerHTML = ""
+  DOM.sections.esperienze.innerHTML = "";
 
-  const sectionWrapper = document.createElement("div")
-  sectionWrapper.className = "section-search-wrapper"
+  const sectionWrapper = document.createElement("div");
+  sectionWrapper.className = "section-search-wrapper";
 
-  const searchBar = document.createElement("div")
-  searchBar.className = "search-bar sticky-search"
+  const searchBar = document.createElement("div");
+  searchBar.className = "search-bar sticky-search";
   searchBar.innerHTML = `
     <div class="search-input-group">
       <i class='bx bx-search'></i>
       <input type="search" class="search-input" placeholder="Cerca azienda, ruolo, luogo, attività...">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
-  `
-  sectionWrapper.appendChild(searchBar)
+  `;
+  sectionWrapper.appendChild(searchBar);
 
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "experience-list"
-  sectionWrapper.appendChild(cardsContainer)
+  const cardsContainer = document.createElement("div");
+  cardsContainer.className = "experience-list";
+  sectionWrapper.appendChild(cardsContainer);
 
-  DOM.sections.esperienze.appendChild(sectionWrapper)
+  DOM.sections.esperienze.appendChild(sectionWrapper);
 
-  const searchInput = searchBar.querySelector(".search-input")
-  const resetBtn = searchBar.querySelector(".search-reset-btn")
+  const searchInput = searchBar.querySelector(".search-input");
+  const resetBtn = searchBar.querySelector(".search-reset-btn");
 
   function filterEsperienze() {
-    const query = searchInput.value.trim().toLowerCase()
-    const cards = cardsContainer.querySelectorAll(".card")
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = cardsContainer.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      const text = card.textContent.toLowerCase()
-      card.style.display = text.includes(query) ? "" : "none"
-    })
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
 
-    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
-    const noResultMsg = cardsContainer.querySelector(".no-results")
+    const visibleCards = cardsContainer.querySelectorAll(
+      ".card[style*='display: none']",
+    );
+    const noResultMsg = cardsContainer.querySelector(".no-results");
     if (visibleCards.length === cards.length && cards.length > 0) {
       if (!noResultMsg) {
-        const msg = document.createElement("div")
-        msg.className = "no-results"
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna esperienza trovata per "${query}".</p>`
-        cardsContainer.appendChild(msg)
+        const msg = document.createElement("div");
+        msg.className = "no-results";
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna esperienza trovata per "${query}".</p>`;
+        cardsContainer.appendChild(msg);
       }
     } else {
-      if (noResultMsg) noResultMsg.remove()
+      if (noResultMsg) noResultMsg.remove();
     }
   }
 
   esperienze.forEach((esperienza, index) => {
-    const card = document.createElement("div")
-    card.className = "card experience-card"
-    card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left")
-    card.setAttribute("data-aos-delay", (index * 150).toString())
+    const card = document.createElement("div");
+    card.className = "card experience-card";
+    card.setAttribute("data-aos", index % 2 === 0 ? "fade-right" : "fade-left");
+    card.setAttribute("data-aos-delay", (index * 150).toString());
 
     const attivitaList = Array.isArray(esperienza.attivita)
-      ? esperienza.attivita.map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`).join("")
-      : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>"
+      ? esperienza.attivita
+          .map((attivita) => `<li><i class='bx bx-check'></i> ${attivita}</li>`)
+          .join("")
+      : "<li><i class='bx bx-check'></i> Informazioni non disponibili</li>";
 
-    const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64"
+    const logoSrc = esperienza.logo || "/placeholder.svg?height=64&width=64";
 
     card.innerHTML = `
       <div class="experience-header">
@@ -754,16 +869,16 @@ function renderEsperienze(esperienze) {
       <div class="experience-location"><i class='bx bx-map'></i><span>${esperienza.luogo || "Luogo non specificato"}</span></div>
       <div class="experience-activities"><h5>Attività svolte:</h5><ul class="activities-list">${attivitaList}</ul></div>
       ${esperienza.sito ? `<button class="go-live-btn" onclick="window.open('${esperienza.sito}', '_blank')"><span>Visita il sito</span><i class='bx bx-link-external'></i></button>` : ""}
-    `
-    cardsContainer.appendChild(card)
-  })
+    `;
+    cardsContainer.appendChild(card);
+  });
 
-  searchInput.addEventListener("input", filterEsperienze)
+  searchInput.addEventListener("input", filterEsperienze);
   resetBtn.addEventListener("click", () => {
-    searchInput.value = ""
-    filterEsperienze()
-    searchInput.focus()
-  })
+    searchInput.value = "";
+    filterEsperienze();
+    searchInput.focus();
+  });
 }
 
 /**
@@ -771,79 +886,83 @@ function renderEsperienze(esperienze) {
  */
 function renderIstruzione(istruzione) {
   if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
-    console.warn("Curriculum.js: Invalid istruzione data or container not found")
-    return
+    console.warn(
+      "Curriculum.js: Invalid istruzione data or container not found",
+    );
+    return;
   }
 
-  DOM.sections.istruzione.innerHTML = ""
+  DOM.sections.istruzione.innerHTML = "";
 
-  const sectionWrapper = document.createElement("div")
-  sectionWrapper.className = "section-search-wrapper"
+  const sectionWrapper = document.createElement("div");
+  sectionWrapper.className = "section-search-wrapper";
 
-  const searchBar = document.createElement("div")
-  searchBar.className = "search-bar sticky-search"
+  const searchBar = document.createElement("div");
+  searchBar.className = "search-bar sticky-search";
   searchBar.innerHTML = `
     <div class="search-input-group">
       <i class='bx bx-search'></i>
       <input type="search" class="search-input" placeholder="Cerca titolo, istituto, livello, luogo...">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
-  `
-  sectionWrapper.appendChild(searchBar)
+  `;
+  sectionWrapper.appendChild(searchBar);
 
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "istruzione-list"
-  sectionWrapper.appendChild(cardsContainer)
+  const cardsContainer = document.createElement("div");
+  cardsContainer.className = "istruzione-list";
+  sectionWrapper.appendChild(cardsContainer);
 
-  DOM.sections.istruzione.appendChild(sectionWrapper)
+  DOM.sections.istruzione.appendChild(sectionWrapper);
 
-  const searchInput = searchBar.querySelector(".search-input")
-  const resetBtn = searchBar.querySelector(".search-reset-btn")
+  const searchInput = searchBar.querySelector(".search-input");
+  const resetBtn = searchBar.querySelector(".search-reset-btn");
 
   function filterIstruzione() {
-    const query = searchInput.value.trim().toLowerCase()
-    const cards = cardsContainer.querySelectorAll(".card")
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = cardsContainer.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      const text = card.textContent.toLowerCase()
-      card.style.display = text.includes(query) ? "" : "none"
-    })
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
 
-    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
-    const noResultMsg = cardsContainer.querySelector(".no-results")
+    const visibleCards = cardsContainer.querySelectorAll(
+      ".card[style*='display: none']",
+    );
+    const noResultMsg = cardsContainer.querySelector(".no-results");
     if (visibleCards.length === cards.length && cards.length > 0) {
       if (!noResultMsg) {
-        const msg = document.createElement("div")
-        msg.className = "no-results"
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna esperienza formativa trovata per "${query}".</p>`
-        cardsContainer.appendChild(msg)
+        const msg = document.createElement("div");
+        msg.className = "no-results";
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna esperienza formativa trovata per "${query}".</p>`;
+        cardsContainer.appendChild(msg);
       }
     } else {
-      if (noResultMsg) noResultMsg.remove()
+      if (noResultMsg) noResultMsg.remove();
     }
   }
 
   istruzione.forEach((item, index) => {
-    const card = document.createElement("div")
-    card.className = "card istruzione-card"
-    card.setAttribute("data-aos", "fade-up")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+    const card = document.createElement("div");
+    card.className = "card istruzione-card";
+    card.setAttribute("data-aos", "fade-up");
+    card.setAttribute("data-aos-delay", (index * 100).toString());
 
-    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64"
+    const logoSrc = item.logo || "/placeholder.svg?height=64&width=64";
 
-    let competenzeHtml = ""
+    let competenzeHtml = "";
     if (Array.isArray(item.competenze)) {
-      competenzeHtml = `<ul class="competenze">${item.competenze.map(comp => `<li>${comp}</li>`).join("")}</ul>`
+      competenzeHtml = `<ul class="competenze">${item.competenze.map((comp) => `<li>${comp}</li>`).join("")}</ul>`;
     } else if (item.descrizione) {
-      competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`
+      competenzeHtml = `<p class="descrizione">${item.descrizione}</p>`;
     }
 
     const downloadButton = item.diploma
       ? `<a href="${item.diploma}" class="go-live-btn" download><span>Scarica diploma</span><i class='bx bx-download'></i></a>`
-      : ""
+      : "";
     const siteButton = item.sito
       ? `<button class="go-live-btn" onclick="window.open('${item.sito}', '_blank')"><span>Visita il sito</span><i class='bx bx-link-external'></i></button>`
-      : ""
+      : "";
 
     card.innerHTML = `
       <div class="istruzione-header">
@@ -858,32 +977,34 @@ function renderIstruzione(istruzione) {
       <div class="istruzione-location"><i class='bx bx-map'></i><span>${item.luogo || "Luogo non specificato"}</span></div>
       ${competenzeHtml}
       <div class="istruzione-buttons">${siteButton}${downloadButton}</div>
-    `
-    cardsContainer.appendChild(card)
-  })
+    `;
+    cardsContainer.appendChild(card);
+  });
 
-  searchInput.addEventListener("input", filterIstruzione)
+  searchInput.addEventListener("input", filterIstruzione);
   resetBtn.addEventListener("click", () => {
-    searchInput.value = ""
-    filterIstruzione()
-    searchInput.focus()
-  })
+    searchInput.value = "";
+    filterIstruzione();
+    searchInput.focus();
+  });
 }
 
 /**
  * Resolve category label for a skill.
  */
 function getSkillCategoryLabel(skill) {
-  if (!STATE.categorizedSkills) return "Altro"
+  if (!STATE.categorizedSkills) return "Altro";
 
-  const skillName = (skill?.nome || "").trim()
-  if (!skillName) return "Altro"
+  const skillName = (skill?.nome || "").trim();
+  if (!skillName) return "Altro";
 
   const foundCategory = Object.keys(STATE.categorizedSkills).find((category) =>
-    (STATE.categorizedSkills[category] || []).some((item) => (item.nome || "").trim() === skillName),
-  )
+    (STATE.categorizedSkills[category] || []).some(
+      (item) => (item.nome || "").trim() === skillName,
+    ),
+  );
 
-  return foundCategory || "Altro"
+  return foundCategory || "Altro";
 }
 
 /**
@@ -891,70 +1012,76 @@ function getSkillCategoryLabel(skill) {
  */
 function renderCompetenze(competenze) {
   if (!competenze || !Array.isArray(competenze) || !DOM.sections.competenze) {
-    console.warn("Curriculum.js: Invalid competenze data or container not found")
-    return
+    console.warn(
+      "Curriculum.js: Invalid competenze data or container not found",
+    );
+    return;
   }
 
-  DOM.sections.competenze.innerHTML = ""
+  DOM.sections.competenze.innerHTML = "";
 
-  const sectionWrapper = document.createElement("div")
-  sectionWrapper.className = "section-search-wrapper"
+  const sectionWrapper = document.createElement("div");
+  sectionWrapper.className = "section-search-wrapper";
 
-  const searchBar = document.createElement("div")
-  searchBar.className = "search-bar sticky-search"
+  const searchBar = document.createElement("div");
+  searchBar.className = "search-bar sticky-search";
   searchBar.innerHTML = `
     <div class="search-input-group">
       <i class='bx bx-search'></i>
       <input type="search" class="search-input" placeholder="Cerca competenza (nome, categoria, descrizione...)">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
-  `
-  sectionWrapper.appendChild(searchBar)
+  `;
+  sectionWrapper.appendChild(searchBar);
 
-  const skillsContainer = document.createElement("div")
-  skillsContainer.className = "skills-container"
-  sectionWrapper.appendChild(skillsContainer)
+  const skillsContainer = document.createElement("div");
+  skillsContainer.className = "skills-container";
+  sectionWrapper.appendChild(skillsContainer);
 
-  DOM.sections.competenze.appendChild(sectionWrapper)
+  DOM.sections.competenze.appendChild(sectionWrapper);
 
-  const searchInput = searchBar.querySelector(".search-input")
-  const resetBtn = searchBar.querySelector(".search-reset-btn")
+  const searchInput = searchBar.querySelector(".search-input");
+  const resetBtn = searchBar.querySelector(".search-reset-btn");
 
   function filterCompetenze() {
-    const query = searchInput.value.trim().toLowerCase()
-    const cards = skillsContainer.querySelectorAll(".card")
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = skillsContainer.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      const text = card.textContent.toLowerCase()
-      card.style.display = text.includes(query) ? "" : "none"
-    })
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
 
-    const visibleCards = skillsContainer.querySelectorAll(".card[style*='display: none']")
-    const noResultMsg = skillsContainer.querySelector(".no-results")
+    const visibleCards = skillsContainer.querySelectorAll(
+      ".card[style*='display: none']",
+    );
+    const noResultMsg = skillsContainer.querySelector(".no-results");
     if (visibleCards.length === cards.length && cards.length > 0) {
       if (!noResultMsg) {
-        const msg = document.createElement("div")
-        msg.className = "no-results"
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna competenza trovata per "${query}".</p>`
-        skillsContainer.appendChild(msg)
+        const msg = document.createElement("div");
+        msg.className = "no-results";
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna competenza trovata per "${query}".</p>`;
+        skillsContainer.appendChild(msg);
       }
     } else {
-      if (noResultMsg) noResultMsg.remove()
+      if (noResultMsg) noResultMsg.remove();
     }
   }
 
   // Ordina alfabeticamente
-  const sorted = [...competenze].sort((a, b) => (a.nome || "").localeCompare(b.nome || "", 'it'))
+  const sorted = [...competenze].sort((a, b) =>
+    (a.nome || "").localeCompare(b.nome || "", "it"),
+  );
 
   sorted.forEach((skill, index) => {
-    const card = document.createElement("div")
-    card.className = "card skill-card"
-    card.setAttribute("data-aos", "zoom-in")
-    card.setAttribute("data-aos-delay", (index * 50).toString())
+    const card = document.createElement("div");
+    card.className = "card skill-card";
+    card.setAttribute("data-aos", "zoom-in");
+    card.setAttribute("data-aos-delay", (index * 50).toString());
 
-    const hue = Math.floor(Math.random() * 360)
-    const progressColor = `hsl(${hue}, 70%, 60%)`
-    const imgSrc = skill.immagine || "/placeholder.svg?height=80&width=80"
+    const hue = Math.floor(Math.random() * 360);
+    const progressColor = `hsl(${hue}, 70%, 60%)`;
+    const imgSrc = skill.immagine || "/placeholder.svg?height=80&width=80";
 
     card.innerHTML = `
       <div class="skill-icon" style="background-color: ${progressColor}20;">
@@ -969,39 +1096,48 @@ function renderCompetenze(competenze) {
       </div>
       <p>${skill.descrizione || "Descrizione non disponibile"}</p>
       ${skill.link ? `<button class="go-live-btn" onclick="window.open('${skill.link}', '_blank')"><span>Scopri di più</span><i class='bx bx-link-external'></i></button>` : ""}
-    `
-    skillsContainer.appendChild(card)
-  })
+    `;
+    skillsContainer.appendChild(card);
+  });
 
   // Inizializza le barre di progresso dopo il rendering
-  setTimeout(() => initializeSkillAnimations(), 300)
+  setTimeout(() => initializeSkillAnimations(), 300);
 
-  searchInput.addEventListener("input", filterCompetenze)
+  searchInput.addEventListener("input", filterCompetenze);
   resetBtn.addEventListener("click", () => {
-    searchInput.value = ""
-    filterCompetenze()
-    searchInput.focus()
-  })
+    searchInput.value = "";
+    filterCompetenze();
+    searchInput.focus();
+  });
 }
 
 /**
  * Determine site category (with code or live only).
  */
 function getSiteCategory(site) {
-  return site && site.codice ? "Con Codice" : "Solo Live"
+  return site && site.codice ? "Con Codice" : "Solo Live";
 }
 
 /**
  * Generate project tags.
  */
 function generateProjectTags() {
-  let defaultTags = ["HTML", "CSS", "JavaScript", "Responsive", "Frontend", "UI/UX"]
+  let defaultTags = [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Responsive",
+    "Frontend",
+    "UI/UX",
+  ];
 
   if (STATE.categoriesData && STATE.categoriesData.defaultProjectTags) {
-    defaultTags = STATE.categoriesData.defaultProjectTags
+    defaultTags = STATE.categoriesData.defaultProjectTags;
   }
 
-  return defaultTags.map((tag) => `<span class="portfolio-tag">${tag}</span>`).join("")
+  return defaultTags
+    .map((tag) => `<span class="portfolio-tag">${tag}</span>`)
+    .join("");
 }
 
 /**
@@ -1009,73 +1145,75 @@ function generateProjectTags() {
  */
 function renderWebSite(sites) {
   if (!sites || !Array.isArray(sites) || !DOM.sections.sites) {
-    console.warn("Curriculum.js: Invalid sites data or container not found")
-    return
+    console.warn("Curriculum.js: Invalid sites data or container not found");
+    return;
   }
 
-  DOM.sections.sites.innerHTML = ""
-  DOM.sections.sites.className = "card-container sites-list"
+  DOM.sections.sites.innerHTML = "";
+  DOM.sections.sites.className = "card-container sites-list";
 
-  const sectionWrapper = document.createElement("div")
-  sectionWrapper.className = "section-search-wrapper"
+  const sectionWrapper = document.createElement("div");
+  sectionWrapper.className = "section-search-wrapper";
 
-  const searchBar = document.createElement("div")
-  searchBar.className = "search-bar sticky-search"
+  const searchBar = document.createElement("div");
+  searchBar.className = "search-bar sticky-search";
   searchBar.innerHTML = `
     <div class="search-input-group">
       <i class='bx bx-search'></i>
       <input type="search" class="search-input" placeholder="Cerca sito (nome, link, codice...)">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
-  `
-  sectionWrapper.appendChild(searchBar)
+  `;
+  sectionWrapper.appendChild(searchBar);
 
-  const cardsContainer = document.createElement("div")
-  cardsContainer.className = "sites-list"
-  sectionWrapper.appendChild(cardsContainer)
+  const cardsContainer = document.createElement("div");
+  cardsContainer.className = "sites-list";
+  sectionWrapper.appendChild(cardsContainer);
 
-  DOM.sections.sites.appendChild(sectionWrapper)
+  DOM.sections.sites.appendChild(sectionWrapper);
 
-  const searchInput = searchBar.querySelector(".search-input")
-  const resetBtn = searchBar.querySelector(".search-reset-btn")
+  const searchInput = searchBar.querySelector(".search-input");
+  const resetBtn = searchBar.querySelector(".search-reset-btn");
 
   function filterSites() {
-    const query = searchInput.value.trim().toLowerCase()
-    const cards = cardsContainer.querySelectorAll(".card")
+    const query = searchInput.value.trim().toLowerCase();
+    const cards = cardsContainer.querySelectorAll(".card");
 
     cards.forEach((card) => {
-      const text = card.textContent.toLowerCase()
-      card.style.display = text.includes(query) ? "" : "none"
-    })
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(query) ? "" : "none";
+    });
 
-    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
-    const noResultMsg = cardsContainer.querySelector(".no-results")
+    const visibleCards = cardsContainer.querySelectorAll(
+      ".card[style*='display: none']",
+    );
+    const noResultMsg = cardsContainer.querySelector(".no-results");
     if (visibleCards.length === cards.length && cards.length > 0) {
       if (!noResultMsg) {
-        const msg = document.createElement("div")
-        msg.className = "no-results"
-        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun sito trovato per "${query}".</p>`
-        cardsContainer.appendChild(msg)
+        const msg = document.createElement("div");
+        msg.className = "no-results";
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun sito trovato per "${query}".</p>`;
+        cardsContainer.appendChild(msg);
       }
     } else {
-      if (noResultMsg) noResultMsg.remove()
+      if (noResultMsg) noResultMsg.remove();
     }
   }
 
   sites.forEach((site, index) => {
-    const card = document.createElement("div")
-    card.className = "card portfolio-card"
-    card.setAttribute("data-aos", "fade-up")
-    card.setAttribute("data-aos-delay", (index * 100).toString())
+    const card = document.createElement("div");
+    card.className = "card portfolio-card";
+    card.setAttribute("data-aos", "fade-up");
+    card.setAttribute("data-aos-delay", (index * 100).toString());
 
-    const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300"
-    const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200
+    const imgSrc = site.immagine || "/placeholder.svg?height=200&width=300";
+    const imageHeight = STATE.isMobile ? CONFIG.siteImageMaxHeight : 200;
 
     const html = `
       <div class="portfolio-image" style="height: ${imageHeight}px;">
         <img src="${imgSrc}" alt="${site.nome}" class="site-image" 
              style="max-height: ${imageHeight}px;" 
-             onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${imageHeight*1.5}'; this.onerror=null;" />
+             onerror="this.src='/placeholder.svg?height=${imageHeight}&width=${imageHeight * 1.5}'; this.onerror=null;" />
         <div class="portfolio-overlay">
           <div class="portfolio-buttons">
             ${site.link ? `<a href="${site.link}" target="_blank" class="portfolio-btn view-btn"><i class='bx bx-link-external'></i><span class="white">Visita</span></a>` : ""}
@@ -1088,17 +1226,17 @@ function renderWebSite(sites) {
         <div class="skill-category-badge">${getSiteCategory(site)}</div>
         <div class="portfolio-tags">${generateProjectTags()}</div>
       </div>
-    `
-    card.innerHTML = html
-    cardsContainer.appendChild(card)
-  })
+    `;
+    card.innerHTML = html;
+    cardsContainer.appendChild(card);
+  });
 
-  searchInput.addEventListener("input", filterSites)
+  searchInput.addEventListener("input", filterSites);
   resetBtn.addEventListener("click", () => {
-    searchInput.value = ""
-    filterSites()
-    searchInput.focus()
-  })
+    searchInput.value = "";
+    filterSites();
+    searchInput.focus();
+  });
 }
 
 /**
@@ -1106,89 +1244,124 @@ function renderWebSite(sites) {
  */
 function categorizeSkillsFromJson(competenze) {
   if (!competenze || !Array.isArray(competenze)) {
-    return {}
+    return {};
   }
 
-  const uniqueCategories = new Set()
+  const uniqueCategories = new Set();
   competenze.forEach((skill) => {
     if (skill.categoria) {
-      uniqueCategories.add(skill.categoria)
+      uniqueCategories.add(skill.categoria);
     }
-  })
+  });
 
   if (uniqueCategories.size === 0) {
-    return categorizeSkillsByName(competenze)
+    return categorizeSkillsByName(competenze);
   }
 
-  const categorized = {}
+  const categorized = {};
 
   uniqueCategories.forEach((category) => {
-    categorized[category] = competenze.filter((skill) => skill.categoria === category)
-  })
+    categorized[category] = competenze.filter(
+      (skill) => skill.categoria === category,
+    );
+  });
 
   const categorizedSkillIds = Object.values(categorized)
     .flat()
-    .map((skill) => skill.nome)
+    .map((skill) => skill.nome);
 
   const uncategorizedSkills = competenze.filter(
     (skill) => !skill.categoria && !categorizedSkillIds.includes(skill.nome),
-  )
+  );
 
   if (uncategorizedSkills.length > 0) {
-    const remainingCategorized = categorizeSkillsByName(uncategorizedSkills)
+    const remainingCategorized = categorizeSkillsByName(uncategorizedSkills);
     Object.keys(remainingCategorized).forEach((category) => {
       if (categorized[category]) {
-        categorized[category] = [...categorized[category], ...remainingCategorized[category]]
+        categorized[category] = [
+          ...categorized[category],
+          ...remainingCategorized[category],
+        ];
       } else {
-        categorized[category] = remainingCategorized[category]
+        categorized[category] = remainingCategorized[category];
       }
-    })
+    });
   }
 
-  return categorized
+  return categorized;
 }
 
 /**
  * Fallback categorization by skill name.
  */
 function categorizeSkillsByName(competenze) {
-  let categories = {}
+  let categories = {};
 
   if (STATE.categoriesData && STATE.categoriesData.skillCategories) {
-    categories = STATE.categoriesData.skillCategories
+    categories = STATE.categoriesData.skillCategories;
   } else {
     categories = {
-      Programmazione: ["C", "C#", "C++", "Python", "JavaScript", "HTML5", "CSS3", "React JS", "Node.js", "Vite"],
-      "DevOps & Tools": ["Git", "VS Code", "Docker", "PostgreSQL", "Linux", "Windows"],
-      "IoT & Protocolli": ["MQTT", "AMQP", "CoAP", "HTTP", "OPC-UA", "Raspberry Pi", "Node-RED"],
+      Programmazione: [
+        "C",
+        "C#",
+        "C++",
+        "Python",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "React JS",
+        "Node.js",
+        "Vite",
+      ],
+      "DevOps & Tools": [
+        "Git",
+        "VS Code",
+        "Docker",
+        "PostgreSQL",
+        "Linux",
+        "Windows",
+      ],
+      "IoT & Protocolli": [
+        "MQTT",
+        "AMQP",
+        "CoAP",
+        "HTTP",
+        "OPC-UA",
+        "Raspberry Pi",
+        "Node-RED",
+      ],
       Visualizzazione: ["Mermaid", "Chart.js", "MathJax"],
-    }
+    };
   }
 
-  const categorized = {}
+  const categorized = {};
 
   Object.keys(categories).forEach((category) => {
-    categorized[category] = competenze.filter((skill) => categories[category].includes(skill.nome))
-  })
+    categorized[category] = competenze.filter((skill) =>
+      categories[category].includes(skill.nome),
+    );
+  });
 
   const categorizedSkillNames = Object.values(categorized)
     .flat()
-    .map((skill) => skill.nome)
+    .map((skill) => skill.nome);
 
-  const otherSkills = competenze.filter((skill) => !categorizedSkillNames.includes(skill.nome))
+  const otherSkills = competenze.filter(
+    (skill) => !categorizedSkillNames.includes(skill.nome),
+  );
 
   if (otherSkills.length > 0) {
-    categorized["Altro"] = otherSkills
+    categorized["Altro"] = otherSkills;
   }
 
-  return categorized
+  return categorized;
 }
 
 /**
  * Generate fallback data in case of loading failure.
  */
 function generateFallbackData() {
-  console.log("Curriculum.js: Generating fallback data")
+  console.log("Curriculum.js: Generating fallback data");
   return {
     attestati: [
       {
@@ -1257,5 +1430,5 @@ function generateFallbackData() {
         codice: "#",
       },
     ],
-  }
+  };
 }

@@ -1,6 +1,6 @@
-### Documentazione Portfolio di Nicola Marano 
+### Documentazione Portfolio di Nicola Marano
 
-## Indice 
+## Indice
 
 1. [Panoramica](#panoramica)
 2. [Struttura del Progetto](#struttura-del-progetto)
@@ -320,7 +320,7 @@ Contiene tutte le informazioni relative a:
 - Esperienze lavorative
 - Istruzione
 - Competenze tecniche
-- Siti Web 
+- Siti Web
 
 ### Categories.json
 
@@ -335,7 +335,7 @@ Contiene i link ai social media e le relative icone.
 async function loadCurriculumData() {
   try {
     console.log(
-      `Curriculum.js: Attempting to load data from ${CONFIG.jsonPath}`
+      `Curriculum.js: Attempting to load data from ${CONFIG.jsonPath}`,
     );
     const response = await fetch(CONFIG.jsonPath);
 
@@ -446,4 +446,3 @@ Di seguito sono elencati i link ai file principali del progetto:
 - [Categories.json](JSON/Categories.json) - Contiene le categorie di competenze
 - [Social.json](JSON/Social.json) - Contiene i link ai social media
 - [Curriculum.json](JSON/Curriculum.json) - Contiene tutti i dati del curriculum
-

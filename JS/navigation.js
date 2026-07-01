@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const sectionTop = section.offsetTop;
       const sectionHeight = section.clientHeight;
       // Se lo scroll ha superato la parte superiore della sezione (con offset)
-      if (scrollY + headerOffset >= sectionTop && scrollY < sectionTop + sectionHeight) {
+      if (
+        scrollY + headerOffset >= sectionTop &&
+        scrollY < sectionTop + sectionHeight
+      ) {
         currentSection = section.getAttribute("id") || "home";
       }
     });
@@ -63,16 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Aspetta che il layout sia pronto (per l'offset dell'header)
     setTimeout(() => {
-      const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset;
+      const targetY =
+        section.getBoundingClientRect().top + window.scrollY - headerOffset;
       window.scrollTo({ top: targetY, behavior: "smooth" });
     }, 300);
   }
 
   // ---- 4. Event listeners ----
-  window.addEventListener("scroll", () => {
-    updateActiveMenu();
-    updateURLHash();
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      updateActiveMenu();
+      updateURLHash();
+    },
+    { passive: true },
+  );
 
   window.addEventListener("hashchange", scrollToHash);
 

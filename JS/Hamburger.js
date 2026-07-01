@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   hamburger.addEventListener("click", (e) => {
     // CONTROLLA SE IL CLICK È SUL LOGO AVATAR
-    if (e.target.closest('.avatar-menu')) {
+    if (e.target.closest(".avatar-menu")) {
       // Se è il logo, non fare nulla - lascia che Animation.js gestisca
       return;
     }

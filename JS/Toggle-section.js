@@ -15,7 +15,11 @@ function openSectionFromHash() {
   const sectionId = hash.substring(1);
   const section = document.getElementById(sectionId);
 
-  if (section && section.classList.contains("curriculum-part") && typeof scrollToCurriculumPart === "function") {
+  if (
+    section &&
+    section.classList.contains("curriculum-part") &&
+    typeof scrollToCurriculumPart === "function"
+  ) {
     setTimeout(() => {
       scrollToCurriculumPart(sectionId);
     }, 400);

@@ -20,7 +20,6 @@ function generateCaptcha() {
   while (captchaArray.length < 8)
     captchaArray.push(allChars[Math.floor(Math.random() * allChars.length)]);
 
-
   // Mischiare i caratteri
   generatedCaptcha = captchaArray.sort(() => 0.5 - Math.random()).join("");
 
@@ -109,9 +108,12 @@ function addNoise(ctx, width, height) {
     ctx.beginPath();
     ctx.moveTo(Math.random() * width, Math.random() * height);
     ctx.bezierCurveTo(
-      Math.random() * width, Math.random() * height,
-      Math.random() * width, Math.random() * height,
-      Math.random() * width, Math.random() * height
+      Math.random() * width,
+      Math.random() * height,
+      Math.random() * width,
+      Math.random() * height,
+      Math.random() * width,
+      Math.random() * height,
     );
     ctx.stroke();
   }
@@ -181,7 +183,8 @@ function sendEmail(event) {
   event.preventDefault();
 
   const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"];
-  const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
+  const [name, surname, email, telefono, oggetto, message] =
+    fields.map(getInputValue);
   const captchaInput = getInputValue("captchaInput");
 
   // Validazione dei campi
@@ -205,7 +208,7 @@ function sendEmail(event) {
 
   // ✅ Pulisci i dati dal localStorage e dal form
   clearFormData();
-  fields.forEach(id => {
+  fields.forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
@@ -217,22 +220,21 @@ function sendEmail(event) {
   const subject = encodeURIComponent(oggetto);
   const body = encodeURIComponent(
     `Gentile Nicola Marano,\n\n` +
-    `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
-    `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
-    `Resto a disposizione per eventuali chiarimenti.\n` +
-    `Cordiali saluti,\n${name} ${surname}`
+      `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
+      `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
+      `Resto a disposizione per eventuali chiarimenti.\n` +
+      `Cordiali saluti,\n${name} ${surname}`,
   );
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
 }
-
 
 function drawCaptchaText(ctx, text, width, height) {
   const colors = ["#1e293b", "#374151", "#4338ca", "#7c3aed", "#dc2626"];
 
   // Calcola spaziatura più precisa per mobile
   const padding = 20; // Margini laterali
-  const availableWidth = width - (padding * 2);
+  const availableWidth = width - padding * 2;
   const charSpacing = availableWidth / (text.length + 1); // +1 per spaziatura uniforme
 
   for (let i = 0; i < text.length; i++) {
@@ -287,7 +289,7 @@ function drawCaptchaTextMobile(ctx, text, width, height) {
   }
 
   // Calcola spaziatura dinamica
-  const availableWidth = width - (padding * 2);
+  const availableWidth = width - padding * 2;
   const totalSpacingNeeded = availableWidth - totalCharWidth;
   const spaceBetweenChars = totalSpacingNeeded / (text.length - 1);
 
@@ -296,7 +298,7 @@ function drawCaptchaTextMobile(ctx, text, width, height) {
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
     const charWidth = charWidths[i];
-    const x = currentX + (charWidth / 2); // Centro del carattere
+    const x = currentX + charWidth / 2; // Centro del carattere
     const y = height / 2 + 5;
 
     // Rotazione molto leggera per mantenere leggibilità
@@ -333,11 +335,18 @@ const isValidPhone = (number) => /^\+?[0-9]{10,15}$/.test(number);
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 // === Auto-salvataggio dei dati ===
-const formFieldIds = ["name", "cognome", "email", "telefono", "oggetto", "message"];
+const formFieldIds = [
+  "name",
+  "cognome",
+  "email",
+  "telefono",
+  "oggetto",
+  "message",
+];
 
 function saveFormData() {
   const formData = {};
-  formFieldIds.forEach(id => {
+  formFieldIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el) formData[id] = el.value;
   });
@@ -348,7 +357,7 @@ function restoreFormData() {
   const saved = localStorage.getItem("formData");
   if (saved) {
     const data = JSON.parse(saved);
-    formFieldIds.forEach(id => {
+    formFieldIds.forEach((id) => {
       const el = document.getElementById(id);
       if (el && data[id] !== undefined) {
         el.value = data[id];
@@ -362,7 +371,7 @@ function clearFormData() {
 }
 
 function bindAutoSave() {
-  formFieldIds.forEach(id => {
+  formFieldIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.addEventListener("input", saveFormData);
   });
@@ -405,7 +414,8 @@ function sendEmail(event) {
   event.preventDefault();
 
   const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"];
-  const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
+  const [name, surname, email, telefono, oggetto, message] =
+    fields.map(getInputValue);
   const captchaInput = getInputValue("captchaInput");
 
   if (captchaInput.toUpperCase() !== generatedCaptcha.toUpperCase()) {
@@ -418,7 +428,7 @@ function sendEmail(event) {
 
   // ✅ Pulisci i dati dal localStorage e dal form
   clearFormData();
-  fields.forEach(id => {
+  fields.forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
@@ -430,10 +440,10 @@ function sendEmail(event) {
   const subject = encodeURIComponent(oggetto);
   const body = encodeURIComponent(
     `Gentile Nicola Marano,\n\n` +
-    `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
-    `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
-    `Resto a disposizione per eventuali chiarimenti.\n` +
-    `Cordiali saluti,\n${name} ${surname}`
+      `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
+      `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
+      `Resto a disposizione per eventuali chiarimenti.\n` +
+      `Cordiali saluti,\n${name} ${surname}`,
   );
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
@@ -486,13 +496,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (captchaInput) {
     captchaInput.addEventListener("input", validateCaptcha);
-    captchaInput.addEventListener("paste", e => e.preventDefault());
+    captchaInput.addEventListener("paste", (e) => e.preventDefault());
   }
 
   if (canvas) canvas.addEventListener("click", generateCaptcha);
   if (form) form.addEventListener("submit", sendEmail);
 });
-
 
 function bindPhoneInputRestriction() {
   const telefonoInput = document.getElementById("telefono");
@@ -530,25 +539,25 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (captchaInput) {
     captchaInput.addEventListener("input", validateCaptcha);
-    captchaInput.addEventListener("paste", e => e.preventDefault());
+    captchaInput.addEventListener("paste", (e) => e.preventDefault());
   }
 
   if (canvas) canvas.addEventListener("click", generateCaptcha);
   if (form) form.addEventListener("submit", sendEmail);
 });
 
-
 function sendEmail(event) {
   event.preventDefault();
 
   const fields = ["name", "cognome", "email", "telefono", "oggetto", "message"];
-  const [name, surname, email, telefono, oggetto, message] = fields.map(getInputValue);
+  const [name, surname, email, telefono, oggetto, message] =
+    fields.map(getInputValue);
   const captchaInput = getInputValue("captchaInput");
 
   let hasError = false;
 
   // Resetta errori visivi
-  fields.forEach(id => {
+  fields.forEach((id) => {
     const errorEl = document.getElementById(`error-${id}`);
     if (errorEl) errorEl.textContent = "";
   });
@@ -556,7 +565,7 @@ function sendEmail(event) {
   if (captchaError) captchaError.textContent = "";
 
   // ⚠️ Campi vuoti
-  fields.forEach(id => {
+  fields.forEach((id) => {
     const value = getInputValue(id);
     const errorEl = document.getElementById(`error-${id}`);
     if (!value) {
@@ -583,7 +592,8 @@ function sendEmail(event) {
   // ⚠️ Telefono non valido
   if (!isValidPhone(telefono)) {
     const errorEl = document.getElementById("error-telefono");
-    if (errorEl) errorEl.textContent = "Numero non valido (usa +39 e almeno 10 cifre).";
+    if (errorEl)
+      errorEl.textContent = "Numero non valido (usa +39 e almeno 10 cifre).";
     alert("Il numero di telefono non è valido.");
     generateCaptcha();
     return;
@@ -603,7 +613,7 @@ function sendEmail(event) {
 
   // ✅ Tutto corretto
   clearFormData();
-  fields.forEach(id => {
+  fields.forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.value = "";
   });
@@ -616,10 +626,10 @@ function sendEmail(event) {
   const subject = encodeURIComponent(oggetto);
   const body = encodeURIComponent(
     `Gentile Nicola Marano,\n\n` +
-    `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
-    `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
-    `Resto a disposizione per eventuali chiarimenti.\n` +
-    `Cordiali saluti,\n${name} ${surname}`
+      `Mi chiamo ${name} ${surname}, il mio indirizzo email è ${email}, e il mio numero di telefono è ${telefono}.\n\n` +
+      `Desidero contattarla per il seguente motivo:\n\n${message}\n\n` +
+      `Resto a disposizione per eventuali chiarimenti.\n` +
+      `Cordiali saluti,\n${name} ${surname}`,
   );
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
