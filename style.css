@@ -4679,6 +4679,9 @@ img {
 }
 
 /* Escludi il logo nell'header */
-header .logo img {
+header .logo,
+.avatar-menu,
+.loader-avatar,
+.logo {
   background-color: transparent !important;
 }
