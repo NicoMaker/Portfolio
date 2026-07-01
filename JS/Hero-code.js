@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     [
       { t: "tk-keyword", v: "const" },
       { t: "", v: " " },
-      { t: "tk-key", v: "nicolaMarano" },
+      { t: "tk-key", v: "NicolaMarano" },
       { t: "tk-punct", v: " = {" },
     ],
     [
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "tk-punct", v: ": [" },
       { t: "tk-string", v: "'JavaScript'" },
       { t: "tk-punct", v: ", " },
-      { t: "tk-string", v: "'React'" },
+      { t: "tk-string", v: "'HTML/CSS'" },
       { t: "tk-punct", v: ", " },
       { t: "tk-string", v: "'Node.js'" },
       { t: "tk-punct", v: "]," },
