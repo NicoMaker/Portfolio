@@ -3982,3 +3982,271 @@ footer {
     gap: 1.25rem !important;
   }
 }
+
+
+/* Barra di ricerca */
+.search-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.search-bar {
+  margin-bottom: 1.5rem;
+}
+
+.search-input-group {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.2rem 0.2rem 0.2rem 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input-group:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.search-input-group i {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  padding: 0.6rem 0.2rem;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.search-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-light);
+}
+
+.search-reset-btn i {
+  font-size: 1.2rem;
+}
+
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.no-results i {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--primary);
+}
+
+.no-results p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .search-input-group {
+    padding-left: 0.8rem;
+  }
+  .search-input {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.2rem;
+  }
+}
+
+/* Wrapper per ogni sezione con ricerca sticky */
+.section-search-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Barra di ricerca sticky – resta ancorata in alto durante lo scroll */
+.sticky-search {
+  position: sticky;
+  top: 80px; /* Altezza dell'header + piccolo offset */
+  z-index: 20;
+  background: var(--background);
+  padding: 0.8rem 0.4rem 0.6rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Per mobile, regola il top per l'header più compatto */
+@media (max-width: 768px) {
+  .sticky-search {
+    top: 70px;
+    padding: 0.6rem 0.2rem 0.4rem;
+  }
+}
+
+/* Stile dell'input group (come già fornito) */
+.search-input-group {
+  display: flex;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.2rem 0.2rem 0.2rem 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input-group:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.search-input-group i {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  padding: 0.6rem 0.2rem;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-reset-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.search-reset-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-light);
+}
+
+.search-reset-btn i {
+  font-size: 1.2rem;
+}
+
+/* Messaggio nessun risultato */
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.no-results i {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.8rem;
+  color: var(--primary);
+}
+
+.no-results p {
+  margin: 0;
+}
+
+/* Tutte le liste del curriculum in griglia a 2 colonne */
+.attestati-list,
+.linguistiche-list,
+.experience-list,
+.istruzione-list,
+.skills-container,
+.sites-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 2rem !important;
+}
+
+/* Su mobile: 1 colonna */
+@media (max-width: 640px) {
+  .attestati-list,
+  .linguistiche-list,
+  .experience-list,
+  .istruzione-list,
+  .skills-container,
+  .sites-list {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+#linguistiche .linguistiche-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+#linguistiche .linguistiche-list .card {
+  width: 100%; /* o auto, ma deve riempire la cella */
+  margin: 0;
+  height: auto;
+}
+
+@media (max-width: 640px) {
+  #linguistiche .linguistiche-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Sfondo bianco per TUTTE le immagini tranne il logo dell'header */
+img:not(.logo img) {
+  background-color: white;
+}
+
+/* Oppure, se vuoi essere più preciso: */
+img {
+  background-color: white;
+}
+
+/* Escludi il logo nell'header */
+header .logo img {
+  background-color: transparent !important;
+}

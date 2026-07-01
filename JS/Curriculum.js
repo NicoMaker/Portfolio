@@ -443,7 +443,7 @@ function getAttestatoEnte(attestato) {
 }
 
 /**
- * Render attestati section – no filters, just cards.
+ * Render attestati section – con barra di ricerca sticky
  */
 function renderAttestati(attestati) {
   if (!attestati || !Array.isArray(attestati) || !DOM.sections.attestati) {
@@ -451,11 +451,62 @@ function renderAttestati(attestati) {
     return
   }
 
+  // Pulisci il container
   DOM.sections.attestati.innerHTML = ""
 
+  // Crea un wrapper per la sezione (contenitore relativo per lo sticky)
+  const sectionWrapper = document.createElement("div")
+  sectionWrapper.className = "section-search-wrapper"
+
+  // Barra di ricerca sticky
+  const searchBar = document.createElement("div")
+  searchBar.className = "search-bar sticky-search"
+  searchBar.innerHTML = `
+    <div class="search-input-group">
+      <i class='bx bx-search'></i>
+      <input type="search" class="search-input" placeholder="Cerca attestato (titolo, ente, descrizione...)">
+      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
+    </div>
+  `
+  sectionWrapper.appendChild(searchBar)
+
+  // Contenitore per le card
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "attestati-list"
+  sectionWrapper.appendChild(cardsContainer)
 
+  // Aggiungi tutto al container della sezione
+  DOM.sections.attestati.appendChild(sectionWrapper)
+
+  const searchInput = searchBar.querySelector(".search-input")
+  const resetBtn = searchBar.querySelector(".search-reset-btn")
+
+  // Funzione di filtraggio
+  function filterAttestati() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = cardsContainer.querySelectorAll(".card")
+
+    cards.forEach((card) => {
+      const text = card.textContent.toLowerCase()
+      card.style.display = text.includes(query) ? "" : "none"
+    })
+
+    // Mostra/nascondi messaggio "nessun risultato"
+    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
+    const noResultMsg = cardsContainer.querySelector(".no-results")
+    if (visibleCards.length === cards.length && cards.length > 0) {
+      if (!noResultMsg) {
+        const msg = document.createElement("div")
+        msg.className = "no-results"
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun attestato trovato per "${query}".</p>`
+        cardsContainer.appendChild(msg)
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove()
+    }
+  }
+
+  // Renderizza le card
   attestati.forEach((attestato, index) => {
     const card = document.createElement("div")
     card.className = "card"
@@ -486,7 +537,13 @@ function renderAttestati(attestati) {
     cardsContainer.appendChild(card)
   })
 
-  DOM.sections.attestati.appendChild(cardsContainer)
+  // Event listener per la ricerca
+  searchInput.addEventListener("input", filterAttestati)
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = ""
+    filterAttestati()
+    searchInput.focus()
+  })
 }
 
 /**
@@ -527,7 +584,7 @@ function createLevelIndicator(level) {
 }
 
 /**
- * Render linguistiche section – no filters, just cards.
+ * Render linguistiche section – con barra di ricerca sticky
  */
 function renderLinguistiche(linguistiche) {
   if (!linguistiche || !Array.isArray(linguistiche) || !DOM.sections.linguistiche) {
@@ -537,8 +594,51 @@ function renderLinguistiche(linguistiche) {
 
   DOM.sections.linguistiche.innerHTML = ""
 
+  const sectionWrapper = document.createElement("div")
+  sectionWrapper.className = "section-search-wrapper"
+
+  const searchBar = document.createElement("div")
+  searchBar.className = "search-bar sticky-search"
+  searchBar.innerHTML = `
+    <div class="search-input-group">
+      <i class='bx bx-search'></i>
+      <input type="search" class="search-input" placeholder="Cerca lingua o livello (es. inglese, B2...)">
+      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
+    </div>
+  `
+  sectionWrapper.appendChild(searchBar)
+
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "linguistiche-list"
+  sectionWrapper.appendChild(cardsContainer)
+
+  DOM.sections.linguistiche.appendChild(sectionWrapper)
+
+  const searchInput = searchBar.querySelector(".search-input")
+  const resetBtn = searchBar.querySelector(".search-reset-btn")
+
+  function filterLinguistiche() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = cardsContainer.querySelectorAll(".card")
+
+    cards.forEach((card) => {
+      const text = card.textContent.toLowerCase()
+      card.style.display = text.includes(query) ? "" : "none"
+    })
+
+    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
+    const noResultMsg = cardsContainer.querySelector(".no-results")
+    if (visibleCards.length === cards.length && cards.length > 0) {
+      if (!noResultMsg) {
+        const msg = document.createElement("div")
+        msg.className = "no-results"
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna lingua trovata per "${query}".</p>`
+        cardsContainer.appendChild(msg)
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove()
+    }
+  }
 
   linguistiche.forEach((lingua, index) => {
     const card = document.createElement("div")
@@ -550,6 +650,8 @@ function renderLinguistiche(linguistiche) {
     const imgSrc = lingua.immagine || "/placeholder.svg?height=100&width=100"
 
     card.innerHTML = `
+    <br>
+        <br>
       <div class="language-flag">
         <img src="${imgSrc}" alt="Bandiera ${lingua.lingua}" onerror="this.src='/placeholder.svg?height=100&width=100'; this.onerror=null;" />
       </div>
@@ -561,11 +663,16 @@ function renderLinguistiche(linguistiche) {
     cardsContainer.appendChild(card)
   })
 
-  DOM.sections.linguistiche.appendChild(cardsContainer)
+  searchInput.addEventListener("input", filterLinguistiche)
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = ""
+    filterLinguistiche()
+    searchInput.focus()
+  })
 }
 
 /**
- * Render esperienze section – no filters, just cards.
+ * Render esperienze section – con barra di ricerca sticky
  */
 function renderEsperienze(esperienze) {
   if (!esperienze || !Array.isArray(esperienze) || !DOM.sections.esperienze) {
@@ -575,8 +682,51 @@ function renderEsperienze(esperienze) {
 
   DOM.sections.esperienze.innerHTML = ""
 
+  const sectionWrapper = document.createElement("div")
+  sectionWrapper.className = "section-search-wrapper"
+
+  const searchBar = document.createElement("div")
+  searchBar.className = "search-bar sticky-search"
+  searchBar.innerHTML = `
+    <div class="search-input-group">
+      <i class='bx bx-search'></i>
+      <input type="search" class="search-input" placeholder="Cerca azienda, ruolo, luogo, attività...">
+      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
+    </div>
+  `
+  sectionWrapper.appendChild(searchBar)
+
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "experience-list"
+  sectionWrapper.appendChild(cardsContainer)
+
+  DOM.sections.esperienze.appendChild(sectionWrapper)
+
+  const searchInput = searchBar.querySelector(".search-input")
+  const resetBtn = searchBar.querySelector(".search-reset-btn")
+
+  function filterEsperienze() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = cardsContainer.querySelectorAll(".card")
+
+    cards.forEach((card) => {
+      const text = card.textContent.toLowerCase()
+      card.style.display = text.includes(query) ? "" : "none"
+    })
+
+    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
+    const noResultMsg = cardsContainer.querySelector(".no-results")
+    if (visibleCards.length === cards.length && cards.length > 0) {
+      if (!noResultMsg) {
+        const msg = document.createElement("div")
+        msg.className = "no-results"
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna esperienza trovata per "${query}".</p>`
+        cardsContainer.appendChild(msg)
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove()
+    }
+  }
 
   esperienze.forEach((esperienza, index) => {
     const card = document.createElement("div")
@@ -608,11 +758,16 @@ function renderEsperienze(esperienze) {
     cardsContainer.appendChild(card)
   })
 
-  DOM.sections.esperienze.appendChild(cardsContainer)
+  searchInput.addEventListener("input", filterEsperienze)
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = ""
+    filterEsperienze()
+    searchInput.focus()
+  })
 }
 
 /**
- * Render istruzione section – no filters, just cards.
+ * Render istruzione section – con barra di ricerca sticky
  */
 function renderIstruzione(istruzione) {
   if (!istruzione || !Array.isArray(istruzione) || !DOM.sections.istruzione) {
@@ -622,8 +777,51 @@ function renderIstruzione(istruzione) {
 
   DOM.sections.istruzione.innerHTML = ""
 
+  const sectionWrapper = document.createElement("div")
+  sectionWrapper.className = "section-search-wrapper"
+
+  const searchBar = document.createElement("div")
+  searchBar.className = "search-bar sticky-search"
+  searchBar.innerHTML = `
+    <div class="search-input-group">
+      <i class='bx bx-search'></i>
+      <input type="search" class="search-input" placeholder="Cerca titolo, istituto, livello, luogo...">
+      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
+    </div>
+  `
+  sectionWrapper.appendChild(searchBar)
+
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "istruzione-list"
+  sectionWrapper.appendChild(cardsContainer)
+
+  DOM.sections.istruzione.appendChild(sectionWrapper)
+
+  const searchInput = searchBar.querySelector(".search-input")
+  const resetBtn = searchBar.querySelector(".search-reset-btn")
+
+  function filterIstruzione() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = cardsContainer.querySelectorAll(".card")
+
+    cards.forEach((card) => {
+      const text = card.textContent.toLowerCase()
+      card.style.display = text.includes(query) ? "" : "none"
+    })
+
+    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
+    const noResultMsg = cardsContainer.querySelector(".no-results")
+    if (visibleCards.length === cards.length && cards.length > 0) {
+      if (!noResultMsg) {
+        const msg = document.createElement("div")
+        msg.className = "no-results"
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna esperienza formativa trovata per "${query}".</p>`
+        cardsContainer.appendChild(msg)
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove()
+    }
+  }
 
   istruzione.forEach((item, index) => {
     const card = document.createElement("div")
@@ -664,7 +862,12 @@ function renderIstruzione(istruzione) {
     cardsContainer.appendChild(card)
   })
 
-  DOM.sections.istruzione.appendChild(cardsContainer)
+  searchInput.addEventListener("input", filterIstruzione)
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = ""
+    filterIstruzione()
+    searchInput.focus()
+  })
 }
 
 /**
@@ -684,7 +887,7 @@ function getSkillCategoryLabel(skill) {
 }
 
 /**
- * Render competenze section – no filters, just cards.
+ * Render competenze section – con barra di ricerca sticky
  */
 function renderCompetenze(competenze) {
   if (!competenze || !Array.isArray(competenze) || !DOM.sections.competenze) {
@@ -694,10 +897,53 @@ function renderCompetenze(competenze) {
 
   DOM.sections.competenze.innerHTML = ""
 
+  const sectionWrapper = document.createElement("div")
+  sectionWrapper.className = "section-search-wrapper"
+
+  const searchBar = document.createElement("div")
+  searchBar.className = "search-bar sticky-search"
+  searchBar.innerHTML = `
+    <div class="search-input-group">
+      <i class='bx bx-search'></i>
+      <input type="search" class="search-input" placeholder="Cerca competenza (nome, categoria, descrizione...)">
+      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
+    </div>
+  `
+  sectionWrapper.appendChild(searchBar)
+
   const skillsContainer = document.createElement("div")
   skillsContainer.className = "skills-container"
+  sectionWrapper.appendChild(skillsContainer)
 
-  // Ordina alfabeticamente per nome
+  DOM.sections.competenze.appendChild(sectionWrapper)
+
+  const searchInput = searchBar.querySelector(".search-input")
+  const resetBtn = searchBar.querySelector(".search-reset-btn")
+
+  function filterCompetenze() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = skillsContainer.querySelectorAll(".card")
+
+    cards.forEach((card) => {
+      const text = card.textContent.toLowerCase()
+      card.style.display = text.includes(query) ? "" : "none"
+    })
+
+    const visibleCards = skillsContainer.querySelectorAll(".card[style*='display: none']")
+    const noResultMsg = skillsContainer.querySelector(".no-results")
+    if (visibleCards.length === cards.length && cards.length > 0) {
+      if (!noResultMsg) {
+        const msg = document.createElement("div")
+        msg.className = "no-results"
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessuna competenza trovata per "${query}".</p>`
+        skillsContainer.appendChild(msg)
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove()
+    }
+  }
+
+  // Ordina alfabeticamente
   const sorted = [...competenze].sort((a, b) => (a.nome || "").localeCompare(b.nome || "", 'it'))
 
   sorted.forEach((skill, index) => {
@@ -727,9 +973,15 @@ function renderCompetenze(competenze) {
     skillsContainer.appendChild(card)
   })
 
-  DOM.sections.competenze.appendChild(skillsContainer)
-
+  // Inizializza le barre di progresso dopo il rendering
   setTimeout(() => initializeSkillAnimations(), 300)
+
+  searchInput.addEventListener("input", filterCompetenze)
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = ""
+    filterCompetenze()
+    searchInput.focus()
+  })
 }
 
 /**
@@ -753,7 +1005,7 @@ function generateProjectTags() {
 }
 
 /**
- * Render siti web section – no filters, just cards.
+ * Render siti web section – con barra di ricerca sticky
  */
 function renderWebSite(sites) {
   if (!sites || !Array.isArray(sites) || !DOM.sections.sites) {
@@ -764,8 +1016,51 @@ function renderWebSite(sites) {
   DOM.sections.sites.innerHTML = ""
   DOM.sections.sites.className = "card-container sites-list"
 
+  const sectionWrapper = document.createElement("div")
+  sectionWrapper.className = "section-search-wrapper"
+
+  const searchBar = document.createElement("div")
+  searchBar.className = "search-bar sticky-search"
+  searchBar.innerHTML = `
+    <div class="search-input-group">
+      <i class='bx bx-search'></i>
+      <input type="search" class="search-input" placeholder="Cerca sito (nome, link, codice...)">
+      <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
+    </div>
+  `
+  sectionWrapper.appendChild(searchBar)
+
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "sites-list"
+  sectionWrapper.appendChild(cardsContainer)
+
+  DOM.sections.sites.appendChild(sectionWrapper)
+
+  const searchInput = searchBar.querySelector(".search-input")
+  const resetBtn = searchBar.querySelector(".search-reset-btn")
+
+  function filterSites() {
+    const query = searchInput.value.trim().toLowerCase()
+    const cards = cardsContainer.querySelectorAll(".card")
+
+    cards.forEach((card) => {
+      const text = card.textContent.toLowerCase()
+      card.style.display = text.includes(query) ? "" : "none"
+    })
+
+    const visibleCards = cardsContainer.querySelectorAll(".card[style*='display: none']")
+    const noResultMsg = cardsContainer.querySelector(".no-results")
+    if (visibleCards.length === cards.length && cards.length > 0) {
+      if (!noResultMsg) {
+        const msg = document.createElement("div")
+        msg.className = "no-results"
+        msg.innerHTML = `<i class='bx bx-info-circle'></i><p>Nessun sito trovato per "${query}".</p>`
+        cardsContainer.appendChild(msg)
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove()
+    }
+  }
 
   sites.forEach((site, index) => {
     const card = document.createElement("div")
@@ -798,7 +1093,12 @@ function renderWebSite(sites) {
     cardsContainer.appendChild(card)
   })
 
-  DOM.sections.sites.appendChild(cardsContainer)
+  searchInput.addEventListener("input", filterSites)
+  resetBtn.addEventListener("click", () => {
+    searchInput.value = ""
+    filterSites()
+    searchInput.focus()
+  })
 }
 
 /**
