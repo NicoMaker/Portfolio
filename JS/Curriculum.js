@@ -523,6 +523,12 @@ function renderAllSections() {
  * Extract the issuing entity from an attestato description.
  */
 function getAttestatoEnte(attestato) {
+  // Se esiste il campo "ente", usalo direttamente
+  if (attestato?.ente && typeof attestato.ente === "string") {
+    return attestato.ente.trim();
+  }
+
+  // Fallback: se manca "ente", prova a estrarlo dalla descrizione (come prima)
   const plainText = String(attestato?.descrizione || "")
     .replace(/<br\s*\/?>/gi, " ")
     .replace(/<[^>]+>/g, " ")
@@ -530,8 +536,9 @@ function getAttestatoEnte(attestato) {
     .trim();
 
   const match = plainText.match(
-    /Rilasciat[oa]\s+(?:da|dall['’]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i,
+    /Rilasciat[oa]\s+(?:da|dall['’‘ʼ]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i
   );
+
   if (match && match[1]) {
     return match[1].trim();
   }
