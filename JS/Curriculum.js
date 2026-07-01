@@ -571,6 +571,8 @@ function renderAttestati(attestati) {
       <input type="search" class="search-input" placeholder="Cerca attestato (titolo, ente, descrizione...)">
       <button class="search-reset-btn" type="button"><i class='bx bx-x'></i></button>
     </div>
+    <br>
+    <br>
   `;
   sectionWrapper.appendChild(searchBar);
 
