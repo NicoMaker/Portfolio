@@ -326,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".reveal-right").classList.add("active")
 
     // Add animation delay to cards
-    const sections = document.querySelectorAll(".section")
+    const sections = document.querySelectorAll(".curriculum-part")
     sections.forEach((section, sectionIndex) => {
       const cards = section.querySelectorAll(".card")
       cards.forEach((card, cardIndex) => {

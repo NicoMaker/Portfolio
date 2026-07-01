@@ -8,8 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
     sections.forEach((section) => {
       const sectionTop = section.offsetTop,
         sectionHeight = section.clientHeight;
-      if (window.scrollY >= sectionTop - sectionHeight / 3)
-        currentSection = section.getAttribute("id");
+      if (window.scrollY >= sectionTop - sectionHeight / 3) {
+        // Le sezioni Attestati/Istruzione/Competenze... fanno tutte parte
+        // logicamente del "Curriculum" per evidenziare il link giusto nel menu.
+        currentSection = section.classList.contains("curriculum-part") ? "curriculum" : section.getAttribute("id");
+      }
     });
 
     navLinks.forEach((link) => {

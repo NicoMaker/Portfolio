@@ -485,11 +485,18 @@ h1 {
   }
 }
 
-/* Curriculum */
-#curriculum {
-  padding: 6rem 0;
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.curriculum-part {
+  padding: 4rem 0 3rem;
   background-color: var(--background);
   position: relative;
+  scroll-margin-top: 100px;
+}
+
+.curriculum-anchor {
+  scroll-margin-top: 100px;
 }
 
 .section {
@@ -2291,7 +2298,7 @@ section {
 /* Mobile optimizations for curriculum section */
 @media (max-width: 768px) {
   /* Center curriculum title */
-  #curriculum .section-title {
+  .curriculum-part .section-title {
     text-align: center !important;
     width: 100% !important;
     left: auto !important;
@@ -2400,7 +2407,7 @@ section {
   }
 
   /* Centra il titolo del curriculum */
-  #curriculum .section-title {
+  .curriculum-part .section-title {
     text-align: center !important;
     width: 100% !important;
     left: auto !important;
@@ -2655,7 +2662,7 @@ section {
   }
 
   /* Centra il titolo del curriculum */
-  #curriculum .section-title {
+  .curriculum-part .section-title {
     text-align: center !important;
     width: 100% !important;
     left: auto !important;
@@ -2908,17 +2915,17 @@ section {
 
 /* Curriculum mobile fix: filtri e input sempre visibili */
 @media (max-width: 768px) {
-  #curriculum .card-container {
+  .curriculum-part .card-container {
     height: auto !important;
     max-height: none !important;
     overflow: visible !important;
   }
 
-  #curriculum .section {
+  .curriculum-part .section {
     margin-bottom: 1.4rem;
   }
 
-  #curriculum .section h3 {
+  .curriculum-part .section h3 {
     width: 100%;
     padding: 0.9rem 1rem;
     font-size: 1rem;
@@ -2928,18 +2935,18 @@ section {
     word-break: break-word;
   }
 
-  #curriculum .section h3 i {
+  .curriculum-part .section h3 i {
     font-size: 1.2rem;
     flex-shrink: 0;
   }
 
-  #curriculum .toggle-icon {
+  .curriculum-part .toggle-icon {
     font-size: 1rem;
     margin-left: auto;
     flex-shrink: 0;
   }
 
-  #curriculum .skills-sticky-controls {
+  .curriculum-part .skills-sticky-controls {
     position: static !important;
     display: flex;
     flex-direction: column;
@@ -2949,7 +2956,7 @@ section {
     width: 100%;
   }
 
-  #curriculum .year-filter-bar {
+  .curriculum-part .year-filter-bar {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -2959,7 +2966,7 @@ section {
     padding: 0.6rem;
   }
 
-  #curriculum .year-filter-bar label {
+  .curriculum-part .year-filter-bar label {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -2967,13 +2974,13 @@ section {
     gap: 0.35rem;
   }
 
-  #curriculum .year-filter-bar .year-input {
+  .curriculum-part .year-filter-bar .year-input {
     width: 100% !important;
     max-width: 100% !important;
   }
 
-  #curriculum .year-filter-bar .year-ok-btn,
-  #curriculum .year-filter-bar .year-reset-btn {
+  .curriculum-part .year-filter-bar .year-ok-btn,
+  .curriculum-part .year-filter-bar .year-reset-btn {
     width: 100%;
     min-height: 42px;
     display: inline-flex;
@@ -2981,7 +2988,7 @@ section {
     justify-content: center;
   }
 
-  #curriculum .skills-tabs {
+  .curriculum-part .skills-tabs {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2991,7 +2998,7 @@ section {
     margin: 0;
   }
 
-  #curriculum .skill-tab {
+  .curriculum-part .skill-tab {
     width: 100% !important;
     min-width: 0;
     min-height: 44px;
@@ -3003,69 +3010,69 @@ section {
     word-break: break-word;
   }
 
-  #curriculum .card {
+  .curriculum-part .card {
     width: 100% !important;
     margin-bottom: 1rem;
     padding: 1rem;
   }
 
-  #curriculum .card h4 {
+  .curriculum-part .card h4 {
     font-size: 1.05rem;
     margin-bottom: 0.7rem;
   }
 
-  #curriculum .card p,
-  #curriculum .card li,
-  #curriculum .portfolio-tag {
+  .curriculum-part .card p,
+  .curriculum-part .card li,
+  .curriculum-part .portfolio-tag {
     font-size: 0.92rem;
     line-height: 1.5;
   }
 
-  #curriculum .experience-header,
-  #curriculum .istruzione-header {
+  .curriculum-part .experience-header,
+  .curriculum-part .istruzione-header {
     align-items: flex-start;
     gap: 0.7rem;
   }
 
-  #curriculum .company-logo,
-  #curriculum .istituto-logo {
+  .curriculum-part .company-logo,
+  .curriculum-part .istituto-logo {
     width: 72px;
     height: 72px;
     flex-shrink: 0;
   }
 
-  #curriculum .testo,
-  #curriculum .go-live-btn,
-  #curriculum .view-code-btn {
+  .curriculum-part .testo,
+  .curriculum-part .go-live-btn,
+  .curriculum-part .view-code-btn {
     width: 100%;
   }
 
-  #curriculum,
-  #curriculum .section,
-  #curriculum .card-container {
+  .curriculum-part,
+  .curriculum-part .section,
+  .curriculum-part .card-container {
     overflow-x: hidden !important;
   }
 }
 
 @media (max-width: 480px) {
-  #curriculum .section h3 {
+  .curriculum-part .section h3 {
     font-size: 0.95rem;
     padding: 0.85rem 0.9rem;
   }
 
-  #curriculum .skills-tabs {
+  .curriculum-part .skills-tabs {
     grid-template-columns: 1fr;
   }
 
-  #curriculum .skill-tab {
+  .curriculum-part .skill-tab {
     width: 100%;
   }
 
-  #curriculum .year-filter-bar {
+  .curriculum-part .year-filter-bar {
     padding: 0.5rem;
   }
 
-  #curriculum .card {
+  .curriculum-part .card {
     padding: 0.9rem;
   }
 }
@@ -3382,7 +3389,7 @@ h1.glitch {
 }
 
 /* --- Curriculum --- */
-#curriculum { background-color: var(--background); }
+.curriculum-part { background-color: var(--background); }
 
 .section-title { color: var(--text-light); }
 .section-title::before { content: ""; }
@@ -3687,6 +3694,12 @@ footer {
    riferimento, riadattata alla palette scura del sito.
    ========================================================================= */
 
+.curriculum-nav-section {
+  padding: 2rem 0 0;
+  background-color: var(--background);
+  position: relative;
+}
+
 .curriculum-quicknav {
   display: flex;
   flex-wrap: wrap;
@@ -3726,40 +3739,11 @@ footer {
   box-shadow: var(--shadow-md);
 }
 
-/* Ogni bottone ha la propria sezione dedicata: le schede (tab) sono
-   mostrate una alla volta. Solo quella attiva è visibile. */
-#curriculum .curr-block {
-  display: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-
-#curriculum .curr-block.active-tab {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#curriculum .curr-block h3 {
-  cursor: default;
-  justify-content: center;
-  text-align: center;
-  font-size: 1.4rem;
-  letter-spacing: 0.02em;
-}
-
-#curriculum .curr-block h3:hover {
-  transform: none;
-  box-shadow: var(--shadow-sm);
-}
-
-#curriculum .curr-block h3::before { display: none; }
-
-/* Le card sono sempre visibili: niente più display:none / max-height
-   gestiti dal vecchio script dell'accordion. */
-#curriculum .curr-block .card-container {
-  display: flex !important;
+/* Ogni parte del curriculum è ora una sezione reale e indipendente,
+   sempre visibile (niente più schede/tab che si nascondono a vicenda). */
+.curriculum-part .card-container {
+  display: flex;
+  flex-wrap: wrap;
   opacity: 1;
   transform: translateY(0);
   max-height: none;
@@ -3847,7 +3831,7 @@ footer {
 
 :root { --header-h: 84px; }
 
-#curriculum .skills-sticky-controls {
+.curriculum-part .skills-sticky-controls {
   position: sticky;
   top: var(--header-h);
   z-index: 15;
@@ -3865,9 +3849,9 @@ footer {
 
 /* Gli elementi dentro la barra fissa non devono essere sticky anche loro:
    si limitano a impilarsi dentro il wrapper già fisso. */
-#curriculum .skills-sticky-controls .skills-tabs,
-#curriculum .skills-sticky-controls .year-filter-bar,
-#curriculum .skills-sticky-controls .skills-select-wrap {
+.curriculum-part .skills-sticky-controls .skills-tabs,
+.curriculum-part .skills-sticky-controls .year-filter-bar,
+.curriculum-part .skills-sticky-controls .skills-select-wrap {
   position: static;
   top: auto;
   z-index: auto;
@@ -3928,7 +3912,7 @@ footer {
 }
 
 @media (max-width: 768px) {
-  #curriculum .skills-sticky-controls {
+  .curriculum-part .skills-sticky-controls {
     top: calc(var(--header-h) - 10px);
     padding: 0.7rem 0.6rem;
     gap: 0.55rem;
@@ -3943,12 +3927,12 @@ footer {
    di card, responsive, senza riquadri con scroll interno: ogni
    sezione ha lo stesso identico stile e comportamento.
    ============================================================ */
-#curriculum .attestati-list,
-#curriculum .linguistiche-list,
-#curriculum .experience-list,
-#curriculum .istruzione-list,
-#curriculum .skills-container,
-#curriculum .sites-list {
+.curriculum-part .attestati-list,
+.curriculum-part .linguistiche-list,
+.curriculum-part .experience-list,
+.curriculum-part .istruzione-list,
+.curriculum-part .skills-container,
+.curriculum-part .sites-list {
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
   align-items: start !important;
@@ -3961,13 +3945,13 @@ footer {
   padding-bottom: 0 !important;
 }
 
-#curriculum .attestati-list .card,
-#curriculum .linguistiche-list .card,
-#curriculum .experience-list .card,
-#curriculum .istruzione-list .card,
-#curriculum .skills-container .card,
-#curriculum .sites-list .card,
-#curriculum .sites-list .portfolio-card {
+.curriculum-part .attestati-list .card,
+.curriculum-part .linguistiche-list .card,
+.curriculum-part .experience-list .card,
+.curriculum-part .istruzione-list .card,
+.curriculum-part .skills-container .card,
+.curriculum-part .sites-list .card,
+.curriculum-part .sites-list .portfolio-card {
   width: 100% !important;
   height: 100%;
   margin: 0 !important;
@@ -3976,24 +3960,24 @@ footer {
 
 /* Su tablet: due colonne per tutte le sezioni */
 @media (max-width: 900px) {
-  #curriculum .attestati-list,
-  #curriculum .linguistiche-list,
-  #curriculum .experience-list,
-  #curriculum .istruzione-list,
-  #curriculum .skills-container,
-  #curriculum .sites-list {
+  .curriculum-part .attestati-list,
+  .curriculum-part .linguistiche-list,
+  .curriculum-part .experience-list,
+  .curriculum-part .istruzione-list,
+  .curriculum-part .skills-container,
+  .curriculum-part .sites-list {
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
   }
 }
 
 /* Su mobile: una sola colonna per tutte le sezioni, stesso stile */
 @media (max-width: 640px) {
-  #curriculum .attestati-list,
-  #curriculum .linguistiche-list,
-  #curriculum .experience-list,
-  #curriculum .istruzione-list,
-  #curriculum .skills-container,
-  #curriculum .sites-list {
+  .curriculum-part .attestati-list,
+  .curriculum-part .linguistiche-list,
+  .curriculum-part .experience-list,
+  .curriculum-part .istruzione-list,
+  .curriculum-part .skills-container,
+  .curriculum-part .sites-list {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
   }

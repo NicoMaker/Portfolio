@@ -1,24 +1,23 @@
-// Le sezioni del curriculum sono schede (tab): un solo bottone alla volta è
-// attivo e mostra il proprio contenuto, tutti gli altri sono nascosti.
-// Questo file gestisce solo l'apertura della scheda giusta quando si arriva
-// da un link con hash (es. index.html#istruzione).
+// Ogni parte del curriculum (Attestati, Istruzione, Competenze...) è ora
+// una sezione reale e indipendente, sempre visibile. Questo file gestisce
+// solo lo scorrimento fino alla sezione giusta quando si arriva da un
+// link con hash (es. index.html#istruzione), tenendo conto dell'header
+// fisso in alto.
 document.addEventListener("DOMContentLoaded", () => {
   openSectionFromHash();
   window.addEventListener("hashchange", openSectionFromHash);
 });
 
-// Se l'URL contiene un hash che corrisponde a una parte del curriculum,
-// apri quella scheda (le altre sezioni restano chiuse).
 function openSectionFromHash() {
   const hash = window.location.hash;
-  if (hash && hash.startsWith("#")) {
-    const sectionId = hash.substring(1);
-    const section = document.getElementById(sectionId);
+  if (!hash || !hash.startsWith("#")) return;
 
-    if (section && section.classList.contains("curr-block") && typeof activateCurrTab === "function") {
-      setTimeout(() => {
-        activateCurrTab(sectionId);
-      }, 400);
-    }
+  const sectionId = hash.substring(1);
+  const section = document.getElementById(sectionId);
+
+  if (section && section.classList.contains("curriculum-part") && typeof scrollToCurriculumPart === "function") {
+    setTimeout(() => {
+      scrollToCurriculumPart(sectionId);
+    }, 400);
   }
 }

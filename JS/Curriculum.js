@@ -46,7 +46,6 @@ const CONFIG = {
   fallbackJsonPath: "JSON/Curriculum.json", // Fallback in case of typo in filename
   animationDuration: 500,
   animationDelay: 100,
-  defaultOpenSection: 2, // Index of section to open by default (2 = Esperienze Lavorative)
   debugMode: true,
   // Mobile configuration
   mobileBreakpoint: 768,
@@ -113,14 +112,13 @@ function handleResize() {
  * Apply mobile-specific styles
  */
 function applyMobileStyles() {
-  // Center curriculum title on mobile
-  const sectionTitle = document.querySelector("#curriculum .section-title")
-  if (sectionTitle) {
+  // Center curriculum titles on mobile (una per ogni sezione ora indipendente)
+  document.querySelectorAll(".curriculum-part .section-title").forEach((sectionTitle) => {
     sectionTitle.style.textAlign = "center"
     sectionTitle.style.width = "100%"
     sectionTitle.style.left = "auto"
     sectionTitle.style.transform = "none"
-  }
+  })
 
   // Remove scrollable containers if configured
   if (CONFIG.removeScrollableContainers) {
@@ -148,13 +146,12 @@ function applyMobileStyles() {
  */
 function removeMobileStyles() {
   // Restore curriculum title styles
-  const sectionTitle = document.querySelector("#curriculum .section-title")
-  if (sectionTitle) {
+  document.querySelectorAll(".curriculum-part .section-title").forEach((sectionTitle) => {
     sectionTitle.style.textAlign = ""
     sectionTitle.style.width = ""
     sectionTitle.style.left = ""
     sectionTitle.style.transform = ""
-  }
+  })
 
   // Restore scrollable containers if they were removed
   if (CONFIG.removeScrollableContainers) {
@@ -178,18 +175,16 @@ function removeMobileStyles() {
 }
 
 /**
- * Initialize the section structure in the DOM
+ * Initialize the section structure in the DOM.
+ *
+ * Ogni parte del curriculum (Attestati, Istruzione, Competenze...) è ora
+ * una <section> reale e indipendente della pagina, sempre visibile: non
+ * più schede (tab) che si nascondono a vicenda dentro un unico blocco
+ * "Curriculum". Questa funzione si limita a collegare i riferimenti alle
+ * sezioni già presenti nell'HTML e a costruire la barra di navigazione
+ * rapida (i pulsanti in alto) che scorre fino alla sezione scelta.
  */
 function initializeSections() {
-  const sectionContainer = document.getElementById("sectiion")
-  if (!sectionContainer) {
-    console.error("Curriculum.js: Section container 'sectiion' not found!")
-    return
-  }
-
-  // Ogni bottone corrisponde alla propria sezione dedicata: cliccando un
-  // bottone si vede SOLO quel contenuto (tab), non tutte le sezioni
-  // impilate una sotto l'altra.
   const parts = [
     { id: "attestati", icon: "bx-medal", label: "Attestati" },
     { id: "linguistiche", icon: "bx-globe", label: "Competenze Linguistiche" },
@@ -205,8 +200,8 @@ function initializeSections() {
   if (quickNav) {
     quickNav.innerHTML = parts
       .map(
-        (part, index) =>
-          `<button type="button" class="curr-nav-pill${index === 0 ? " active" : ""}" data-target="${part.id}">
+        (part) =>
+          `<button type="button" class="curr-nav-pill" data-target="${part.id}">
             <i class='bx ${part.icon}'></i><span>${part.label}</span>
           </button>`
       )
@@ -214,67 +209,65 @@ function initializeSections() {
 
     quickNav.querySelectorAll(".curr-nav-pill").forEach((pill) => {
       pill.addEventListener("click", () => {
-        activateCurrTab(pill.dataset.target)
+        scrollToCurriculumPart(pill.dataset.target)
       })
     })
   }
 
-  sectionContainer.innerHTML = parts
-    .map(
-      (part, index) => `
-    <div id="${part.id}" class="section curr-block${index === 0 ? " active-tab" : ""}">
-      <h3><i class='bx ${part.icon}'></i> ${part.label}</h3>
-      <div class="card-container">
-      </div>
-    </div>`
-    )
-    .join("")
+  // Ogni parte è già presente nell'HTML come <section id="..."> con dentro
+  // un <div class="card-container">: qui recuperiamo solo i riferimenti.
+  DOM.sections = {}
+  parts.forEach((part) => {
+    DOM.sections[part.id] = document.querySelector(`#${part.id} .card-container`)
+  })
 
-  // Cache DOM elements for later use
-  DOM.sections = {
-    attestati: document.querySelector("#attestati .card-container"),
-    linguistiche: document.querySelector("#linguistiche .card-container"),
-    esperienze: document.querySelector("#esperienze .card-container"),
-    istruzione: document.querySelector("#istruzione .card-container"),
-    competenze: document.querySelector("#competenze .card-container"),
-    sites: document.querySelector("#sites .card-container"),
-  }
+  setupQuickNavScrollSpy(parts)
 }
 
 /**
- * Attiva la scheda (tab) del curriculum corrispondente a targetId:
- * mostra solo quella sezione e nasconde tutte le altre, aggiornando
- * anche lo stato attivo dei bottoni di navigazione.
+ * Scorre in modo fluido fino alla sezione del curriculum indicata,
+ * tenendo conto dell'altezza dell'header fisso.
  */
-function activateCurrTab(targetId) {
-  if (!STATE.currTabs || !STATE.currTabs.some((part) => part.id === targetId)) return
-
-  document.querySelectorAll("#curriculum .curr-block").forEach((block) => {
-    const isTarget = block.id === targetId
-    block.classList.toggle("active-tab", isTarget)
-    if (isTarget) {
-      const cardContainer = block.querySelector(".card-container")
-      if (cardContainer) {
-        animateCardsInSection(cardContainer)
-      }
-    }
-  })
-
-  document.querySelectorAll(".curr-nav-pill").forEach((pill) => {
-    pill.classList.toggle("active", pill.dataset.target === targetId)
-  })
-
-  setTimeout(() => {
-    initializeSkillAnimations()
-  }, 150)
+function scrollToCurriculumPart(targetId) {
+  const section = document.getElementById(targetId)
+  if (!section) return
 
   const header = document.querySelector("header")
   const headerOffset = header ? header.offsetHeight + 16 : 16
-  const section = document.getElementById("curriculum")
-  if (section) {
-    const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset
-    window.scrollTo({ top: targetY, behavior: "smooth" })
+  const targetY = section.getBoundingClientRect().top + window.scrollY - headerOffset
+
+  window.scrollTo({ top: targetY, behavior: "smooth" })
+}
+
+/**
+ * Tiene aggiornato il pulsante attivo nella barra di navigazione rapida
+ * mentre l'utente scorre tra le varie sezioni del curriculum (Attestati,
+ * Istruzione, Competenze...), dato che ora sono tutte visibili una sotto
+ * l'altra invece di essere schede nascoste.
+ */
+function setupQuickNavScrollSpy(parts) {
+  const pills = document.querySelectorAll(".curr-nav-pill")
+  if (!pills.length) return
+
+  const updateActivePill = () => {
+    let currentId = null
+
+    parts.forEach((part) => {
+      const section = document.getElementById(part.id)
+      if (!section) return
+      const top = section.getBoundingClientRect().top
+      if (top <= window.innerHeight / 3) {
+        currentId = part.id
+      }
+    })
+
+    pills.forEach((pill) => {
+      pill.classList.toggle("active", pill.dataset.target === currentId)
+    })
   }
+
+  window.addEventListener("scroll", updateActivePill, { passive: true })
+  updateActivePill()
 }
 
 /**
@@ -481,22 +474,36 @@ function renderAllSections() {
   renderCompetenze(STATE.curriculumData.competenze)
   renderWebSite(STATE.curriculumData.sites)
 
-  // Anima solo la scheda attiva all'apertura (le altre sono nascoste finché
-  // non vengono selezionate con i bottoni sopra)
-  const activeBlock = document.querySelector("#curriculum .curr-block.active-tab")
-  if (activeBlock) {
-    activeBlock.style.opacity = "1"
-    activeBlock.style.transform = "translateY(0)"
-    const cardContainer = activeBlock.querySelector(".card-container")
-    if (cardContainer) {
-      animateCardsInSection(cardContainer)
-    }
-  }
+  // Ogni sezione del curriculum è ora indipendente e sempre visibile:
+  // animiamo le card di tutte le sezioni, non solo di una scheda attiva.
+  document.querySelectorAll(".curriculum-part .card-container").forEach((container) => {
+    animateCardsInSection(container)
+  })
 
   // Le barre di progresso delle competenze si animano quando quella scheda viene aperta
   setTimeout(() => {
     initializeSkillAnimations()
   }, 300)
+}
+
+/**
+ * Estrae l'ente/istituto che ha rilasciato l'attestato dal testo della
+ * descrizione (es. "Rilasciato da Aica il 13/12/2024"), da usare come
+ * categoria per il filtro "Tutti / Ente...".
+ */
+function getAttestatoEnte(attestato) {
+  const plainText = String(attestato?.descrizione || "")
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+
+  const match = plainText.match(/Rilasciat[oa]\s+(?:da|dall['’]|dallo|dalla)\s*(.+?)\s+il\s+\d{1,2}\/\d{1,2}\/\d{2,4}/i)
+  if (match && match[1]) {
+    return match[1].trim()
+  }
+
+  return "Altro"
 }
 
 /**
@@ -510,8 +517,14 @@ function renderAttestati(attestati) {
 
   DOM.sections.attestati.innerHTML = ""
 
+  const enti = [...new Set(attestati.map((item) => getAttestatoEnte(item)).filter(Boolean))]
+  const filters = ["Tutti", ...enti]
+
   const stickyControls = document.createElement("div")
   stickyControls.className = "skills-sticky-controls"
+
+  const tabsContainer = document.createElement("div")
+  tabsContainer.className = "skills-tabs"
 
   const searchBar = document.createElement("div")
   searchBar.className = "year-filter-bar"
@@ -519,6 +532,7 @@ function renderAttestati(attestati) {
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "attestati-list"
 
+  let activeEnti = new Set()
   let searchTerm = ""
 
   const renderAttestatiCards = (items) => {
@@ -547,6 +561,7 @@ function renderAttestati(attestati) {
           </div>
           <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
         </div>
+        <div class="skill-category-badge">${getAttestatoEnte(attestato)}</div>
         <div class="card-body">
           <p>${attestato.descrizione || "Descrizione non disponibile"}</p>
         </div>
@@ -569,14 +584,19 @@ function renderAttestati(attestati) {
   }
 
   const applyAttestatiFilters = () => {
-    const normalizedSearch = searchTerm.trim().toLowerCase()
     let filtered = attestati
 
+    if (activeEnti.size > 0) {
+      filtered = filtered.filter((item) => activeEnti.has(getAttestatoEnte(item)))
+    }
+
+    const normalizedSearch = searchTerm.trim().toLowerCase()
     if (normalizedSearch) {
       filtered = filtered.filter((item) => {
         const title = (item?.titolo || "").toLowerCase()
         const description = (item?.descrizione || "").toLowerCase()
-        return title.includes(normalizedSearch) || description.includes(normalizedSearch)
+        const ente = getAttestatoEnte(item).toLowerCase()
+        return title.includes(normalizedSearch) || description.includes(normalizedSearch) || ente.includes(normalizedSearch)
       })
     }
 
@@ -587,6 +607,15 @@ function renderAttestati(attestati) {
       cardsContainer.scrollTop = 0
     }, 250)
   }
+
+  const updateActiveTabs = () => {
+    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
+      const tabFilter = tab.getAttribute("data-filter")
+      tab.classList.toggle("active", tabFilter === "Tutti" ? activeEnti.size === 0 : activeEnti.has(tabFilter))
+    })
+  }
+
+  buildFilterSelect(tabsContainer, filters, activeEnti, applyAttestatiFilters)
 
   searchBar.innerHTML = `
     <label>
@@ -622,9 +651,11 @@ function renderAttestati(attestati) {
     applyAttestatiFilters()
   })
 
+  stickyControls.appendChild(tabsContainer)
   stickyControls.appendChild(searchBar)
   DOM.sections.attestati.appendChild(stickyControls)
   DOM.sections.attestati.appendChild(cardsContainer)
+  updateActiveTabs()
   applyAttestatiFilters()
 }
 
@@ -824,7 +855,7 @@ function createLevelIndicator(level) {
  * Scroll to the top of a curriculum section
  */
 function scrollToSectionTop(element) {
-  const section = element?.closest(".section")
+  const section = element?.closest(".curriculum-part")
   if (!section) return
 
   const header = document.querySelector("header")
@@ -1481,6 +1512,15 @@ function renderSkillCategory(skills, container, showCategory = false) {
 /**
  * Render siti web section with mobile optimizations
  */
+/**
+ * Determina la categoria di un sito/progetto in base ai dati disponibili:
+ * se ha un link al codice sorgente è un progetto "Con Codice", altrimenti
+ * è un lavoro "Solo Live" (es. siti realizzati per clienti).
+ */
+function getSiteCategory(site) {
+  return site && site.codice ? "Con Codice" : "Solo Live"
+}
+
 function renderWebSite(sites) {
   if (!sites || !Array.isArray(sites) || !DOM.sections.sites) {
     console.warn("Curriculum.js: Invalid sites data or container not found")
@@ -1490,8 +1530,14 @@ function renderWebSite(sites) {
   DOM.sections.sites.innerHTML = ""
   DOM.sections.sites.className = "card-container"
 
+  const tipi = [...new Set(sites.map((item) => getSiteCategory(item)).filter(Boolean))]
+  const filters = ["Tutti", ...tipi]
+
   const stickyControls = document.createElement("div")
   stickyControls.className = "skills-sticky-controls"
+
+  const tabsContainer = document.createElement("div")
+  tabsContainer.className = "skills-tabs"
 
   const searchBar = document.createElement("div")
   searchBar.className = "year-filter-bar"
@@ -1499,6 +1545,7 @@ function renderWebSite(sites) {
   const cardsContainer = document.createElement("div")
   cardsContainer.className = "sites-list"
 
+  let activeTipi = new Set()
   let searchTerm = ""
 
   const renderSitesCards = (items) => {
@@ -1557,6 +1604,7 @@ function renderWebSite(sites) {
         </div>
         <div class="portfolio-info">
           <h4>${site.nome || "Progetto non specificato"}</h4>
+          <div class="skill-category-badge">${getSiteCategory(site)}</div>
           <div class="portfolio-tags">
             ${generateProjectTags()}
           </div>
@@ -1569,9 +1617,13 @@ function renderWebSite(sites) {
   }
 
   const applySitesFilters = () => {
-    const normalizedSearch = searchTerm.trim().toLowerCase()
     let filtered = sites
 
+    if (activeTipi.size > 0) {
+      filtered = filtered.filter((item) => activeTipi.has(getSiteCategory(item)))
+    }
+
+    const normalizedSearch = searchTerm.trim().toLowerCase()
     if (normalizedSearch) {
       filtered = filtered.filter((site) => {
         const name = (site?.nome || "").toLowerCase()
@@ -1588,6 +1640,15 @@ function renderWebSite(sites) {
       cardsContainer.scrollTop = 0
     }, 250)
   }
+
+  const updateActiveTabs = () => {
+    tabsContainer.querySelectorAll(".skill-tab").forEach((tab) => {
+      const tabFilter = tab.getAttribute("data-filter")
+      tab.classList.toggle("active", tabFilter === "Tutti" ? activeTipi.size === 0 : activeTipi.has(tabFilter))
+    })
+  }
+
+  buildFilterSelect(tabsContainer, filters, activeTipi, applySitesFilters)
 
   searchBar.innerHTML = `
     <label>
@@ -1623,9 +1684,11 @@ function renderWebSite(sites) {
     applySitesFilters()
   })
 
+  stickyControls.appendChild(tabsContainer)
   stickyControls.appendChild(searchBar)
   DOM.sections.sites.appendChild(stickyControls)
   DOM.sections.sites.appendChild(cardsContainer)
+  updateActiveTabs()
   applySitesFilters()
 }
 
