@@ -586,9 +586,19 @@ function renderAttestati(attestati) {
   const searchInput = searchBar.querySelector(".search-input");
   const resetBtn = searchBar.querySelector(".search-reset-btn");
 
+  let attestatiSearchStarted = false;
+
   function filterAttestati() {
     const query = searchInput.value.trim().toLowerCase();
     const cards = cardsContainer.querySelectorAll(".card");
+
+    // Al primo carattere digitato, torna all'inizio della categoria
+    if (query && !attestatiSearchStarted) {
+      attestatiSearchStarted = true;
+      scrollToCurriculumPart("attestati");
+    } else if (!query) {
+      attestatiSearchStarted = false;
+    }
 
     cards.forEach((card) => {
       const text = card.textContent.toLowerCase();
@@ -769,9 +779,19 @@ function renderEsperienze(esperienze) {
   const searchInput = searchBar.querySelector(".search-input");
   const resetBtn = searchBar.querySelector(".search-reset-btn");
 
+  let esperienzeSearchStarted = false;
+
   function filterEsperienze() {
     const query = searchInput.value.trim().toLowerCase();
     const cards = cardsContainer.querySelectorAll(".card");
+
+    // Al primo carattere digitato, torna all'inizio della categoria
+    if (query && !esperienzeSearchStarted) {
+      esperienzeSearchStarted = true;
+      scrollToCurriculumPart("esperienze");
+    } else if (!query) {
+      esperienzeSearchStarted = false;
+    }
 
     cards.forEach((card) => {
       const text = card.textContent.toLowerCase();
@@ -870,9 +890,19 @@ function renderIstruzione(istruzione) {
   const searchInput = searchBar.querySelector(".search-input");
   const resetBtn = searchBar.querySelector(".search-reset-btn");
 
+  let istruzioneSearchStarted = false;
+
   function filterIstruzione() {
     const query = searchInput.value.trim().toLowerCase();
     const cards = cardsContainer.querySelectorAll(".card");
+
+    // Al primo carattere digitato, torna all'inizio della categoria
+    if (query && !istruzioneSearchStarted) {
+      istruzioneSearchStarted = true;
+      scrollToCurriculumPart("istruzione");
+    } else if (!query) {
+      istruzioneSearchStarted = false;
+    }
 
     cards.forEach((card) => {
       const text = card.textContent.toLowerCase();
@@ -996,9 +1026,19 @@ function renderCompetenze(competenze) {
   const searchInput = searchBar.querySelector(".search-input");
   const resetBtn = searchBar.querySelector(".search-reset-btn");
 
+  let competenzeSearchStarted = false;
+
   function filterCompetenze() {
     const query = searchInput.value.trim().toLowerCase();
     const cards = skillsContainer.querySelectorAll(".card");
+
+    // Al primo carattere digitato, torna all'inizio della categoria
+    if (query && !competenzeSearchStarted) {
+      competenzeSearchStarted = true;
+      scrollToCurriculumPart("competenze");
+    } else if (!query) {
+      competenzeSearchStarted = false;
+    }
 
     cards.forEach((card) => {
       const text = card.textContent.toLowerCase();
@@ -1128,9 +1168,19 @@ function renderWebSite(sites) {
   const searchInput = searchBar.querySelector(".search-input");
   const resetBtn = searchBar.querySelector(".search-reset-btn");
 
+  let sitesSearchStarted = false;
+
   function filterSites() {
     const query = searchInput.value.trim().toLowerCase();
     const cards = cardsContainer.querySelectorAll(".card");
+
+    // Al primo carattere digitato, torna all'inizio della categoria
+    if (query && !sitesSearchStarted) {
+      sitesSearchStarted = true;
+      scrollToCurriculumPart("sites");
+    } else if (!query) {
+      sitesSearchStarted = false;
+    }
 
     cards.forEach((card) => {
       const text = card.textContent.toLowerCase();
