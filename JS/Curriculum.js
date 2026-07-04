@@ -630,6 +630,7 @@ function renderAttestati(attestati) {
 
     let html = `
       <div class="card-header">
+      <br>
         <div class="certificate-icon"><i class='bx bx-certification'></i></div>
         <h4>${attestato.titolo || "Titolo non disponibile"}</h4>
       </div>
