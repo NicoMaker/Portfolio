@@ -1078,6 +1078,8 @@ function renderCompetenze(competenze) {
     const imgSrc = skill.immagine || "/placeholder.svg?height=80&width=80";
 
     card.innerHTML = `
+      <br>
+      <br>
       <div class="skill-icon" style="background-color: ${progressColor}20;">
         <img src="${imgSrc}" alt="${skill.nome}" onerror="this.src='/placeholder.svg?height=80&width=80'; this.onerror=null;" />
       </div>
