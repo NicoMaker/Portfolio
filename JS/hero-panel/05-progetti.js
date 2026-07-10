@@ -24,6 +24,8 @@ window.HeroFiles.push({
       { t: "tk-punct", v: ", " },
       { t: "tk-string", v: "'Macelleria Da Ketti'" },
       { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Da Prat Falegnameria'" },
+      { t: "tk-punct", v: ", " },
       { t: "tk-string", v: "'IdeaLegno'" },
       { t: "tk-punct", v: "];" },
     ],
