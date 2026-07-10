@@ -428,6 +428,10 @@
       "immagine": "Web_Site/Macelleria_da_Ketti.png",
       "link": "https://macelleriadaketti.it/"
     },
+        {
+      "nome": "Da Prat Falegnameria",
+      "immagine": "Web_Site/Da_Prat_Falegnameria.png"
+    },
     {
       "nome": "IdeaLegno",
       "immagine": "Web_Site/IDEALEGNO.jpg",
