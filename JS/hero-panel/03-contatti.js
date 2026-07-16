@@ -7,15 +7,15 @@ window.HeroFiles.push({
   lines: [
     [{ t: "tk-comment", v: "// contatti rapidi" }],
     [
-      { t: "tk-keyword", v: "function" },
+      { t: "tk-keyword", v: "const" },
       { t: "", v: " " },
-      { t: "tk-func", v: "contattami" },
-      { t: "tk-punct", v: "() {" },
+      { t: "tk-key", v: "contattami" },
+      { t: "", v: " = " },
+      { t: "tk-punct", v: "() => (" },
     ],
     [
       { t: "", v: "  " },
-      { t: "tk-keyword", v: "return" },
-      { t: "", v: " {" },
+      { t: "tk-punct", v: "{" },
     ],
     [
       { t: "", v: "    " },
@@ -33,8 +33,8 @@ window.HeroFiles.push({
     ],
     [
       { t: "", v: "  " },
-      { t: "tk-punct", v: "};" },
+      { t: "tk-punct", v: "}" },
     ],
-    [{ t: "tk-punct", v: "}" }],
+    [{ t: "tk-punct", v: ");" }],
   ],
 });

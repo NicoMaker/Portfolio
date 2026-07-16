@@ -15,7 +15,7 @@ window.HeroFiles.push({
       { t: "", v: "  " },
       { t: "tk-key", v: "ruolo" },
       { t: "tk-punct", v: ": " },
-      { t: "tk-string", v: "'Web Developer'" },
+      { t: "tk-string", v: "'Full-Stack Developer'" },
       { t: "tk-punct", v: "," },
     ],
     [

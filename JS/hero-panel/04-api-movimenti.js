@@ -1,8 +1,5 @@
-// hero-panel/05-api-movimenti.js
-// Esempio semplice di route Express che risponde con i dati di una query
-// al database. La query vera e propria (quella lunga, con i JOIN) vive
-// in server/queries/movimenti.js: qui la richiamiamo soltanto, così il
-// pannello resta leggibile anche su mobile.
+// hero-panel/04-api-movimenti.js
+// Route Express con funzione tradizionale (non arrow)
 window.HeroFiles = window.HeroFiles || [];
 
 window.HeroFiles.push({
@@ -35,11 +32,13 @@ window.HeroFiles.push({
       { t: "tk-func", v: "get" },
       { t: "tk-punct", v: "(" },
       { t: "tk-string", v: "'/movimenti'" },
-      { t: "tk-punct", v: ", (" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-keyword", v: "function" },
+      { t: "", v: " (" },
       { t: "tk-key", v: "req" },
       { t: "tk-punct", v: ", " },
       { t: "tk-key", v: "res" },
-      { t: "tk-punct", v: ") => {" },
+      { t: "tk-punct", v: ") {" },
     ],
     [
       { t: "", v: "  " },
@@ -48,11 +47,13 @@ window.HeroFiles.push({
       { t: "tk-func", v: "all" },
       { t: "tk-punct", v: "(" },
       { t: "tk-key", v: "movimentiQuery" },
-      { t: "tk-punct", v: ", [], (" },
+      { t: "tk-punct", v: ", [], " },
+      { t: "tk-keyword", v: "function" },
+      { t: "", v: " (" },
       { t: "tk-key", v: "err" },
       { t: "tk-punct", v: ", " },
       { t: "tk-key", v: "rows" },
-      { t: "tk-punct", v: ") => {" },
+      { t: "tk-punct", v: ") {" },
     ],
     [
       { t: "", v: "    " },

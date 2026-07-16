@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "", v: "  " },
       { t: "tk-key", v: "role" },
       { t: "tk-punct", v: ": " },
-      { t: "tk-string", v: "'Web Developer'" },
+      { t: "tk-string", v: "'Full-Stack Developer'" },
       { t: "tk-punct", v: "," },
     ],
     [

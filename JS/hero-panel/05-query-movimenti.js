@@ -1,6 +1,5 @@
-// hero-panel/07-query-movimenti.js
-// Qui la query compare per intero (quella usata davvero in
-// server/queries/movimenti.js). E' l'ultimo pezzo del ciclo.
+// hero-panel/05-query-movimenti.js
+// Query SQL completa.
 window.HeroFiles = window.HeroFiles || [];
 
 window.HeroFiles.push({
