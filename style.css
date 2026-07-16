@@ -3322,6 +3322,11 @@ h1.glitch {
   box-shadow: var(--shadow-lg);
   overflow: hidden;
   animation: float-panel 5s ease-in-out infinite;
+  text-align: left !important; /* Allinea a sinistra il pannello */
+}
+
+.code-float-panel .terminal-body {
+  text-align: left !important; /* Forza l'allineamento a sinistra del contenuto */
 }
 
 @keyframes float-panel {
