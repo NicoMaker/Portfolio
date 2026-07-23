@@ -36,6 +36,13 @@
       "title": "GitHub"
     },
     {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/nicola-marano-3777bb424",
+      "icon": "Icons/Linkedin.png",
+      "alt": "LinkedIn",
+      "title": "LinkedIn"
+    },
+    {
       "name": "Komoot",
       "url": "https://www.komoot.com/it-it/user/1372754001803",
       "icon": "Icons/Koomot.png",
