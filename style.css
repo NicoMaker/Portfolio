@@ -32,7 +32,6 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  cursor: none;
 }
 
 main {
@@ -88,34 +87,6 @@ main {
   width: 0;
   background-color: var(--text-light);
   transition: width 0.5s ease;
-}
-
-/* Custom Cursor */
-.cursor {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  background-color: var(--primary);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  transition: transform 0.1s ease;
-}
-
-.cursor-follower {
-  position: fixed;
-  width: 30px;
-  height: 30px;
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9998;
-  transition:
-    transform 0.3s ease,
-    width 0.3s ease,
-    height 0.3s ease;
 }
 
 /* Header e navigazione */
@@ -1002,11 +973,6 @@ footer {
 
   .contact-container {
     padding: 2rem 1.5rem;
-  }
-
-  .cursor,
-  .cursor-follower {
-    display: none;
   }
 
   body {
@@ -3143,24 +3109,6 @@ h4 {
   font-weight: 700;
 }
 
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px;
-  width: 0%;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  z-index: 10000;
-  transition: width 0.1s ease-out;
-}
-
-.cursor {
-  background-color: var(--primary);
-}
-.cursor-follower {
-  border-color: rgba(99, 102, 241, 0.4);
-}
-
 /* --- Header --- */
 header {
   background: rgba(8, 9, 13, 0.85);
@@ -4132,16 +4080,6 @@ footer {
 }
 .progress {
   background-color: var(--primary);
-}
-
-@media (max-width: 768px) {
-  .cursor,
-  .cursor-follower {
-    display: none;
-  }
-  body {
-    cursor: auto;
-  }
 }
 
 /* =========================================================================

@@ -207,49 +207,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Il click sul logo nell'hamburger menu è già gestito dall'event listener globale sopra
 
-  // Custom cursor (movimento fluido con lerp)
-  const cursor = document.querySelector(".cursor");
-  const cursorFollower = document.querySelector(".cursor-follower");
-
-  let mouseX = 0,
-    mouseY = 0;
-  let followerX = 0,
-    followerY = 0;
-
-  document.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.left = mouseX + "px";
-    cursor.style.top = mouseY + "px";
-  });
-
-  function animateFollower() {
-    followerX += (mouseX - followerX) * 0.18;
-    followerY += (mouseY - followerY) * 0.18;
-    cursorFollower.style.left = followerX + "px";
-    cursorFollower.style.top = followerY + "px";
-    requestAnimationFrame(animateFollower);
-  }
-  animateFollower();
-
-  // Hover effect on links and buttons
-  const links = document.querySelectorAll("a, button");
-  links.forEach((link) => {
-    link.addEventListener("mouseenter", () => {
-      cursor.style.transform = "translate(-50%, -50%) scale(1.5)";
-      cursorFollower.style.width = "40px";
-      cursorFollower.style.height = "40px";
-      cursorFollower.style.borderColor = "rgba(109, 41, 217, 0.35)";
-    });
-
-    link.addEventListener("mouseleave", () => {
-      cursor.style.transform = "translate(-50%, -50%) scale(1)";
-      cursorFollower.style.width = "30px";
-      cursorFollower.style.height = "30px";
-      cursorFollower.style.borderColor = "var(--primary)";
-    });
-  });
-
   // Carica le frasi dal file JSON e avvia l'effetto typing
   async function loadPhrasesAndStartTyping() {
     try {
