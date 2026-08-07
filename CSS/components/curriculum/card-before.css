@@ -1,0 +1,6 @@
+/* --- Curriculum --- */
+.card::before {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  height: 3px;
+  border-radius: 14px 14px 0 0;
+}

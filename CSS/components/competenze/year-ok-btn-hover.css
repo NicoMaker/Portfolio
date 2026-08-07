@@ -1,0 +1,5 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.year-ok-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}

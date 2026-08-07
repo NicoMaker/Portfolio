@@ -1,0 +1,23 @@
+/* =========================================================================
+   CURRICULUM — sezioni indipendenti (non più accordion)
+   Ogni parte del curriculum (Attestati, Competenze Linguistiche,
+   Esperienze Lavorative, Istruzione, Competenze, Siti Web) è ora una
+   sezione sempre visibile, con titolo statico, barra di ricerca/filtri
+   e griglia di card — stessa impostazione della pagina prodotti di
+   riferimento, riadattata alla palette scura del sito.
+   ========================================================================= */
+.curr-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  background-color: var(--card-bg);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}

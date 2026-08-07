@@ -1,0 +1,12 @@
+/* ======================================================================
+   LOVABLE-STYLE THEME — Nicola Marano Portfolio v4
+   Ispirato ai dashboard SaaS moderni: indigo/violet, card pulite, dark UI
+   ====================================================================== */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}

@@ -1,0 +1,37 @@
+/* Responsive per la sezione curriculum */
+@media (max-width: 768px) {
+  .company-logo {
+    width: 82px;
+    height: 82px;
+  }
+
+  .istituto-logo {
+    width: 82px;
+    height: 82px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .skills-tabs {
+    flex-wrap: wrap;
+  }
+
+  .skill-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .timeline-container::before {
+    left: 20px;
+  }
+
+  .timeline-dot {
+    left: 10px;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}

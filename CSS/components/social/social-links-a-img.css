@@ -1,0 +1,10 @@
+/* Stile per le icone social con sfondo bianco */
+.social-links a img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: none;
+  position: relative;
+  z-index: 1;
+  transition: filter 0.3s ease;
+}

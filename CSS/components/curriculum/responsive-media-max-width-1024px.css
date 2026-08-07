@@ -1,0 +1,10 @@
+/* Responsive per la sezione curriculum */
+@media (max-width: 1024px) {
+  .card {
+    width: calc(50% - 1rem);
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}

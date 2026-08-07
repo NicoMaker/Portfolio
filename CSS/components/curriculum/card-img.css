@@ -1,0 +1,12 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+  object-fit: contain;
+  max-height: 150px;
+  align-self: center;
+}

@@ -1,0 +1,13 @@
+/* Menu a tendina (select) per i filtri generati dai dati:
+   Livello 5 EQF, Madrelingua, Stage Curricolare, ecc. */
+@media (max-width: 768px) {
+  .curriculum-part .skills-sticky-controls {
+    top: calc(var(--header-h) - 10px);
+    padding: 0.7rem 0.6rem;
+    gap: 0.55rem;
+  }
+  .skill-select-label {
+    min-width: 0;
+    width: 100%;
+  }
+}

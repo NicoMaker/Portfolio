@@ -1,0 +1,4 @@
+/* Glifi di codice fluttuanti attorno al pannello, al posto del classico "cubo" 3D */
+.shape-divider {
+  display: none;
+}

@@ -1,0 +1,5 @@
+/* --- Contatti --- */
+#captchaInput.valid {
+  border-color: #34d399;
+  background: rgba(52, 211, 153, 0.06);
+}

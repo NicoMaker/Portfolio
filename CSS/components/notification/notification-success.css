@@ -1,0 +1,6 @@
+/* Notification styles */
+.notification.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}

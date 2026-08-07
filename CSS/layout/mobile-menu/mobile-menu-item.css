@@ -1,0 +1,6 @@
+/* Animazione per il menu mobile */
+.mobile-menu-item {
+  animation: fadeIn 0.3s ease forwards;
+  animation-delay: calc(var(--i) * 0.1s);
+  opacity: 0;
+}

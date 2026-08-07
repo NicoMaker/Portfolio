@@ -1,0 +1,12 @@
+/* Barra di ricerca sticky – resta ancorata in alto durante lo scroll */
+.sticky-search {
+  position: sticky;
+  top: 80px; /* Altezza dell'header + piccolo offset */
+  z-index: 20;
+  background: var(--background);
+  padding: 0.8rem 0.4rem 0.6rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}

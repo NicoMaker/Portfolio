@@ -1,0 +1,12 @@
+/* --- Pannello visivo a destra: avatar chip + "codice" che si muove --- */
+.code-float-panel {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: float-panel 5s ease-in-out infinite;
+  text-align: left !important; /* Allinea a sinistra il pannello */
+}

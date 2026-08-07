@@ -1,0 +1,8 @@
+/* --- Curriculum --- */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+}

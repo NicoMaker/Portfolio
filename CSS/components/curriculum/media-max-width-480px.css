@@ -1,0 +1,23 @@
+/* Curriculum mobile fix: filtri e input sempre visibili */
+@media (max-width: 480px) {
+  .curriculum-part .section h3 {
+    font-size: 0.95rem;
+    padding: 0.85rem 0.9rem;
+  }
+
+  .curriculum-part .skills-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .curriculum-part .skill-tab {
+    width: 100%;
+  }
+
+  .curriculum-part .year-filter-bar {
+    padding: 0.5rem;
+  }
+
+  .curriculum-part .card {
+    padding: 0.9rem;
+  }
+}

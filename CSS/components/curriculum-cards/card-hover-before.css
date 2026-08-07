@@ -1,0 +1,4 @@
+/* Stili per le card animate */
+.card:hover::before {
+  transform: scaleX(1);
+}

@@ -1,0 +1,5 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.description strong {
+  color: var(--text-light);
+  font-weight: 600;
+}

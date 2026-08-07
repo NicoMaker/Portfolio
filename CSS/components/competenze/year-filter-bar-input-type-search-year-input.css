@@ -1,0 +1,5 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.year-filter-bar input[type="search"].year-input {
+  width: 360px;
+  max-width: 72vw;
+}

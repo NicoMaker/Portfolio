@@ -1,0 +1,4 @@
+/* Stili per i siti web */
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}

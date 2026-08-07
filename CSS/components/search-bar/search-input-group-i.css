@@ -1,0 +1,6 @@
+/* Barra di ricerca */
+.search-input-group i {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}

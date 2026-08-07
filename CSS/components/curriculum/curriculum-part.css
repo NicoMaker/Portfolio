@@ -1,0 +1,9 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.curriculum-part {
+  padding: 4rem 0 3rem;
+  background-color: var(--background);
+  position: relative;
+  scroll-margin-top: 100px;
+}

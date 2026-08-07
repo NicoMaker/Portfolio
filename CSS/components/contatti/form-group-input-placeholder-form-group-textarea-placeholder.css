@@ -1,0 +1,5 @@
+/* --- Contatti --- */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
+}

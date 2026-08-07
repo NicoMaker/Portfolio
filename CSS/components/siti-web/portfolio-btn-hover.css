@@ -1,0 +1,5 @@
+/* Stili per i siti web */
+.portfolio-btn:hover {
+  background-color: var(--primary);
+  color: white;
+}

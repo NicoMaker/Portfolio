@@ -1,0 +1,20 @@
+/* =========================================================================
+   CURRICULUM — barra di ricerca e filtri "fissi" durante lo scroll
+   Vale sia su desktop che su mobile: la barra resta visibile appena sotto
+   l'header mentre si scorre la sezione, poi lascia spazio alla successiva.
+   ========================================================================= */
+.curriculum-part .skills-sticky-controls {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  background-color: var(--background);
+  padding: 0.9rem 0.8rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1.6rem;
+}

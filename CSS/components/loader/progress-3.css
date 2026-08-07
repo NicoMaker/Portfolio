@@ -1,0 +1,6 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+.progress {
+  background-color: var(--primary);
+}

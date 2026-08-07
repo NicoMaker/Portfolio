@@ -1,0 +1,6 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+.terminal-body .tk-punct {
+  color: var(--text-muted);
+}

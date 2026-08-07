@@ -1,0 +1,11 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.card h4 {
+  font-family: "Poppins", sans-serif;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid var(--primary-light);
+  padding-bottom: 0.5rem;
+}

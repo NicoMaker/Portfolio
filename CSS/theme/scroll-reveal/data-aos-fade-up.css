@@ -1,0 +1,4 @@
+/* Animazioni per AOS (Animate On Scroll) */
+[data-aos="fade-up"] {
+  transform: translateY(50px);
+}

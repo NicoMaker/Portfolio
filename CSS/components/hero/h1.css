@@ -1,0 +1,9 @@
+/* Nuovo layout per la hero section */
+h1 {
+  font-size: 3.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}

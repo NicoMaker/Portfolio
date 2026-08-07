@@ -1,0 +1,16 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+@keyframes loader-avatar-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 6px rgba(99, 102, 241, 0.15),
+      var(--shadow-lg);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgba(99, 102, 241, 0.25),
+      var(--shadow-lg);
+  }
+}

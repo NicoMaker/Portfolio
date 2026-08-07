@@ -1,0 +1,8 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.hero-content-wrapper.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 3rem;
+  text-align: left;
+}

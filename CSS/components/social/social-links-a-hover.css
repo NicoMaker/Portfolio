@@ -1,0 +1,5 @@
+/* Stile per le icone social con sfondo bianco */
+.social-links a:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: var(--shadow-lg);
+}

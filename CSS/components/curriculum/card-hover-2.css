@@ -1,0 +1,6 @@
+/* --- Curriculum --- */
+.card:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+}

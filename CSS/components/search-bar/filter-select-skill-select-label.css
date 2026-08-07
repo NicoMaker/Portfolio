@@ -1,0 +1,13 @@
+/* Menu a tendina (select) per i filtri generati dai dati:
+   Livello 5 EQF, Madrelingua, Stage Curricolare, ecc. */
+.skill-select-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  min-width: 220px;
+  max-width: 100%;
+}

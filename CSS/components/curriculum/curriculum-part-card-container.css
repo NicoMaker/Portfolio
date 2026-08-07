@@ -1,0 +1,10 @@
+/* Ogni parte del curriculum è ora una sezione reale e indipendente,
+   sempre visibile (niente più schede/tab che si nascondono a vicenda). */
+.curriculum-part .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  opacity: 1;
+  transform: translateY(0);
+  max-height: none;
+  overflow-y: visible;
+}

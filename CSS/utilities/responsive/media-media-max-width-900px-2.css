@@ -1,0 +1,10 @@
+/* =========================================================================
+   HERO — correzioni per il pannello "codice" su mobile
+   Evita che il testo del pannello venga tagliato/sovrapposto sui
+   viewport stretti.
+   ========================================================================= */
+@media (max-width: 900px) {
+  .hero-visual .avatar-wrapper {
+    margin-bottom: 1.6rem;
+  }
+}

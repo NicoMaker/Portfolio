@@ -1,0 +1,10 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.35);
+  }
+}

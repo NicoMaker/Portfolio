@@ -1,0 +1,9 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+.terminal-filename {
+  margin-left: 0.5rem;
+  color: var(--text-muted);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8rem;
+}

@@ -1,0 +1,10 @@
+/* media all query mobile */
+#refreshCaptcha {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  background: #2563eb; /* oppure var(--primary) se hai una variabile */
+  color: white;
+  border: none;
+  cursor: pointer;
+}

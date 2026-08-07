@@ -1,0 +1,6 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.hero-content-wrapper.hero-grid .typing-container,
+.hero-content-wrapper.hero-grid .text-center {
+  justify-content: flex-start;
+  text-align: left;
+}

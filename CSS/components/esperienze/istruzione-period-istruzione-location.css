@@ -1,0 +1,9 @@
+/* Stili per le esperienze lavorative */
+.istruzione-period,
+.istruzione-location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-muted);
+}

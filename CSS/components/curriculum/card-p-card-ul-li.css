@@ -1,0 +1,5 @@
+/* --- Curriculum --- */
+.card p,
+.card ul li {
+  color: var(--text-muted);
+}

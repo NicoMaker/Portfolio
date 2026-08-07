@@ -1,0 +1,4 @@
+/* Escludi il logo nell'header */
+.loader-avatar img {
+  background: var(--background) !important;
+}

@@ -1,0 +1,5 @@
+/* Nuovo layout per la hero section */
+.hero-content {
+  width: 100%;
+  max-width: 800px;
+}

@@ -1,0 +1,11 @@
+/* Stili per le competenze */
+.skill-tab {
+  padding: 0.8rem 1.5rem;
+  background-color: #f1f5f9;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

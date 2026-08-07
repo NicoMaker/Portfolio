@@ -1,0 +1,8 @@
+/* Stili per i siti web */
+.portfolio-tag {
+  background-color: #f1f5f9;
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}

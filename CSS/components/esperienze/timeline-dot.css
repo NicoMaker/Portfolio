@@ -1,0 +1,12 @@
+/* Stili per le esperienze lavorative */
+.timeline-dot {
+  position: absolute;
+  top: 20px;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  border: 3px solid white;
+  box-shadow: var(--shadow-md);
+}

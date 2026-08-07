@@ -1,0 +1,18 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+.loader-avatar {
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 1.3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #fff;
+  border: 3px solid #fff;
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  box-shadow:
+    0 0 0 6px rgba(99, 102, 241, 0.15),
+    var(--shadow-lg);
+  animation: loader-avatar-pulse 1.8s ease-in-out infinite;
+}

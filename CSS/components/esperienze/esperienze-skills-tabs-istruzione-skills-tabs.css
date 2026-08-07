@@ -1,0 +1,8 @@
+/* Stili per le competenze */
+#esperienze .skills-tabs,
+#istruzione .skills-tabs {
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+}

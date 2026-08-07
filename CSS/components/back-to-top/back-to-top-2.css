@@ -1,0 +1,7 @@
+/* --- Back to top --- */
+.back-to-top {
+  background: var(--card-bg);
+  border: 1.5px solid rgba(99, 102, 241, 0.4);
+  color: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+}

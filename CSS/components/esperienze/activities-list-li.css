@@ -1,0 +1,7 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+.activities-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}

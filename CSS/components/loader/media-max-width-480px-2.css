@@ -1,0 +1,17 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+@media (max-width: 480px) {
+  .terminal-body {
+    padding: 1.1rem 1.1rem;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    min-height: 160px;
+  }
+  .terminal-titlebar {
+    padding: 0.6rem 0.8rem;
+  }
+  .terminal-filename {
+    font-size: 0.72rem;
+  }
+}

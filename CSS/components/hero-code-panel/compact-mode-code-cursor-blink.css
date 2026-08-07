@@ -1,0 +1,11 @@
+/* Applicata via JS solo quando il file mostrato ha molte righe (es. la query):
+   riduce font e interlinea così il contenuto entra meglio senza scroll eccessivo */
+.code-cursor-blink {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  background: var(--primary-light);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 0.9s steps(1) infinite;
+}

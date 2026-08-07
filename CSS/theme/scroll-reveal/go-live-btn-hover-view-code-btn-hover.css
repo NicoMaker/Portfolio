@@ -1,0 +1,6 @@
+/* Animazioni e effetti */
+.go-live-btn:hover,
+.view-code-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}

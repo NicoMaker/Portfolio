@@ -1,0 +1,6 @@
+/* --- Curriculum --- */
+.section h3:hover {
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-1px);
+  box-shadow: none;
+}

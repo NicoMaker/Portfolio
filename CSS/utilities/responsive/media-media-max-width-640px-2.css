@@ -1,0 +1,11 @@
+/* Su mobile: 1 colonna */
+@media (max-width: 640px) {
+  .attestati-list,
+  .linguistiche-list,
+  .experience-list,
+  .istruzione-list,
+  .skills-container,
+  .sites-list {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -1,0 +1,4 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.dynamic-text::after {
+  background-color: var(--accent);
+}

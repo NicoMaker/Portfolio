@@ -1,0 +1,31 @@
+/* =========================================================================
+   HERO — correzioni per il pannello "codice" su mobile
+   Evita che il testo del pannello venga tagliato/sovrapposto sui
+   viewport stretti.
+   ========================================================================= */
+@media (max-width: 480px) {
+  .code-float-panel {
+    width: 92vw;
+    max-width: 92vw;
+    margin: 0 auto;
+    animation: none; /* niente più "galleggiamento": evita sovrapposizioni sui telefoni */
+  }
+  .code-float-panel .terminal-body {
+    padding: 1rem;
+    font-size: 0.74rem;
+    line-height: 1.7;
+    min-height: 0;
+    max-height: 260px;
+  }
+  .code-float-panel.code-compact .terminal-body {
+    font-size: 0.64rem;
+    line-height: 1.45;
+  }
+  .hero-visual {
+    min-height: auto;
+    padding: 0 0.5rem;
+  }
+  .hero-visual .avatar-wrapper {
+    margin-bottom: 1.4rem;
+  }
+}

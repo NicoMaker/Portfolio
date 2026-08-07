@@ -1,0 +1,9 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.hero-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.18);
+  animation: pulse-dot 1.8s infinite;
+}

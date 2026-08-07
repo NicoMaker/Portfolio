@@ -1,0 +1,4 @@
+/* --- Curriculum --- */
+.card-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+}

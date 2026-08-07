@@ -1,0 +1,14 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.section h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  transition: width 0.5s ease;
+  z-index: -1;
+}

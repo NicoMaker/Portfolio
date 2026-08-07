@@ -1,0 +1,60 @@
+/* Stili generali per tutte le sezioni del curriculum su mobile */
+@media (max-width: 768px) {
+  /* Previene lo scrolling orizzontale in tutte le sezioni */
+  .card-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* Assicura che tutte le card si adattino correttamente */
+  .card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+    overflow: hidden; /* Nasconde eventuali parti che sporgono */
+  }
+
+  /* Assicura che le sezioni siano ben distanziate e non causino scrolling */
+  .section {
+    margin-bottom: 2rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Migliora la visualizzazione dei titoli delle sezioni */
+  .section h3 {
+    padding: 1rem;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Nasconde eventuali parti che sporgono */
+  }
+
+  /* Centra il titolo del curriculum */
+  .curriculum-part .section-title {
+    text-align: center !important;
+    width: 100% !important;
+    left: auto !important;
+    transform: none !important;
+  }
+
+  /* Assicura che le immagini non causino scrolling orizzontale */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Assicura che i bottoni non causino scrolling orizzontale */
+  .go-live-btn,
+  .view-code-btn,
+  .submit-btn,
+  .cta-button {
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+  }
+}

@@ -1,0 +1,7 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#esperienze .card-container,
+#istruzione .card-container,
+#competenze .card-container {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}

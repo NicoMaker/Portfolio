@@ -1,0 +1,6 @@
+/* media all query mobile */
+#refreshCaptcha,
+#captchaInput,
+.send {
+  font-size: 1.5rem;
+}

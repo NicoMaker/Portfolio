@@ -1,0 +1,7 @@
+/* Glifi di codice fluttuanti attorno al pannello, al posto del classico "cubo" 3D */
+.float-glyph.g1 {
+  top: 6%;
+  right: 4%;
+  font-size: 1.8rem;
+  animation: float-glyph-a 6s ease-in-out infinite;
+}

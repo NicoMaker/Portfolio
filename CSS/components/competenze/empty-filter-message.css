@@ -1,0 +1,10 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.empty-filter-message {
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--border-radius);
+  color: var(--text-muted);
+  background-color: #f8fafc;
+}

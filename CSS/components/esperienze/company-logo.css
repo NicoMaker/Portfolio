@@ -1,0 +1,13 @@
+/* Stili per le esperienze lavorative */
+.company-logo {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  padding: 0.4rem;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}

@@ -1,0 +1,5 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+#sites .sites-list {
+  width: 100%;
+  transition: opacity 0.3s ease;
+}

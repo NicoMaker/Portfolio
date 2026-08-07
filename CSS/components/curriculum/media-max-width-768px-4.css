@@ -1,0 +1,12 @@
+/* Ogni parte del curriculum è ora una sezione reale e indipendente,
+   sempre visibile (niente più schede/tab che si nascondono a vicenda). */
+@media (max-width: 768px) {
+  .curriculum-quicknav {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .curr-nav-pill {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}

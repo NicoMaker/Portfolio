@@ -1,0 +1,4 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.hero-content-wrapper.hero-grid .hero-content {
+  max-width: 560px;
+}

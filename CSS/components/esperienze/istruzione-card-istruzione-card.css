@@ -1,0 +1,5 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#istruzione .card.istruzione-card {
+  width: 100% !important;
+  flex: 0 0 auto;
+}

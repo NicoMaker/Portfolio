@@ -1,0 +1,10 @@
+/* --- Pannello visivo a destra: avatar chip + "codice" che si muove --- */
+.hero-visual .avatar {
+  width: 96px;
+  height: 96px;
+  background-color: #fff;
+  border: 3px solid #fff;
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+  box-shadow: var(--shadow-md);
+}

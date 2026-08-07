@@ -1,0 +1,9 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.card a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}

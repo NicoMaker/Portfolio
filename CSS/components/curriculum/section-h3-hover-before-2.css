@@ -1,0 +1,4 @@
+/* Stili per la sezione curriculum migliorata */
+.section h3:hover::before {
+  width: 100%;
+}

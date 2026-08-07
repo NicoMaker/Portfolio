@@ -1,0 +1,4 @@
+/* --- Back to top --- */
+::-webkit-scrollbar-track {
+  background: var(--background);
+}

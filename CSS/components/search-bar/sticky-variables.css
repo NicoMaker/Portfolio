@@ -1,0 +1,8 @@
+/* =========================================================================
+   CURRICULUM — barra di ricerca e filtri "fissi" durante lo scroll
+   Vale sia su desktop che su mobile: la barra resta visibile appena sotto
+   l'header mentre si scorre la sezione, poi lascia spazio alla successiva.
+   ========================================================================= */
+:root {
+  --header-h: 84px;
+}

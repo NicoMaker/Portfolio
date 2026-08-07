@@ -1,0 +1,6 @@
+/* Su mobile: 1 colonna */
+#linguistiche .linguistiche-list .card {
+  width: 100%; /* o auto, ma deve riempire la cella */
+  margin: 0;
+  height: auto;
+}

@@ -1,0 +1,12 @@
+/* Stili per la sezione curriculum migliorata */
+.section h3::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  transition: width 0.5s ease;
+  z-index: -1;
+}

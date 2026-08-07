@@ -1,0 +1,12 @@
+/* --- Curriculum --- */
+.skill-category-badge,
+.role-badge,
+.livello-eqf,
+.eqf-badge,
+.skill-pill,
+.portfolio-tag {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: var(--primary-light);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 999px;
+}

@@ -1,0 +1,6 @@
+/* Typing Effect */
+.dynamic-text {
+  color: var(--primary);
+  font-weight: 700;
+  position: relative;
+}

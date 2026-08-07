@@ -1,0 +1,7 @@
+/* Per mobile, regola il top per l'header più compatto */
+@media (max-width: 768px) {
+  .sticky-search {
+    top: 70px;
+    padding: 0.6rem 0.2rem 0.4rem;
+  }
+}

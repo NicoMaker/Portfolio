@@ -1,0 +1,33 @@
+/* Stili generali per tutte le sezioni del curriculum su mobile */
+@media (max-width: 768px) {
+  /* Rimuovi lo scrolling per tutte le sezioni */
+  .card-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  /* Migliora la visualizzazione delle card */
+  .card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Assicurati che le sezioni siano ben distanziate */
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  /* Migliora la visualizzazione dei titoli delle sezioni */
+  .section h3 {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  /* Centra il titolo del curriculum */
+  .curriculum-part .section-title {
+    text-align: center !important;
+    width: 100% !important;
+    left: auto !important;
+    transform: none !important;
+  }
+}

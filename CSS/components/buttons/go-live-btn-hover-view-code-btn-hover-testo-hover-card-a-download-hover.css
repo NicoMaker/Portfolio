@@ -1,0 +1,10 @@
+/* --- Bottoni: primario pieno indigo, secondario outline --- */
+.go-live-btn:hover,
+.view-code-btn:hover,
+.testo:hover,
+.card a[download]:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: 0 10px 22px -10px rgba(99, 102, 241, 0.4);
+  color: var(--primary-light) !important;
+}

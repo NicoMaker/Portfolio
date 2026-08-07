@@ -1,0 +1,11 @@
+/* Loader e animazione iniziale */
+.loader-portfolio {
+  color: var(--text-light);
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+}

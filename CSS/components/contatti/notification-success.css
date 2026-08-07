@@ -1,0 +1,6 @@
+/* --- Contatti --- */
+.notification.success {
+  background-color: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}

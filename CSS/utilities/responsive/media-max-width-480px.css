@@ -1,0 +1,36 @@
+/* Responsive Design */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .avatar-menu {
+    width: 100px;
+    height: 100px;
+  }
+
+  .avatar {
+    width: 180px;
+    height: 180px;
+  }
+
+  .contact-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .submit-btn {
+    font-size: 0.9rem;
+  }
+
+  .typing-container {
+    font-size: 1.2rem;
+    flex-direction: column;
+    height: auto;
+  }
+}

@@ -1,0 +1,6 @@
+/* Assicura che le icone nei social siano visibili */
+.social-links img.icona {
+  width: 30px;
+  height: 30px;
+  display: block;
+}

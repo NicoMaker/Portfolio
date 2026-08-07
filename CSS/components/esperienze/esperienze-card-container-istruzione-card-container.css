@@ -1,0 +1,7 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#esperienze .card-container,
+#istruzione .card-container {
+  max-height: none !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+}

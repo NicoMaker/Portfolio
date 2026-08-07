@@ -1,0 +1,19 @@
+/* Stili per i siti web */
+.portfolio-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: white;
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  transform: translateY(20px);
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    background-color 0.3s ease;
+}

@@ -1,0 +1,10 @@
+/* --- Curriculum --- */
+.experience-period,
+.experience-location,
+.istruzione-period,
+.istruzione-location,
+.education-institute,
+.education-period,
+.education-location {
+  color: var(--text-muted);
+}

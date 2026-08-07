@@ -1,0 +1,4 @@
+/* Typing Effect */
+.cta-button:hover::before {
+  width: 100%;
+}

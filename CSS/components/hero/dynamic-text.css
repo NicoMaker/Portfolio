@@ -1,0 +1,7 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.dynamic-text {
+  background: linear-gradient(120deg, var(--primary-light), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

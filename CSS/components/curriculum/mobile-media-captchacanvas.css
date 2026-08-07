@@ -1,0 +1,8 @@
+/* media all query mobile */
+#captchaCanvas {
+  width: 250px;
+  height: 40px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+}

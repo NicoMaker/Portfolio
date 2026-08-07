@@ -1,0 +1,6 @@
+/* --- Curriculum --- */
+.skill-tab.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border-color: transparent;
+}

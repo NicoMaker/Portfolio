@@ -1,0 +1,5 @@
+/* --- Header --- */
+nav ul li a:hover,
+nav ul li a.active-link {
+  color: #fff;
+}

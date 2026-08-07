@@ -1,0 +1,9 @@
+/* Stili per il menu mobile */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  z-index: 1001;
+}

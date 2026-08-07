@@ -1,0 +1,5 @@
+/* Stili per la sezione curriculum migliorata */
+.toggle-icon {
+  margin-left: auto;
+  transition: var(--transition);
+}

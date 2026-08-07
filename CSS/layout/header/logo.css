@@ -1,0 +1,5 @@
+/* Header e navigazione */
+.logo {
+  display: flex;
+  align-items: center;
+}

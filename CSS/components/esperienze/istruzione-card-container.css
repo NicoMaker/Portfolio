@@ -1,0 +1,10 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#istruzione .card-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

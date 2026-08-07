@@ -1,0 +1,5 @@
+/* Applicata via JS solo quando il file mostrato ha molte righe (es. la query):
+   riduce font e interlinea così il contenuto entra meglio senza scroll eccessivo */
+.code-float-panel .tk-punct {
+  color: var(--text-muted);
+}

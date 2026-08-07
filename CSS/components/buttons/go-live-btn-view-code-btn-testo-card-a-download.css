@@ -1,0 +1,11 @@
+/* --- Bottoni: primario pieno indigo, secondario outline --- */
+.go-live-btn,
+.view-code-btn,
+.testo,
+.card a[download] {
+  background: transparent;
+  border: 1.5px solid rgba(99, 102, 241, 0.4);
+  color: var(--primary-light) !important;
+  border-radius: 10px;
+  box-shadow: none;
+}

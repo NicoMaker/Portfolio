@@ -1,0 +1,13 @@
+/* Stile per le icone social con sfondo bianco */
+.social-links a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  z-index: 0;
+}

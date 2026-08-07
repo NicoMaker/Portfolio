@@ -1,0 +1,11 @@
+/* Nuovo layout per la hero section */
+.avatar-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  opacity: 0.35;
+  filter: blur(18px);
+  z-index: -1;
+}

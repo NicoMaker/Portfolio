@@ -1,0 +1,4 @@
+/* Animazioni per AOS (Animate On Scroll) */
+[data-aos="flip-up"] {
+  transform: perspective(1000px) rotateX(30deg);
+}

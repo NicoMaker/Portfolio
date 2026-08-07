@@ -1,0 +1,38 @@
+/* Mobile optimizations for curriculum section */
+@media (max-width: 768px) {
+  /* Center curriculum title */
+  .curriculum-part .section-title {
+    text-align: center !important;
+    width: 100% !important;
+    left: auto !important;
+    transform: none !important;
+  }
+
+  /* Optimize site images for mobile */
+  .site-image {
+    max-height: 120px !important;
+    object-fit: contain !important;
+  }
+
+  /* Remove scrollable containers */
+  .card-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+  }
+
+  /* Improve mobile sites grid */
+  .mobile-sites-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-sites-grid .portfolio-card {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-sites-grid .portfolio-image {
+    height: 120px !important;
+  }
+}

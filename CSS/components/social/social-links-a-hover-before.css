@@ -1,0 +1,4 @@
+/* Stile per le icone social con sfondo bianco */
+.social-links a:hover::before {
+  transform: translateY(0);
+}

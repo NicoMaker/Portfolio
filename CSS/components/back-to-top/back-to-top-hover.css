@@ -1,0 +1,6 @@
+/* --- Back to top --- */
+.back-to-top:hover {
+  background: rgba(99, 102, 241, 0.12);
+  transform: translateY(-4px);
+  border-color: var(--primary);
+}

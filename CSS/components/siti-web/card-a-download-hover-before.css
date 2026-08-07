@@ -1,0 +1,4 @@
+/* Assicura che tutti i link "Scarica Certificato" siano bianchi */
+.card a[download]:hover::before {
+  width: 100%;
+}

@@ -1,0 +1,4 @@
+/* Stili per i siti web */
+.portfolio-card:hover .portfolio-image img {
+  transform: scale(1.1);
+}

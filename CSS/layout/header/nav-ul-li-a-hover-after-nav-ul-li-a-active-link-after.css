@@ -1,0 +1,5 @@
+/* Header e navigazione */
+nav ul li a:hover::after,
+nav ul li a.active-link::after {
+  width: 100%;
+}

@@ -1,0 +1,4 @@
+/* Stili generali per tutte le sezioni del curriculum su mobile */
+.social-links a:hover img {
+  filter: brightness(0.5) invert(1);
+}

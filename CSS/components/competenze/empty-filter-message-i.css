@@ -1,0 +1,7 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.empty-filter-message i {
+  font-size: 1.4rem;
+  color: var(--primary);
+  display: block;
+  margin-bottom: 0.4rem;
+}

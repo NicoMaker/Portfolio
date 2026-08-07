@@ -1,0 +1,5 @@
+/* Typing Effect */
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}

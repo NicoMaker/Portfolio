@@ -1,0 +1,8 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+#linguistiche .linguistiche-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}

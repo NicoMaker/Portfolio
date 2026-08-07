@@ -1,0 +1,4 @@
+/* Animazioni per AOS (Animate On Scroll) */
+[data-aos="zoom-in"] {
+  transform: scale(0.8);
+}

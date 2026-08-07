@@ -1,0 +1,12 @@
+/* Typing Effect */
+.cta-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  transition: width 0.5s ease;
+  z-index: -1;
+}

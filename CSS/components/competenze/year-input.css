@@ -1,0 +1,8 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.year-input {
+  width: 170px;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #dbe2f0;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+}

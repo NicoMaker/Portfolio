@@ -1,0 +1,7 @@
+/* Stili per le card delle lingue */
+.level-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}

@@ -1,0 +1,5 @@
+/* --- Header --- */
+.hamburger,
+.hamburger i {
+  color: var(--text-light);
+}

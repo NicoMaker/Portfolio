@@ -1,0 +1,15 @@
+/* Responsive per la sezione curriculum */
+@media (max-width: 480px) {
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .education-header {
+    flex-direction: column;
+  }
+
+  .portfolio-buttons {
+    flex-direction: column;
+  }
+}

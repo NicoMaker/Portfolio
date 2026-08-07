@@ -1,0 +1,5 @@
+/* Le icone (alcune scure tipo WhatsApp/GitHub) restano leggibili sullo sfondo chiaro;
+   in hover lo sfondo diventa il gradiente viola, quindi l'icona deve schiarirsi */
+.social-links a img {
+  filter: none;
+}

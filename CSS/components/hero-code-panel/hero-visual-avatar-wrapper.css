@@ -1,0 +1,6 @@
+/* --- Pannello visivo a destra: avatar chip + "codice" che si muove --- */
+.hero-visual .avatar-wrapper {
+  position: relative;
+  z-index: 5;
+  margin: 0 0 1.1rem;
+}

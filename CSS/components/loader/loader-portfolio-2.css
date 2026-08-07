@@ -1,0 +1,12 @@
+/* ======================================================================
+   TERMINAL LOADER (riusato dal tema precedente, ricolorato indigo)
+   ====================================================================== */
+.loader-portfolio {
+  color: var(--text-muted);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  transform: none;
+}

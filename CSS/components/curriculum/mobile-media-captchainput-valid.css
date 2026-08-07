@@ -1,0 +1,5 @@
+/* media all query mobile */
+#captchaInput.valid {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.05);
+}

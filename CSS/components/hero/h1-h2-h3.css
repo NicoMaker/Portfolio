@@ -1,0 +1,9 @@
+/* Nuovo layout per la hero section */
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}

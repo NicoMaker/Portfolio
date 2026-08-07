@@ -1,0 +1,9 @@
+/* Stili per le card delle lingue */
+.language-flag {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+}

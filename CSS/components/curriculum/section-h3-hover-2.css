@@ -1,0 +1,5 @@
+/* Stili per la sezione curriculum migliorata */
+.section h3:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}

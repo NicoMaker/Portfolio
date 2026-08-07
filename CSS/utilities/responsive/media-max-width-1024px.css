@@ -1,0 +1,10 @@
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .card {
+    width: calc(50% - 1rem);
+  }
+
+  .card-container {
+    max-height: 500px;
+  }
+}

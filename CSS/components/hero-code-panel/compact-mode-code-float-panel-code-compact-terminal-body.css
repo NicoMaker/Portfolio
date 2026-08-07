@@ -1,0 +1,6 @@
+/* Applicata via JS solo quando il file mostrato ha molte righe (es. la query):
+   riduce font e interlinea così il contenuto entra meglio senza scroll eccessivo */
+.code-float-panel.code-compact .terminal-body {
+  font-size: 0.74rem;
+  line-height: 1.55;
+}

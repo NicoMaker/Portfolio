@@ -1,0 +1,6 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#esperienze .skills-tabs,
+#istruzione .skills-tabs,
+#competenze .skills-tabs {
+  margin-top: 0 !important;
+}

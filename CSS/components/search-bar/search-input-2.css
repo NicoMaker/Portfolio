@@ -1,0 +1,11 @@
+/* Stile dell'input group (come già fornito) */
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  padding: 0.6rem 0.2rem;
+  outline: none;
+}

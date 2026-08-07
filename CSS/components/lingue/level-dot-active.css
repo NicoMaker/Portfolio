@@ -1,0 +1,4 @@
+/* Stili per le card delle lingue */
+.level-dot.active {
+  background-color: var(--primary);
+}

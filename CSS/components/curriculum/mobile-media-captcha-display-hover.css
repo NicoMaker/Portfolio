@@ -1,0 +1,5 @@
+/* media all query mobile */
+.captcha-display:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}

@@ -1,0 +1,10 @@
+/* Glifi di codice fluttuanti attorno al pannello, al posto del classico "cubo" 3D */
+@keyframes float-glyph-b {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(10px, -12px) rotate(-6deg);
+  }
+}

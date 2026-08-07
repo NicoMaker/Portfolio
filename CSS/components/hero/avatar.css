@@ -1,0 +1,17 @@
+/* Nuovo layout per la hero section */
+.avatar {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #fff;
+  box-shadow:
+    var(--shadow-lg),
+    0 0 0 6px rgba(99, 102, 241, 0.15);
+  border: 6px solid #fff;
+  outline: 3px solid var(--primary);
+  outline-offset: -3px;
+  transition: var(--transition);
+  display: block;
+  animation: float 6s ease-in-out infinite;
+}

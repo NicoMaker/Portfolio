@@ -1,0 +1,5 @@
+/* Stili per le card animate */
+.card.animated {
+  animation: card-appear 0.5s forwards;
+  animation-delay: calc(var(--i) * 0.1s);
+}

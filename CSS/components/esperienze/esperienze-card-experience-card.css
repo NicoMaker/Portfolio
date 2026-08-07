@@ -1,0 +1,5 @@
+/* Istruzione: stessa impostazione verticale delle esperienze */
+#esperienze .card.experience-card {
+  width: 100%;
+  flex: 0 0 auto;
+}

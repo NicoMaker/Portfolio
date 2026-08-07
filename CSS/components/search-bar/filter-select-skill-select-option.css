@@ -1,0 +1,6 @@
+/* Menu a tendina (select) per i filtri generati dai dati:
+   Livello 5 EQF, Madrelingua, Stage Curricolare, ecc. */
+.skill-select option {
+  background-color: var(--card-bg);
+  color: var(--text-light);
+}

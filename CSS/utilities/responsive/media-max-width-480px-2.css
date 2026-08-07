@@ -1,0 +1,26 @@
+/* Responsive */
+@media (max-width: 480px) {
+  .captcha-container-wrapper {
+    gap: 8px;
+  }
+
+  .captcha-display {
+    min-width: 0; /* Permette al flex item di rimpicciolire */
+  }
+
+  #captchaCanvas {
+    height: 60px;
+    min-width: 280px; /* Assicura spazio sufficiente per 8 caratteri */
+  }
+
+  #refreshCaptcha {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0; /* Non si riduce mai */
+  }
+
+  #captchaInput {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}

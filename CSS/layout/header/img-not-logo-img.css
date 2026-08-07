@@ -1,0 +1,4 @@
+/* Sfondo bianco per TUTTE le immagini tranne il logo dell'header */
+img:not(.logo img) {
+  background-color: white;
+}

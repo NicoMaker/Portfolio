@@ -1,0 +1,11 @@
+/* Typing Effect */
+.dynamic-text::after {
+  content: "";
+  position: absolute;
+  right: -5px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: var(--primary);
+  animation: blink 0.7s infinite;
+}

@@ -1,0 +1,5 @@
+/* Animazioni per AOS (Animate On Scroll) */
+[data-aos] {
+  opacity: 0;
+  transition-property: opacity, transform;
+}

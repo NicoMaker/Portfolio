@@ -1,0 +1,6 @@
+/* Stili per le card delle lingue */
+.language-flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

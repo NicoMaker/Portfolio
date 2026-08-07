@@ -1,0 +1,5 @@
+/* Stili per le competenze */
+.skill-tab.active {
+  background-color: var(--primary);
+  color: white;
+}

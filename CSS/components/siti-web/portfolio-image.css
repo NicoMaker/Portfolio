@@ -1,0 +1,6 @@
+/* Stili per i siti web */
+.portfolio-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}

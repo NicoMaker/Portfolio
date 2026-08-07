@@ -1,0 +1,7 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background-color: var(--progress-color);
+  transition: width 1s ease;
+}

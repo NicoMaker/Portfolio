@@ -1,0 +1,4 @@
+/* --- Pannello visivo a destra: avatar chip + "codice" che si muove --- */
+.code-float-panel .terminal-body {
+  text-align: left !important; /* Forza l'allineamento a sinistra del contenuto */
+}

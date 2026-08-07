@@ -1,0 +1,16 @@
+/* Assicura che tutti i link "Scarica Certificato" siano bianchi */
+.card a[download] {
+  color: white !important;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}

@@ -1,0 +1,14 @@
+/* Gli elementi dentro la barra fissa non devono essere sticky anche loro:
+   si limitano a impilarsi dentro il wrapper già fisso. */
+.curriculum-part .skills-sticky-controls .skills-tabs,
+.curriculum-part .skills-sticky-controls .year-filter-bar,
+.curriculum-part .skills-sticky-controls .skills-select-wrap {
+  position: static;
+  top: auto;
+  z-index: auto;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  width: 100%;
+}

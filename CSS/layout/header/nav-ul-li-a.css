@@ -1,0 +1,9 @@
+/* Header e navigazione */
+nav ul li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  position: relative;
+  padding: 0.5rem 0;
+}

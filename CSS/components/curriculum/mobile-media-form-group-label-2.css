@@ -1,0 +1,8 @@
+/* media all query mobile */
+.form-group label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #2d3748;
+  font-size: 16px;
+}

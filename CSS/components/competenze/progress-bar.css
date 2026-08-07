@@ -1,0 +1,8 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.progress-bar {
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  --progress-color: var(--primary);
+}

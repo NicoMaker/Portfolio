@@ -1,0 +1,9 @@
+/* Glifi di codice fluttuanti attorno al pannello, al posto del classico "cubo" 3D */
+.float-glyph {
+  position: absolute;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 600;
+  color: rgba(99, 102, 241, 0.35);
+  pointer-events: none;
+  user-select: none;
+}

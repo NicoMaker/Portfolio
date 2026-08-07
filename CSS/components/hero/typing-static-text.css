@@ -1,0 +1,5 @@
+/* Typing Effect */
+.static-text {
+  color: var(--text-dark);
+  font-weight: 500;
+}

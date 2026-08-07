@@ -1,0 +1,6 @@
+/* --- Pannello visivo a destra: avatar chip + "codice" che si muove --- */
+.code-float-panel .terminal-filename {
+  margin-left: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}

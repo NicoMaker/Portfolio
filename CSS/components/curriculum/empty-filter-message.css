@@ -1,0 +1,6 @@
+/* --- Curriculum --- */
+.empty-filter-message {
+  background-color: var(--card-bg);
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+}

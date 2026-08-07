@@ -1,0 +1,14 @@
+/* Stili per le competenze */
+.skills-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: var(--background);
+  padding: 0.45rem 0;
+  border-radius: var(--border-radius);
+}

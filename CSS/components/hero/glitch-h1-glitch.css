@@ -1,0 +1,7 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+h1.glitch {
+  font-size: 3.4rem;
+  color: var(--text-light);
+  background: none;
+  -webkit-text-fill-color: var(--text-light);
+}

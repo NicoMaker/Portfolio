@@ -1,0 +1,6 @@
+/* --- Header --- */
+nav ul li a::after {
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--primary);
+}

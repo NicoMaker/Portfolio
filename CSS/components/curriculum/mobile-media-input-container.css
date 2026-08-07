@@ -1,0 +1,8 @@
+/* media all query mobile */
+.input-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.5rem;
+}

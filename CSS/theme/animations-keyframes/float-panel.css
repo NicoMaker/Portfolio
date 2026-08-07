@@ -1,0 +1,10 @@
+/* --- Pannello visivo a destra: avatar chip + "codice" che si muove --- */
+@keyframes float-panel {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.4deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(0.4deg);
+  }
+}

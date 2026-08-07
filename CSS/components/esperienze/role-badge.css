@@ -1,0 +1,10 @@
+/* Stili per le esperienze lavorative */
+.role-badge {
+  display: inline-block;
+  background-color: var(--primary-light);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}

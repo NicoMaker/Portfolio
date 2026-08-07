@@ -1,0 +1,11 @@
+/* Tutte le liste del curriculum in griglia a 2 colonne */
+.attestati-list,
+.linguistiche-list,
+.experience-list,
+.istruzione-list,
+.skills-container,
+.sites-list {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 2rem !important;
+}

@@ -1,0 +1,5 @@
+/* Animazioni e effetti */
+.go-live-btn:hover::before,
+.view-code-btn:hover::before {
+  width: 100%;
+}

@@ -1,0 +1,5 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.year-reset-btn:hover {
+  background-color: #eef2ff;
+  border-color: var(--primary-light);
+}

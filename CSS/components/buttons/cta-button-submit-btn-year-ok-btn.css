@@ -1,0 +1,11 @@
+/* --- Bottoni: primario pieno indigo, secondario outline --- */
+.cta-button,
+.submit-btn,
+.year-ok-btn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  border: none;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  color: #fff;
+  font-weight: 600;
+}

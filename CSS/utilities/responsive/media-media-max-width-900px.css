@@ -1,0 +1,35 @@
+/* Glifi di codice fluttuanti attorno al pannello, al posto del classico "cubo" 3D */
+@media (max-width: 900px) {
+  .hero-content-wrapper.hero-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-content-wrapper.hero-grid .hero-content {
+    max-width: 100%;
+  }
+  .hero-content-wrapper.hero-grid .typing-container,
+  .hero-content-wrapper.hero-grid .text-center {
+    justify-content: center;
+    text-align: center;
+  }
+  /* Su mobile l'avatar deve stare sopra al testo, non sotto */
+  .hero-content-wrapper.hero-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-content-wrapper.hero-grid .hero-visual {
+    order: -1;
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+  .hero-content-wrapper.hero-grid .hero-content {
+    order: 2;
+  }
+  .hero-visual {
+    margin-top: 2.5rem;
+    min-height: auto;
+  }
+  .float-glyph {
+    display: none;
+  }
+}

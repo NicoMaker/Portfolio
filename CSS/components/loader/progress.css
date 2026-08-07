@@ -1,0 +1,7 @@
+/* Loader */
+.progress {
+  height: 100%;
+  width: 0;
+  background-color: var(--text-light);
+  transition: width 0.5s ease;
+}

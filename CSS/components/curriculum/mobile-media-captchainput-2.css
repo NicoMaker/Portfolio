@@ -1,0 +1,14 @@
+/* media all query mobile */
+#captchaInput {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  background: rgba(248, 250, 252, 0.8);
+  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+}

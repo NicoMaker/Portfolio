@@ -1,0 +1,7 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.section h3:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}

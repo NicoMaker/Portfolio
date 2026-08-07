@@ -1,0 +1,7 @@
+/* Stili per le esperienze lavorative */
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}

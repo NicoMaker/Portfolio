@@ -1,0 +1,4 @@
+/* Reveal animations */
+.reveal-right {
+  transform: translateX(100px);
+}

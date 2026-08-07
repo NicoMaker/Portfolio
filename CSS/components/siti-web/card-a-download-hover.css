@@ -1,0 +1,5 @@
+/* Assicura che tutti i link "Scarica Certificato" siano bianchi */
+.card a[download]:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}

@@ -1,0 +1,19 @@
+/* ============================================================
+   SEZIONI CURRICULUM UNIFORMI
+   Attestati, Competenze Linguistiche, Esperienze Lavorative,
+   Istruzione, Competenze e Siti Web usano tutte la stessa griglia
+   di card, responsive, senza riquadri con scroll interno: ogni
+   sezione ha lo stesso identico stile e comportamento.
+   ============================================================ */
+.curriculum-part .attestati-list .card,
+.curriculum-part .linguistiche-list .card,
+.curriculum-part .experience-list .card,
+.curriculum-part .istruzione-list .card,
+.curriculum-part .skills-container .card,
+.curriculum-part .sites-list .card,
+.curriculum-part .sites-list .portfolio-card {
+  width: 100% !important;
+  height: 100%;
+  margin: 0 !important;
+  flex: none !important;
+}

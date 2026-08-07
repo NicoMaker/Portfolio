@@ -1,0 +1,9 @@
+/* media all query mobile */
+.input-status {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  transition: all 0.3s ease;
+}

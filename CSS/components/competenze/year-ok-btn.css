@@ -1,0 +1,11 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.year-ok-btn {
+  padding: 0.4rem 0.65rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}

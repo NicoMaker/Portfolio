@@ -1,0 +1,13 @@
+/* Messaggio di errore */
+.reload-btn {
+  background-color: #b91c1c;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}

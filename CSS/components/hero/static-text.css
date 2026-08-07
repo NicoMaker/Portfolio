@@ -1,0 +1,4 @@
+/* --- Hero: layout a due colonne, testo + pannello "codice" --- */
+.static-text {
+  color: var(--text-muted);
+}

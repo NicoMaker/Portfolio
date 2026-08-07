@@ -1,0 +1,5 @@
+/* --- Curriculum --- */
+.card h4 {
+  color: var(--text-light);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}

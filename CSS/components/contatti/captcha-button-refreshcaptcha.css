@@ -1,0 +1,7 @@
+/* Pulsante rigenera captcha: ben visibile, non deve ereditare lo stile "outline trasparente" */
+#refreshCaptcha {
+  background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35) !important;
+}

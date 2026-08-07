@@ -1,0 +1,12 @@
+/* Su mobile: una sola colonna per tutte le sezioni, stesso stile */
+@media (max-width: 640px) {
+  .curriculum-part .attestati-list,
+  .curriculum-part .linguistiche-list,
+  .curriculum-part .experience-list,
+  .curriculum-part .istruzione-list,
+  .curriculum-part .skills-container,
+  .curriculum-part .sites-list {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+}

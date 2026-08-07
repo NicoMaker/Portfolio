@@ -1,0 +1,13 @@
+/* =========================================================================
+   HERO — correzioni per il pannello "codice" su mobile
+   Evita che il testo del pannello venga tagliato/sovrapposto sui
+   viewport stretti.
+   ========================================================================= */
+@media (max-width: 360px) {
+  .code-float-panel .terminal-body {
+    font-size: 0.68rem;
+  }
+  .code-float-panel.code-compact .terminal-body {
+    font-size: 0.6rem;
+  }
+}

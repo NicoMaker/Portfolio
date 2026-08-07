@@ -1,0 +1,7 @@
+/* --- Header --- */
+@media (max-width: 768px) {
+  nav ul {
+    background: #0a0a0f;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
+  }
+}

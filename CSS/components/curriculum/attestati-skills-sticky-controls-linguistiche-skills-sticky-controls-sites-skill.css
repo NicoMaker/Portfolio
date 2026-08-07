@@ -1,0 +1,8 @@
+/* --- Curriculum --- */
+#attestati .skills-sticky-controls,
+#linguistiche .skills-sticky-controls,
+#sites .skills-sticky-controls,
+#competenze .skills-sticky-controls {
+  background-color: var(--background);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}

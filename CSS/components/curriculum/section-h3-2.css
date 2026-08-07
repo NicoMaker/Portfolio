@@ -1,0 +1,16 @@
+/* Stili per la sezione curriculum migliorata */
+.section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 1.2rem;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  color: var(--text-light);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}

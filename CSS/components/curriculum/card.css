@@ -1,0 +1,18 @@
+/* Curriculum: ogni parte (Attestati, Istruzione, Competenze...) è ora una
+   sezione indipendente della pagina, non più una scheda dentro un unico
+   blocco "Curriculum". */
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  width: calc(33.333% - 1.5rem);
+  transition: var(--transition);
+  border-bottom: 3px solid var(--primary);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(50px);
+  opacity: 0;
+  animation: card-appear 0.5s forwards;
+  animation-delay: calc(var(--i) * 0.1s);
+}

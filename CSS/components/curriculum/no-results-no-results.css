@@ -1,0 +1,10 @@
+/* Messaggio nessun risultato */
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-muted);
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}

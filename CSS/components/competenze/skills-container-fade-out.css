@@ -1,0 +1,4 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.skills-container.fade-out {
+  opacity: 0;
+}

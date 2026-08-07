@@ -1,0 +1,11 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+.skill-category-badge {
+  display: inline-block;
+  margin: 0 0 1rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background-color: #eef2ff;
+  color: var(--primary-dark);
+  font-weight: 600;
+}

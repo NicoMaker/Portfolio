@@ -1,0 +1,4 @@
+/* Stile dell'input group (come già fornito) */
+.search-input::placeholder {
+  color: var(--text-muted);
+}

@@ -1,0 +1,11 @@
+/* Header e navigazione */
+nav ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--text-light);
+  transition: var(--transition);
+}

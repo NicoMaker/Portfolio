@@ -1,0 +1,7 @@
+/* --- Curriculum --- */
+.year-reset-btn {
+  background-color: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  border-radius: 8px;
+}

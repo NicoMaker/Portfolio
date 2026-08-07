@@ -1,0 +1,75 @@
+/* Correzione per la visualizzazione delle competenze su mobile */
+@media (max-width: 768px) {
+  /* Previene lo scrolling orizzontale nella sezione competenze */
+  #competenze .card-container {
+    max-height: none !important;
+    overflow-y: visible !important;
+    overflow-x: hidden !important; /* Impedisce lo scrolling orizzontale */
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* Assicura che le card delle competenze si adattino correttamente */
+  #competenze .skill-card {
+    width: 100% !important;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  /* Migliora la visualizzazione delle icone delle competenze */
+  #competenze .skill-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1rem;
+    overflow: hidden; /* Nasconde eventuali parti dell'icona che sporgono */
+  }
+
+  /* Assicura che le immagini nelle icone non sporgano */
+  #competenze .skill-icon img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  /* Migliora il layout delle tab delle competenze */
+  #competenze .skills-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+  }
+
+  #competenze .skill-tab {
+    width: calc(50% - 0.5rem);
+    padding: 0.7rem 0.5rem;
+    justify-content: center;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+    overflow: hidden; /* Nasconde eventuali parti che sporgono */
+  }
+
+  /* Assicura che le barre di progresso siano ben visibili e contenute */
+  #competenze .progress-bar {
+    height: 10px;
+    width: 100%;
+    overflow: hidden; /* Nasconde eventuali parti che sporgono */
+  }
+
+  /* Assicura che il contenitore delle competenze non causi scrolling */
+  .skills-container {
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* Rimuove eventuali margini o padding eccessivi */
+  #competenze h4,
+  #competenze p {
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+  }
+}

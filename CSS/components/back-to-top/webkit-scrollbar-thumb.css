@@ -1,0 +1,6 @@
+/* --- Back to top --- */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 20px;
+  opacity: 0.6;
+}

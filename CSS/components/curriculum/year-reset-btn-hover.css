@@ -1,0 +1,6 @@
+/* --- Curriculum --- */
+.year-reset-btn:hover {
+  background-color: rgba(99, 102, 241, 0.1);
+  border-color: var(--primary);
+  color: var(--primary-light);
+}

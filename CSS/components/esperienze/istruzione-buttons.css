@@ -1,0 +1,7 @@
+/* Stili per le esperienze lavorative */
+.istruzione-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: auto;
+}

@@ -1,0 +1,7 @@
+/* --- Bottoni: primario pieno indigo, secondario outline --- */
+.go-live-btn::before,
+.view-code-btn::before,
+.testo::before,
+.card a[download]::before {
+  background: rgba(99, 102, 241, 0.12);
+}

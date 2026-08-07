@@ -1,0 +1,17 @@
+/* Stile per le icone social con sfondo bianco */
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--primary);
+  position: relative;
+  overflow: hidden;
+}

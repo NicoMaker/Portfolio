@@ -1,0 +1,9 @@
+/* media all query mobile */
+#captchaInput {
+  flex: 1;
+  min-width: 180px;
+  padding: 0.4rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}

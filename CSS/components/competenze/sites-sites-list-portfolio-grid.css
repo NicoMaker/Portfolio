@@ -1,0 +1,6 @@
+/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
+#sites .sites-list.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}

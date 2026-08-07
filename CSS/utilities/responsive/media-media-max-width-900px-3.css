@@ -1,0 +1,11 @@
+/* Su tablet: due colonne per tutte le sezioni */
+@media (max-width: 900px) {
+  .curriculum-part .attestati-list,
+  .curriculum-part .linguistiche-list,
+  .curriculum-part .experience-list,
+  .curriculum-part .istruzione-list,
+  .curriculum-part .skills-container,
+  .curriculum-part .sites-list {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  }
+}
