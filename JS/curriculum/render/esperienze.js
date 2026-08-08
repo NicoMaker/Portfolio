@@ -108,4 +108,3 @@ function renderEsperienze(esperienze) {
     searchInput.focus();
   });
 }
-

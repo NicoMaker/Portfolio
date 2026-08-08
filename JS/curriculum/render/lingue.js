@@ -43,4 +43,3 @@ function renderLinguistiche(linguistiche) {
     cardsContainer.appendChild(card);
   });
 }
-

@@ -28,4 +28,3 @@ function addNoise(ctx, width, height) {
     ctx.fill();
   }
 }
-

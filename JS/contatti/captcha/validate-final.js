@@ -30,4 +30,3 @@ function validateCaptcha() {
     return false;
   }
 }
-

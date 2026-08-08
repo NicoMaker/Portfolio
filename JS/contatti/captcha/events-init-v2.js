@@ -18,4 +18,3 @@ window.addEventListener("DOMContentLoaded", () => {
   if (canvas) canvas.addEventListener("click", generateCaptcha);
   if (form) form.addEventListener("submit", sendEmail);
 });
-

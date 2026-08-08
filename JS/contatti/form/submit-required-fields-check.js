@@ -47,4 +47,3 @@ function sendEmail(event) {
 
   window.location.href = `mailto:nicola.marano02@gmail.com?subject=${subject}&body=${body}`;
 }
-

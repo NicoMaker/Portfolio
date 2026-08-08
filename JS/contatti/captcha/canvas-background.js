@@ -18,4 +18,3 @@ function drawBackground(ctx, width, height) {
     ctx.fill();
   }
 }
-

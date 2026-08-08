@@ -44,4 +44,3 @@ function bindAutoSave() {
     if (el) el.addEventListener("input", saveFormData);
   });
 }
-

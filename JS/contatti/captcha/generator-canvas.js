@@ -43,4 +43,3 @@ function generateCaptcha() {
   status.className = "input-status";
   status.textContent = "";
 }
-

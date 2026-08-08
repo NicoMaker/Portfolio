@@ -1,4 +1,3 @@
-
 // Configuration
 const CONFIG = {
   jsonPath: "JSON/Curriculum.json",

@@ -30,4 +30,3 @@ function drawCaptchaText(ctx, text, width, height) {
     ctx.restore();
   }
 }
-
