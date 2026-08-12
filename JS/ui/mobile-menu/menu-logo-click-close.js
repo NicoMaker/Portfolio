@@ -3,33 +3,29 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener(
     "click",
     (e) => {
-      // Se il click è sul logo avatar nel menu hamburger
       if (e.target.closest(".avatar-menu")) {
         e.preventDefault();
         e.stopImmediatePropagation();
-
-        // Avvia direttamente l'animazione del loader
         startLoaderAnimation();
         return false;
       }
     },
     true,
-  ); // Capture phase - si attiva PRIMA di tutti gli altri handler
+  );
 
-  // Assicurati che la pagina venga sempre caricata all'inizio (home page)
+  // Rimuovi hash dall'URL e vai all'inizio
   if (window.location.hash) {
-    // Se c'è un hash nell'URL (ad esempio #curriculum), lo rimuoviamo
     window.scrollTo(0, 0);
     history.replaceState(null, document.title, window.location.pathname);
   }
 
-  // Loader animation
+  // Riferimenti DOM
   const loader = document.querySelector(".loader");
   const progress = document.querySelector(".progress");
   const terminalBody = document.querySelector("#terminalBody");
   const loaderPortfolio = document.querySelector(".loader-portfolio");
 
-  // Righe di "codice" mostrate nel terminale del loader, con piccola sintassi colorata
+  // ----- RIGHE DI CODICE COMPLETE (con sede, stack, contatti, disponibile, cv, progetti) -----
   const codeLines = [
     [
       { t: "tk-keyword", v: "const" },
@@ -51,6 +47,28 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "tk-string", v: "'Full-Stack Developer'" },
       { t: "tk-punct", v: "," },
     ],
+    // ---- sede ----
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "sede" },
+      { t: "tk-punct", v: ": " },
+      { t: "tk-string", v: "'Italia'" },
+      { t: "tk-punct", v: "," },
+    ],
+    // ---- stack ----
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "stack" },
+      { t: "tk-punct", v: ": [" },
+      { t: "tk-string", v: "'JavaScript'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Node.js'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Express'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'SQLite3'" },
+      { t: "tk-punct", v: "]," },
+    ],
     [
       { t: "", v: "  " },
       { t: "tk-key", v: "focus" },
@@ -58,13 +76,70 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "tk-string", v: "'UI/UX & clean code'" },
       { t: "tk-punct", v: "," },
     ],
+    // ---- disponibile ----
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "disponibile" },
+      { t: "tk-punct", v: ": " },
+      { t: "tk-bool", v: "true" },
+      { t: "tk-punct", v: "," },
+    ],
+    // ---- contatti ----
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "contatti" },
+      { t: "tk-punct", v: ": {" },
+    ],
+    [
+      { t: "", v: "    " },
+      { t: "tk-key", v: "email" },
+      { t: "tk-punct", v: ": " },
+      { t: "tk-string", v: "'nicola.marano@email.com'" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "    " },
+      { t: "tk-key", v: "telefono" },
+      { t: "tk-punct", v: ": " },
+      { t: "tk-string", v: "'+39 333 702 4320'" },
+      { t: "tk-punct", v: "," },
+    ],
+    [
+      { t: "", v: "  " },
+      { t: "tk-punct", v: "}," },
+    ],
+    // ---- cv ----
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "cv" },
+      { t: "tk-punct", v: ": " },
+      { t: "tk-string", v: "'/CV/CV.pdf'" },
+      { t: "tk-punct", v: "," },
+    ],
+    // ---- progetti ----
+    [
+      { t: "", v: "  " },
+      { t: "tk-key", v: "progetti" },
+      { t: "tk-punct", v: ": [" },
+      { t: "tk-string", v: "'Gestione Fiscale'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Gestione Magazzino'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Gestione Preventivi'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Macelleria Da Ketti'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'Da Prat Falegnameria'" },
+      { t: "tk-punct", v: ", " },
+      { t: "tk-string", v: "'IdeaLegno'" },
+      { t: "tk-punct", v: "]," },
+    ],
     [{ t: "tk-punct", v: "};" }],
     [{ t: "tk-comment", v: "// caricamento portfolio in corso..." }],
   ];
 
   // Funzione per avviare l'animazione del loader
   function startLoaderAnimation() {
-    // Reset degli stili del loader
     loader.style.display = "flex";
     loader.style.opacity = "1";
     progress.style.width = "0%";
@@ -78,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Effetto "macchina da scrivere" che digita il codice riga per riga
+  // Effetto "macchina da scrivere"
   function typeCodeLines(lineIndex, onComplete) {
     if (!terminalBody) {
       onComplete();
@@ -128,10 +203,10 @@ document.addEventListener("DOMContentLoaded", () => {
     typeNextChar();
   }
 
-  // Avvia l'animazione del loader iniziale
+  // Avvia loader iniziale
   startLoaderAnimation();
 
-  // Funzione per avviare la barra di progresso
+  // Barra di progresso
   function startProgressBar() {
     let width = 0;
     const interval = setInterval(() => {
@@ -145,8 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => {
             loader.style.display = "none";
             animateElements();
-
-            // Naviga esplicitamente alla home page
             navigateToHome();
           }, 500);
         }, 500);
@@ -154,24 +227,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 20);
   }
 
-  // Aggiungi questa nuova funzione per navigare alla home page
+  // Naviga alla home
   function navigateToHome() {
-    // Rimuovi qualsiasi hash dall'URL
     history.replaceState(null, document.title, window.location.pathname);
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Scorri all'inizio della pagina
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    // Se esiste un link alla home page, simulane il click
     const homeLink = document.querySelector('a[href="#home"]');
-    if (homeLink) {
-      homeLink.click();
-    }
+    if (homeLink) homeLink.click();
 
-    // Attiva la classe active sul link della home nel menu di navigazione
     const navLinks = document.querySelectorAll("nav ul li a");
     navLinks.forEach((link) => {
       if (link.getAttribute("href") === "#home") {
@@ -181,11 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Chiudi il menu hamburger se è aperto
     const hamburger = document.getElementById("hamburger");
     const menu = document.getElementById("menu");
     const hamburgerIcon = document.getElementById("hamburger-icon");
-
     if (menu && menu.classList.contains("active")) {
       menu.classList.remove("active");
       hamburger.classList.remove("active");
@@ -194,10 +255,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Gestione click sui loghi (header)
+  // Click sul logo header
   const headerLogo = document.querySelector("header .logo");
-
-  // Click sul logo nell'header
   if (headerLogo) {
     headerLogo.addEventListener("click", (e) => {
       e.preventDefault();
@@ -205,9 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Il click sul logo nell'hamburger menu è già gestito dall'event listener globale sopra
-
-  // Carica le frasi dal file JSON e avvia l'effetto typing
+  // Caricamento frasi per il typing effect
   async function loadPhrasesAndStartTyping() {
     try {
       const response = await fetch("JSON/phares.json");
@@ -215,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
       startTypingEffect(data.typingPhrases);
     } catch (error) {
       console.error("Errore nel caricamento del file phrases.json:", error);
-      // Fallback con frasi predefinite
       const fallbackPhrases = [
         "Web Developer",
         "Frontend Developer",
@@ -230,16 +286,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Typing effect
   function startTypingEffect(phrases) {
     const dynamicText = document.querySelector(".dynamic-text");
+    if (!dynamicText) return;
 
-    // Funzione per mescolare le frasi
     const shuffle = (array) => {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
       }
     };
-
-    shuffle(phrases); // Mescola le frasi
+    shuffle(phrases);
 
     let phraseIndex = 0;
     let charIndex = 0;
@@ -247,6 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const typeEffect = () => {
       const currentPhrase = phrases[phraseIndex];
+      if (!currentPhrase) return;
 
       if (isDeleting) {
         dynamicText.textContent = currentPhrase.substring(0, charIndex - 1);
@@ -271,10 +327,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(typeEffect, 1000);
   }
 
-  // Avvia il caricamento delle frasi e l'effetto typing
   loadPhrasesAndStartTyping();
 
-  // Scroll reveal animation
+  // Scroll reveal
   const revealElements = document.querySelectorAll(
     ".reveal-left, .reveal-right, .reveal-top, .reveal-bottom",
   );
@@ -283,7 +338,6 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach((element) => {
       const elementTop = element.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
-
       if (elementTop < windowHeight - 100) {
         element.classList.add("active");
       }
@@ -292,32 +346,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", revealOnScroll);
 
-  // Back to top button
+  // Back to top
   const backToTopBtn = document.querySelector(".back-to-top");
-
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add("visible");
-    } else {
-      backToTopBtn.classList.remove("visible");
-    }
-  });
-
-  backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+  if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
+      backToTopBtn.classList.toggle("visible", window.scrollY > 300);
     });
-  });
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 
-  // Initial animation of elements
+  // Animazione iniziale elementi
   function animateElements() {
-    document.querySelector(".reveal-left").classList.add("active");
-    document.querySelector(".reveal-right").classList.add("active");
+    const left = document.querySelector(".reveal-left");
+    const right = document.querySelector(".reveal-right");
+    if (left) left.classList.add("active");
+    if (right) right.classList.add("active");
 
-    // Add animation delay to cards
     const sections = document.querySelectorAll(".curriculum-part");
-    sections.forEach((section, sectionIndex) => {
+    sections.forEach((section) => {
       const cards = section.querySelectorAll(".card");
       cards.forEach((card, cardIndex) => {
         card.style.setProperty("--i", cardIndex + 1);
@@ -325,31 +373,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Gestisci i link interni per assicurarti che tornino alla home quando si ricarica la pagina
+  // Gestione link interni
   const internalLinks = document.querySelectorAll('a[href^="#"]');
   internalLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      // Salva l'hash nella cronologia, ma non impedisce il comportamento predefinito
-      // Questo permette di navigare normalmente all'interno della pagina
-      const hash = this.getAttribute("href");
-      if (hash === "#home") {
-        // Se è un link alla home, rimuovi qualsiasi hash
+    link.addEventListener("click", function () {
+      if (this.getAttribute("href") === "#home") {
         history.replaceState(null, document.title, window.location.pathname);
       }
     });
   });
 
-  // Aggiungi un listener per l'evento beforeunload per assicurarti che la pagina venga ricaricata all'inizio
+  // Evento beforeunload (opzionale)
   window.addEventListener("beforeunload", () => {
-    // Questo non fa nulla direttamente, ma quando la pagina si ricarica,
-    // il codice all'inizio di questo script rimuoverà qualsiasi hash e scorrerà all'inizio
     sessionStorage.setItem("reloading", "true");
   });
 
-  // Controlla se stiamo ricaricando la pagina
   if (sessionStorage.getItem("reloading") === "true") {
     sessionStorage.removeItem("reloading");
-    // Assicurati che siamo all'inizio della pagina
     window.scrollTo(0, 0);
   }
 });
