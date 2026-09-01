@@ -89,7 +89,7 @@ function renderEsperienze(esperienze) {
           <img class="azienda" src="${logoSrc}" alt="Logo ${esperienza.azienda}" onerror="this.src='/placeholder.svg?height=64&width=64'; this.onerror=null;" />
         </div>
         <div class="company-info">
-          <h4>${esperienza.azienda || "Azienda non specificata"}</h4>
+          <h4 class="notranslate" translate="no">${esperienza.azienda || "Azienda non specificata"}</h4>
           <div class="role-badge">${esperienza.ruolo || "Ruolo non specificato"}</div>
         </div>
       </div>

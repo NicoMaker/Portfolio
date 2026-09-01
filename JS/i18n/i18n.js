@@ -232,6 +232,7 @@
       ".logo",
       ".hero-content h1",
       ".terminal-filename",
+      ".company-info h4",
     ];
 
     selectors.forEach(function (selector) {
