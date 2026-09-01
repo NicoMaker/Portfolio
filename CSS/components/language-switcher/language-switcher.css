@@ -1,0 +1,122 @@
+/* =========================================================
+   Nicola Marano Portfolio - Selettore lingua IT / EN
+   ========================================================= */
+
+/* Posizionato in basso a sinistra: il pulsante "torna su" occupa il basso a
+   destra (right: 30px), quindi il basso a sinistra resta sempre libero su
+   tutte le sezioni della pagina e il selettore non copre mai altri elementi. */
+.lang-switcher {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  background: var(--card-bg, #131420);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50px;
+  box-shadow: var(--shadow-md, 0 12px 28px -8px rgba(0, 0, 0, 0.5));
+}
+
+.lang-switcher-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-light, #f8fafc);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  padding: 8px 13px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition, all 0.25s cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.lang-switcher-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.lang-switcher-btn:focus-visible {
+  outline: 2px solid var(--primary, #6366f1);
+  outline-offset: 2px;
+}
+
+.lang-switcher-btn.is-active {
+  background: var(--primary, #6366f1);
+  color: var(--text-light, #f8fafc);
+}
+
+.lang-flag {
+  display: block;
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+
+.lang-code {
+  font-size: 11px;
+}
+
+@media (max-width: 768px) {
+  .lang-switcher {
+    bottom: 20px;
+    left: 20px;
+    padding: 4px;
+  }
+
+  .lang-switcher-btn {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
+
+  .lang-flag {
+    width: 18px;
+    height: 13px;
+  }
+}
+
+/* =========================================================
+   Pulizia interfaccia standard di Google Website Translator:
+   il sito usa il widget solo come motore di traduzione,
+   l'interfaccia visibile è interamente sostituita da
+   .lang-switcher qui sopra.
+   ========================================================= */
+
+body {
+  top: 0 !important;
+  position: static !important;
+}
+
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover,
+.goog-text-highlight,
+.goog-te-spinner-pos,
+#google_translate_element {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  box-shadow: none !important;
+}
+
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+iframe.skiptranslate {
+  display: none !important;
+}

@@ -2,7 +2,7 @@ function updateFooterYear() {
   document.getElementById("footer").innerHTML = `
     <footer>
       <div class="container">
-        <p>&copy; ${new Date().getFullYear()} Nicola Marano. Tutti i diritti riservati.</p>
+        <p>&copy; ${new Date().getFullYear()} <span class="notranslate" translate="no">Nicola Marano</span>. Tutti i diritti riservati.</p>
       </div>
     </footer>
   `;
