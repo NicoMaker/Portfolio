@@ -13,7 +13,7 @@
  *   Google, che viene nascosta e sostituita dal selettore IT/EN del sito.
  *
  * Da includere in OGNI pagina .html del sito (vedi anche il relativo file
- * CSS: CSS/components/language-switcher/language-switcher.css).
+ * CSS: CSS/language-switcher.css).
  */
 (function () {
   "use strict";
