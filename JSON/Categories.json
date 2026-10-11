@@ -17,7 +17,8 @@
       "Tailwind CSS",
       "Bootstrap",
       "TypeScript",
-      "Next.js"
+      "Next.js",
+      "Angular"
     ],
     "Database": ["PostgreSQL", "MySQL", "SQLite", "SQLite3"],
     "DevOps & Tools": [

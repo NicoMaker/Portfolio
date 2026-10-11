@@ -420,6 +420,12 @@
       "descrizione": "Competenze nello sviluppo di applicazioni web full-stack con Next.js, sfruttando il rendering lato server (SSR), la generazione statica (SSG), le API Routes e l'ottimizzazione delle performance per applicazioni React scalabili.",
       "immagine": "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg",
       "link": "https://nextjs.org/"
+    },
+    {
+      "nome": "Angular",
+      "descrizione": "Competenze nello sviluppo di applicazioni web single-page (SPA) con Angular, utilizzando TypeScript, componenti, servizi, dependency injection, routing e moduli per creare interfacce strutturate e scalabili.",
+      "immagine": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYVxt6sNQ9DG16ODESSM3dQCcU5RPIJvXd5GX3hUWomFZke6XXp0-CEnI&s=10",
+      "link": "https://angular.io/"
     }
   ],
   "sites": [
