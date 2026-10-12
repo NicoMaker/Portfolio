@@ -175,8 +175,15 @@ async function curriculum() {
     $(`#${k} .grid`).innerHTML = (data[k] || [])
       .map((d) => card(R[k](d)))
       .join("");
-  const sk = data.competenze || [],
-    names = ["Tutte", ...new Set(sk.map((s) => key(s.nome)))],
+  const az = (a, b) =>
+    a.localeCompare(b, "it", { sensitivity: "base", numeric: true });
+  const sk = [...(data.competenze || [])].sort((a, b) => az(a.nome, b.nome)),
+    names = [
+      "Tutte",
+      ...[...new Set(sk.map((s) => key(s.nome)))].sort(
+        (a, b) => (a === "Altro") - (b === "Altro") || az(a, b),
+      ),
+    ],
     box = $("#competenze .skills");
   const draw = (c) => {
     box.innerHTML = sk
@@ -333,6 +340,25 @@ function ui() {
   up.onclick = () => scrollTo({ top: 0, behavior: "smooth" });
   $("#year").textContent = new Date().getFullYear();
 }
+
+/* ---- logo: riavvia l'animazione iniziale (loader + entrata hero) ---- */
+let replaying = false;
+$(".logo").addEventListener("click", async (e) => {
+  e.preventDefault();
+  if (replaying) return;
+  replaying = true;
+  const L = $("#loader");
+  L.classList.remove("done");
+  $$(".hero .reveal").forEach((el) => el.classList.remove("in"));
+  scrollTo({ top: 0, behavior: "instant" });
+  history.replaceState(null, "", "#home");
+  await Promise.race([boot(), sleep(2500)]);
+  await sleep(300);
+  L.classList.add("done");
+  await sleep(350);
+  reveal(document);
+  replaying = false;
+});
 
 /* ---- init ---- */
 const t0 = boot();
