@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { t: "", v: "  " },
       { t: "tk-key", v: "role" },
       { t: "tk-punct", v: ": " },
-      { t: "tk-string", v: "'Full-Stack Developer'" },
+      { t: "tk-string", v: "'Programmatore Full-Stack'" },
       { t: "tk-punct", v: "," },
     ],
     // ---- sede ----
@@ -273,10 +273,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Errore nel caricamento del file phrases.json:", error);
       const fallbackPhrases = [
-        "Web Developer",
-        "Frontend Developer",
+        "Sviluppatore Web",
+        "Sviluppatore Frontend",
         "Programmatore",
-        "Problem Solver",
+        "Risolutore di problemi",
         "Programmatore base HTML, CSS e JavaScript",
       ];
       startTypingEffect(fallbackPhrases);

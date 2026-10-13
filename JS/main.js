@@ -100,7 +100,7 @@ async function heroPanels() {
 /* ---- hero ---- */
 async function hero() {
   heroPanels();
-  let ph = ["Programmatore", "Problem Solver", "UI/UX Designer", "Clean code"];
+  let ph = ["Programmatore", "Risolutore di problemi", "Designer UI/UX", "Codice pulito"];
   try {
     ph = (await load("JSON/phares.json")).typingPhrases;
   } catch {}
