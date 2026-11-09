@@ -2,7 +2,9 @@ import { $, load } from "../../shared/dom.js";
 
 export async function initSocial() {
   try {
-    const { socialLinks } = await load(new URL("./social.json", import.meta.url));
+    const { socialLinks } = await load(
+      new URL("./social.json", import.meta.url),
+    );
     $("#social").innerHTML = socialLinks
       .map(
         (s) =>

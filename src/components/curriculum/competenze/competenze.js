@@ -2,7 +2,8 @@ import { $, $$, ext, load } from "../../../shared/dom.js";
 import { reveal } from "../../../shared/reveal.js";
 import { card } from "../shared/card.js";
 
-const az = (a, b) => a.localeCompare(b, "it", { sensitivity: "base", numeric: true });
+const az = (a, b) =>
+  a.localeCompare(b, "it", { sensitivity: "base", numeric: true });
 
 /** Competenze con filtro per categoria (competenze.json + categorie.json). */
 export async function initCompetenze() {
@@ -16,11 +17,14 @@ export async function initCompetenze() {
   }
   let cats = {};
   try {
-    cats = (await load(new URL("./categorie.json", import.meta.url))).skillCategories;
+    cats = (await load(new URL("./categorie.json", import.meta.url)))
+      .skillCategories;
   } catch {}
 
   const categoryOf = (name) =>
-    Object.keys(cats).find((c) => cats[c].some((s) => s.toLowerCase() === name.toLowerCase())) || "Altro";
+    Object.keys(cats).find((c) =>
+      cats[c].some((s) => s.toLowerCase() === name.toLowerCase()),
+    ) || "Altro";
 
   const sorted = [...skills].sort((a, b) => az(a.nome, b.nome));
   const names = [
@@ -43,7 +47,9 @@ export async function initCompetenze() {
   };
 
   const tabs = $("#tabs");
-  tabs.innerHTML = names.map((n, i) => `<button class="${i ? "" : "on"}">${n}</button>`).join("");
+  tabs.innerHTML = names
+    .map((n, i) => `<button class="${i ? "" : "on"}">${n}</button>`)
+    .join("");
   tabs.onclick = (e) => {
     const b = e.target.closest("button");
     if (!b) return;

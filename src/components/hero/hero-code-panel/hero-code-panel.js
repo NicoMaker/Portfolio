@@ -18,7 +18,12 @@ export async function initHeroCodePanel() {
   if (reducedMotion()) {
     name.textContent = files[0].name;
     body.innerHTML = files[0].lines
-      .map((l) => "<div>" + l.map((t) => `<span class="${t.t}">${esc(t.v)}</span>`).join("") + "</div>")
+      .map(
+        (l) =>
+          "<div>" +
+          l.map((t) => `<span class="${t.t}">${esc(t.v)}</span>`).join("") +
+          "</div>",
+      )
       .join("");
     return;
   }

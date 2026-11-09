@@ -7,7 +7,10 @@ let code = "";
 export function renderCaptcha() {
   const c = $("#captchaCanvas"),
     x = c.getContext("2d");
-  code = Array.from({ length: 6 }, () => CHARS[(Math.random() * CHARS.length) | 0]).join("");
+  code = Array.from(
+    { length: 6 },
+    () => CHARS[(Math.random() * CHARS.length) | 0],
+  ).join("");
 
   x.fillStyle = "#10213f";
   x.fillRect(0, 0, c.width, c.height);

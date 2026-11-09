@@ -57,12 +57,7 @@ h1 {
   line-height: 1;
   letter-spacing: -0.045em;
   margin: 1.1rem 0 0.6rem;
-  background: linear-gradient(
-    110deg,
-    var(--tx) 30%,
-    var(--ac) 75%,
-    var(--ac2)
-  );
+  background: linear-gradient(110deg, var(--tx) 30%, var(--ac) 75%, var(--ac2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

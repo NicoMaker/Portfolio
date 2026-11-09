@@ -6,7 +6,13 @@ import { type } from "../../shared/typing.js";
 export const boot = () =>
   type(
     $("#terminalBody"),
-    [["k", "$ "], ["f", "npm run"], [0, " portfolio\n"], ["c", "// avvio...\n"], ["s", "✔ pronto"]],
+    [
+      ["k", "$ "],
+      ["f", "npm run"],
+      [0, " portfolio\n"],
+      ["c", "// avvio...\n"],
+      ["s", "✔ pronto"],
+    ],
     14,
   );
 

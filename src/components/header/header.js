@@ -10,7 +10,9 @@ export function initHeader() {
     (es) =>
       es.forEach((e) => {
         if (!e.isIntersecting) return;
-        links.forEach((a) => a.classList.toggle("on", a.hash === "#" + e.target.id));
+        links.forEach((a) =>
+          a.classList.toggle("on", a.hash === "#" + e.target.id),
+        );
         history.replaceState(null, "", "#" + e.target.id);
       }),
     { rootMargin: "-45% 0px -50% 0px" },

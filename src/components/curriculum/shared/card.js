@@ -10,7 +10,9 @@ export const card = (html) => `<article class="card reveal">${html}</article>`;
 export async function renderSection({ id, json, template }) {
   const grid = $(`#${id} .grid`);
   try {
-    const items = await fetch(json).then((r) => (r.ok ? r.json() : Promise.reject(json)));
+    const items = await fetch(json).then((r) =>
+      r.ok ? r.json() : Promise.reject(json),
+    );
     grid.innerHTML = items.map((d) => card(template(d))).join("");
     reveal(grid);
   } catch {

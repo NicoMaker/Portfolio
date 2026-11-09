@@ -17,10 +17,12 @@
 @import url("../components/reveal/reveal.css") layer(components);
 
 /* componenti di funzionalità */
-@import url("../components/hero/hero-code-panel/hero-code-panel.css") layer(components);
+@import url("../components/hero/hero-code-panel/hero-code-panel.css")
+layer(components);
 @import url("../components/curriculum/shared/card.css") layer(components);
 @import url("../components/curriculum/shared/timeline.css") layer(components);
-@import url("../components/curriculum/competenze/competenze.css") layer(components);
+@import url("../components/curriculum/competenze/competenze.css")
+layer(components);
 @import url("../components/contatti/contatti.css") layer(components);
 @import url("../components/contatti/captcha/captcha.css") layer(components);
 @import url("../components/social/social.css") layer(components);

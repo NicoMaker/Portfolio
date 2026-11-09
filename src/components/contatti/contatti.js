@@ -1,5 +1,9 @@
 import { $ } from "../../shared/dom.js";
-import { initCaptcha, renderCaptcha, isCaptchaValid } from "./captcha/captcha.js";
+import {
+  initCaptcha,
+  renderCaptcha,
+  isCaptchaValid,
+} from "./captcha/captcha.js";
 
 const EMAIL = "nicola.marano02@gmail.com";
 
@@ -13,7 +17,10 @@ export function initContatti() {
       m.className = "full msg " + k;
     };
 
-  f.telefono.addEventListener("input", (e) => (e.target.value = e.target.value.replace(/[^\d+\s]/g, "")));
+  f.telefono.addEventListener(
+    "input",
+    (e) => (e.target.value = e.target.value.replace(/[^\d+\s]/g, "")),
+  );
 
   f.addEventListener("submit", (e) => {
     e.preventDefault();

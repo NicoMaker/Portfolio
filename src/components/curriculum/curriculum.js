@@ -7,4 +7,11 @@ import { initSitiWeb } from "./siti-web/siti-web.js";
 
 /** Orchestratore: ogni sezione del curriculum è un componente indipendente. */
 export const initCurriculum = () =>
-  Promise.allSettled([initAttestati(), initLingue(), initEsperienze(), initIstruzione(), initCompetenze(), initSitiWeb()]);
+  Promise.allSettled([
+    initAttestati(),
+    initLingue(),
+    initEsperienze(),
+    initIstruzione(),
+    initCompetenze(),
+    initSitiWeb(),
+  ]);

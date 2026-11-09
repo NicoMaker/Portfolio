@@ -1,13 +1,19 @@
 import { $, load } from "../../shared/dom.js";
 import { initHeroCodePanel } from "./hero-code-panel/hero-code-panel.js";
 
-const FALLBACK = ["Programmatore", "Risolutore di problemi", "Designer UI/UX", "Codice pulito"];
+const FALLBACK = [
+  "Programmatore",
+  "Risolutore di problemi",
+  "Designer UI/UX",
+  "Codice pulito",
+];
 
 /** Frase che si scrive e si cancella ("Sono un ...") */
 async function initTypingPhrases() {
   let phrases = FALLBACK;
   try {
-    phrases = (await load(new URL("./typing-phrases.json", import.meta.url))).typingPhrases;
+    phrases = (await load(new URL("./typing-phrases.json", import.meta.url)))
+      .typingPhrases;
   } catch {}
   const el = $("#typed");
   let i = 0,

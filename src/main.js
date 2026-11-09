@@ -1,5 +1,9 @@
 import { reveal } from "./shared/reveal.js";
-import { boot, hideLoader, initLogoReplay } from "./components/loader/loader.js";
+import {
+  boot,
+  hideLoader,
+  initLogoReplay,
+} from "./components/loader/loader.js";
 import { initHeader } from "./components/header/header.js";
 import { initScrollProgress } from "./components/scroll-progress/scroll-progress.js";
 import { initBackToTop } from "./components/back-to-top/back-to-top.js";
