@@ -1,4 +1,0 @@
-/* --- Social --- */
-.social-links a::before {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-}

@@ -1,0 +1,150 @@
+/* Hero: layout, badge, typing, avatar, glifi */
+.hero {
+  padding-top: calc(var(--h) + 3rem);
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  background:
+    radial-gradient(
+      50rem 28rem at 88% -5%,
+      color-mix(in srgb, var(--ac2) 24%, transparent),
+      transparent
+    ),
+    radial-gradient(38rem 24rem at -5% 95%, var(--glow), transparent) !important;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .visual {
+    order: -1;
+  }
+}
+
+.badge {
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: center;
+  padding: 0.35rem 1rem;
+  border: 1px solid var(--bd);
+  border-radius: 99px;
+  font: 400 0.82rem "JetBrains Mono";
+  color: var(--ac);
+  background: var(--glow);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ac);
+  box-shadow: 0 0 0 0 var(--ac);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 9px #0000;
+  }
+}
+h1 {
+  font-size: clamp(3rem, 9vw, 5.8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  margin: 1.1rem 0 0.6rem;
+  background: linear-gradient(
+    110deg,
+    var(--tx) 30%,
+    var(--ac) 75%,
+    var(--ac2)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.typing {
+  font: 500 clamp(1.2rem, 3vw, 1.7rem)/1.4 "Space Grotesk";
+  margin-bottom: 1.3rem;
+  color: var(--mut);
+}
+#typed {
+  color: var(--ac);
+  font-family: "JetBrains Mono";
+  font-weight: 400;
+}
+.caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--ac);
+  vertical-align: -0.15em;
+  margin-left: 2px;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+.lead {
+  color: var(--mut);
+  margin-bottom: 0.85rem;
+  max-width: 60ch;
+}
+.lead strong {
+  color: var(--tx);
+  font-weight: 500;
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0;
+}
+.avatar {
+  position: relative;
+  z-index: 2;
+  width: min(170px, 42vw);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--bg);
+  outline: 2px solid var(--ac);
+  margin-bottom: 1.6rem;
+  box-shadow: 0 0 60px -6px color-mix(in srgb, var(--ac) 55%, transparent);
+}
+
+.glyph {
+  position: absolute;
+  font: 700 1.6rem "JetBrains Mono";
+  color: var(--ac);
+  opacity: 0.35;
+  animation: float 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes float {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.g1 {
+  top: -10px;
+  left: 2%;
+}
+.g2 {
+  top: 42%;
+  right: -6px;
+  animation-delay: -2s;
+}
+.g3 {
+  bottom: -12px;
+  left: 6%;
+  animation-delay: -3s;
+}

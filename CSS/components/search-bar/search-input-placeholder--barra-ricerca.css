@@ -1,4 +1,0 @@
-/* Barra di ricerca */
-.search-input::placeholder {
-  color: var(--text-muted);
-}

@@ -1,0 +1,31 @@
+/* Punto d'ingresso CSS: ordine dei layer + import dei componenti */
+@layer base, layout, components;
+
+@import url("tokens.css");
+@import url("base.css") layer(base);
+@import url("../components/section-heading/section-heading.css") layer(base);
+
+/* layout */
+@import url("../components/header/header.css") layer(layout);
+@import url("../components/scroll-progress/scroll-progress.css") layer(layout);
+@import url("../components/hero/hero.css") layer(layout);
+@import url("../components/footer/footer.css") layer(layout);
+
+/* componenti condivisi */
+@import url("../components/button/button.css") layer(components);
+@import url("../components/terminal/terminal.css") layer(components);
+@import url("../components/reveal/reveal.css") layer(components);
+
+/* componenti di funzionalità */
+@import url("../components/hero/hero-code-panel/hero-code-panel.css") layer(components);
+@import url("../components/curriculum/shared/card.css") layer(components);
+@import url("../components/curriculum/shared/timeline.css") layer(components);
+@import url("../components/curriculum/competenze/competenze.css") layer(components);
+@import url("../components/contatti/contatti.css") layer(components);
+@import url("../components/contatti/captcha/captcha.css") layer(components);
+@import url("../components/social/social.css") layer(components);
+@import url("../components/back-to-top/back-to-top.css") layer(components);
+@import url("../components/loader/loader.css") layer(components);
+
+/* selettore lingua (fuori dai layer, come prima) */
+@import url("../components/language-switcher/language-switcher.css");

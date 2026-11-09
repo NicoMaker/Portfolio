@@ -1,0 +1,12 @@
+/* Barra progresso scroll */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  z-index: 60;
+  background: linear-gradient(90deg, var(--ac), var(--ac2), var(--ac3));
+  transform-origin: 0;
+  transform: scaleX(0);
+}

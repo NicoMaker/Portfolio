@@ -1,0 +1,29 @@
+/* Timeline (esperienze + istruzione) */
+#esperienze .grid,
+#istruzione .grid {
+  grid-template-columns: 1fr;
+  position: relative;
+  padding-left: 1.6rem;
+  border-left: 1px solid var(--bd);
+  gap: 1.3rem;
+}
+#esperienze .card::after,
+#istruzione .card::after {
+  content: "";
+  position: absolute;
+  left: -1.95rem;
+  top: 2rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--ac);
+}
+#esperienze .card,
+#istruzione .card {
+  overflow: visible;
+}
+#esperienze .card::before,
+#istruzione .card::before {
+  border-radius: var(--r) var(--r) 0 0;
+}

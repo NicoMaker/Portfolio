@@ -1,0 +1,28 @@
+[
+  {
+    "nome": "Macelleria da Ketti",
+    "immagine": "Web_Site/Macelleria_da_Ketti.png",
+    "link": "https://macelleriadaketti.it/"
+  },
+  {
+    "nome": "Da Prat Falegnameria",
+    "immagine": "Web_Site/Da_Prat_Falegnameria.png"
+  },
+  {
+    "nome": "IdeaLegno",
+    "immagine": "Web_Site/IDEALEGNO.jpg",
+    "link": "https://idealegnofvg.com/"
+  },
+  {
+    "nome": "Pagina Generale Siti",
+    "immagine": "Web_Site/Pagina_Generale_Siti.jpg",
+    "link": "https://paginageneralesiti.netlify.app/",
+    "codice": "https://github.com/NicoMaker/Pagina_Generale_Siti"
+  },
+  {
+    "nome": "Giri in Bici",
+    "immagine": "Web_Site/Giri_in_Bici.jpg",
+    "link": "https://giri-in-bici.netlify.app/",
+    "codice": "https://github.com/NicoMaker/Giri-in-bici"
+  }
+]

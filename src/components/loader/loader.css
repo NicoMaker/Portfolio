@@ -1,0 +1,33 @@
+/* Loader iniziale */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.2rem;
+  background: var(--bg);
+  transition:
+    opacity 0.5s,
+    visibility 0.5s;
+}
+.loader.done {
+  opacity: 0;
+  visibility: hidden;
+}
+.loader > img {
+  width: 84px;
+  border-radius: 22px;
+  box-shadow: 0 0 50px -8px var(--ac);
+}
+.loader .term {
+  width: min(90vw, 380px);
+}
+.loader pre {
+  min-height: 6rem;
+}
+.loader .mono {
+  color: var(--mut);
+  font-size: 0.85rem;
+}

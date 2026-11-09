@@ -1,6 +1,0 @@
-/* Escludi il logo nell'header */
-header .logo,
-.avatar-menu,
-.logo {
-  background-color: transparent !important;
-}

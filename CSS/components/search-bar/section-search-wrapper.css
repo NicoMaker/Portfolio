@@ -1,6 +1,0 @@
-/* Wrapper per ogni sezione con ricerca sticky */
-.section-search-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}

@@ -1,4 +1,0 @@
-/* --- Curriculum --- */
-.section-title::after {
-  background: linear-gradient(90deg, transparent, var(--primary), transparent);
-}

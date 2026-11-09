@@ -1,6 +1,0 @@
-/* Glitch Effect */
-.glitch::before {
-  left: 2px;
-  text-shadow: -2px 0 var(--primary-light);
-  animation: glitch-animation 2s infinite linear alternate-reverse;
-}

@@ -1,6 +1,0 @@
-/* --- Contatti --- */
-#captchaInput:focus {
-  border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.05);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
-}

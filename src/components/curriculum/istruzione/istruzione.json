@@ -1,0 +1,53 @@
+[
+  {
+    "titolo": "Diploma Tecnico Superiore Front-End Developer",
+    "istituto": "Fondazione ITS Academy Alto Adriatico",
+    "periodo": "[28/10/2024 – 22/06/2026]",
+    "luogo": "Pordenone",
+    "livello": "Livello 5 EQF",
+    "competenze": [
+      "Progettazione e sviluppo interfacce web utilizzando HTML, CSS, JavaScript e vari frameworks.",
+      "Collaborazione con designer UX e sviluppatori backend per ottimizzare navigazione, sicurezza e accessibilità.",
+      "Progettazione e prototipazione di websites con relativi test e implementazione.",
+      "Integrazione di Intelligenza Artificiale nelle applicazioni.",
+      "Sviluppo di applicazioni cross-platform.",
+      "Gestione di tags e meta informazioni per il marketing digitale.",
+      "Competenze per garantire la sicurezza intrinseca delle pagine web."
+    ],
+    "logo": "Loghi/Alto Adriatico.png",
+    "sito": "https://www.itsaltoadriatico.it/"
+  },
+  {
+    "titolo": "Diploma Tecnico Superiore IIOT (Industrial Internet of Things)",
+    "istituto": "Fondazione ITS Academy Alto Adriatico",
+    "periodo": "[19/10/2022 – 16/07/2024]",
+    "luogo": "Pordenone",
+    "livello": "Livello 5 EQF",
+    "competenze": [
+      "Competenze per la realizzazione di programmi informatici.",
+      "Sviluppo di abilità nel web development, nel coding e nella gestione di database."
+    ],
+    "logo": "Loghi/Alto Adriatico.png",
+    "sito": "https://www.itsaltoadriatico.it/"
+  },
+  {
+    "titolo": "Diploma Superiore in Manutenzione e Assistenza Tecnica",
+    "istituto": "I.S.I.S. Lino Zanussi",
+    "periodo": "[11/2019 - 07/2022]",
+    "livello": "Livello 4 EQF",
+    "luogo": "Pordenone",
+    "descrizione": "Specializzazione in apparati, impianti e servizi tecnici industriali e civili.",
+    "logo": "Loghi/Zanussi.JPG",
+    "sito": "https://www.isiszanussi.edu.it/"
+  },
+  {
+    "titolo": "I.T.I.S. J.F. Kennedy",
+    "istituto": "I.T.I.S. J.F. Kennedy",
+    "periodo": "[09/2016 - 11/2019]",
+    "luogo": "Pordenone",
+    "livello": "Biennio",
+    "descrizione": "Formazione tecnica in ambito industriale e tecnologico.",
+    "logo": "Loghi/Kennedy.jpeg",
+    "sito": "https://itstkennedy.edu.it/"
+  }
+]

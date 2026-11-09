@@ -1,5 +1,0 @@
-/* --- Bottoni: primario pieno indigo, secondario outline --- */
-.cta-button::before,
-.submit-btn::before {
-  background: linear-gradient(135deg, var(--accent), var(--primary));
-}

@@ -1,5 +1,0 @@
-/* Scrollbar sottile e discreta, coerente col tema scuro */
-.code-float-panel .terminal-body {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-}

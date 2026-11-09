@@ -1,4 +1,0 @@
-/* Stile per le icone social con sfondo bianco */
-.social-links a:hover img {
-  filter: brightness(0) invert(1);
-}

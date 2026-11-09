@@ -1,0 +1,23 @@
+/* Pulsante torna su */
+#toTop {
+  position: fixed;
+  right: 1.2rem;
+  bottom: calc(1.2rem + env(safe-area-inset-bottom));
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 0;
+  font-size: 1.6rem;
+  color: var(--on);
+  background: var(--btn);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  z-index: 40;
+  box-shadow: 0 12px 28px -10px var(--ac);
+}
+#toTop.show {
+  opacity: 1;
+  pointer-events: auto;
+}

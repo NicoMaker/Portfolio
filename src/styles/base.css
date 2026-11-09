@@ -1,0 +1,69 @@
+/* Reset + tipografia + utilità globali */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--h);
+}
+body {
+  font:
+    400 1rem/1.7 Inter,
+    system-ui,
+    sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+/* griglia tecnica sullo sfondo, sfumata verso il basso */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--bd) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bd) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 70% 55% at 50% 0,
+    #000 20%,
+    transparent 75%
+  );
+  opacity: 0.55;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+}
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", Inter, sans-serif;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.container {
+  width: min(1160px, 100% - 2.5rem);
+  margin-inline: auto;
+}
+.mono,
+pre {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

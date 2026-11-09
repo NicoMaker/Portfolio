@@ -1,0 +1,24 @@
+/* Pulsante CTA */
+.btn {
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.1rem;
+  padding: 0.85rem 1.7rem;
+  border: 0;
+  border-radius: 12px;
+  font: 600 1rem Inter;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--on);
+  background: var(--btn);
+  box-shadow: 0 10px 30px -10px var(--ac);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px var(--ac);
+}

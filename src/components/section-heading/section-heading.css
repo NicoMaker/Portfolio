@@ -1,0 +1,55 @@
+/* Sezioni e titoli h2 */
+section {
+  padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+section:nth-of-type(even) {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--bg2) 85%, transparent) 12%,
+    color-mix(in srgb, var(--bg2) 85%, transparent) 88%,
+    transparent
+  );
+}
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-bottom: 2.2rem;
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+h2 i {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--ac);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  background: var(--glow);
+}
+h2 i::before {
+  display: block;
+  line-height: 1;
+}
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--bd), transparent);
+}
+:focus-visible {
+  outline: 2px solid var(--ac);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+::selection {
+  background: var(--ac);
+  color: var(--on);
+}

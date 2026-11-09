@@ -1,5 +1,0 @@
-/* Shape Divider */
-.shape-divider .shape-fill {
-  fill: var(--primary-light);
-  opacity: 0.1;
-}

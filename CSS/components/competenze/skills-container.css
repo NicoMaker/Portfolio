@@ -1,7 +1,0 @@
-/* Competenze: tabs e ricerca sempre visibili durante lo scroll */
-.skills-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  transition: opacity 0.3s ease;
-}

@@ -1,8 +1,0 @@
-/* Reveal animations */
-.reveal-left.active,
-.reveal-right.active,
-.reveal-top.active,
-.reveal-bottom.active {
-  opacity: 1;
-  transform: translate(0);
-}

@@ -1,8 +1,0 @@
-/* Reset e stili di base */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
-}

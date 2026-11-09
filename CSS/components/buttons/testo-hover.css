@@ -1,6 +1,0 @@
-/* Stile per tutti i link di tipo "testo" (incluso "Scarica Certificato") */
-.testo:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  color: white !important;
-}

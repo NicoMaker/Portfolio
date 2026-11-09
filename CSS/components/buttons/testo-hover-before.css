@@ -1,4 +1,0 @@
-/* Stile per tutti i link di tipo "testo" (incluso "Scarica Certificato") */
-.testo:hover::before {
-  width: 100%;
-}

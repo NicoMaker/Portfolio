@@ -1,0 +1,132 @@
+/* Griglia, card, tag, link */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+  gap: 1.3rem;
+}
+.card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--card) 100%, #fff 3%),
+    var(--card)
+  );
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition:
+    transform 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+/* filo luminoso in alto che compare in hover */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--ac),
+    var(--ac2),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--ac) 55%, var(--bd));
+  box-shadow: var(--sh);
+}
+.card:hover::before {
+  opacity: 1;
+}
+.card h3 {
+  font-size: 1.2rem;
+}
+.card p,
+.card li {
+  color: var(--mut);
+  font-size: 0.92rem;
+}
+.card ul {
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.card li::marker {
+  color: var(--ac);
+}
+.card p b {
+  color: var(--tx);
+  font-weight: 600;
+}
+.card img.lg {
+  height: 56px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 12px;
+  padding: 7px;
+}
+.card img.cover {
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  border-radius: 12px;
+  width: 100%;
+  border: 1px solid var(--bd);
+  transition: transform 0.5s;
+}
+.card:hover img.cover {
+  transform: scale(1.03);
+}
+.card img.flag {
+  width: 100%;
+  aspect-ratio: 3/2;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.tag {
+  align-self: flex-start;
+  font: 400 0.73rem "JetBrains Mono";
+  padding: 0.22rem 0.7rem;
+  border-radius: 8px;
+  background: var(--glow);
+  color: var(--ac);
+  border: 1px solid color-mix(in srgb, var(--ac) 25%, transparent);
+}
+.links {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+.links a {
+  font-size: 0.85rem;
+  color: var(--ac);
+  text-decoration: none;
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 9px;
+  border: 1px solid var(--bd);
+  transition: 0.2s;
+}
+.links a:hover {
+  background: var(--glow);
+  border-color: var(--ac);
+}

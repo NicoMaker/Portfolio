@@ -1,0 +1,45 @@
+/* Pannello codice hero + token */
+.code {
+  padding-top: 0;
+}
+.visual .code {
+  margin-top: 0;
+}
+.code pre {
+  height: 15.5rem;
+  overflow: auto;
+  scrollbar-width: thin;
+  padding-top: 1.1rem;
+}
+.code.compact pre {
+  font-size: 0.66rem;
+  line-height: 1.45;
+}
+.tk-keyword,
+.k {
+  color: #c792ea;
+}
+.tk-key,
+.f {
+  color: #82aaff;
+}
+.tk-string,
+.s {
+  color: #c3e88d;
+}
+.tk-func {
+  color: #ffcb6b;
+}
+.tk-bool,
+.n {
+  color: #f78c6c;
+}
+.tk-comment,
+.c {
+  color: #637777;
+  font-style: italic;
+}
+.tk-punct,
+.p {
+  color: #89ddff;
+}
