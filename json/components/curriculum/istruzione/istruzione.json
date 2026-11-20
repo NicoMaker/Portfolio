@@ -36,7 +36,12 @@
     "periodo": "[11/2019 - 07/2022]",
     "livello": "Livello 4 EQF",
     "luogo": "Pordenone",
-    "descrizione": "Competenze nella manutenzione e gestione di apparati, impianti e servizi tecnici industriali e civili.",
+    "competenze": [
+      "Manutenzione, diagnostica e riparazione di apparati, impianti e sistemi tecnici industriali e civili.",
+      "Installazione, collaudo e gestione operativa di dispositivi e infrastrutture tecniche.",
+      "Lettura e interpretazione di schemi tecnici e manuali d'uso per la risoluzione dei guasti.",
+      "Applicazione delle normative sulla sicurezza e prevenzione nei luoghi di lavoro."
+    ],
     "logo": "Loghi/Zanussi.JPG",
     "sito": "https://www.isiszanussi.edu.it/"
   },
@@ -46,7 +51,11 @@
     "periodo": "[09/2016 - 11/2019]",
     "luogo": "Pordenone",
     "livello": "Biennio",
-    "descrizione": "Competenze di base in ambito informatico, programmazione e sistemi tecnologici.",
+    "competenze": [
+      "Acquisizione delle basi dell'informatica, della logica di programmazione e dei sistemi operativi.",
+      "Utilizzo di strumenti software di base e comprensione dell'architettura hardware dei calcolatori.",
+      "Sviluppo di competenze tecnico-scientifiche propedeutiche all'ambito tecnologico e informatico."
+    ],
     "logo": "Loghi/Kennedy.jpeg",
     "sito": "https://itstkennedy.edu.it/"
   }
