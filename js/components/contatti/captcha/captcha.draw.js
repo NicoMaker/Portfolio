@@ -12,7 +12,12 @@ export function drawCaptcha(canvas, code) {
 
   for (let i = 0; i < CAPTCHA.noiseDots; i++) {
     x.fillStyle = `hsla(${randomHue()},70%,65%,.5)`;
-    x.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 2, 2);
+    x.fillRect(
+      Math.random() * canvas.width,
+      Math.random() * canvas.height,
+      2,
+      2,
+    );
   }
 
   for (let i = 0; i < CAPTCHA.noiseLines; i++) {

@@ -5,8 +5,9 @@ export function initMenu(nav, hamburger) {
   const toggle = (open) => {
     nav.classList.toggle("open", open);
     hamburger.setAttribute("aria-expanded", open);
-    hamburger.firstElementChild.className =
-      open ? HEADER.icons.open : HEADER.icons.closed;
+    hamburger.firstElementChild.className = open
+      ? HEADER.icons.open
+      : HEADER.icons.closed;
   };
 
   hamburger.onclick = () => toggle(!nav.classList.contains("open"));

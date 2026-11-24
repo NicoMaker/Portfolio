@@ -21,5 +21,9 @@ export async function initHeroCodePanel() {
   if (reducedMotion()) return renderStatic(els.body, els.nameEl, files[0]);
 
   const { mobile, desktop } = CODE_PANEL.charDelay;
-  await loopFiles(els, files, matchMedia(CODE_PANEL.mobileQuery).matches ? mobile : desktop);
+  await loopFiles(
+    els,
+    files,
+    matchMedia(CODE_PANEL.mobileQuery).matches ? mobile : desktop,
+  );
 }

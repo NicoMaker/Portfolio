@@ -23,7 +23,10 @@ async function typeLine(body, line, delay) {
 async function typeFile({ body, nameEl, panel }, file, delay) {
   body.innerHTML = "";
   nameEl.textContent = file.name;
-  panel.classList.toggle("compact", file.lines.length > CODE_PANEL.compactAfterLines);
+  panel.classList.toggle(
+    "compact",
+    file.lines.length > CODE_PANEL.compactAfterLines,
+  );
 
   for (const line of file.lines) await typeLine(body, line, delay);
 
