@@ -1,27 +1,17 @@
-import { reveal } from "./shared/reveal.js";
+import { reveal } from "./shared/reveal/reveal.js";
+import { boot, hideLoader } from "./components/loader/loader.js";
 import {
-  boot,
-  hideLoader,
-  initLogoReplay,
-} from "./components/loader/loader.js";
-import { initHeader } from "./components/header/header.js";
-import { initScrollProgress } from "./components/scroll-progress/scroll-progress.js";
-import { initBackToTop } from "./components/back-to-top/back-to-top.js";
-import { initFooter } from "./components/footer/footer.js";
-import { initHero } from "./components/hero/hero.js";
-import { initCurriculum } from "./components/curriculum/curriculum.js";
-import { initSocial } from "./components/social/social.js";
-import { initContatti } from "./components/contatti/contatti.js";
+  initUiComponents,
+  initDataComponents,
+  initFormComponents,
+} from "./components.js";
 
+/* Sequenza di avvio: loader -> UI -> dati -> form -> fine loader */
 const bootDone = boot();
 
-initHeader();
-initScrollProgress();
-initBackToTop();
-initFooter();
-initLogoReplay();
+initUiComponents();
 reveal(document);
 
-await Promise.allSettled([initHero(), initCurriculum(), initSocial()]);
-initContatti();
+await initDataComponents();
+initFormComponents();
 await hideLoader(bootDone);

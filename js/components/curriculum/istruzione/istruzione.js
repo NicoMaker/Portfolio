@@ -1,16 +1,7 @@
-import { ext, list } from "../../../shared/dom.js";
-import { renderSection } from "../shared/card.js";
+import { renderSection } from "../shared/render-section.js";
+import { ISTRUZIONE } from "./istruzione.config.js";
+import { istruzioneTemplate } from "./istruzione.template.js";
 
-const template = (d) =>
-  `${d.logo ? `<img class="lg" loading="lazy" src="${d.logo}" alt="${d.istituto}">` : ""}<h3>${d.titolo}</h3><p><b>${d.istituto}</b> · ${d.luogo || ""}</p><div class="meta"><span class="tag">${d.periodo || ""}</span>${d.livello ? `<span class="tag">${d.livello}</span>` : ""}</div><ul>${list(
-    d.competenze,
-  )
-    .map((a) => `<li>${a}</li>`)
-    .join("")}</ul><div class="links">${ext(d.sito, "Sito")}</div>`;
-
+/** Sezione Istruzione (dati in istruzione.json). */
 export const initIstruzione = () =>
-  renderSection({
-    id: "istruzione",
-    json: new URL("../../../../json/components/curriculum/istruzione/istruzione.json", import.meta.url),
-    template,
-  });
+  renderSection({ ...ISTRUZIONE, template: istruzioneTemplate });

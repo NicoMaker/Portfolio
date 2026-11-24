@@ -1,13 +1,13 @@
-import { $ } from "../../shared/dom.js";
+import { $ } from "../../shared/dom/selectors.js";
+import { SCROLL_PROGRESS } from "./scroll-progress.config.js";
+import { getScrollRatio } from "./scroll-progress.calc.js";
 
+/** Barra in alto che si allarga man mano che si scorre la pagina. */
 export function initScrollProgress() {
-  const bar = $("#progress");
+  const bar = $(SCROLL_PROGRESS.selector);
   addEventListener(
     "scroll",
-    () => {
-      const h = document.documentElement;
-      bar.style.transform = `scaleX(${h.scrollTop / (h.scrollHeight - h.clientHeight || 1)})`;
-    },
+    () => (bar.style.transform = `scaleX(${getScrollRatio()})`),
     { passive: true },
   );
 }

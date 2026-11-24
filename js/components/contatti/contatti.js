@@ -1,42 +1,37 @@
-import { $ } from "../../shared/dom.js";
+import { $ } from "../../shared/dom/selectors.js";
 import {
   initCaptcha,
   renderCaptcha,
   isCaptchaValid,
 } from "./captcha/captcha.js";
-
-const EMAIL = "nicola.marano02@gmail.com";
+import { CONTATTI } from "./contatti.config.js";
+import { createFeedback } from "./contatti.feedback.js";
+import { bindPhoneFilter, isFormValid } from "./contatti.validation.js";
+import { openMailClient } from "./contatti.mail.js";
 
 /** Form contatti: validazione, captcha e apertura del client di posta. */
 export function initContatti() {
-  initCaptcha();
-  const f = $("#contactForm"),
-    m = $("#formMsg"),
-    say = (t, k) => {
-      m.textContent = t;
-      m.className = "full msg " + k;
-    };
+  const { form, message, captchaInput } = CONTATTI.selectors;
+  const { messages } = CONTATTI;
 
-  f.telefono.addEventListener(
-    "input",
-    (e) => (e.target.value = e.target.value.replace(/[^\d+\s]/g, "")),
-  );
+  initCaptcha();
+  const f = $(form);
+  const say = createFeedback($(message));
+  bindPhoneFilter(f);
 
   f.addEventListener("submit", (e) => {
     e.preventDefault();
-    if (!f.checkValidity()) {
-      f.reportValidity();
-      return say("Compila correttamente tutti i campi.", "err");
-    }
-    if (!isCaptchaValid($("#captchaInput").value)) {
+    if (!isFormValid(f)) return say(messages.invalid, "err");
+
+    if (!isCaptchaValid($(captchaInput).value)) {
       renderCaptcha();
-      $("#captchaInput").value = "";
-      return say("Captcha errato, riprova.", "err");
+      $(captchaInput).value = "";
+      return say(messages.captcha, "err");
     }
-    const d = Object.fromEntries(new FormData(f)),
-      body = `Nome: ${d.name} ${d.cognome}\nEmail: ${d.email}\nTelefono: ${d.telefono}\n\n${d.message}`;
-    say("Apertura del client di posta…", "ok");
-    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(d.oggetto)}&body=${encodeURIComponent(body)}`;
+
+    const data = Object.fromEntries(new FormData(f));
+    say(messages.opening, "ok");
+    openMailClient(data);
     f.reset();
     renderCaptcha();
   });
