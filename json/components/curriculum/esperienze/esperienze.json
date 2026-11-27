@@ -1,19 +1,19 @@
-[
-  {
-    "azienda": "Nova Software",
-    "ruolo": "Tirocinio",
-    "periodo": "[02/11/2026 - In corso]",
-    "luogo": "Buttrio (UD)",
-    "attivita": [
-      "Corso Git: versionamento del codice, branch, commit, merge e collaborazione su repository condivisi.",
-      "Corso su metodologie Agile e Scrum: sprint, backlog, daily e retrospettive.",
-      "Lettura di documentazione tecnica e ADR (Architecture Decision Records) per comprendere l'architettura e le scelte progettuali del progetto.",
-      "Affidamento di test su un programma, lavorando su un'applicazione esistente con lettura di PBI (Product Backlog Item) e altri work item su Microsoft Azure DevOps.",
-      "Verifica del funzionamento delle modifiche e, in caso di esito corretto, commit del backend."
-    ],
-    "logo": "Loghi/Nova_Software.png",
-    "sito": "https://www.novasoftware.it/"
-  },
+[{
+  "azienda": "Nova Software",
+  "ruolo": "Tirocinio",
+  "periodo": "[02/11/2026 - In corso]",
+  "luogo": "Buttrio (UD)",
+  "attivita": [
+    "Corso Git: versionamento del codice, branch, commit, merge e collaborazione su repository condivisi.",
+    "Corso su metodologie Agile e Scrum: sprint, backlog, daily e retrospettive.",
+    "Lettura di documentazione tecnica e ADR (Architecture Decision Records) per comprendere l'architettura e le scelte progettuali del progetto.",
+    "Affidamento di test su un programma, lavorando su un'applicazione esistente con lettura di PBI (Product Backlog Item) e altri work item su Microsoft Azure DevOps.",
+    "Sviluppo e modifica di componenti con HTML, CSS e JavaScript all'interno del repository, gestendo il flusso completo con creazione di branch, commit, merge e pull request.",
+    "Verifica del funzionamento delle modifiche e, in caso di esito corretto, commit del backend."
+  ],
+  "logo": "Loghi/Nova_Software.png",
+  "sito": "https://www.novasoftware.it/"
+},
   {
     "azienda": "Fuori Dagli Schemi",
     "ruolo": "Stage Curricolare",
